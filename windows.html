@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Sandbox — Windows / WSL2 Setup Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+:root {
+  --white:#fff; --off:#f7f8fa; --off2:#eef0f4; --line:#e2e5ec; --line2:#d0d5df;
+  --text:#1a1f2e; --mid:#4a5168; --dim:#8a92a8;
+  --blue:#2563eb; --blue-l:#eff4ff; --blue-m:#dbeafe;
+  --teal:#0891b2; --teal-l:#ecfeff;
+  --green:#16a34a; --green-l:#f0fdf4;
+  --amber:#d97706; --amber-l:#fffbeb;
+  --red:#dc2626; --red-l:#fff1f2;
+  --cyan:#0e7490; --cyan-l:#e0f2fe;
+  --mono:'JetBrains Mono',monospace; --sans:'Syne',sans-serif;
+  --radius:10px;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.05);
+  --shadow-md:0 2px 6px rgba(0,0,0,.07),0 8px 24px rgba(0,0,0,.07);
+  --acc:#0e7490; --acc-l:#e0f2fe; --acc-border:#a5f3fc;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.page{max-width:860px;margin:0 auto;padding:0 28px 100px}
+
+/* ── SITE NAV ── */
+.site-nav{
+  display:flex;align-items:center;gap:0;
+  border-bottom:1.5px solid var(--line);
+  padding:14px 0;margin-bottom:0;
+  font-size:11px;
+}
+.site-nav-label{color:var(--dim);letter-spacing:.08em;margin-right:16px;font-weight:600;text-transform:uppercase;white-space:nowrap}
+.site-nav-links{display:flex;gap:4px;flex-wrap:wrap}
+.nav-link{
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  text-decoration:none;padding:4px 12px;border-radius:99px;
+  border:1.5px solid var(--line);color:var(--mid);
+  transition:all .15s;white-space:nowrap;
+}
+.nav-link:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-l)}
+.nav-link.active{border-color:var(--acc);color:var(--acc);background:var(--acc-l);font-weight:600}
+.nav-link.index{color:var(--dim);border-style:dashed}
+.nav-link.index:hover{border-color:var(--text);color:var(--text);background:var(--off);border-style:solid}
+
+/* ── HERO ── */
+.hero{padding:52px 0 44px;border-bottom:2px solid var(--line);margin-bottom:56px}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.badge{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;padding:4px 12px;border-radius:99px;border:1.5px solid}
+.badge-cyan  {color:var(--acc);  border-color:var(--acc-border);background:var(--acc-l)}
+.badge-green {color:var(--green);border-color:#bbf7d0;background:var(--green-l)}
+.badge-amber {color:var(--amber);border-color:#fde68a;background:var(--amber-l)}
+.badge-blue  {color:var(--blue); border-color:#bfdbfe;background:var(--blue-l)}
+h1{font-family:var(--sans);font-size:clamp(30px,5.5vw,48px);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--text);margin-bottom:16px}
+h1 .accent{color:var(--acc)}
+.hero-sub{color:var(--mid);font-size:14px;max-width:580px;line-height:1.75}
+
+/* ── COMPARE ── */
+.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:52px}
+.compare-card{border-radius:var(--radius);border:1.5px solid var(--line);padding:16px 18px;background:var(--off)}
+.compare-card.active{border-color:var(--acc);background:var(--acc-l)}
+.compare-label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.compare-card.active .compare-label{color:var(--acc)}
+.compare-title{font-family:var(--sans);font-size:14px;font-weight:700;margin-bottom:5px}
+.compare-desc{font-size:11px;color:var(--mid);line-height:1.6}
+
+/* ── TOC ── */
+.toc{background:var(--off);border:1.5px solid var(--line);border-radius:var(--radius);padding:18px 22px;margin-bottom:52px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:3px 20px}
+.toc a{font-size:12px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:8px;padding:4px 0;transition:color .15s}
+.toc a:hover{color:var(--acc)}
+.toc-num{font-size:10px;color:var(--dim);min-width:20px}
+
+/* ── SECTION ── */
+.section{margin-bottom:60px}
+.section-head{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding-bottom:12px;border-bottom:1.5px solid var(--line)}
+.section-num{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--acc);background:var(--acc-l);border:1.5px solid var(--acc-border);border-radius:6px;padding:2px 8px;letter-spacing:.04em}
+h2{font-family:var(--sans);font-size:20px;font-weight:700;letter-spacing:-.01em}
+h3{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--mid);letter-spacing:.04em;text-transform:uppercase;margin:22px 0 9px}
+p{color:var(--mid);margin-bottom:12px;line-height:1.75}
+
+/* ── DIAGRAM ── */
+.diagram{background:var(--off);border:1.5px solid var(--line);border-radius:var(--radius);padding:28px;margin:20px 0;overflow-x:auto;box-shadow:var(--shadow)}
+.diagram svg{display:block;margin:0 auto}
+
+/* ── STACK ── */
+.stack{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
+.stack-card{background:var(--white);border:1.5px solid var(--line);border-radius:8px;padding:10px 13px;display:flex;align-items:flex-start;gap:9px;box-shadow:var(--shadow);transition:border-color .15s,box-shadow .15s}
+.stack-card:hover{border-color:var(--line2);box-shadow:var(--shadow-md)}
+.stack-icon{width:27px;height:27px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.ic-cyan  {background:var(--acc-l); color:var(--acc)}
+.ic-green {background:var(--green-l);color:var(--green)}
+.ic-amber {background:var(--amber-l);color:var(--amber)}
+.ic-blue  {background:var(--blue-l); color:var(--blue)}
+.ic-teal  {background:var(--teal-l); color:var(--teal)}
+.stack-name{font-size:12px;font-weight:600;color:var(--text)}
+.stack-role{font-size:10px;color:var(--dim);margin-top:1px}
+
+/* ── CODE ── */
+.code-wrap{margin:11px 0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.code-bar{background:var(--off2);border:1.5px solid var(--line);border-bottom:none;padding:6px 14px;display:flex;justify-content:space-between;align-items:center;border-radius:var(--radius) var(--radius) 0 0}
+.code-lang{font-size:10px;font-weight:600;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.copy-btn{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.05em;color:var(--mid);background:var(--white);border:1.5px solid var(--line2);border-radius:6px;padding:3px 11px;cursor:pointer;transition:all .15s}
+.copy-btn:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-l)}
+.copy-btn.ok{border-color:var(--green);color:var(--green);background:var(--green-l)}
+pre{background:#1a2332;border:1.5px solid var(--line);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:18px 20px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.75;color:#cdd6f4}
+pre .c{color:#6c7a96;font-style:italic}
+pre .k{color:#89dceb}
+pre .s{color:#a6e3a1}
+pre .v{color:#fab387}
+pre .n{color:#f9e2af}
+
+/* ── CALLOUT ── */
+.callout{border-radius:8px;padding:13px 17px;margin:13px 0;font-size:13px;display:flex;gap:11px;align-items:flex-start;border:1.5px solid}
+.callout-icon{font-size:14px;flex-shrink:0;margin-top:1px}
+.callout-body{color:var(--mid);line-height:1.7}
+.callout-body strong{color:var(--text);font-weight:600}
+.callout-cyan  {background:var(--acc-l); border-color:var(--acc-border)}
+.callout-green {background:var(--green-l);border-color:#bbf7d0}
+.callout-amber {background:var(--amber-l);border-color:#fde68a}
+.callout-blue  {background:var(--blue-l); border-color:#bfdbfe}
+
+/* ── ISO TABLE ── */
+.iso-table{width:100%;border-collapse:collapse;margin:14px 0}
+.iso-table th{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);padding:7px 13px;text-align:left;border-bottom:2px solid var(--line)}
+.iso-table td{padding:9px 13px;font-size:12.5px;border-bottom:1px solid var(--line);vertical-align:middle}
+.iso-table tr:last-child td{border-bottom:none}
+.iso-table tr:hover td{background:var(--off)}
+.tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.05em;padding:2px 9px;border-radius:99px;border:1.5px solid}
+.tag-green{color:var(--green);border-color:#bbf7d0;background:var(--green-l)}
+.tag-blue {color:var(--blue); border-color:#bfdbfe;background:var(--blue-l)}
+.tag-amber{color:var(--amber);border-color:#fde68a;background:var(--amber-l)}
+.tag-red  {color:var(--red);  border-color:#fecaca;background:var(--red-l)}
+.tag-cyan {color:var(--acc);  border-color:var(--acc-border);background:var(--acc-l)}
+
+/* ── FOOTER ── */
+footer{border-top:1.5px solid var(--line);padding-top:22px;margin-top:64px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--dim)}
+
+/* ── ANIM ── */
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.section{animation:up .35s ease both}
+.section:nth-child(1){animation-delay:.04s}.section:nth-child(2){animation-delay:.08s}
+.section:nth-child(3){animation-delay:.12s}.section:nth-child(4){animation-delay:.16s}
+.section:nth-child(5){animation-delay:.20s}.section:nth-child(6){animation-delay:.24s}
+.section:nth-child(7){animation-delay:.28s}.section:nth-child(8){animation-delay:.32s}
+.section:nth-child(9){animation-delay:.36s}.section:nth-child(10){animation-delay:.40s}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--off)}
+::-webkit-scrollbar-thumb{background:var(--line2);border-radius:99px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- SITE NAV -->
+<nav class="site-nav">
+  <span class="site-nav-label">Sandbox Docs</span>
+  <div class="site-nav-links">
+    <a class="nav-link index" href="./index.html">↩ Index</a>
+    <a class="nav-link" href="./linux.html">Linux</a>
+    <a class="nav-link" href="./mac.html">macOS</a>
+    <a class="nav-link active" href="./windows.html">Windows</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="badge-row">
+    <span class="badge badge-cyan">Windows 11</span>
+    <span class="badge badge-cyan">WSL2</span>
+    <span class="badge badge-green">CUDA</span>
+    <span class="badge badge-amber">Podman</span>
+    <span class="badge badge-blue">WSLg</span>
+  </div>
+  <h1>AI Agent <span class="accent">Sandbox</span><br>Windows / WSL2 Setup Guide</h1>
+  <p class="hero-sub">WSL2 + Podman + WSLg による構成。CUDA は nvidia-container-toolkit で CDI パススルー。GUI は WSLg が自動処理。Linux 版の Dockerfile をほぼそのまま流用できる。</p>
+</header>
+
+<!-- COMPARE -->
+<div class="compare">
+  <div class="compare-card">
+    <div class="compare-label">Option A</div>
+    <div class="compare-title">WSL2 直接</div>
+    <div class="compare-desc">隔離なし<br>ホスト FS 丸見え<br>手間: 少</div>
+  </div>
+  <div class="compare-card active">
+    <div class="compare-label">▶ この手順書</div>
+    <div class="compare-title">WSL2 + Podman + WSLg</div>
+    <div class="compare-desc">FS 隔離: ✓<br>Display: WSLg 共有<br>CUDA: CDI ✓</div>
+  </div>
+  <div class="compare-card">
+    <div class="compare-label">Option C</div>
+    <div class="compare-title">WSL2 + Podman + Xephyr</div>
+    <div class="compare-desc">Display 隔離: 強<br>Linux 版と完全同一<br>手間: 大</div>
+  </div>
+</div>
+
+<!-- TOC -->
+<nav class="toc">
+  <a href="#s0"><span class="toc-num">00</span>アーキテクチャ</a>
+  <a href="#s1"><span class="toc-num">01</span>WSL2 インストール</a>
+  <a href="#s2"><span class="toc-num">02</span>CUDA / NVIDIA セットアップ</a>
+  <a href="#s3"><span class="toc-num">03</span>Podman インストール</a>
+  <a href="#s4"><span class="toc-num">04</span>Dockerfile</a>
+  <a href="#s5"><span class="toc-num">05</span>entrypoint.sh</a>
+  <a href="#s6"><span class="toc-num">06</span>Volume 作成</a>
+  <a href="#s7"><span class="toc-num">07</span>Build &amp; Run</a>
+  <a href="#s8"><span class="toc-num">08</span>Ollama</a>
+  <a href="#s9"><span class="toc-num">09</span>隔離まとめ</a>
+  <a href="#s10"><span class="toc-num">10</span>Tips</a>
+</nav>
+
+<!-- 00 ARCH -->
+<section class="section" id="s0">
+  <div class="section-head"><span class="section-num">00</span><h2>アーキテクチャ</h2></div>
+  <div class="diagram">
+    <svg width="780" height="400" viewBox="0 0 780 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ac" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#0e7490" opacity=".5"/></marker>
+        <marker id="ag" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#16a34a" opacity=".5"/></marker>
+        <marker id="aa" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#d97706" opacity=".5"/></marker>
+      </defs>
+
+      <!-- Windows HOST -->
+      <rect x="8" y="8" width="764" height="384" rx="12" fill="#f7f8fa" stroke="#e2e5ec" stroke-width="1.5"/>
+      <text x="24" y="30" fill="#8a92a8" font-family="Syne,sans-serif" font-size="11" font-weight="600" letter-spacing="1">WINDOWS 11 HOST</text>
+
+      <!-- WSLg -->
+      <rect x="24" y="44" width="180" height="52" rx="8" fill="#e0f2fe" stroke="#a5f3fc" stroke-width="1.5"/>
+      <text x="114" y="67" fill="#0e7490" font-family="Syne,sans-serif" font-size="12" font-weight="700" text-anchor="middle">WSLg</text>
+      <text x="114" y="83" fill="#0e6070" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Wayland compositor + X11</text>
+
+      <!-- Windows Terminal -->
+      <rect x="220" y="44" width="160" height="52" rx="8" fill="#fff" stroke="#e2e5ec" stroke-width="1.5"/>
+      <text x="300" y="67" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle">Windows Terminal</text>
+      <text x="300" y="83" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">WT / PowerShell</text>
+
+      <!-- NVIDIA Driver -->
+      <rect x="396" y="44" width="180" height="52" rx="8" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5"/>
+      <text x="486" y="67" fill="#d97706" font-family="Syne,sans-serif" font-size="12" font-weight="700" text-anchor="middle">NVIDIA Driver</text>
+      <text x="486" y="83" fill="#a07820" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Windows 側のみ (WSL2 共有)</text>
+
+      <!-- winget -->
+      <rect x="592" y="44" width="172" height="52" rx="8" fill="#fff" stroke="#e2e5ec" stroke-width="1.5"/>
+      <text x="678" y="67" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle">winget</text>
+      <text x="678" y="83" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">パッケージ管理</text>
+
+      <!-- WSL2 BG -->
+      <rect x="24" y="120" width="732" height="252" rx="10" fill="#fff" stroke="#a5f3fc" stroke-width="2" stroke-dasharray="7 3"/>
+      <text x="40" y="142" fill="#0e7490" font-family="Syne,sans-serif" font-size="11" font-weight="600" letter-spacing="1" opacity=".8">WSL2 — Ubuntu 24.04 (Microsoft Linux Kernel)</text>
+
+      <!-- Podman label -->
+      <rect x="40" y="155" width="712" height="200" rx="8" fill="#f7f8fa" stroke="#e2e5ec" stroke-width="1" stroke-dasharray="5 3"/>
+      <text x="56" y="172" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" letter-spacing="1">PODMAN CONTAINER</text>
+
+      <!-- WM/dbus -->
+      <rect x="56" y="180" width="118" height="40" rx="6" fill="#fff" stroke="#e2e5ec"/>
+      <text x="115" y="197" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">openbox</text>
+      <text x="115" y="211" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">WM + dbus-x11</text>
+
+      <!-- Windsurf -->
+      <rect x="184" y="180" width="118" height="40" rx="6" fill="#eff4ff" stroke="#bfdbfe"/>
+      <text x="243" y="197" fill="#2563eb" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle" font-weight="500">Windsurf</text>
+      <text x="243" y="211" fill="#6090d0" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">Electron IDE</text>
+
+      <!-- Antigravity -->
+      <rect x="312" y="180" width="136" height="40" rx="6" fill="#ecfeff" stroke="#a5f3fc"/>
+      <text x="380" y="197" fill="#0891b2" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle" font-weight="500">Antigravity</text>
+      <text x="380" y="211" fill="#5090a0" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">Electron + Browser</text>
+
+      <!-- CLI agents -->
+      <rect x="458" y="180" width="278" height="40" rx="6" fill="#fff" stroke="#e2e5ec"/>
+      <text x="597" y="196" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Claude Code · Codex · Gemini CLI</text>
+      <text x="597" y="211" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">OpenCode · aider · Ollama</text>
+
+      <!-- runtimes -->
+      <rect x="56"  y="232" width="90" height="34" rx="5" fill="#fff" stroke="#e2e5ec"/>
+      <text x="101" y="247" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">Node.js</text>
+      <text x="101" y="260" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">npm · npx</text>
+
+      <rect x="156" y="232" width="90" height="34" rx="5" fill="#fff" stroke="#e2e5ec"/>
+      <text x="201" y="247" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">Python</text>
+      <text x="201" y="260" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">pip · venv</text>
+
+      <rect x="256" y="232" width="90" height="34" rx="5" fill="#fff" stroke="#e2e5ec"/>
+      <text x="301" y="247" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">Rust</text>
+      <text x="301" y="260" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">cargo</text>
+
+      <rect x="356" y="232" width="110" height="34" rx="5" fill="#fff" stroke="#e2e5ec"/>
+      <text x="411" y="247" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">build-essential</text>
+      <text x="411" y="260" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">gcc · make</text>
+
+      <rect x="476" y="232" width="130" height="34" rx="5" fill="#fffbeb" stroke="#fde68a"/>
+      <text x="541" y="247" fill="#d97706" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">CUDA Toolkit</text>
+      <text x="541" y="260" fill="#a07820" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">nvidia-container-toolkit</text>
+
+      <!-- volumes -->
+      <rect x="56" y="278" width="265" height="32" rx="5" fill="#eff4ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="188" y="293" fill="#2563eb" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">agent-workspace → /home/agent/work</text>
+      <text x="188" y="305" fill="#6090d0" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">永続 · 作業ファイル</text>
+
+      <rect x="331" y="278" width="275" height="32" rx="5" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5"/>
+      <text x="468" y="293" fill="#d97706" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">ollama-models → /root/.ollama/models</text>
+      <text x="468" y="305" fill="#a07820" font-family="JetBrains Mono,monospace" font-size="8" text-anchor="middle">永続 · LLM モデルデータ</text>
+
+      <!-- arrows -->
+      <line x1="114" y1="98" x2="114" y2="118" stroke="#0e7490" stroke-width="1.5" opacity=".35" marker-end="url(#ac)"/>
+      <line x1="486" y1="98" x2="486" y2="118" stroke="#d97706" stroke-width="1.5" opacity=".35" marker-end="url(#aa)"/>
+
+      <!-- WSLg note -->
+      <text x="24" y="390" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9">WSLg が DISPLAY を自動設定 — コンテナに -e DISPLAY=$DISPLAY を渡すだけで GUI 動作</text>
+    </svg>
+  </div>
+  <div class="callout callout-cyan">
+    <span class="callout-icon">ℹ</span>
+    <div class="callout-body"><strong>WSLg について:</strong> Windows 11 標準搭載の Wayland compositor + X11 サーバー。WSL2 内の GUI アプリが自動的に Windows デスクトップに表示される。Xephyr のような追加設定は不要だが、Display 隔離は Linux 版より弱い。</div>
+  </div>
+</section>
+
+<!-- 01 WSL2 INSTALL -->
+<section class="section" id="s1">
+  <div class="section-head"><span class="section-num">01</span><h2>WSL2 インストール</h2></div>
+  <div class="callout callout-amber">
+    <span class="callout-icon">⚠</span>
+    <div class="callout-body"><strong>前提:</strong> Windows 11 (Build 22000 以上)。Windows 10 の場合は WSLg が使えないため Option C (Xephyr) を推奨。</div>
+  </div>
+
+  <h3>PowerShell (管理者) で実行</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">powershell — 管理者</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># WSL2 + Ubuntu 24.04 をインストール</span>
+wsl --install -d Ubuntu-24.04
+
+<span class="c"># インストール後は再起動が必要</span>
+Restart-Computer</pre>
+  </div>
+
+  <h3>再起動後 — Ubuntu 初期設定</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">powershell</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># WSL2 がデフォルトになっていることを確認</span>
+wsl --set-default-version 2
+wsl --list --verbose   <span class="c"># VERSION が 2 であることを確認</span></pre>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — WSL2 Ubuntu 内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># Ubuntu 初回起動でユーザー名・パスワードを設定後</span>
+sudo apt update && sudo apt upgrade -y</pre>
+  </div>
+
+  <h3>.wslconfig でリソース制限 (任意)</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">ini — %USERPROFILE%\.wslconfig</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>[wsl2]
+memory=8GB          <span class="c"># WSL2 に割り当てる最大 RAM</span>
+processors=4        <span class="c"># 使用する CPU コア数</span>
+swap=4GB
+gpuMemoryFraction=0.8   <span class="c"># GPU メモリ割り当て比率</span></pre>
+  </div>
+</section>
+
+<!-- 02 CUDA -->
+<section class="section" id="s2">
+  <div class="section-head"><span class="section-num">02</span><h2>CUDA / NVIDIA セットアップ</h2></div>
+  <div class="callout callout-green">
+    <span class="callout-icon">✓</span>
+    <div class="callout-body"><strong>WSL2 の CUDA は Windows 側ドライバーのみでよい。</strong> Linux 用の NVIDIA ドライバーは WSL2 内にインストールしない。nvidia-container-toolkit だけ WSL2 内に入れる。</div>
+  </div>
+
+  <h3>1. Windows 側 NVIDIA ドライバー確認</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">powershell</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># Windows 側で CUDA 対応ドライバーが入っているか確認</span>
+nvidia-smi
+
+<span class="c"># 未インストールの場合は winget で</span>
+winget install NVIDIA.CUDA</pre>
+  </div>
+
+  <h3>2. WSL2 内で nvidia-container-toolkit をインストール</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># NVIDIA Container Toolkit リポジトリ追加</span>
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
+  | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+
+curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
+  | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
+  | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+sudo apt update && sudo apt install -y nvidia-container-toolkit
+
+<span class="c"># CDI デバイス定義生成</span>
+sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
+
+<span class="c"># WSL2 内から GPU が見えることを確認</span>
+nvidia-smi</pre>
+  </div>
+</section>
+
+<!-- 03 PODMAN -->
+<section class="section" id="s3">
+  <div class="section-head"><span class="section-num">03</span><h2>Podman インストール</h2></div>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># Ubuntu 24.04 は podman が公式リポジトリにある</span>
+sudo apt install -y podman
+
+<span class="c"># バージョン確認</span>
+podman --version
+
+<span class="c"># rootless 動作確認</span>
+podman info | grep -i rootless</pre>
+  </div>
+
+  <div class="callout callout-cyan">
+    <span class="callout-icon">ℹ</span>
+    <div class="callout-body">WSL2 では systemd が使えるようになっている (Ubuntu 22.04+ / WSL2 0.67.6+)。<code>systemctl --user enable podman.socket</code> で rootless socket も有効にできる。</div>
+  </div>
+</section>
+
+<!-- 04 DOCKERFILE -->
+<section class="section" id="s4">
+  <div class="section-head"><span class="section-num">04</span><h2>Dockerfile</h2></div>
+  <div class="callout callout-blue">
+    <span class="callout-icon">📦</span>
+    <div class="callout-body">Linux 版からの差分は <strong>DISPLAY の扱いのみ</strong>。Xephyr が不要な分シンプルになる。CUDA Toolkit のバージョンは <code>nvidia-smi</code> で確認した CUDA Version に合わせること。</div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">dockerfile</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>FROM debian:12-slim
+
+<span class="c"># ── base deps ─────────────────────────────────</span>
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  openbox dbus-x11 xdg-utils xauth \
+  libgbm1 libgl1-mesa-dri \
+  libnss3 libatk1.0-0 libatk-bridge2.0-0 \
+  libgdk-pixbuf2.0-0 libgtk-3-0 \
+  libasound2 libxss1 libxtst6 \
+  fonts-noto-cjk fonts-noto-color-emoji \
+  ca-certificates curl wget gnupg \
+  build-essential git \
+  python3 python3-pip python3-venv \
+  && rm -rf /var/lib/apt/lists/*
+
+<span class="c"># ── Node.js (nvm) ─────────────────────────────</span>
+ENV NVM_DIR=/opt/nvm NODE_VERSION=22
+RUN mkdir -p $NVM_DIR \
+  && curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
+  && . $NVM_DIR/nvm.sh \
+  && nvm install $NODE_VERSION && nvm alias default $NODE_VERSION
+ENV PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin:$PATH"
+
+<span class="c"># ── Rust ──────────────────────────────────────</span>
+ENV RUSTUP_HOME=/opt/rustup CARGO_HOME=/opt/cargo
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+  | sh -s -- -y --no-modify-path
+ENV PATH="$CARGO_HOME/bin:$PATH"
+
+<span class="c"># ── CLI AI agents ─────────────────────────────</span>
+RUN npm install -g \
+  @anthropic-ai/claude-code \
+  @openai/codex \
+  @google/gemini-cli \
+  opencode-ai
+
+RUN pip3 install --break-system-packages aider-chat
+
+<span class="c"># ── Ollama (binary only) ──────────────────────</span>
+RUN curl -fsSL https://ollama.com/install.sh | sh
+
+<span class="c"># ── Windsurf (.deb) ───────────────────────────</span>
+ARG WINDSURF_DEB=https://windsurf-stable.codeiumdata.com/linux-x86_64/windsurf_latest_amd64.deb
+RUN curl -fsSL $WINDSURF_DEB -o /tmp/windsurf.deb \
+  && dpkg -i /tmp/windsurf.deb || apt-get install -fy \
+  && rm /tmp/windsurf.deb
+
+<span class="c"># ── Antigravity (.deb) — URL 公開後に差し替え ─</span>
+ARG ANTIGRAVITY_DEB=https://antigravity.google/download/antigravity_latest_amd64.deb
+RUN curl -fsSL $ANTIGRAVITY_DEB -o /tmp/antigravity.deb \
+  && dpkg -i /tmp/antigravity.deb || apt-get install -fy \
+  && rm /tmp/antigravity.deb
+
+<span class="c"># ── CUDA Toolkit (runtime のみ) ───────────────</span>
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  cuda-cudart-12-4 libcublas-12-4 \
+  && rm -rf /var/lib/apt/lists/*
+
+<span class="c"># ── user ──────────────────────────────────────</span>
+RUN useradd -m -s /bin/bash agent
+USER agent
+WORKDIR /home/agent/work
+
+COPY --chown=agent:agent entrypoint.sh /home/agent/entrypoint.sh
+RUN chmod +x /home/agent/entrypoint.sh
+
+ENTRYPOINT ["/home/agent/entrypoint.sh"]
+CMD ["bash"]</pre>
+  </div>
+</section>
+
+<!-- 05 ENTRYPOINT -->
+<section class="section" id="s5">
+  <div class="section-head"><span class="section-num">05</span><h2>entrypoint.sh</h2></div>
+  <div class="callout callout-cyan">
+    <span class="callout-icon">ℹ</span>
+    <div class="callout-body">Linux 版との差分なし。WSLg が DISPLAY を自動設定するため、コンテナ起動時に <code>-e DISPLAY=$DISPLAY</code> を渡すだけで動作する。</div>
+  </div>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>#!/bin/bash
+set -e
+
+eval $(dbus-launch --sh-syntax)
+export DBUS_SESSION_BUS_ADDRESS
+
+openbox &
+
+[ -e /dev/dri/renderD128 ] && export LIBGL_ALWAYS_SOFTWARE=0 \
+                            || export LIBGL_ALWAYS_SOFTWARE=1
+sleep 0.5
+
+exec "${@:-bash}"</pre>
+  </div>
+</section>
+
+<!-- 06 VOLUMES -->
+<section class="section" id="s6">
+  <div class="section-head"><span class="section-num">06</span><h2>Volume 作成 <small style="font-size:13px;font-weight:400;color:var(--dim)">— 初回のみ</small></h2></div>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>podman volume create agent-workspace
+podman volume create ollama-models</pre>
+  </div>
+</section>
+
+<!-- 07 BUILD & RUN -->
+<section class="section" id="s7">
+  <div class="section-head"><span class="section-num">07</span><h2>Build &amp; Run</h2></div>
+
+  <h3>イメージビルド</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>podman build -t agent-sandbox:latest .</pre>
+  </div>
+
+  <h3>コンテナ起動</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>podman run -it --rm \
+  <span class="c"># WSLg の DISPLAY をそのまま渡す (Xephyr 不要)</span>
+  -e DISPLAY=$DISPLAY \
+  -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
+  -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+  -v $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY:/tmp/$WAYLAND_DISPLAY:ro \
+  \
+  -v /dev/shm:/dev/shm \
+  \
+  <span class="c"># NVIDIA GPU (CDI)</span>
+  --device nvidia.com/gpu=all \
+  \
+  --network slirp4netns \
+  \
+  -v agent-workspace:/home/agent/work \
+  -v ollama-models:/root/.ollama/models \
+  \
+  agent-sandbox:latest \
+  windsurf</pre>
+  </div>
+
+  <div class="callout callout-amber">
+    <span class="callout-icon">⚠</span>
+    <div class="callout-body"><strong>Display 隔離について:</strong> WSLg の DISPLAY を直接渡しているため、Linux 版の Xephyr ほど隔離は強くない。コンテナ起動中はホスト側での機密操作を避ける運用を推奨。</div>
+  </div>
+</section>
+
+<!-- 08 OLLAMA -->
+<section class="section" id="s8">
+  <div class="section-head"><span class="section-num">08</span><h2>Ollama</h2></div>
+  <div class="callout callout-green">
+    <span class="callout-icon">✓</span>
+    <div class="callout-body">Linux 版と同様にコンテナ内で動作。WSL2 では CUDA が透過的に使えるため、<strong>GPU 推論が有効</strong>になる。</div>
+  </div>
+
+  <h3>コンテナ内で起動 · モデル取得</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>ollama serve &
+sleep 2
+
+<span class="c"># コーディング特化モデル</span>
+ollama pull qwen2.5-coder:7b   <span class="c"># ~5GB · GPU 推論</span>
+
+<span class="c"># GPU 使用確認</span>
+ollama ps   <span class="c"># SIZE (VRAM) が表示されれば GPU 動作中</span></pre>
+  </div>
+
+  <h3>VRAM 使用確認 (WSL2 側)</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>nvidia-smi --query-gpu=memory.used,memory.free --format=csv</pre>
+  </div>
+</section>
+
+<!-- 09 ISOLATION -->
+<section class="section" id="s9">
+  <div class="section-head"><span class="section-num">09</span><h2>隔離まとめ</h2></div>
+  <table class="iso-table">
+    <thead><tr><th>リソース</th><th>コンテナからのアクセス</th><th>備考</th></tr></thead>
+    <tbody>
+      <tr><td>Host Filesystem (Windows)</td><td><span class="tag tag-green">BLOCKED</span></td><td style="color:var(--dim);font-size:12px">/mnt/c 等はコンテナにマウントしない</td></tr>
+      <tr><td>WSL2 Filesystem</td><td><span class="tag tag-green">BLOCKED</span></td><td style="color:var(--dim);font-size:12px">Volume のみ公開</td></tr>
+      <tr><td>Display (WSLg)</td><td><span class="tag tag-amber">SHARED</span></td><td style="color:var(--dim);font-size:12px">Linux 版 Xephyr より弱い</td></tr>
+      <tr><td>Keyboard / Clipboard</td><td><span class="tag tag-amber">SHARED</span></td><td style="color:var(--dim);font-size:12px">WSLg 共有に伴う制約</td></tr>
+      <tr><td>Network</td><td><span class="tag tag-amber">NAT only</span></td><td style="color:var(--dim);font-size:12px">slirp4netns</td></tr>
+      <tr><td>NVIDIA GPU</td><td><span class="tag tag-cyan">PASSTHROUGH</span></td><td style="color:var(--dim);font-size:12px">CDI / WSL2 CUDA 透過</td></tr>
+      <tr><td>agent-workspace Volume</td><td><span class="tag tag-blue">READ / WRITE</span></td><td style="color:var(--dim);font-size:12px">作業ファイル専用</td></tr>
+      <tr><td>ollama-models Volume</td><td><span class="tag tag-blue">READ / WRITE</span></td><td style="color:var(--dim);font-size:12px">モデルデータ専用</td></tr>
+      <tr><td>Windows Kernel</td><td><span class="tag tag-amber">SHARED</span></td><td style="color:var(--dim);font-size:12px">WSL2 = Microsoft カスタム Linux kernel</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 10 TIPS -->
+<section class="section" id="s10">
+  <div class="section-head"><span class="section-num">10</span><h2>Tips</h2></div>
+
+  <h3>WSL2 の再起動</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">powershell</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>wsl --shutdown          <span class="c"># 全 distro 停止</span>
+wsl -d Ubuntu-24.04     <span class="c"># 再起動</span></pre>
+  </div>
+
+  <h3>Windows Terminal から直接コンテナ起動するプロファイル</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">json — WT settings.json の profiles.list に追加</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>{
+  "name": "Agent Sandbox",
+  "commandline": "wsl.exe -d Ubuntu-24.04 -- bash -c 'podman start -ai agent-sandbox'",
+  "icon": "🤖",
+  "startingDirectory": "//wsl.localhost/Ubuntu-24.04/home/YOUR_USER"
+}</pre>
+  </div>
+
+  <h3>ワークスペースのバックアップ</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>podman run --rm \
+  -v agent-workspace:/work:ro \
+  -v $(pwd):/out \
+  debian:12-slim \
+  tar czf /out/workspace-$(date +%Y%m%d).tar.gz -C /work .</pre>
+  </div>
+
+  <h3>CUDA バージョン整合性確認</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># Windows ドライバーの CUDA Version を確認して Dockerfile を調整</span>
+nvidia-smi | grep "CUDA Version"</pre>
+  </div>
+</section>
+
+<footer>
+  <div>AI Agent Sandbox — Windows / WSL2 Setup Guide</div>
+  <div>WSL2 · Podman · WSLg · CUDA CDI · nvidia-container-toolkit</div>
+</footer>
+</div>
+
+<script>
+function cp(btn){
+  const text=btn.closest('.code-wrap').querySelector('pre').innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='✓ copied';btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent='copy';btn.classList.remove('ok')},1800);
+  });
+}
+</script>
+</body>
+</html>

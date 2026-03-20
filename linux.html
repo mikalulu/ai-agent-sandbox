@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Sandbox — Setup Guide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
+:root {
+  --white: #ffffff;
+  --off:   #f7f8fa;
+  --off2:  #eef0f4;
+  --line:  #e2e5ec;
+  --line2: #d0d5df;
+  --text:  #1a1f2e;
+  --mid:   #4a5168;
+  --dim:   #8a92a8;
+  --blue:  #2563eb;
+  --blue-l:#eff4ff;
+  --blue-m:#dbeafe;
+  --teal:  #0891b2;
+  --teal-l:#ecfeff;
+  --green: #16a34a;
+  --green-l:#f0fdf4;
+  --amber: #d97706;
+  --amber-l:#fffbeb;
+  --red:   #dc2626;
+  --red-l: #fff1f2;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Syne', sans-serif;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.05);
+  --shadow-md: 0 2px 6px rgba(0,0,0,.07), 0 8px 24px rgba(0,0,0,.07);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--white);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page { max-width: 860px; margin: 0 auto; padding: 0 28px 100px; }
+
+/* ── HEADER ── */
+.hero {
+  padding: 64px 0 52px;
+  border-bottom: 2px solid var(--line);
+  margin-bottom: 60px;
+}
+
+.badge-row {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 28px;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  padding: 4px 12px;
+  border-radius: 99px;
+  border: 1.5px solid;
+}
+.badge-blue  { color: var(--blue);  border-color: #bfdbfe; background: var(--blue-l); }
+.badge-teal  { color: var(--teal);  border-color: #a5f3fc; background: var(--teal-l); }
+.badge-green { color: var(--green); border-color: #bbf7d0; background: var(--green-l);}
+.badge-amber { color: var(--amber); border-color: #fde68a; background: var(--amber-l);}
+
+h1 {
+  font-family: var(--sans);
+  font-size: clamp(30px, 5.5vw, 48px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+h1 .accent { color: var(--blue); }
+
+.hero-sub {
+  color: var(--mid);
+  font-size: 14px;
+  max-width: 560px;
+  line-height: 1.75;
+}
+
+/* ── TOC ── */
+.toc {
+  background: var(--off);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 56px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 4px 24px;
+}
+
+.toc a {
+  font-size: 12px;
+  color: var(--mid);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  transition: color .15s;
+}
+.toc a:hover { color: var(--blue); }
+.toc-num {
+  font-size: 10px;
+  color: var(--dim);
+  min-width: 20px;
+}
+
+/* ── SECTION ── */
+.section { margin-bottom: 64px; }
+
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1.5px solid var(--line);
+}
+
+.section-num {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--blue);
+  background: var(--blue-l);
+  border: 1.5px solid #bfdbfe;
+  border-radius: 6px;
+  padding: 2px 8px;
+  letter-spacing: .04em;
+}
+
+h2 {
+  font-family: var(--sans);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+h3 {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--mid);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin: 24px 0 10px;
+}
+
+p { color: var(--mid); margin-bottom: 12px; line-height: 1.75; }
+
+/* ── DIAGRAM ── */
+.diagram {
+  background: var(--off);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin: 20px 0;
+  overflow-x: auto;
+  box-shadow: var(--shadow);
+}
+.diagram svg { display: block; margin: 0 auto; }
+
+/* ── STACK GRID ── */
+.stack { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 8px; margin: 16px 0; }
+
+.stack-card {
+  background: var(--white);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 11px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  box-shadow: var(--shadow);
+  transition: border-color .15s, box-shadow .15s;
+}
+.stack-card:hover { border-color: var(--line2); box-shadow: var(--shadow-md); }
+
+.stack-icon {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.ic-blue  { background: var(--blue-l);  color: var(--blue); }
+.ic-teal  { background: var(--teal-l);  color: var(--teal); }
+.ic-green { background: var(--green-l); color: var(--green);}
+.ic-amber { background: var(--amber-l); color: var(--amber);}
+.ic-red   { background: var(--red-l);   color: var(--red);  }
+
+.stack-name { font-size: 12px; font-weight: 600; color: var(--text); }
+.stack-role { font-size: 10px; color: var(--dim); margin-top: 1px; }
+
+/* ── CODE BLOCK ── */
+.code-wrap { margin: 12px 0; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+
+.code-bar {
+  background: var(--off2);
+  border: 1.5px solid var(--line);
+  border-bottom: none;
+  padding: 7px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.code-lang {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--dim);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.copy-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .05em;
+  color: var(--mid);
+  background: var(--white);
+  border: 1.5px solid var(--line2);
+  border-radius: 6px;
+  padding: 3px 12px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.copy-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-l); }
+.copy-btn.ok    { border-color: var(--green); color: var(--green); background: var(--green-l); }
+
+pre {
+  background: #1e2330;
+  border: 1.5px solid var(--line);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 20px 20px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: #cdd6f4;
+}
+
+pre .c  { color: #6c7a96; font-style: italic; }
+pre .k  { color: #89dceb; }
+pre .s  { color: #a6e3a1; }
+pre .f  { color: #cba6f7; }
+pre .v  { color: #fab387; }
+pre .n  { color: #f9e2af; }
+
+/* ── CALLOUT ── */
+.callout {
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 13px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  border: 1.5px solid;
+}
+.callout-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.callout-body { color: var(--mid); line-height: 1.7; }
+.callout-body strong { color: var(--text); font-weight: 600; }
+
+.callout-blue  { background: var(--blue-l);  border-color: #bfdbfe; }
+.callout-green { background: var(--green-l); border-color: #bbf7d0; }
+.callout-amber { background: var(--amber-l); border-color: #fde68a; }
+.callout-teal  { background: var(--teal-l);  border-color: #a5f3fc; }
+
+/* ── ISOLATION TABLE ── */
+.iso-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.iso-table th {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding: 8px 14px;
+  text-align: left;
+  border-bottom: 2px solid var(--line);
+}
+.iso-table td {
+  padding: 10px 14px;
+  font-size: 12.5px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.iso-table tr:last-child td { border-bottom: none; }
+.iso-table tr:hover td { background: var(--off); }
+
+.tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  padding: 2px 9px;
+  border-radius: 99px;
+  border: 1.5px solid;
+}
+.tag-green { color: var(--green); border-color: #bbf7d0; background: var(--green-l); }
+.tag-blue  { color: var(--blue);  border-color: #bfdbfe; background: var(--blue-l);  }
+.tag-amber { color: var(--amber); border-color: #fde68a; background: var(--amber-l); }
+.tag-red   { color: var(--red);   border-color: #fecaca; background: var(--red-l);   }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1.5px solid var(--line);
+  padding-top: 24px;
+  margin-top: 72px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--dim);
+}
+
+/* ── ANIM ── */
+@keyframes up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+.section { animation: up .35s ease both; }
+.section:nth-child(1){animation-delay:.04s}
+.section:nth-child(2){animation-delay:.08s}
+.section:nth-child(3){animation-delay:.12s}
+.section:nth-child(4){animation-delay:.16s}
+.section:nth-child(5){animation-delay:.20s}
+.section:nth-child(6){animation-delay:.24s}
+.section:nth-child(7){animation-delay:.28s}
+.section:nth-child(8){animation-delay:.32s}
+.section:nth-child(9){animation-delay:.36s}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--off); }
+::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 99px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- SITE NAV -->
+<nav style="display:flex;align-items:center;gap:0;border-bottom:1.5px solid var(--line);padding:14px 0;margin-bottom:0;font-size:11px;">
+  <span style="color:var(--dim);letter-spacing:.08em;margin-right:16px;font-weight:600;text-transform:uppercase;white-space:nowrap;font-family:var(--sans);">Sandbox Docs</span>
+  <div style="display:flex;gap:4px;flex-wrap:wrap;">
+    <a href="./index.html" style="font-family:var(--mono);font-size:11px;font-weight:500;text-decoration:none;padding:4px 12px;border-radius:99px;border:1.5px dashed var(--line);color:var(--dim);transition:all .15s;" onmouseover="this.style.borderStyle='solid';this.style.borderColor='var(--text)';this.style.color='var(--text)';this.style.background='var(--off)'" onmouseout="this.style.borderStyle='dashed';this.style.borderColor='var(--line)';this.style.color='var(--dim)';this.style.background='transparent'">↩ Index</a>
+    <a href="./linux.html" style="font-family:var(--mono);font-size:11px;font-weight:600;text-decoration:none;padding:4px 12px;border-radius:99px;border:1.5px solid #bbf7d0;color:var(--green);background:var(--green-l);">Linux</a>
+    <a href="./mac.html"   style="font-family:var(--mono);font-size:11px;font-weight:500;text-decoration:none;padding:4px 12px;border-radius:99px;border:1.5px solid var(--line);color:var(--mid);transition:all .15s;" onmouseover="this.style.borderColor='#ddd6fe';this.style.color='#7c3aed';this.style.background='#f5f3ff'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--mid)';this.style.background='transparent'">macOS</a>
+    <a href="./windows.html" style="font-family:var(--mono);font-size:11px;font-weight:500;text-decoration:none;padding:4px 12px;border-radius:99px;border:1.5px solid var(--line);color:var(--mid);transition:all .15s;" onmouseover="this.style.borderColor='#a5f3fc';this.style.color='#0e7490';this.style.background='#e0f2fe'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--mid)';this.style.background='transparent'">Windows</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="badge-row">
+    <span class="badge badge-blue">Podman</span>
+    <span class="badge badge-teal">Xephyr</span>
+    <span class="badge badge-amber">NVIDIA CDI</span>
+    <span class="badge badge-green">Wayland Host</span>
+  </div>
+  <h1>AI Agent <span class="accent">Sandbox</span><br>Setup Guide</h1>
+  <p class="hero-sub">Podman + Xephyr によるホスト FS / ディスプレイ隔離。NVIDIA GPU は CDI でパススルー。Ollama モデルは専用 Volume で管理。</p>
+</header>
+
+<!-- TOC -->
+<nav class="toc">
+  <a href="#s0"><span class="toc-num">00</span>アーキテクチャ</a>
+  <a href="#s1"><span class="toc-num">01</span>ホスト準備</a>
+  <a href="#s2"><span class="toc-num">02</span>Dockerfile</a>
+  <a href="#s3"><span class="toc-num">03</span>entrypoint.sh</a>
+  <a href="#s4"><span class="toc-num">04</span>Volume 作成</a>
+  <a href="#s5"><span class="toc-num">05</span>Build &amp; Run</a>
+  <a href="#s6"><span class="toc-num">06</span>Ollama モデル</a>
+  <a href="#s7"><span class="toc-num">07</span>隔離まとめ</a>
+  <a href="#s8"><span class="toc-num">08</span>Tips</a>
+</nav>
+
+<!-- ── 00 ARCH ── -->
+<section class="section" id="s0">
+  <div class="section-head">
+    <span class="section-num">00</span>
+    <h2>アーキテクチャ</h2>
+  </div>
+
+  <div class="diagram">
+    <svg width="780" height="400" viewBox="0 0 780 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M1,1 L6,3.5 L1,6 Z" fill="#2563eb" opacity=".5"/>
+        </marker>
+        <marker id="b" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M1,1 L6,3.5 L1,6 Z" fill="#d97706" opacity=".5"/>
+        </marker>
+        <marker id="c" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+          <path d="M1,1 L6,3.5 L1,6 Z" fill="#0891b2" opacity=".5"/>
+        </marker>
+      </defs>
+
+      <!-- HOST -->
+      <rect x="8" y="8" width="764" height="384" rx="12" fill="#f7f8fa" stroke="#e2e5ec" stroke-width="1.5"/>
+      <text x="24" y="30" fill="#8a92a8" font-family="Syne,sans-serif" font-size="11" font-weight="600" letter-spacing="1">HOST — Ubuntu · Wayland</text>
+
+      <!-- top row boxes -->
+      <!-- Wayland Compositor -->
+      <rect x="24" y="44" width="160" height="52" rx="8" fill="white" stroke="#e2e5ec" stroke-width="1.5"/>
+      <text x="104" y="68" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle">Wayland</text>
+      <text x="104" y="84" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Compositor</text>
+
+      <!-- XWayland -->
+      <rect x="204" y="44" width="140" height="52" rx="8" fill="white" stroke="#e2e5ec" stroke-width="1.5"/>
+      <text x="274" y="68" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle">XWayland</text>
+      <text x="274" y="84" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">X11 bridge</text>
+
+      <!-- Xephyr -->
+      <rect x="364" y="44" width="160" height="52" rx="8" fill="#eff4ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="444" y="66" fill="#2563eb" font-family="Syne,sans-serif" font-size="12" font-weight="700" text-anchor="middle">Xephyr :10</text>
+      <text x="444" y="84" fill="#6090d0" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">nested X · DISPLAY=:10</text>
+
+      <!-- NVIDIA -->
+      <rect x="548" y="44" width="208" height="52" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+      <text x="652" y="66" fill="#d97706" font-family="Syne,sans-serif" font-size="12" font-weight="700" text-anchor="middle">NVIDIA GPU</text>
+      <text x="652" y="84" fill="#a07820" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">/dev/dri · /dev/nvidia*</text>
+
+      <!-- arrows -->
+      <line x1="184" y1="70" x2="202" y2="70" stroke="#2563eb" stroke-width="1.5" opacity=".4" marker-end="url(#a)"/>
+      <line x1="344" y1="70" x2="362" y2="70" stroke="#2563eb" stroke-width="1.5" opacity=".4" marker-end="url(#a)"/>
+      <line x1="546" y1="70" x2="526" y2="70" stroke="#d97706" stroke-width="1.5" opacity=".4" marker-end="url(#b)"/>
+
+      <!-- CONTAINER BG -->
+      <rect x="24" y="120" width="732" height="256" rx="10" fill="white" stroke="#bfdbfe" stroke-width="2" stroke-dasharray="7 3"/>
+      <text x="40" y="142" fill="#2563eb" font-family="Syne,sans-serif" font-size="11" font-weight="600" letter-spacing="1" opacity=".7">PODMAN CONTAINER — debian:12-slim</text>
+
+      <!-- WM + dbus -->
+      <rect x="40" y="156" width="130" height="44" rx="7" fill="#f7f8fa" stroke="#e2e5ec" stroke-width="1.5"/>
+      <text x="105" y="176" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle">openbox</text>
+      <text x="105" y="191" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">WM + dbus-x11</text>
+
+      <!-- Windsurf -->
+      <rect x="186" y="156" width="130" height="44" rx="7" fill="#eff4ff" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="251" y="176" fill="#2563eb" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle" font-weight="500">Windsurf</text>
+      <text x="251" y="191" fill="#6090d0" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Electron IDE</text>
+
+      <!-- Antigravity -->
+      <rect x="332" y="156" width="150" height="44" rx="7" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5"/>
+      <text x="407" y="176" fill="#0891b2" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle" font-weight="500">Antigravity</text>
+      <text x="407" y="191" fill="#5090a0" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Electron + Browser Agent</text>
+
+      <!-- CLI agents -->
+      <rect x="498" y="156" width="240" height="44" rx="7" fill="#f7f8fa" stroke="#e2e5ec" stroke-width="1.5"/>
+      <text x="618" y="174" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Claude Code · Codex · Gemini CLI</text>
+      <text x="618" y="190" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">OpenCode · aider · Ollama</text>
+
+      <!-- runtime row -->
+      <rect x="40"  y="218" width="105" height="38" rx="6" fill="#f7f8fa" stroke="#e2e5ec"/>
+      <text x="92"  y="234" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Node.js</text>
+      <text x="92"  y="248" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9"  text-anchor="middle">npm · npx</text>
+
+      <rect x="155" y="218" width="105" height="38" rx="6" fill="#f7f8fa" stroke="#e2e5ec"/>
+      <text x="207" y="234" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Python</text>
+      <text x="207" y="248" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9"  text-anchor="middle">pip · venv</text>
+
+      <rect x="270" y="218" width="105" height="38" rx="6" fill="#f7f8fa" stroke="#e2e5ec"/>
+      <text x="322" y="234" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Rust</text>
+      <text x="322" y="248" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9"  text-anchor="middle">cargo</text>
+
+      <rect x="385" y="218" width="130" height="38" rx="6" fill="#f7f8fa" stroke="#e2e5ec"/>
+      <text x="450" y="234" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">build-essential</text>
+      <text x="450" y="248" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9"  text-anchor="middle">gcc · make</text>
+
+      <rect x="525" y="218" width="213" height="38" rx="6" fill="#fffbeb" stroke="#fde68a"/>
+      <text x="631" y="234" fill="#d97706" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">CUDA Toolkit</text>
+      <text x="631" y="248" fill="#a07820" font-family="JetBrains Mono,monospace" font-size="9"  text-anchor="middle">nvidia-container-toolkit</text>
+
+      <!-- volumes -->
+      <rect x="40" y="274" width="356" height="36" rx="6" fill="#eff4ff" stroke="#bfdbfe" stroke-width="1.5"/>
+      <text x="218" y="290" fill="#2563eb" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">agent-workspace  →  /home/agent/work</text>
+      <text x="218" y="304" fill="#6090d0" font-family="JetBrains Mono,monospace" font-size="9"  text-anchor="middle">永続 · 作業ファイル</text>
+
+      <rect x="408" y="274" width="330" height="36" rx="6" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5"/>
+      <text x="573" y="290" fill="#d97706" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">ollama-models  →  /root/.ollama/models</text>
+      <text x="573" y="304" fill="#a07820" font-family="JetBrains Mono,monospace" font-size="9"  text-anchor="middle">永続 · LLM モデルデータ</text>
+
+      <!-- vertical arrows Xephyr + NVIDIA → container -->
+      <line x1="444" y1="98" x2="444" y2="118" stroke="#2563eb" stroke-width="1.5" opacity=".3" marker-end="url(#a)"/>
+      <line x1="640" y1="98" x2="640" y2="118" stroke="#d97706" stroke-width="1.5" opacity=".3" marker-end="url(#b)"/>
+
+      <!-- slirp label -->
+      <text x="750" y="310" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="end">network: slirp4netns (NAT)</text>
+      <text x="750" y="322" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="end">host FS: not mounted</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ── 01 PREREQ ── -->
+<section class="section" id="s1">
+  <div class="section-head"><span class="section-num">01</span><h2>ホスト準備</h2></div>
+
+  <div class="stack">
+    <div class="stack-card"><div class="stack-icon ic-blue">⬡</div><div><div class="stack-name">Podman 4.x+</div><div class="stack-role">コンテナランタイム</div></div></div>
+    <div class="stack-card"><div class="stack-icon ic-amber">⬡</div><div><div class="stack-name">nvidia-container-toolkit</div><div class="stack-role">GPU パススルー (CDI)</div></div></div>
+    <div class="stack-card"><div class="stack-icon ic-teal">⬡</div><div><div class="stack-name">Xephyr</div><div class="stack-role">ネスト X サーバー</div></div></div>
+  </div>
+
+  <h3>インストール</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># Podman + Xephyr</span>
+sudo apt install -y podman xserver-xephyr
+
+<span class="c"># NVIDIA Container Toolkit</span>
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
+  | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+
+curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
+  | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
+  | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+sudo apt update && sudo apt install -y nvidia-container-toolkit
+
+<span class="c"># CDI デバイス定義生成(rootless Podman から GPU を認識させる)</span>
+sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml</pre>
+  </div>
+
+  <div class="callout callout-blue">
+    <span class="callout-icon">ℹ</span>
+    <div class="callout-body"><strong>CDI (Container Device Interface)</strong> を使うことで <code>--device nvidia.com/gpu=all</code> の記法が使える。rootless Podman でも安全に GPU をパススルー可能。</div>
+  </div>
+</section>
+
+<!-- ── 02 DOCKERFILE ── -->
+<section class="section" id="s2">
+  <div class="section-head"><span class="section-num">02</span><h2>Dockerfile</h2></div>
+
+  <div class="callout callout-teal">
+    <span class="callout-icon">📦</span>
+    <div class="callout-body">Windsurf / Antigravity は <strong>公式 .deb を curl + dpkg -i</strong> で導入。外部リポジトリ登録なし。Ollama はバイナリのみ収録し、モデルデータは Volume で管理。</div>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">dockerfile</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>FROM debian:12-slim
+
+<span class="c"># ── base deps ──────────────────────────────────</span>
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  <span class="c"># X / WM / D-Bus</span>
+  openbox dbus-x11 xdg-utils xauth \
+  <span class="c"># Electron / Chromium 共通ライブラリ</span>
+  libgbm1 libgl1-mesa-dri \
+  libnss3 libatk1.0-0 libatk-bridge2.0-0 \
+  libgdk-pixbuf2.0-0 libgtk-3-0 \
+  libasound2 libxss1 libxtst6 \
+  <span class="c"># フォント</span>
+  fonts-noto-cjk fonts-noto-color-emoji \
+  <span class="c"># ユーティリティ</span>
+  ca-certificates curl wget gnupg \
+  <span class="c"># ビルドツール</span>
+  build-essential git \
+  <span class="c"># Python</span>
+  python3 python3-pip python3-venv \
+  && rm -rf /var/lib/apt/lists/*
+
+<span class="c"># ── Node.js (nvm) ──────────────────────────────</span>
+ENV NVM_DIR=/opt/nvm NODE_VERSION=22
+RUN mkdir -p $NVM_DIR \
+  && curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
+  && . $NVM_DIR/nvm.sh \
+  && nvm install $NODE_VERSION && nvm alias default $NODE_VERSION
+ENV PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin:$PATH"
+
+<span class="c"># ── Rust ───────────────────────────────────────</span>
+ENV RUSTUP_HOME=/opt/rustup CARGO_HOME=/opt/cargo
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+  | sh -s -- -y --no-modify-path
+ENV PATH="$CARGO_HOME/bin:$PATH"
+
+<span class="c"># ── CLI AI agents ──────────────────────────────</span>
+RUN npm install -g \
+  @anthropic-ai/claude-code \
+  @openai/codex \
+  @google/gemini-cli \
+  opencode-ai
+
+RUN pip3 install --break-system-packages aider-chat
+
+<span class="c"># ── Ollama (binary only, models → Volume) ──────</span>
+RUN curl -fsSL https://ollama.com/install.sh | sh
+
+<span class="c"># ── Windsurf (.deb) ────────────────────────────</span>
+ARG WINDSURF_DEB=https://windsurf-stable.codeiumdata.com/linux-x86_64/windsurf_latest_amd64.deb
+RUN curl -fsSL $WINDSURF_DEB -o /tmp/windsurf.deb \
+  && dpkg -i /tmp/windsurf.deb || apt-get install -fy \
+  && rm /tmp/windsurf.deb
+
+<span class="c"># ── Antigravity (.deb) — URL 公開後に差し替え ──</span>
+ARG ANTIGRAVITY_DEB=https://antigravity.google/download/antigravity_latest_amd64.deb
+RUN curl -fsSL $ANTIGRAVITY_DEB -o /tmp/antigravity.deb \
+  && dpkg -i /tmp/antigravity.deb || apt-get install -fy \
+  && rm /tmp/antigravity.deb
+
+<span class="c"># ── CUDA Toolkit (runtime のみ) ─────────────────</span>
+<span class="c"># ホストの nvidia-smi で確認したドライバに合わせてバージョンを調整</span>
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  cuda-cudart-12-4 libcublas-12-4 \
+  && rm -rf /var/lib/apt/lists/*
+
+<span class="c"># ── user ───────────────────────────────────────</span>
+RUN useradd -m -s /bin/bash agent
+USER agent
+WORKDIR /home/agent/work
+
+COPY --chown=agent:agent entrypoint.sh /home/agent/entrypoint.sh
+RUN chmod +x /home/agent/entrypoint.sh
+
+ENTRYPOINT ["/home/agent/entrypoint.sh"]
+CMD ["bash"]</pre>
+  </div>
+</section>
+
+<!-- ── 03 ENTRYPOINT ── -->
+<section class="section" id="s3">
+  <div class="section-head"><span class="section-num">03</span><h2>entrypoint.sh</h2></div>
+
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>#!/bin/bash
+set -e
+
+<span class="c"># D-Bus セッション起動 (Electron 必須)</span>
+eval $(dbus-launch --sh-syntax)
+export DBUS_SESSION_BUS_ADDRESS
+
+<span class="c"># WM 起動</span>
+openbox &
+
+<span class="c"># GPU 確認</span>
+[ -e /dev/dri/renderD128 ] && export LIBGL_ALWAYS_SOFTWARE=0 \
+                            || export LIBGL_ALWAYS_SOFTWARE=1
+
+sleep 0.5
+
+exec "${@:-bash}"</pre>
+  </div>
+</section>
+
+<!-- ── 04 VOLUMES ── -->
+<section class="section" id="s4">
+  <div class="section-head"><span class="section-num">04</span><h2>Volume 作成 <small style="font-size:13px;font-weight:400;color:var(--dim)">— 初回のみ</small></h2></div>
+
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># 作業スペース (コード・成果物)</span>
+podman volume create agent-workspace
+
+<span class="c"># Ollama モデルデータ (3GB〜 のため分離管理)</span>
+podman volume create ollama-models</pre>
+  </div>
+</section>
+
+<!-- ── 05 BUILD & RUN ── -->
+<section class="section" id="s5">
+  <div class="section-head"><span class="section-num">05</span><h2>Build &amp; Run</h2></div>
+
+  <h3>イメージビルド</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>podman build -t agent-sandbox:latest .</pre>
+  </div>
+
+  <h3>Xephyr 起動 — ホスト側・別ターミナル</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># XWayland 上でネスト X を独立ウィンドウとして起動</span>
+<span class="c"># -ac: コンテナからの接続を許可</span>
+Xephyr :10 -screen 1920x1080 -ac &</pre>
+  </div>
+
+  <h3>コンテナ起動</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>podman run -it --rm \
+  <span class="c"># Xephyr のみ公開 (ホスト :0 は渡さない)</span>
+  -e DISPLAY=:10 \
+  -v /tmp/.X11-unix/X10:/tmp/.X11-unix/X10:ro \
+  \
+  <span class="c"># Chromium / Electron が必要とする共有メモリ</span>
+  -v /dev/shm:/dev/shm \
+  \
+  <span class="c"># NVIDIA GPU (CDI)</span>
+  --device nvidia.com/gpu=all \
+  \
+  <span class="c"># ネットワーク隔離 (NAT)</span>
+  --network slirp4netns \
+  \
+  <span class="c"># 永続 Volume</span>
+  -v agent-workspace:/home/agent/work \
+  -v ollama-models:/root/.ollama/models \
+  \
+  agent-sandbox:latest \
+  windsurf    <span class="c"># または antigravity / bash</span></pre>
+  </div>
+
+  <div class="callout callout-green">
+    <span class="callout-icon">✓</span>
+    <div class="callout-body"><strong>ホスト DISPLAY(:0) は渡していない。</strong> コンテナは Xephyr(:10) のみアクセス可能。ホストのキー入力・画面・クリップボードには到達できない。</div>
+  </div>
+</section>
+
+<!-- ── 06 OLLAMA ── -->
+<section class="section" id="s6">
+  <div class="section-head"><span class="section-num">06</span><h2>Ollama モデル管理</h2></div>
+
+  <div class="callout callout-amber">
+    <span class="callout-icon">⚠</span>
+    <div class="callout-body">モデルデータはイメージに焼かず <strong>ollama-models Volume</strong> で管理。ビルドを軽量に保ちつつ、モデルを永続利用できる。</div>
+  </div>
+
+  <h3>モデルの pull (コンテナ内)</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># コンテナ内で ollama サーバー起動 → モデル取得</span>
+ollama serve &
+sleep 2
+
+<span class="c"># 軽量モデル例 (~2GB)</span>
+ollama pull qwen2.5-coder:3b
+
+<span class="c"># 高性能モデル例 (~5GB, VRAM 6GB 以上推奨)</span>
+ollama pull qwen2.5-coder:7b</pre>
+  </div>
+
+  <h3>モデルサイズ目安</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">text</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>qwen2.5-coder:3b     ~2 GB    VRAM 3GB+   軽量・高速
+qwen2.5-coder:7b     ~5 GB    VRAM 6GB+   バランス型
+llama3.2:3b          ~2 GB    VRAM 3GB+   汎用
+codellama:7b         ~4 GB    VRAM 6GB+   コーディング特化</pre>
+  </div>
+
+  <div class="callout callout-amber">
+    <span class="callout-icon">⚠</span>
+    <div class="callout-body">VRAM はエージェント (Windsurf / Antigravity の GPU 合成) と Ollama で共有される。合計 VRAM に収まるモデルを選択すること。<code>nvidia-smi</code> で使用量を確認しながら運用推奨。</div>
+  </div>
+</section>
+
+<!-- ── 07 ISOLATION ── -->
+<section class="section" id="s7">
+  <div class="section-head"><span class="section-num">07</span><h2>隔離まとめ</h2></div>
+
+  <table class="iso-table">
+    <thead>
+      <tr>
+        <th>リソース</th>
+        <th>コンテナからのアクセス</th>
+        <th>方法</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Host Filesystem</td>
+        <td><span class="tag tag-green">BLOCKED</span></td>
+        <td style="color:var(--dim);font-size:12px">マウントなし</td>
+      </tr>
+      <tr>
+        <td>Host Display (:0)</td>
+        <td><span class="tag tag-green">BLOCKED</span></td>
+        <td style="color:var(--dim);font-size:12px">Xephyr :10 のみ渡す</td>
+      </tr>
+      <tr>
+        <td>Host Keyboard / Clipboard</td>
+        <td><span class="tag tag-green">BLOCKED</span></td>
+        <td style="color:var(--dim);font-size:12px">DISPLAY 分離による</td>
+      </tr>
+      <tr>
+        <td>Host Network</td>
+        <td><span class="tag tag-amber">NAT only</span></td>
+        <td style="color:var(--dim);font-size:12px">slirp4netns</td>
+      </tr>
+      <tr>
+        <td>NVIDIA GPU</td>
+        <td><span class="tag tag-blue">PASSTHROUGH</span></td>
+        <td style="color:var(--dim);font-size:12px">CDI / --device nvidia.com/gpu=all</td>
+      </tr>
+      <tr>
+        <td>agent-workspace Volume</td>
+        <td><span class="tag tag-blue">READ / WRITE</span></td>
+        <td style="color:var(--dim);font-size:12px">作業ファイル専用</td>
+      </tr>
+      <tr>
+        <td>ollama-models Volume</td>
+        <td><span class="tag tag-blue">READ / WRITE</span></td>
+        <td style="color:var(--dim);font-size:12px">モデルデータ専用</td>
+      </tr>
+      <tr>
+        <td>Host Kernel</td>
+        <td><span class="tag tag-amber">SHARED</span></td>
+        <td style="color:var(--dim);font-size:12px">namespace 分離 (Podman)</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ── 08 TIPS ── -->
+<section class="section" id="s8">
+  <div class="section-head"><span class="section-num">08</span><h2>Tips</h2></div>
+
+  <h3>Xephyr 解像度変更</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># HiDPI (2560x1440)</span>
+Xephyr :10 -screen 2560x1440 -dpi 144 -ac &</pre>
+  </div>
+
+  <h3>ワークスペースのバックアップ</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>podman run --rm \
+  -v agent-workspace:/work:ro \
+  -v $(pwd):/out \
+  debian:12-slim \
+  tar czf /out/workspace-$(date +%Y%m%d).tar.gz -C /work .</pre>
+  </div>
+
+  <h3>Antigravity 権限制限 (ゲスト内設定)</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">text</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre>Settings > Terminal
+  Auto Execution  →  Request Review   # 全コマンドを承認制に
+  Deny List       →  rm -rf, curl, wget (任意)
+
+Settings > Browser
+  URL Allowlist   →  localhost:*      # 外部遮断が必要な場合</pre>
+  </div>
+
+  <h3>CUDA バージョン確認</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <pre><span class="c"># ホスト側で driver バージョンを確認してから Dockerfile を調整</span>
+nvidia-smi | grep "CUDA Version"</pre>
+  </div>
+
+  <div class="callout callout-amber">
+    <span class="callout-icon">⚠</span>
+    <div class="callout-body">Dockerfile 内の <code>cuda-cudart-12-4</code> のバージョン番号は、ホストの NVIDIA ドライバーが対応する CUDA バージョンに合わせること。</div>
+  </div>
+</section>
+
+<footer>
+  <div>AI Agent Sandbox — PoC Setup Guide v2</div>
+  <div>Podman · Xephyr · NVIDIA CDI · Ollama Volume</div>
+</footer>
+
+</div>
+
+<script>
+function cp(btn) {
+  const text = btn.closest('.code-wrap').querySelector('pre').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ copied';
+    btn.classList.add('ok');
+    setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('ok'); }, 1800);
+  });
+}
+</script>
+</body>
+</html>
