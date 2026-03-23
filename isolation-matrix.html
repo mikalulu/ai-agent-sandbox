@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isolation Matrix ✿</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
+
+:root {
+  --bg:       #fef6f0;
+  --bg2:      #fff9f5;
+  --cream:    #fffaf6;
+  --pink:     #ffb3c6;
+  --pink2:    #ff8fab;
+  --peach:    #ffcba4;
+  --peach2:   #ffad7d;
+  --mint:     #b5ead7;
+  --mint2:    #78d5b0;
+  --sky:      #b8dff8;
+  --sky2:     #7dc4f0;
+  --lav:      #d4b8f8;
+  --lav2:     #b08af0;
+  --yellow:   #fde992;
+  --yellow2:  #f9d84a;
+  --red:      #ffb3b3;
+  --red2:     #ff8080;
+  --gray:     #c9d0da;
+  --gray2:    #a0aab8;
+  --text:     #4a4060;
+  --textdim:  #9890b0;
+  --border:   #ecdde8;
+  --shadow:   rgba(180,140,200,0.13);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 15% 10%, #ffe0ec55 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, #d4e8ff55 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, #e8f8f055 0%, transparent 60%);
+  font-family: 'Nunito', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 36px 20px 56px;
+  overflow-x: auto;
+}
+
+/* floating deco dots */
+body::before {
+  content: '✿ ❀ ✦ ❋ ✿ ❀ ✦';
+  position: fixed;
+  top: 18px; right: 24px;
+  font-size: 13px;
+  color: var(--pink);
+  letter-spacing: 8px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* ── Header & Nav ── */
+.nav {
+  display: flex; align-items: center; gap: 6px;
+  padding: 14px 20px; background: white;
+  border: 1.5px solid var(--border); border-radius: 20px;
+  margin-bottom: 32px; flex-wrap: wrap;
+  box-shadow: 0 4px 20px var(--shadow);
+}
+.nav-label { font-family: 'Klee One', cursive; font-size: 12px; font-weight: 600; color: var(--textdim); margin-right: 10px; }
+.nav-pill {
+  font-size: 11px; font-weight: 700; text-decoration: none;
+  padding: 4px 14px; border-radius: 99px; border: 1.5px solid var(--border);
+  color: var(--textdim); transition: all 0.15s; background: white;
+}
+.nav-pill:hover { transform: translateY(-1px); box-shadow: 0 2px 8px var(--shadow); }
+.nav-pill.active { border-color: var(--pink); color: var(--pink2); background: #ffe8f0; font-weight: 800; }
+.nav-pill.index { border-style: dashed; }
+
+header {
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+}
+.header-deco {
+  font-size: 28px;
+  letter-spacing: 12px;
+  margin-bottom: 6px;
+  animation: sway 4s ease-in-out infinite;
+}
+@keyframes sway {
+  0%,100% { transform: rotate(-2deg); }
+  50%      { transform: rotate(2deg); }
+}
+h1 {
+  font-family: 'Klee One', cursive;
+  font-size: clamp(26px, 5vw, 46px);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+h1 .accent { color: var(--pink2); }
+h1 .accent2 { color: var(--mint2); }
+.subtitle {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--textdim);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.subtitle span { color: var(--peach2); }
+
+/* tag pill */
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  margin: 0 3px;
+}
+
+/* ── Legend ── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+.legend-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+  background: white;
+  box-shadow: 0 2px 8px var(--shadow);
+  border: 1.5px solid var(--border);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.legend-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px var(--shadow);
+}
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+
+/* ── Matrix card ── */
+.matrix-card {
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 4px 32px var(--shadow), 0 1px 4px rgba(180,140,200,0.08);
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+/* ── Table ── */
+table {
+  border-collapse: collapse;
+  width: max-content;
+  min-width: 100%;
+}
+th, td {
+  border: 1px solid #f0e8f0;
+}
+
+/* column headers */
+.col-head {
+  background: linear-gradient(135deg, #fff5fa 0%, #f5f0ff 100%);
+  padding: 12px 10px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--textdim);
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  min-width: 80px;
+  vertical-align: bottom;
+}
+.col-head .icon { display: block; font-size: 16px; margin-bottom: 3px; }
+.col-head.row-label-head {
+  text-align: left;
+  min-width: 200px;
+  font-size: 12px;
+  color: var(--text);
+}
+
+/* group row */
+.group-row td {
+  padding: 7px 16px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* row label */
+.row-label {
+  padding: 10px 14px;
+  vertical-align: middle;
+  white-space: nowrap;
+  background: var(--cream);
+}
+.row-name {
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--text);
+}
+.row-sub {
+  font-size: 10px;
+  color: var(--textdim);
+  margin-top: 1px;
+  font-weight: 600;
+}
+.row-comment {
+  font-size: 11px;
+  color: var(--pink2);
+  margin-top: 4px;
+  font-weight: 700;
+  white-space: normal;
+  max-width: 220px;
+  line-height: 1.45;
+}
+
+/* cell */
+.cell {
+  text-align: center;
+  vertical-align: middle;
+  padding: 8px 4px;
+}
+
+/* ── Strength bar ── */
+.str-cell {
+  padding: 8px 12px;
+  min-width: 110px;
+  vertical-align: middle;
+}
+.str-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.str-bg {
+  flex: 1;
+  height: 8px;
+  background: #f0eaf4;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.str-fill {
+  height: 100%;
+  border-radius: 99px;
+}
+.str-num {
+  font-size: 11px;
+  font-weight: 800;
+  min-width: 24px;
+  text-align: right;
+}
+
+/* ── Cost badge ── */
+.cost-cell {
+  padding: 8px 10px;
+  vertical-align: middle;
+}
+.cost-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* ── Icon cells ── */
+.icon-cell { font-size: 17px; }
+
+/* threat */
+.threat-cell {
+  padding: 8px 12px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--textdim);
+  white-space: nowrap;
+  max-width: 180px;
+  white-space: normal;
+  min-width: 130px;
+}
+
+/* hover */
+tbody tr:hover td { background-color: #fef5fc; }
+tbody tr:hover td.row-label { background-color: #fceef8; }
+
+/* ── Notes ── */
+.notes {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+.note-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: 0 2px 12px var(--shadow);
+  border: 1.5px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.note-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  border-radius: 4px 0 0 4px;
+}
+.note-card.pink::before   { background: var(--pink2); }
+.note-card.mint::before   { background: var(--mint2); }
+.note-card.sky::before    { background: var(--sky2); }
+.note-card.lav::before    { background: var(--lav2); }
+.note-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.note-card p {
+  font-size: 11.5px;
+  color: var(--textdim);
+  line-height: 1.7;
+  font-weight: 600;
+}
+.note-card code {
+  background: #f5eef8;
+  color: var(--lav2);
+  padding: 1px 5px;
+  border-radius: 5px;
+  font-size: 10.5px;
+  font-family: 'Nunito', monospace;
+}
+
+/* icon legend bar */
+.icon-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 12px 18px;
+  background: white;
+  border-radius: 16px;
+  border: 1.5px solid var(--border);
+  box-shadow: 0 2px 10px var(--shadow);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--textdim);
+}
+.icon-legend-item { display: flex; align-items: center; gap: 6px; }
+
+/* entrance animation */
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(18px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+header        { animation: fadeUp 0.5s ease both; }
+.legend       { animation: fadeUp 0.5s 0.1s ease both; }
+.matrix-card  { animation: fadeUp 0.5s 0.2s ease both; }
+.icon-legend  { animation: fadeUp 0.5s 0.3s ease both; }
+.notes        { animation: fadeUp 0.5s 0.35s ease both; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-label">✿ Sandbox Docs</span>
+  <a class="nav-pill index" href="./index.html">↩ Index</a>
+  <a class="nav-pill active" href="./isolation-matrix.html">🌸 Isolation</a>
+  <a class="nav-pill" href="./environment-matrix.html">🐚 Shells</a>
+  <a class="nav-pill" href="./linux.html">🐧 Linux</a>
+  <a class="nav-pill" href="./mac.html">🍎 macOS</a>
+  <a class="nav-pill" href="./windows.html">⊞ Windows</a>
+</nav>
+
+<!-- Header -->
+<header>
+  <div class="header-deco">🔒 🛡️ 🔑 🧱 🔒</div>
+  <h1>Isolation <span class="accent">Matrix</span> <span class="accent2">✿</span></h1>
+  <div class="subtitle">
+    隔離度(Isolation Strength) × 分類(Type) &nbsp;—&nbsp;
+    <span>全手法まとめ ♪</span>
+  </div>
+</header>
+
+<!-- Legend pills -->
+<div class="legend">
+  <div class="legend-pill"><div class="legend-dot" style="background:#ffb3c6"></div>HW / Firmware</div>
+  <div class="legend-pill"><div class="legend-dot" style="background:#b5ead7"></div>OS / Process</div>
+  <div class="legend-pill"><div class="legend-dot" style="background:#b8dff8"></div>Network</div>
+  <div class="legend-pill"><div class="legend-dot" style="background:#d4b8f8"></div>Runtime / Lang</div>
+  <div class="legend-pill"><div class="legend-dot" style="background:#fde992"></div>User Control</div>
+</div>
+
+<!-- Matrix -->
+<div class="matrix-card">
+<table>
+<thead>
+<tr>
+  <th class="col-head row-label-head">手法 / Technique</th>
+  <th class="col-head"><span class="icon">💪</span>隔離度</th>
+  <th class="col-head"><span class="icon">🐧</span>カーネル<br>分離</th>
+  <th class="col-head"><span class="icon">🌐</span>NW<br>分離</th>
+  <th class="col-head"><span class="icon">📁</span>FS<br>分離</th>
+  <th class="col-head"><span class="icon">⚙️</span>プロセス<br>分離</th>
+  <th class="col-head"><span class="icon">👤</span>ユーザー<br>制御</th>
+  <th class="col-head"><span class="icon">💸</span>運用<br>コスト</th>
+  <th class="col-head"><span class="icon">👁️</span>透過性</th>
+  <th class="col-head"><span class="icon">⚠️</span>主脅威</th>
+</tr>
+</thead>
+<tbody>
+
+<!-- ══ HW / Firmware ══ -->
+<tr class="group-row">
+  <td colspan="10" style="background:linear-gradient(90deg,#ffecf2,#fff5f8);color:#d4607a;">🌸 HW / Firmware Layer — ハードウェア・ファームウェア層</td>
+</tr>
+
+<!-- Physical Air Gap -->
+<tr>
+  <td class="row-label"><div class="row-name">物理 Air Gap</div><div class="row-sub">Physical Air Gap</div><div class="row-comment">💬 ケーブルを抜いてしまう究極の隔離方法です🔌 ネットワークの道が物理的にふさがれます✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">5/5</div></div></td>
+  <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">最高</span></td>
+  <td class="cell icon-cell">❌</td>
+  <td class="threat-cell">TEMPEST・USB・RF・人的要因</td>
+</tr>
+
+<!-- Secure Element -->
+<tr>
+  <td class="row-label"><div class="row-name">Secure Element (SE)</div><div class="row-sub">耐タンパーチップ / GlobalPlatform / ISO 7816</div><div class="row-comment">💬 SIMやICカードに入っている小さな金庫のようなチップです🔑 鍵が外に漏れることは絶対にありません✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">5/5</div></div></td>
+  <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">高</span></td>
+  <td class="cell icon-cell">❌</td>
+  <td class="threat-cell">物理解析・電力解析(SPA/DPA)・サプライチェーン</td>
+</tr>
+
+<!-- HSM -->
+<tr>
+  <td class="row-label"><div class="row-name">HSM</div><div class="row-sub">Hardware Security Module / FIPS 140-3</div><div class="row-comment">💬 証明書の根幹を守る頑丈な専用機器です🛡️ ガッチリ守られたハードウェアの中で鍵を作ったり署名したりします！</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">5/5</div></div></td>
+  <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">最高</span></td>
+  <td class="cell icon-cell">❌</td>
+  <td class="threat-cell">サプライチェーン・API誤用</td>
+</tr>
+
+<!-- TEE -->
+<tr>
+  <td class="row-label"><div class="row-name">TEE / SGX / TrustZone</div><div class="row-sub">Trusted Execution Environment</div><div class="row-comment">💬 OSすら信用しない、特別な「飛び地」の実行環境です🏰 CPUがデータを暗号化したまま安全に計算してくれますよ♪</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">4/5</div></div></td>
+  <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">高</span></td>
+  <td class="cell icon-cell">❌</td>
+  <td class="threat-cell">サイドチャネル(SGAxe / Foreshadow)</td>
+</tr>
+
+<!-- IOMMU -->
+<tr>
+  <td class="row-label"><div class="row-name">IOMMU</div><div class="row-sub">VT-d / AMD-Vi — DMA保護</div><div class="row-comment">💬 USBやThunderboltの機器が勝手にメモリを読み書きするのを防いでくれる、頼もしい番人です👮‍♀️</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">3/5</div></div></td>
+  <td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">悪意PCIeデバイス(Thunderspy)</td>
+</tr>
+
+<!-- ══ OS / Process ══ -->
+<tr class="group-row">
+  <td colspan="10" style="background:linear-gradient(90deg,#edfcf4,#f5fef8);color:#3a9c70;">🌿 OS / Process Layer — OS・プロセス層</td>
+</tr>
+
+<!-- VM -->
+<tr>
+  <td class="row-label"><div class="row-name">VM (Type-1 Hypervisor)</div><div class="row-sub">KVM / ESXi — QEMU/KVM</div><div class="row-comment">💬 カーネルごとまるっと分離します📦 ウイルス解析や、たくさんの人が使う環境を安全に分けるときの基本です✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
+  <td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#fff3cc;color:#a07010">中</span></td>
+  <td class="cell icon-cell">〰️</td>
+  <td class="threat-cell">VM Escape (CVE-2018-3646)</td>
+</tr>
+
+<!-- Container -->
+<tr>
+  <td class="row-label"><div class="row-name">コンテナ (Container)</div><div class="row-sub">Docker / Podman — namespace+cgroups</div><div class="row-comment">💬 カーネルは共有してプロセスだけを分けます🐳 とっても軽いですが、すり抜けられるリスクはVMより少し高めです💦</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">Container Escape・カーネル脆弱性</td>
+</tr>
+
+<!-- gVisor -->
+<tr>
+  <td class="row-label"><div class="row-name">gVisor</div><div class="row-sub">Google — ユーザー空間カーネル (Sentry)</div><div class="row-comment">💬 カーネルの動きをユーザー空間で真似っこして処理を代行します🛡️ コンテナみたいに軽いのに、VM並みにしっかり隔離できますよ✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
+  <td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
+  <td class="cell icon-cell">〰️</td>
+  <td class="threat-cell">syscall互換性不足・Sentry脆弱性</td>
+</tr>
+
+<!-- Firecracker -->
+<tr>
+  <td class="row-label"><div class="row-name">Firecracker</div><div class="row-sub">AWS — マイクロVM / KVM</div><div class="row-comment">💬 Lambdaなどの裏側で動いているすごい技術です🔥 VM級の隔離をほんの一瞬（125ms!）で立ち上げる超軽量な仕組みです🚀</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
+  <td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
+  <td class="cell icon-cell">〰️</td>
+  <td class="threat-cell">KVM脆弱性・デバイスモデル攻撃面</td>
+</tr>
+
+<!-- Unikernel -->
+<tr>
+  <td class="row-label"><div class="row-name">Unikernel</div><div class="row-sub">MirageOS / Unikraft</div><div class="row-comment">💬 アプリと小さなOSをぎゅっと一つにまとめます🎁 シェルも何もないので、攻撃される隙がほとんどありません✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
+  <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">高</span></td>
+  <td class="cell icon-cell">❌</td>
+  <td class="threat-cell">エコシステム未成熟・デバッグ困難</td>
+</tr>
+
+<!-- SELinux -->
+<tr>
+  <td class="row-label"><div class="row-name">SELinux</div><div class="row-sub">MAC — Type Enforcement / MLS (NSA)</div><div class="row-comment">💬 全てのものにラベルをペタッと貼ってアクセスを厳しくチェックします🏷️ RHEL系ではおなじみの機能ですね♪</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#fff3cc;color:#a07010">中</span></td>
+  <td class="cell icon-cell">〰️</td>
+  <td class="threat-cell">ポリシー設定ミス・カーネル脆弱性</td>
+</tr>
+
+<!-- AppArmor -->
+<tr>
+  <td class="row-label"><div class="row-name">AppArmor</div><div class="row-sub">MAC — パスベース / LSM (Ubuntu/Debian)</div><div class="row-comment">💬 プロファイルを使ってアプリの行動範囲をあらかじめ決めておきます📝 SELinuxよりも設定が少しシンプルで使いやすいです✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:55%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">パス変更による回避・カーネル脆弱性</td>
+</tr>
+
+<!-- seccomp -->
+<tr>
+  <td class="row-label"><div class="row-name">seccomp</div><div class="row-sub">Secure Computing Mode — BPFフィルタ</div><div class="row-comment">💬 プロセスが使える命令（syscall）をフィルターでぎゅっと絞り込みます✂️ Dockerの標準的なバリアントとしても活躍してます！</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">syscall引数検証不足・フィルタ抜け</td>
+</tr>
+
+<!-- Landlock -->
+<tr>
+  <td class="row-label"><div class="row-name">Landlock</div><div class="row-sub">Linux 5.13+ — 非特権FS制限</div><div class="row-comment">💬 root権限がなくても、アプリ自身で「ここにはアクセスしません」と宣言できる便利な機能です🔒</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">NWアクセスは制御対象外</td>
+</tr>
+
+<!-- chroot -->
+<tr>
+  <td class="row-label"><div class="row-name">chroot</div><div class="row-sub">POSIX — rootfs付け替え</div><div class="row-comment">💬 見た目上のルートディレクトリを付け替えるだけの簡易的な壁です🚪 root権限があると簡単に抜け出せてしまうので過信は禁物です💦</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:15%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">1/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">❌</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">root権限で容易に脱出可</td>
+</tr>
+
+<!-- OverlayFS -->
+<tr>
+  <td class="row-label"><div class="row-name">OverlayFS / Immutable FS</div><div class="row-sub">Copy-on-Write — tmpfs upper layer</div><div class="row-comment">💬 変更点はメモリ上の層だけに書き込んで、元のファイルを汚さないようにします✨ 使い捨ての環境を作るときの基本ですね！</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:20%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">1/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">❌</td>
+  <td class="cell icon-cell">👤</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">単体では隔離不十分・mount権限必要</td>
+</tr>
+
+<!-- ══ Network ══ -->
+<tr class="group-row">
+  <td colspan="10" style="background:linear-gradient(90deg,#eaf4fe,#f3f8ff);color:#3a70b0;">🌊 Network Layer — ネットワーク層</td>
+</tr>
+
+<!-- Logical Air Gap -->
+<tr>
+  <td class="row-label"><div class="row-name">論理 Air Gap</div><div class="row-sub">データダイオード / VLAN+ACL / SDN</div><div class="row-comment">💬 ケーブルは繋がっていても、通信の道を論理的に一方通行にしたり遮断したりします🚧 重要なシステムを守る定番の手法です✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">4/5</div></div></td>
+  <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#fff3cc;color:#a07010">中</span></td>
+  <td class="cell icon-cell">〰️</td>
+  <td class="threat-cell">ルール設定ミス・OOB経路</td>
+</tr>
+
+<!-- VRF -->
+<tr>
+  <td class="row-label"><div class="row-name">VRF</div><div class="row-sub">Virtual Routing and Forwarding / MPLS</div><div class="row-comment">💬 ルーティング情報を分割して、論理的に別々のネットワークを同じ場所で仲良く同居させます🏠</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">3/5</div></div></td>
+  <td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">ルートリーク・設定ミス</td>
+</tr>
+
+<!-- MACsec -->
+<tr>
+  <td class="row-label"><div class="row-name">MACsec</div><div class="row-sub">IEEE 802.1AE — L2暗号化 AES-GCM</div><div class="row-comment">💬 機器同士の通信を強力に暗号化します🔒 盗聴やなりすましをしっかり防いでくれますよ✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">3/5</div></div></td>
+  <td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">鍵管理・L3以上は対象外</td>
+</tr>
+
+<!-- VDI / RBI -->
+<tr>
+  <td class="row-label"><div class="row-name">VDI / RBI</div><div class="row-sub">Remote Browser Isolation / 画面転送型</div><div class="row-comment">💬 別の安全な場所で動かして画面だけを手元に送ります📺 危険なデータが手元に届かない、究極のネットワーク隔離方法です！</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">4/5</div></div></td>
+  <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">高</span></td>
+  <td class="cell icon-cell">❌</td>
+  <td class="threat-cell">レイテンシ・UX劣化・画面キャプチャ</td>
+</tr>
+
+<!-- ══ Runtime ══ -->
+<tr class="group-row">
+  <td colspan="10" style="background:linear-gradient(90deg,#f5eeff,#faf5ff);color:#7a50c0;">🔮 Runtime / Language Layer — ランタイム・言語層</td>
+</tr>
+
+<!-- Wasm -->
+<tr>
+  <td class="row-label"><div class="row-name">WebAssembly / WASI</div><div class="row-sub">線形メモリ(Linear Memory)サンドボックス</div><div class="row-comment">💬 プログラムを専用のメモリ空間の中にピタッと閉じ込めます📦 ブラウザの外でも安全に動かせる注目の技術です✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#d4b8f8,#b08af0)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">ランタイム脆弱性・サイドチャネル</td>
+</tr>
+
+<!-- eBPF -->
+<tr>
+  <td class="row-label"><div class="row-name">eBPF</div><div class="row-sub">Extended BPF — カーネル内Verifier</div><div class="row-comment">💬 チェック済みの安全なコードだけをカーネルの中で動かします🔍 隔離というよりは、システムを観察したり制御するのに大活躍しますよ♪</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#d4b8f8,#b08af0)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
+  <td class="cell icon-cell">➖</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">Verifierバイパス(CVE多数)</td>
+</tr>
+
+<!-- Deno -->
+<tr>
+  <td class="row-label"><div class="row-name">Deno</div><div class="row-sub">Rust製ランタイム — 明示的許可モデル</div><div class="row-comment">💬 許可フラグがないと何も読めない・書けない安心設計です🛡️ AIエージェントを動かすのにもぴったりのサンドボックスですよ✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#d4b8f8,#b08af0)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">👤</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">--allow-all指定で無効化・V8脆弱性</td>
+</tr>
+
+<!-- ══ User Control ══ -->
+<tr class="group-row">
+  <td colspan="10" style="background:linear-gradient(90deg,#fffbe8,#fffdf2);color:#a07010;">🌻 User Control Layer — ユーザー制御層</td>
+</tr>
+
+<!-- DAC -->
+<tr>
+  <td class="row-label"><div class="row-name">DAC (chmod / POSIX ACL)</div><div class="row-sub">Discretionary Access Control</div><div class="row-comment">💬 持ち主が自由に権限を設定できる、一番基本的なアクセス制限です🔑 ただ、rootユーザーには効かないので注意です💦</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:20%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">1/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
+  <td class="cell icon-cell">👤</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">所有者が権限変更可能・root無視</td>
+</tr>
+
+<!-- Capabilities -->
+<tr>
+  <td class="row-label"><div class="row-name">Linux Capabilities</div><div class="row-sub">CAP_* — root権限の細分化</div><div class="row-comment">💬 強力すぎるroot権限を細かく切り分けて、必要な分だけを渡す仕組みです✂️ あげすぎには気をつけてくださいね！</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
+  <td class="cell icon-cell">👤</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">CAP_SYS_ADMIN等の過剰付与</td>
+</tr>
+
+<!-- pledge/unveil -->
+<tr>
+  <td class="row-label"><div class="row-name">pledge / unveil</div><div class="row-sub">OpenBSD — syscall宣言制限</div><div class="row-comment">💬 アプリが最初に「自分はこれしかやりません！」と宣言するお行儀のいい仕組みです🙋‍♀️ OpenBSDならではのシンプルな制限ですね✨</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:45%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
+  <td class="cell icon-cell">👤</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">OpenBSD専用・Linux非対応</td>
+</tr>
+
+<!-- Namespace solo -->
+<tr>
+  <td class="row-label"><div class="row-name">Namespace (単体)</div><div class="row-sub">pid/net/mnt/uts/ipc/user</div><div class="row-comment">💬 プロセスやネットワークの見え方を区切るLinuxの基本機能です📦 単体だと少し弱いので、他と組み合わせて使うのが前提になります！</div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:30%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
+  <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
+  <td class="cell icon-cell">👤</td>
+  <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
+  <td class="cell icon-cell">✅</td>
+  <td class="threat-cell">単体では不完全・組み合わせが必要</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<!-- Icon legend -->
+<div class="icon-legend">
+  <div class="icon-legend-item">✅ 有効 / Effective</div>
+  <div class="icon-legend-item">〰️ 部分的 / Partial</div>
+  <div class="icon-legend-item">❌ 対象外 / N/A</div>
+  <div class="icon-legend-item">➖ 管理者管理 / Admin</div>
+  <div class="icon-legend-item">👤 ユーザー操作可 / User-ctrl</div>
+  <div style="margin-left:auto;font-size:11px;color:var(--textdim);">※ 隔離度はスタンドアロン評価。実環境では組み合わせが前提。</div>
+</div>
+
+<!-- Notes -->
+<div class="notes">
+  <div class="note-card pink">
+    <div class="note-title">🔐 Secure Element (SE) vs HSM</div>
+    <p>SEはスマートカードやSIMのチップです💳 HSMよりも小さくてお安いですが、計算スピードは控えめです🐢 どちらも「鍵が外に漏れない」という一番大事な点は同じですよ✨</p>
+  </div>
+  <div class="note-card mint">
+    <div class="note-title">🛡️ SELinux vs AppArmor</div>
+    <p>SELinuxはラベルを使って細かくきっちり管理します🏷️ AppArmorはファイルの場所（パス）ベースで、設定が読みやすくて自動生成もできる親しみやすいツールですね🌿</p>
+  </div>
+  <div class="note-card sky">
+    <div class="note-title">🧅 多層防御 (Defense in Depth)</div>
+    <p>実際の環境では、1つの方法だけに頼らずいくつも壁を作ります🧅 いろんな手法を組み合わせて、攻撃される隙を少しずつ減らしていくのが一番安心です✨</p>
+  </div>
+  <div class="note-card lav">
+    <div class="note-title">👤 ユーザー制御層の注意点</div>
+    <p>ユーザー制御層の機能は、管理者なら操作できてしまいます🛠️ もしrootを取られると壁を壊されてしまうリスクがあるので、他の強い隔離（MAC層など）と組み合わせて守りを固めてくださいね🛡️💦</p>
+  </div>
+</div>
+
+</body>
+</html>

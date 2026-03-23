@@ -3,188 +3,301 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Agent Sandbox — Documentation</title>
+<title>AI Agent Sandbox ✿ Documentation</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
+
 :root {
-  --white:#fff; --off:#f7f8fa; --off2:#eef0f4; --line:#e2e5ec; --line2:#d0d5df;
-  --text:#1a1f2e; --mid:#4a5168; --dim:#8a92a8;
-  --blue:#2563eb; --blue-l:#eff4ff;
-  --green:#16a34a; --green-l:#f0fdf4;
-  --amber:#d97706; --amber-l:#fffbeb;
-  --purple:#7c3aed; --purple-l:#f5f3ff;
-  --cyan:#0e7490; --cyan-l:#e0f2fe; --cyan-b:#a5f3fc;
-  --mono:'JetBrains Mono',monospace; --sans:'Syne',sans-serif;
-  --radius:12px;
-  --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.05);
-  --shadow-md:0 4px 12px rgba(0,0,0,.08),0 16px 40px rgba(0,0,0,.08);
-  --shadow-lg:0 8px 24px rgba(0,0,0,.10),0 32px 64px rgba(0,0,0,.10);
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--off);color:var(--text);font-family:var(--mono);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh}
-
-.page{max-width:900px;margin:0 auto;padding:0 28px 100px}
-
-/* ── HERO ── */
-.hero{padding:80px 0 64px;text-align:center}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--dim);margin-bottom:24px;
-}
-.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:32px;height:1px;background:var(--line2)}
-
-h1{
-  font-family:var(--sans);font-size:clamp(36px,6vw,60px);font-weight:800;
-  line-height:1.05;letter-spacing:-.03em;color:var(--text);margin-bottom:20px;
-}
-h1 em{font-style:italic;color:var(--blue)}
-
-.hero-sub{
-  color:var(--mid);font-size:15px;max-width:480px;margin:0 auto 40px;line-height:1.75;
+  --bg:       #fef6f0;
+  --bg2:      #fff9f5;
+  --cream:    #fffaf6;
+  --pink:     #ffb3c6;
+  --pink2:    #ff8fab;
+  --peach:    #ffcba4;
+  --peach2:   #ffad7d;
+  --mint:     #b5ead7;
+  --mint2:    #78d5b0;
+  --sky:      #b8dff8;
+  --sky2:     #7dc4f0;
+  --lav:      #d4b8f8;
+  --lav2:     #b08af0;
+  --yellow:   #fde992;
+  --yellow2:  #f9d84a;
+  --text:     #4a4060;
+  --textdim:  #9890b0;
+  --border:   #ecdde8;
+  --shadow:   rgba(180,140,200,0.13);
 }
 
-.hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:0}
-.htag{
-  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.04em;
-  padding:4px 12px;border-radius:99px;border:1.5px solid var(--line);
-  color:var(--mid);background:var(--white);
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 15% 10%, #ffe0ec55 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, #d4e8ff55 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, #e8f8f055 0%, transparent 60%);
+  font-family: 'Nunito', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 36px 20px 56px;
 }
 
-/* ── DIVIDER ── */
-.divider{height:1px;background:var(--line);margin:0 0 52px}
-
-/* ── PLATFORM CARDS ── */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:64px}
-
-@media(max-width:640px){.cards{grid-template-columns:1fr}}
-
-.card{
-  background:var(--white);border-radius:var(--radius);
-  border:1.5px solid var(--line);overflow:hidden;
-  box-shadow:var(--shadow);
-  transition:transform .2s, box-shadow .2s, border-color .2s;
-  display:flex;flex-direction:column;
-  text-decoration:none;color:inherit;
-}
-.card:hover{
-  transform:translateY(-4px);
-  box-shadow:var(--shadow-lg);
-  border-color:var(--line2);
+body::before {
+  content: '✿ ❀ ✦ ❋ ✿ ❀ ✦';
+  position: fixed;
+  top: 18px; right: 24px;
+  font-size: 13px;
+  color: var(--pink);
+  letter-spacing: 8px;
+  pointer-events: none;
+  opacity: 0.5;
 }
 
-.card-top{padding:28px 24px 20px;flex:1}
-.card-icon{
-  width:44px;height:44px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;margin-bottom:20px;
-  border:1.5px solid;
+.page { max-width: 900px; margin: 0 auto; }
+
+/* ── Header ── */
+header {
+  text-align: center;
+  margin-bottom: 36px;
 }
-.icon-linux  {background:var(--green-l); border-color:#bbf7d0}
-.icon-mac    {background:var(--purple-l);border-color:#ddd6fe}
-.icon-win    {background:var(--cyan-l);  border-color:var(--cyan-b)}
-
-.card-os{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
-.os-linux  {color:var(--green)}
-.os-mac    {color:var(--purple)}
-.os-win    {color:var(--cyan)}
-
-.card-title{font-family:var(--sans);font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px;line-height:1.2}
-.card-desc{font-size:12px;color:var(--mid);line-height:1.7;margin-bottom:16px}
-
-.card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
-.ctag{
-  font-size:10px;font-weight:500;padding:2px 8px;
-  border-radius:99px;border:1.5px solid;
+.header-deco {
+  font-size: 28px;
+  letter-spacing: 12px;
+  margin-bottom: 6px;
+  animation: sway 4s ease-in-out infinite;
 }
-.ctag-green  {color:var(--green); border-color:#bbf7d0;background:var(--green-l)}
-.ctag-purple {color:var(--purple);border-color:#ddd6fe;background:var(--purple-l)}
-.ctag-cyan   {color:var(--cyan);  border-color:var(--cyan-b);background:var(--cyan-l)}
-.ctag-amber  {color:var(--amber); border-color:#fde68a;background:var(--amber-l)}
-.ctag-blue   {color:var(--blue);  border-color:#bfdbfe;background:var(--blue-l)}
-
-.card-bottom{
-  padding:14px 24px;
-  border-top:1.5px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;
-  font-size:12px;
+@keyframes sway {
+  0%,100% { transform: rotate(-2deg); }
+  50%     { transform: rotate(2deg); }
 }
-.card-link-label{font-weight:600}
-.os-linux-t  {color:var(--green)}
-.os-mac-t    {color:var(--purple)}
-.os-win-t    {color:var(--cyan)}
-.card-arrow{font-size:16px;transition:transform .15s}
-.card:hover .card-arrow{transform:translateX(4px)}
-
-/* ── COMPARISON TABLE ── */
-.section-label{
-  font-family:var(--sans);font-size:11px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--dim);
-  margin-bottom:16px;
+h1 {
+  font-family: 'Klee One', cursive;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  margin-bottom: 12px;
 }
-.comp-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);margin-bottom:56px}
-.comp-table th{
-  font-family:var(--sans);font-size:11px;font-weight:700;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--dim);
-  padding:12px 18px;text-align:left;border-bottom:2px solid var(--line);background:var(--off);
+h1 .accent { color: var(--pink2); }
+h1 .accent2 { color: var(--mint2); }
+
+.hero-sub {
+  margin: 0 auto 20px;
+  font-size: 13px;
+  color: var(--textdim);
+  font-weight: 600;
+  max-width: 520px;
+  line-height: 1.8;
 }
-.comp-table th:first-child{min-width:160px}
-.comp-table td{
-  padding:11px 18px;font-size:12.5px;
-  border-bottom:1px solid var(--line);vertical-align:middle;
-  font-family:var(--mono);
+
+.hero-tags {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  margin-bottom: 8px;
 }
-.comp-table tr:last-child td{border-bottom:none}
-.comp-table tr:hover td{background:var(--off)}
-.cell-head{font-family:var(--sans);font-size:12px;font-weight:600;color:var(--text)}
-
-.tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.05em;padding:2px 9px;border-radius:99px;border:1.5px solid}
-.tag-green  {color:var(--green); border-color:#bbf7d0;background:var(--green-l)}
-.tag-amber  {color:var(--amber); border-color:#fde68a;background:var(--amber-l)}
-.tag-red    {color:#dc2626;      border-color:#fecaca;background:#fff1f2}
-.tag-blue   {color:var(--blue);  border-color:#bfdbfe;background:var(--blue-l)}
-.tag-purple {color:var(--purple);border-color:#ddd6fe;background:var(--purple-l)}
-.tag-cyan   {color:var(--cyan);  border-color:var(--cyan-b);background:var(--cyan-l)}
-
-/* ── STACK OVERVIEW ── */
-.stack-section{margin-bottom:56px}
-.stack-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
-.stack-item{
-  background:var(--white);border:1.5px solid var(--line);border-radius:8px;
-  padding:10px 13px;box-shadow:var(--shadow);
+.htag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  background: white;
+  border: 1.5px solid var(--border);
+  color: var(--textdim);
+  box-shadow: 0 2px 6px var(--shadow);
+  transition: transform 0.12s;
 }
-.stack-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px}
-.stack-role{font-size:10px;color:var(--dim)}
-.stack-plat{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
-.plat{font-size:9px;font-weight:600;padding:1px 6px;border-radius:99px;border:1px solid}
-.plat-l{color:var(--green); border-color:#bbf7d0;background:var(--green-l)}
-.plat-m{color:var(--purple);border-color:#ddd6fe;background:var(--purple-l)}
-.plat-w{color:var(--cyan);  border-color:var(--cyan-b);background:var(--cyan-l)}
+.htag:hover { transform: translateY(-2px); }
 
-/* ── FOOTER ── */
-footer{border-top:1.5px solid var(--line);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--dim)}
+/* ── Cards ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+@media(max-width:700px) { .cards { grid-template-columns: 1fr; } }
 
-/* ── ANIM ── */
-@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.hero{animation:up .4s ease both}
-.cards{animation:up .4s ease .1s both}
-.comp-wrap{animation:up .4s ease .15s both}
-.stack-section{animation:up .4s ease .2s both}
+.card {
+  background: white;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 4px 20px var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 32px var(--shadow);
+}
 
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:var(--off)}
-::-webkit-scrollbar-thumb{background:var(--line2);border-radius:99px}
+.card-top { padding: 24px 22px 18px; flex: 1; }
+.card-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+.icon-linux  { background: linear-gradient(135deg, #e0f8ec, #d0f0df); }
+.icon-mac    { background: linear-gradient(135deg, #f0e8ff, #e8dff8); }
+.icon-win    { background: linear-gradient(135deg, #e0f0ff, #d0e8f8); }
+
+.card-os {
+  font-size: 11px; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.os-linux { color: var(--mint2); }
+.os-mac   { color: var(--lav2); }
+.os-win   { color: var(--sky2); }
+
+.card-title {
+  font-family: 'Klee One', cursive;
+  font-size: 17px; font-weight: 600;
+  margin-bottom: 10px; line-height: 1.3;
+}
+.card-desc {
+  font-size: 12px; color: var(--textdim);
+  line-height: 1.7; margin-bottom: 14px; font-weight: 600;
+}
+
+.card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.ctag {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 99px;
+  border: 1.5px solid;
+}
+.ctag-mint   { color: var(--mint2); border-color: var(--mint); background: #e8faf2; }
+.ctag-lav    { color: var(--lav2); border-color: var(--lav); background: #f0e8ff; }
+.ctag-sky    { color: var(--sky2); border-color: var(--sky); background: #e8f4ff; }
+.ctag-peach  { color: var(--peach2); border-color: var(--peach); background: #fff0e4; }
+.ctag-pink   { color: var(--pink2); border-color: var(--pink); background: #ffe8f0; }
+
+.card-bottom {
+  padding: 12px 22px;
+  border-top: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12px; font-weight: 700;
+  background: var(--cream);
+}
+.card-arrow {
+  font-size: 16px;
+  transition: transform 0.15s;
+}
+.card:hover .card-arrow { transform: translateX(4px); }
+
+/* ── Comparison Table ── */
+.section-label {
+  font-family: 'Klee One', cursive;
+  font-size: 14px; font-weight: 600;
+  color: var(--text);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+.matrix-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px var(--shadow);
+  border: 1.5px solid var(--border);
+  overflow: hidden;
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+.comp-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+.comp-table th {
+  font-size: 11px; font-weight: 800;
+  color: var(--textdim);
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1.5px solid var(--border);
+  background: linear-gradient(135deg, #fff5fa, #f5f0ff);
+  letter-spacing: 0.05em;
+}
+.comp-table td {
+  padding: 10px 16px; font-size: 12px;
+  border-bottom: 1px solid #f0e8f0;
+  vertical-align: middle; font-weight: 600;
+  color: var(--textdim);
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:hover td { background: #fef5fc; }
+.cell-head { font-weight: 800; color: var(--text); font-size: 12px; }
+
+.tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 99px; border: 1.5px solid;
+}
+.tag-mint   { color: var(--mint2); border-color: var(--mint); background: #e8faf2; }
+.tag-peach  { color: var(--peach2); border-color: var(--peach); background: #fff0e4; }
+.tag-pink   { color: var(--pink2); border-color: var(--pink); background: #ffe8f0; }
+.tag-sky    { color: var(--sky2); border-color: var(--sky); background: #e8f4ff; }
+.tag-lav    { color: var(--lav2); border-color: var(--lav); background: #f0e8ff; }
+
+/* ── Stack Grid ── */
+.stack-section { margin-bottom: 40px; }
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+.stack-item {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 10px var(--shadow);
+  transition: transform 0.12s;
+}
+.stack-item:hover { transform: translateY(-2px); }
+.stack-name { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+.stack-role { font-size: 10px; color: var(--textdim); font-weight: 600; }
+.stack-plat { display: flex; gap: 4px; margin-top: 7px; flex-wrap: wrap; }
+.plat {
+  font-size: 9px; font-weight: 800;
+  padding: 2px 7px; border-radius: 99px;
+  border: 1.5px solid;
+}
+.plat-l { color: var(--mint2); border-color: var(--mint); background: #e8faf2; }
+.plat-m { color: var(--lav2); border-color: var(--lav); background: #f0e8ff; }
+.plat-w { color: var(--sky2); border-color: var(--sky); background: #e8f4ff; }
+
+/* ── Footer ── */
+footer {
+  border-top: 1.5px solid var(--border);
+  padding-top: 20px;
+  display: flex; justify-content: space-between; flex-wrap: wrap;
+  gap: 8px; font-size: 11px; color: var(--textdim); font-weight: 600;
+}
+footer a { text-decoration: none; font-weight: 800; transition: opacity 0.15s; }
+footer a:hover { opacity: 0.7; }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+header       { animation: fadeUp 0.5s ease both; }
+.cards       { animation: fadeUp 0.5s 0.1s ease both; }
+.comp-wrap   { animation: fadeUp 0.5s 0.15s ease both; }
+.stack-section { animation: fadeUp 0.5s 0.2s ease both; }
+footer       { animation: fadeUp 0.5s 0.25s ease both; }
 </style>
 </head>
 <body>
 <div class="page">
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-eyebrow">Documentation</div>
-  <h1>AI Agent<br><em>Sandbox</em></h1>
-  <p class="hero-sub">Podman / Lima / WSL2 を使った AI エージェント隔離環境の構築手順書。プラットフォームを選んでください。</p>
+<!-- Header -->
+<header>
+  <div class="header-deco">🤖 🛡️ 🔧 🧱 🤖</div>
+  <h1>AI Agent <span class="accent">Sandbox</span> <span class="accent2">✿</span></h1>
+  <p class="hero-sub">Podman や Lima、WSL2 を使って AI エージェントを安全に動かすためのセットアップガイドです✨ お使いの環境を選んでくださいね ♪</p>
   <div class="hero-tags">
     <span class="htag">Podman</span>
     <span class="htag">Xephyr</span>
@@ -196,11 +309,9 @@ footer{border-top:1.5px solid var(--line);padding-top:24px;display:flex;justify-
     <span class="htag">Antigravity</span>
     <span class="htag">Claude Code</span>
   </div>
-</div>
+</header>
 
-<div class="divider"></div>
-
-<!-- PLATFORM CARDS -->
+<!-- Platform Cards -->
 <div class="cards">
 
   <!-- Linux -->
@@ -209,16 +320,16 @@ footer{border-top:1.5px solid var(--line);padding-top:24px;display:flex;justify-
       <div class="card-icon icon-linux">🐧</div>
       <div class="card-os os-linux">Linux</div>
       <div class="card-title">Ubuntu<br>+ Podman + Xephyr</div>
-      <div class="card-desc">最も隔離強度が高い構成。Xephyr でDisplay を完全分離。NVIDIA CDI による GPU パススルー。</div>
+      <div class="card-desc">一番しっかり隔離できる安心の構成です🐧 Xephyr を使って画面も完全に切り離します✨ NVIDIA CDI で GPU のパワーもばっちり使えますよ！</div>
       <div class="card-tags">
-        <span class="ctag ctag-green">Podman</span>
-        <span class="ctag ctag-green">Xephyr</span>
-        <span class="ctag ctag-amber">NVIDIA CDI</span>
-        <span class="ctag ctag-blue">Wayland Host</span>
+        <span class="ctag ctag-mint">Podman</span>
+        <span class="ctag ctag-mint">Xephyr</span>
+        <span class="ctag ctag-peach">NVIDIA CDI</span>
+        <span class="ctag ctag-sky">Wayland Host</span>
       </div>
     </div>
     <div class="card-bottom">
-      <span class="card-link-label os-linux-t">Linux 手順書を開く</span>
+      <span style="color:var(--mint2)">🌿 Linux セットアップガイドを見る 🐾</span>
       <span class="card-arrow">→</span>
     </div>
   </a>
@@ -229,16 +340,16 @@ footer{border-top:1.5px solid var(--line);padding-top:24px;display:flex;justify-
       <div class="card-icon icon-mac">🍎</div>
       <div class="card-os os-mac">macOS</div>
       <div class="card-title">Apple Silicon<br>+ Lima VM</div>
-      <div class="card-desc">Lima VM を隔離層として使用。Ollama は Metal バックエンドでホスト側直接動作。XQuartz 経由で GUI。</div>
+      <div class="card-desc">Lima VM の中でふんわり安全に動かします🍎 Ollama は Metal を使ってサクサク動作♪ 画面表示には XQuartz を使います✨</div>
       <div class="card-tags">
-        <span class="ctag ctag-purple">Lima VM</span>
-        <span class="ctag ctag-purple">XQuartz</span>
-        <span class="ctag ctag-green">Ollama Metal</span>
-        <span class="ctag ctag-amber">Homebrew</span>
+        <span class="ctag ctag-lav">Lima VM</span>
+        <span class="ctag ctag-lav">XQuartz</span>
+        <span class="ctag ctag-mint">Ollama Metal</span>
+        <span class="ctag ctag-peach">Homebrew</span>
       </div>
     </div>
     <div class="card-bottom">
-      <span class="card-link-label os-mac-t">macOS 手順書を開く</span>
+      <span style="color:var(--lav2)">🔮 macOS セットアップガイドを見る 🐾</span>
       <span class="card-arrow">→</span>
     </div>
   </a>
@@ -249,90 +360,92 @@ footer{border-top:1.5px solid var(--line);padding-top:24px;display:flex;justify-
       <div class="card-icon icon-win">⊞</div>
       <div class="card-os os-win">Windows</div>
       <div class="card-title">Windows 11<br>+ WSL2 + Podman</div>
-      <div class="card-desc">WSL2 上で Podman を動かす。GUI は WSLg が自動処理。CUDA は Windows ドライバーを透過利用。</div>
+      <div class="card-desc">WSL2 の上で Podman を動かすお手軽構成です🪟 画面設定は WSLg が自動でやってくれます✨ CUDA も透過的に使えてとっても便利！</div>
       <div class="card-tags">
-        <span class="ctag ctag-cyan">WSL2</span>
-        <span class="ctag ctag-cyan">WSLg</span>
-        <span class="ctag ctag-amber">CUDA CDI</span>
-        <span class="ctag ctag-blue">Podman</span>
+        <span class="ctag ctag-sky">WSL2</span>
+        <span class="ctag ctag-sky">WSLg</span>
+        <span class="ctag ctag-peach">CUDA CDI</span>
+        <span class="ctag ctag-pink">Podman</span>
       </div>
     </div>
     <div class="card-bottom">
-      <span class="card-link-label os-win-t">Windows 手順書を開く</span>
+      <span style="color:var(--sky2)">🌊 Windows セットアップガイドを見る 🐾</span>
       <span class="card-arrow">→</span>
     </div>
   </a>
 
 </div>
 
-<!-- COMPARISON TABLE -->
+<!-- Comparison Table -->
 <div class="comp-wrap">
-  <div class="section-label">Platform Comparison</div>
-  <table class="comp-table">
-    <thead>
-      <tr>
-        <th>項目</th>
-        <th>🐧 Linux</th>
-        <th>🍎 macOS</th>
-        <th>⊞ Windows</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="cell-head">隔離層</td>
-        <td>Podman namespace</td>
-        <td>Lima VM (vz)</td>
-        <td>Podman namespace</td>
-      </tr>
-      <tr>
-        <td class="cell-head">FS 隔離</td>
-        <td><span class="tag tag-green">強 (マウントなし)</span></td>
-        <td><span class="tag tag-amber">read-only</span></td>
-        <td><span class="tag tag-green">強 (マウントなし)</span></td>
-      </tr>
-      <tr>
-        <td class="cell-head">Display 隔離</td>
-        <td><span class="tag tag-green">強 (Xephyr)</span></td>
-        <td><span class="tag tag-red">弱 (XQuartz 共有)</span></td>
-        <td><span class="tag tag-amber">中 (WSLg 共有)</span></td>
-      </tr>
-      <tr>
-        <td class="cell-head">Kernel 分離</td>
-        <td><span class="tag tag-amber">namespace</span></td>
-        <td><span class="tag tag-green">完全 (VM)</span></td>
-        <td><span class="tag tag-amber">MS Linux Kernel</span></td>
-      </tr>
-      <tr>
-        <td class="cell-head">GPU</td>
-        <td><span class="tag tag-blue">NVIDIA CDI</span></td>
-        <td><span class="tag tag-purple">Ollama Metal のみ</span></td>
-        <td><span class="tag tag-cyan">CUDA (WSL2透過)</span></td>
-      </tr>
-      <tr>
-        <td class="cell-head">Ollama</td>
-        <td>コンテナ内 (GPU)</td>
-        <td>ホスト側 Metal</td>
-        <td>コンテナ内 (CUDA)</td>
-      </tr>
-      <tr>
-        <td class="cell-head">速度</td>
-        <td><span class="tag tag-green">速い</span></td>
-        <td><span class="tag tag-amber">Lima オーバーヘッドあり</span></td>
-        <td><span class="tag tag-amber">WSL2 オーバーヘッドあり</span></td>
-      </tr>
-      <tr>
-        <td class="cell-head">セットアップ難度</td>
-        <td>中</td>
-        <td>中</td>
-        <td>中 (WSL2インストール含む)</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="section-label">📊 Platform Comparison</div>
+  <div class="matrix-card">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>項目</th>
+          <th>🐧 Linux</th>
+          <th>🍎 macOS</th>
+          <th>⊞ Windows</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cell-head">隔離層</td>
+          <td>Podman namespace</td>
+          <td>Lima VM (vz)</td>
+          <td>Podman namespace</td>
+        </tr>
+        <tr>
+          <td class="cell-head">FS 隔離</td>
+          <td><span class="tag tag-mint">強 (マウントなし)</span></td>
+          <td><span class="tag tag-peach">read-only</span></td>
+          <td><span class="tag tag-mint">強 (マウントなし)</span></td>
+        </tr>
+        <tr>
+          <td class="cell-head">Display 隔離</td>
+          <td><span class="tag tag-mint">強 (Xephyr)</span></td>
+          <td><span class="tag tag-pink">弱 (XQuartz 共有)</span></td>
+          <td><span class="tag tag-peach">中 (WSLg 共有)</span></td>
+        </tr>
+        <tr>
+          <td class="cell-head">Kernel 分離</td>
+          <td><span class="tag tag-peach">namespace</span></td>
+          <td><span class="tag tag-mint">完全 (VM)</span></td>
+          <td><span class="tag tag-peach">MS Linux Kernel</span></td>
+        </tr>
+        <tr>
+          <td class="cell-head">GPU</td>
+          <td><span class="tag tag-sky">NVIDIA CDI</span></td>
+          <td><span class="tag tag-lav">Ollama Metal のみ</span></td>
+          <td><span class="tag tag-sky">CUDA (WSL2透過)</span></td>
+        </tr>
+        <tr>
+          <td class="cell-head">Ollama</td>
+          <td>コンテナ内 (GPU)</td>
+          <td>ホスト側 Metal</td>
+          <td>コンテナ内 (CUDA)</td>
+        </tr>
+        <tr>
+          <td class="cell-head">速度</td>
+          <td><span class="tag tag-mint">はやい✨</span></td>
+          <td><span class="tag tag-peach">Limaの分すこしゆっくり</span></td>
+          <td><span class="tag tag-peach">WSL2の分すこしゆっくり</span></td>
+        </tr>
+        <tr>
+          <td class="cell-head">セットアップ難易度</td>
+          <td>ふつう</td>
+          <td>ふつう</td>
+          <td>ふつう（WSL2の準備あり🎈）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<!-- STACK OVERVIEW -->
+<!-- Stack Overview -->
 <div class="stack-section">
-  <div class="section-label">共通ツールスタック</div>
+  <div class="section-label">🧰 共通ツールスタック</div>
   <div class="stack-grid">
     <div class="stack-item"><div class="stack-name">Claude Code</div><div class="stack-role">CLI AI エージェント</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M</span><span class="plat plat-w">W</span></div></div>
     <div class="stack-item"><div class="stack-name">Windsurf</div><div class="stack-role">Electron IDE</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M*</span><span class="plat plat-w">W</span></div></div>
@@ -347,15 +460,17 @@ footer{border-top:1.5px solid var(--line);padding-top:24px;display:flex;justify-
     <div class="stack-item"><div class="stack-name">Rust</div><div class="stack-role">cargo</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M</span><span class="plat plat-w">W</span></div></div>
     <div class="stack-item"><div class="stack-name">CUDA Toolkit</div><div class="stack-role">GPU 推論</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-w">W</span></div></div>
   </div>
-  <p style="font-size:11px;color:var(--dim);margin-top:10px;">* arm64 Linux 版の提供状況を要確認</p>
+  <p style="font-size:11px;color:var(--textdim);margin-top:10px;font-weight:600;">* arm64 Linux 版がお使いいただけるかは要確認です👀</p>
 </div>
 
 <footer>
-  <div>AI Agent Sandbox — Documentation Index</div>
+  <div>AI Agent Sandbox — Documentation Index ✿</div>
   <div style="display:flex;gap:16px;">
-    <a href="./linux.html"   style="color:var(--green); text-decoration:none;font-weight:600">Linux →</a>
-    <a href="./mac.html"     style="color:var(--purple);text-decoration:none;font-weight:600">macOS →</a>
-    <a href="./windows.html" style="color:var(--cyan);  text-decoration:none;font-weight:600">Windows →</a>
+    <a href="./isolation-matrix.html" style="color:var(--pink2)">🌸 Isolation Matrix →</a>
+    <a href="./environment-matrix.html" style="color:var(--peach2)">🐚 Shell Matrix →</a>
+    <a href="./linux.html"   style="color:var(--mint2)">🌿 Linux →</a>
+    <a href="./mac.html"     style="color:var(--lav2)">🔮 macOS →</a>
+    <a href="./windows.html" style="color:var(--sky2)">🌊 Windows →</a>
   </div>
 </footer>
 

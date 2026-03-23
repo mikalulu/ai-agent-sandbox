@@ -3,263 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Agent Sandbox — macOS / Lima Setup Guide</title>
+<title>AI Agent Sandbox ✿ macOS / Lima Setup Guide</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
 
 :root {
-  --white: #ffffff;
-  --off:   #f7f8fa;
-  --off2:  #eef0f4;
-  --line:  #e2e5ec;
-  --line2: #d0d5df;
-  --text:  #1a1f2e;
-  --mid:   #4a5168;
-  --dim:   #8a92a8;
-  --blue:  #2563eb;
-  --blue-l:#eff4ff;
-  --blue-m:#dbeafe;
-  --teal:  #0891b2;
-  --teal-l:#ecfeff;
-  --green: #16a34a;
-  --green-l:#f0fdf4;
-  --amber: #d97706;
-  --amber-l:#fffbeb;
-  --red:   #dc2626;
-  --red-l: #fff1f2;
-  --purple:#7c3aed;
-  --purple-l:#f5f3ff;
-  --mono: 'JetBrains Mono', monospace;
-  --sans: 'Syne', sans-serif;
-  --radius: 10px;
-  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.05);
-  --shadow-md: 0 2px 6px rgba(0,0,0,.07), 0 8px 24px rgba(0,0,0,.07);
+  --bg:#fef6f0;--cream:#fffaf6;
+  --pink:#ffb3c6;--pink2:#ff8fab;--peach:#ffcba4;--peach2:#ffad7d;
+  --mint:#b5ead7;--mint2:#78d5b0;--sky:#b8dff8;--sky2:#7dc4f0;
+  --lav:#d4b8f8;--lav2:#b08af0;--yellow:#fde992;--yellow2:#f9d84a;
+  --text:#4a4060;--textdim:#9890b0;--border:#ecdde8;
+  --shadow:rgba(180,140,200,0.13);
+  --accent:var(--lav2);--accent-bg:#f0e8ff;--accent-border:var(--lav);
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  background-image:radial-gradient(circle at 15% 10%,#ffe0ec55 0%,transparent 40%),radial-gradient(circle at 85% 80%,#d4e8ff55 0%,transparent 40%),radial-gradient(circle at 50% 50%,#e8f8f055 0%,transparent 60%);
+  font-family:'Nunito',sans-serif;color:var(--text);min-height:100vh;padding:0 20px 56px;
+}
+body::before{content:'✿ ❀ ✦ ❋ ✿ ❀ ✦';position:fixed;top:18px;right:24px;font-size:13px;color:var(--pink);letter-spacing:8px;pointer-events:none;opacity:.5}
+.page{max-width:860px;margin:0 auto}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--white);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 14px;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-}
+.nav{display:flex;align-items:center;gap:6px;padding:14px 20px;background:white;border:1.5px solid var(--border);border-radius:20px;margin-bottom:32px;flex-wrap:wrap;box-shadow:0 4px 20px var(--shadow)}
+.nav-label{font-family:'Klee One',cursive;font-size:12px;font-weight:600;color:var(--textdim);margin-right:10px}
+.nav-pill{font-size:11px;font-weight:700;text-decoration:none;padding:4px 14px;border-radius:99px;border:1.5px solid var(--border);color:var(--textdim);transition:all .15s;background:white}
+.nav-pill:hover{transform:translateY(-1px);box-shadow:0 2px 8px var(--shadow)}
+.nav-pill.active{border-color:var(--accent-border);color:var(--accent);background:var(--accent-bg);font-weight:800}
+.nav-pill.index{border-style:dashed}
 
-.page { max-width: 860px; margin: 0 auto; padding: 0 28px 100px; }
+.hero{padding:40px 0 36px;border-bottom:1.5px solid var(--border);margin-bottom:40px;text-align:center}
+.hero-deco{font-size:24px;letter-spacing:10px;margin-bottom:6px;animation:sway 4s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+.badge-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:20px}
+.badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;border:1.5px solid;background:white;box-shadow:0 2px 6px var(--shadow)}
+.badge-mint{color:var(--mint2);border-color:var(--mint);background:#e8faf2}
+.badge-sky{color:var(--sky2);border-color:var(--sky);background:#e8f4ff}
+.badge-peach{color:var(--peach2);border-color:var(--peach);background:#fff0e4}
+.badge-lav{color:var(--lav2);border-color:var(--lav);background:#f0e8ff}
+h1{font-family:'Klee One',cursive;font-size:clamp(24px,4.5vw,40px);font-weight:600;color:var(--text);line-height:1.2;margin-bottom:12px}
+h1 .accent{color:var(--accent)}
+.hero-sub{font-size:12px;color:var(--textdim);max-width:520px;margin:0 auto;line-height:1.8;font-weight:600}
 
-/* HERO */
-.hero { padding: 64px 0 52px; border-bottom: 2px solid var(--line); margin-bottom: 60px; }
-.badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
-.badge {
-  font-family: var(--mono); font-size: 11px; font-weight: 500;
-  letter-spacing: .04em; padding: 4px 12px; border-radius: 99px; border: 1.5px solid;
-}
-.badge-blue   { color: var(--blue);   border-color: #bfdbfe; background: var(--blue-l); }
-.badge-teal   { color: var(--teal);   border-color: #a5f3fc; background: var(--teal-l); }
-.badge-green  { color: var(--green);  border-color: #bbf7d0; background: var(--green-l);}
-.badge-amber  { color: var(--amber);  border-color: #fde68a; background: var(--amber-l);}
-.badge-purple { color: var(--purple); border-color: #ddd6fe; background: var(--purple-l);}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
+.compare-card{background:white;border-radius:16px;border:1.5px solid var(--border);padding:18px 20px;box-shadow:0 2px 10px var(--shadow)}
+.compare-card.active{border-color:var(--accent-border);background:var(--accent-bg)}
+.compare-label{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--textdim);margin-bottom:6px}
+.compare-card.active .compare-label{color:var(--accent)}
+.compare-title{font-family:'Klee One',cursive;font-size:15px;font-weight:600;margin-bottom:6px}
+.compare-desc{font-size:12px;color:var(--textdim);line-height:1.7;font-weight:600}
 
-h1 {
-  font-family: var(--sans); font-size: clamp(30px, 5.5vw, 48px);
-  font-weight: 800; line-height: 1.1; letter-spacing: -.02em;
-  color: var(--text); margin-bottom: 16px;
-}
-h1 .accent { color: var(--purple); }
-.hero-sub { color: var(--mid); font-size: 14px; max-width: 580px; line-height: 1.75; }
+.toc{background:white;border:1.5px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px 20px;box-shadow:0 2px 10px var(--shadow)}
+.toc a{font-size:12px;color:var(--textdim);text-decoration:none;display:flex;align-items:center;gap:8px;padding:5px 0;transition:color .15s;font-weight:600}
+.toc a:hover{color:var(--accent)}
+.toc-num{font-size:10px;color:var(--textdim);min-width:20px;font-weight:800}
 
-/* COMPARE BANNER */
-.compare {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 12px; margin-bottom: 56px;
-}
-.compare-card {
-  border-radius: var(--radius); border: 1.5px solid var(--line);
-  padding: 18px 20px; background: var(--off);
-}
-.compare-card.active {
-  border-color: var(--purple); background: var(--purple-l);
-}
-.compare-label {
-  font-family: var(--sans); font-size: 11px; font-weight: 700;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: var(--dim); margin-bottom: 8px;
-}
-.compare-card.active .compare-label { color: var(--purple); }
-.compare-title { font-family: var(--sans); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-.compare-desc { font-size: 12px; color: var(--mid); line-height: 1.6; }
+.section{margin-bottom:52px}
+.section-head{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:1.5px solid var(--border)}
+.section-num{font-size:12px;font-weight:800;color:var(--accent);background:var(--accent-bg);border:1.5px solid var(--accent-border);border-radius:8px;padding:2px 10px}
+h2{font-family:'Klee One',cursive;font-size:18px;font-weight:600}
+h3{font-family:'Klee One',cursive;font-size:13px;font-weight:600;color:var(--textdim);margin:20px 0 8px}
+p{color:var(--textdim);margin-bottom:10px;line-height:1.8;font-size:13px;font-weight:600}
 
-/* TOC */
-.toc {
-  background: var(--off); border: 1.5px solid var(--line);
-  border-radius: var(--radius); padding: 20px 24px; margin-bottom: 56px;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 4px 24px;
-}
-.toc a {
-  font-size: 12px; color: var(--mid); text-decoration: none;
-  display: flex; align-items: center; gap: 8px; padding: 5px 0; transition: color .15s;
-}
-.toc a:hover { color: var(--purple); }
-.toc-num { font-size: 10px; color: var(--dim); min-width: 20px; }
+.diagram{background:white;border:1.5px solid var(--border);border-radius:16px;padding:24px;margin:16px 0;overflow-x:auto;box-shadow:0 2px 12px var(--shadow)}
+.diagram svg{display:block;margin:0 auto}
 
-/* SECTION */
-.section { margin-bottom: 64px; }
-.section-head {
-  display: flex; align-items: center; gap: 14px;
-  margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1.5px solid var(--line);
-}
-.section-num {
-  font-family: var(--sans); font-size: 12px; font-weight: 700;
-  color: var(--purple); background: var(--purple-l);
-  border: 1.5px solid #ddd6fe; border-radius: 6px; padding: 2px 8px; letter-spacing: .04em;
-}
-h2 { font-family: var(--sans); font-size: 20px; font-weight: 700; letter-spacing: -.01em; }
-h3 {
-  font-family: var(--sans); font-size: 13px; font-weight: 600;
-  color: var(--mid); letter-spacing: .04em; text-transform: uppercase;
-  margin: 24px 0 10px;
-}
-p { color: var(--mid); margin-bottom: 12px; line-height: 1.75; }
+.stack{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
+.stack-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;align-items:flex-start;gap:9px;box-shadow:0 2px 8px var(--shadow);transition:transform .12s}
+.stack-card:hover{transform:translateY(-2px)}
+.stack-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.ic-mint{background:#e8faf2;color:var(--mint2)} .ic-sky{background:#e8f4ff;color:var(--sky2)}
+.ic-peach{background:#fff0e4;color:var(--peach2)} .ic-lav{background:#f0e8ff;color:var(--lav2)}
+.stack-name{font-size:12px;font-weight:800;color:var(--text)}
+.stack-role{font-size:10px;color:var(--textdim);font-weight:600;margin-top:1px}
 
-/* DIAGRAM */
-.diagram {
-  background: var(--off); border: 1.5px solid var(--line);
-  border-radius: var(--radius); padding: 28px; margin: 20px 0;
-  overflow-x: auto; box-shadow: var(--shadow);
-}
-.diagram svg { display: block; margin: 0 auto; }
+.code-wrap{margin:10px 0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px var(--shadow)}
+.code-bar{background:white;border:1.5px solid var(--border);border-bottom:none;padding:7px 16px;display:flex;justify-content:space-between;align-items:center;border-radius:14px 14px 0 0}
+.code-lang{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.08em;text-transform:uppercase}
+.copy-btn{font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;color:var(--textdim);background:white;border:1.5px solid var(--border);border-radius:8px;padding:3px 12px;cursor:pointer;transition:all .15s}
+.copy-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.copy-btn.ok{border-color:var(--mint2);color:var(--mint2);background:#e8faf2}
+pre{background:white;border:1.5px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:18px 20px;overflow-x:auto;font-family:'Nunito',monospace;font-size:12px;line-height:1.8;color:var(--text);font-weight:600}
+pre .c{color:var(--textdim);font-style:italic}
+pre .k{color:var(--sky2)} pre .s{color:var(--mint2)} pre .v{color:var(--peach2)} pre .n{color:var(--yellow2)}
 
-/* STACK */
-.stack { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 8px; margin: 16px 0; }
-.stack-card {
-  background: var(--white); border: 1.5px solid var(--line); border-radius: 8px;
-  padding: 11px 14px; display: flex; align-items: flex-start; gap: 10px;
-  box-shadow: var(--shadow); transition: border-color .15s, box-shadow .15s;
-}
-.stack-card:hover { border-color: var(--line2); box-shadow: var(--shadow-md); }
-.stack-icon {
-  width: 28px; height: 28px; border-radius: 6px;
-  display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0;
-}
-.ic-blue   { background: var(--blue-l);   color: var(--blue);   }
-.ic-teal   { background: var(--teal-l);   color: var(--teal);   }
-.ic-green  { background: var(--green-l);  color: var(--green);  }
-.ic-amber  { background: var(--amber-l);  color: var(--amber);  }
-.ic-purple { background: var(--purple-l); color: var(--purple); }
-.stack-name { font-size: 12px; font-weight: 600; color: var(--text); }
-.stack-role { font-size: 10px; color: var(--dim); margin-top: 1px; }
+.callout{border-radius:12px;padding:14px 18px;margin:12px 0;font-size:12px;display:flex;gap:10px;align-items:flex-start;border:1.5px solid;font-weight:600}
+.callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.callout-body{color:var(--textdim);line-height:1.7}
+.callout-body strong{color:var(--text);font-weight:800}
+.callout-body code{background:#f5eef8;color:var(--lav2);padding:1px 5px;border-radius:5px;font-size:11px}
+.callout-mint{background:#e8faf2;border-color:var(--mint)} .callout-sky{background:#e8f4ff;border-color:var(--sky)}
+.callout-peach{background:#fff0e4;border-color:var(--peach)} .callout-lav{background:#f0e8ff;border-color:var(--lav)}
+.callout-pink{background:#ffe8f0;border-color:var(--pink)}
 
-/* CODE */
-.code-wrap { margin: 12px 0; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
-.code-bar {
-  background: var(--off2); border: 1.5px solid var(--line); border-bottom: none;
-  padding: 7px 16px; display: flex; justify-content: space-between; align-items: center;
-  border-radius: var(--radius) var(--radius) 0 0;
-}
-.code-lang { font-size: 10px; font-weight: 600; color: var(--dim); letter-spacing: .08em; text-transform: uppercase; }
-.copy-btn {
-  font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .05em;
-  color: var(--mid); background: var(--white); border: 1.5px solid var(--line2);
-  border-radius: 6px; padding: 3px 12px; cursor: pointer; transition: all .15s;
-}
-.copy-btn:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-l); }
-.copy-btn.ok    { border-color: var(--green);  color: var(--green);  background: var(--green-l);  }
-pre {
-  background: #1e2330; border: 1.5px solid var(--line); border-top: none;
-  border-radius: 0 0 var(--radius) var(--radius);
-  padding: 20px; overflow-x: auto;
-  font-family: var(--mono); font-size: 12.5px; line-height: 1.75; color: #cdd6f4;
-}
-pre .c { color: #6c7a96; font-style: italic; }
-pre .k { color: #89dceb; }
-pre .s { color: #a6e3a1; }
-pre .v { color: #fab387; }
-pre .n { color: #f9e2af; }
+.iso-table{width:100%;border-collapse:collapse;margin:14px 0;background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px var(--shadow)}
+.iso-table th{font-size:11px;font-weight:800;color:var(--textdim);padding:10px 14px;text-align:left;border-bottom:1.5px solid var(--border);background:linear-gradient(135deg,#fff5fa,#f5f0ff);letter-spacing:.05em}
+.iso-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid #f0e8f0;vertical-align:middle;font-weight:600}
+.iso-table tr:last-child td{border-bottom:none}
+.iso-table tr:hover td{background:#fef5fc}
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;border:1.5px solid}
+.tag-mint{color:var(--mint2);border-color:var(--mint);background:#e8faf2}
+.tag-sky{color:var(--sky2);border-color:var(--sky);background:#e8f4ff}
+.tag-peach{color:var(--peach2);border-color:var(--peach);background:#fff0e4}
+.tag-pink{color:var(--pink2);border-color:var(--pink);background:#ffe8f0}
+.tag-lav{color:var(--lav2);border-color:var(--lav);background:#f0e8ff}
 
-/* CALLOUT */
-.callout {
-  border-radius: 8px; padding: 14px 18px; margin: 14px 0; font-size: 13px;
-  display: flex; gap: 12px; align-items: flex-start; border: 1.5px solid;
-}
-.callout-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
-.callout-body { color: var(--mid); line-height: 1.7; }
-.callout-body strong { color: var(--text); font-weight: 600; }
-.callout-blue   { background: var(--blue-l);   border-color: #bfdbfe; }
-.callout-green  { background: var(--green-l);  border-color: #bbf7d0; }
-.callout-amber  { background: var(--amber-l);  border-color: #fde68a; }
-.callout-teal   { background: var(--teal-l);   border-color: #a5f3fc; }
-.callout-purple { background: var(--purple-l); border-color: #ddd6fe; }
+footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--textdim);font-weight:600}
 
-/* ISOLATION TABLE */
-.iso-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
-.iso-table th {
-  font-family: var(--sans); font-size: 11px; font-weight: 700;
-  letter-spacing: .06em; text-transform: uppercase; color: var(--dim);
-  padding: 8px 14px; text-align: left; border-bottom: 2px solid var(--line);
-}
-.iso-table td {
-  padding: 10px 14px; font-size: 12.5px;
-  border-bottom: 1px solid var(--line); vertical-align: middle;
-}
-.iso-table tr:last-child td { border-bottom: none; }
-.iso-table tr:hover td { background: var(--off); }
-.tag {
-  display: inline-block; font-size: 10px; font-weight: 600;
-  letter-spacing: .05em; padding: 2px 9px; border-radius: 99px; border: 1.5px solid;
-}
-.tag-green  { color: var(--green);  border-color: #bbf7d0; background: var(--green-l);  }
-.tag-blue   { color: var(--blue);   border-color: #bfdbfe; background: var(--blue-l);   }
-.tag-amber  { color: var(--amber);  border-color: #fde68a; background: var(--amber-l);  }
-.tag-purple { color: var(--purple); border-color: #ddd6fe; background: var(--purple-l); }
-.tag-red    { color: var(--red);    border-color: #fecaca; background: var(--red-l);    }
-
-/* FOOTER */
-footer {
-  border-top: 1.5px solid var(--line); padding-top: 24px; margin-top: 72px;
-  display: flex; justify-content: space-between; flex-wrap: wrap;
-  gap: 8px; font-size: 11px; color: var(--dim);
-}
-
-/* ANIM */
-@keyframes up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
-.section { animation: up .35s ease both; }
-.section:nth-child(1){animation-delay:.04s} .section:nth-child(2){animation-delay:.08s}
-.section:nth-child(3){animation-delay:.12s} .section:nth-child(4){animation-delay:.16s}
-.section:nth-child(5){animation-delay:.20s} .section:nth-child(6){animation-delay:.24s}
-.section:nth-child(7){animation-delay:.28s} .section:nth-child(8){animation-delay:.32s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.section{animation:fadeUp .4s ease both}
+.section:nth-child(1){animation-delay:.04s}.section:nth-child(2){animation-delay:.08s}
+.section:nth-child(3){animation-delay:.12s}.section:nth-child(4){animation-delay:.16s}
+.section:nth-child(5){animation-delay:.20s}.section:nth-child(6){animation-delay:.24s}
+.section:nth-child(7){animation-delay:.28s}.section:nth-child(8){animation-delay:.32s}
 .section:nth-child(9){animation-delay:.36s}
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--off); }
-::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 99px; }
+/* Code Block Theme Colors */
+.wrap-guest pre{background:#f4fefa;border-color:var(--mint)}
+.wrap-guest .code-bar{background:#e8faf2;border-color:var(--mint)}
+.wrap-guest .code-lang{color:var(--mint2)}
+.wrap-host-linux pre{background:#f4faff;border-color:var(--sky)}
+.wrap-host-linux .code-bar{background:#e8f4ff;border-color:var(--sky)}
+.wrap-host-linux .code-lang{color:var(--sky2)}
+.wrap-host-mac pre{background:#f8f4ff;border-color:var(--lav)}
+.wrap-host-mac .code-bar{background:#f0e8ff;border-color:var(--lav)}
+.wrap-host-mac .code-lang{color:var(--lav2)}
+.wrap-host-win pre{background:#fffaf4;border-color:var(--peach)}
+.wrap-host-win .code-bar{background:#fff4e8;border-color:var(--peach)}
+.wrap-host-win .code-lang{color:var(--peach2)}
+.wrap-infra pre{background:#fff5f8;border-color:var(--pink)}
+.wrap-infra .code-bar{background:#ffeaf0;border-color:var(--pink)}
+.wrap-infra .code-lang{color:var(--pink2)}
+.wrap-default pre{background:#fafafa;border-color:var(--border)}
+.wrap-default .code-bar{background:#f5f5f5;border-color:var(--border)}
+.wrap-default .code-lang{color:var(--textdim)}
 </style>
 </head>
 <body>
 <div class="page">
 
-<!-- SITE NAV -->
-<nav style="display:flex;align-items:center;gap:0;border-bottom:1.5px solid var(--line);padding:14px 0;margin-bottom:0;font-size:11px;">
-  <span style="color:var(--dim);letter-spacing:.08em;margin-right:16px;font-weight:600;text-transform:uppercase;white-space:nowrap;font-family:var(--sans);">Sandbox Docs</span>
-  <div style="display:flex;gap:4px;flex-wrap:wrap;">
-    <a href="./index.html" style="font-family:var(--mono);font-size:11px;font-weight:500;text-decoration:none;padding:4px 12px;border-radius:99px;border:1.5px dashed var(--line);color:var(--dim);transition:all .15s;" onmouseover="this.style.borderStyle='solid';this.style.borderColor='var(--text)';this.style.color='var(--text)';this.style.background='var(--off)'" onmouseout="this.style.borderStyle='dashed';this.style.borderColor='var(--line)';this.style.color='var(--dim)';this.style.background='transparent'">↩ Index</a>
-    <a href="./linux.html"   style="font-family:var(--mono);font-size:11px;font-weight:500;text-decoration:none;padding:4px 12px;border-radius:99px;border:1.5px solid var(--line);color:var(--mid);transition:all .15s;" onmouseover="this.style.borderColor='#bbf7d0';this.style.color='#16a34a';this.style.background='#f0fdf4'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--mid)';this.style.background='transparent'">Linux</a>
-    <a href="./mac.html" style="font-family:var(--mono);font-size:11px;font-weight:600;text-decoration:none;padding:4px 12px;border-radius:99px;border:1.5px solid #ddd6fe;color:#7c3aed;background:#f5f3ff;">macOS</a>
-    <a href="./windows.html" style="font-family:var(--mono);font-size:11px;font-weight:500;text-decoration:none;padding:4px 12px;border-radius:99px;border:1.5px solid var(--line);color:var(--mid);transition:all .15s;" onmouseover="this.style.borderColor='#a5f3fc';this.style.color='#0e7490';this.style.background='#e0f2fe'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--mid)';this.style.background='transparent'">Windows</a>
-  </div>
+<!-- NAV -->
+<nav class="nav">
+  <span class="nav-label">✿ Sandbox Docs</span>
+  <a class="nav-pill index" href="./index.html">↩ Index</a>
+  <a class="nav-pill" href="./isolation-matrix.html">🌸 Isolation</a>
+  <a class="nav-pill" href="./environment-matrix.html">🐚 Shells</a>
+  <a class="nav-pill" href="./linux.html">🐧 Linux</a>
+  <a class="nav-pill active" href="./mac.html">🍎 macOS</a>
+  <a class="nav-pill" href="./windows.html">⊞ Windows</a>
 </nav>
 
 <!-- HERO -->
 <header class="hero">
+  <div class="hero-deco">🍎 🔮 🛡️ ✦ 🍎</div>
   <div class="badge-row">
-    <span class="badge badge-purple">macOS M2</span>
-    <span class="badge badge-blue">Lima VM</span>
-    <span class="badge badge-teal">XQuartz</span>
-    <span class="badge badge-green">Ollama Metal</span>
-    <span class="badge badge-amber">Homebrew</span>
+    <span class="badge badge-lav">macOS M2</span>
+    <span class="badge badge-lav">Lima VM</span>
+    <span class="badge badge-sky">XQuartz</span>
+    <span class="badge badge-mint">Ollama Metal</span>
+    <span class="badge badge-peach">Homebrew</span>
   </div>
-  <h1>AI Agent <span class="accent">Sandbox</span><br>macOS / Lima Setup Guide</h1>
-  <p class="hero-sub">Lima VM を隔離層として使用。ホスト FS は VM 境界で保護。GUI は XQuartz 経由(Display 隔離は弱め)。Ollama は Metal バックエンドでホスト側で直接動作。</p>
+  <h1>AI Agent <span class="accent">Sandbox</span> ✿<br>macOS / Lima Setup Guide</h1>
+  <p class="hero-sub">Lima VM を使って大事なシステムをしっかり守ります🛡️ 画面の表示は XQuartz にお任せして、Ollama はMac本来のパワー（Metal）を使って快適に動かしますよ♪<br><br><strong>⚠️ 対象環境:</strong> 本ガイドは <strong>Apple Silicon (M1/M2/M3等) を搭載した macOS</strong> を前提としています。</p>
 </header>
 
 <!-- COMPARE -->
@@ -267,145 +172,105 @@ footer {
   <div class="compare-card">
     <div class="compare-label">Linux 版</div>
     <div class="compare-title">Podman + Xephyr</div>
-    <div class="compare-desc">Display 隔離: 強 (Xephyr)<br>GPU: NVIDIA CDI passthrough<br>隔離層: namespace + Xephyr</div>
+    <div class="compare-desc">画面のガード: 強つよ🛡️ (Xephyr)<br>GPU: そのまま直結🔌 (CDI)<br>ガードの方法: コンテナ + Xephyr</div>
   </div>
   <div class="compare-card active">
     <div class="compare-label">▶ この手順書 — Mac 版</div>
     <div class="compare-title">Lima VM 直接インストール</div>
-    <div class="compare-desc">Display 隔離: 弱 (XQuartz 共有)<br>GPU: Metal (ホスト Ollama のみ)<br>隔離層: Lima VM (QEMU/vz)</div>
+    <div class="compare-desc">画面のガード: ちょっぴり弱め💦 (XQuartz)<br>GPU: Macの力を使用🍎 (Metal)<br>ガードの方法: 仮想マシン (Lima VM)</div>
   </div>
 </div>
 
 <!-- TOC -->
 <nav class="toc">
-  <a href="#s0"><span class="toc-num">00</span>アーキテクチャ</a>
-  <a href="#s1"><span class="toc-num">01</span>ホスト準備</a>
-  <a href="#s2"><span class="toc-num">02</span>Lima VM 定義</a>
-  <a href="#s3"><span class="toc-num">03</span>VM 起動 / セットアップ</a>
-  <a href="#s4"><span class="toc-num">04</span>エージェント導入</a>
-  <a href="#s5"><span class="toc-num">05</span>GUI 起動</a>
-  <a href="#s6"><span class="toc-num">06</span>Ollama (ホスト側)</a>
-  <a href="#s7"><span class="toc-num">07</span>隔離まとめ</a>
-  <a href="#s8"><span class="toc-num">08</span>Tips</a>
+  <a href="#s0"><span class="toc-num">00</span>全体の仕組み</a>
+  <a href="#s1"><span class="toc-num">01</span>最初の準備</a>
+  <a href="#s2"><span class="toc-num">02</span>Limaちゃんのお作法（VM 定義）</a>
+  <a href="#s3"><span class="toc-num">03</span>立ち上げて準備しよう！</a>
+  <a href="#s4"><span class="toc-num">04</span>エージェントたちをお迎え</a>
+  <a href="#s5"><span class="toc-num">05</span>画面（GUI）を出してみよう！</a>
+  <a href="#s6"><span class="toc-num">06</span>Ollama モデル入門</a>
+  <a href="#s7"><span class="toc-num">07</span>ガードのまとめ</a>
+  <a href="#s8"><span class="toc-num">08</span>便利なヒント集</a>
 </nav>
 
 <!-- 00 ARCH -->
 <section class="section" id="s0">
-  <div class="section-head"><span class="section-num">00</span><h2>アーキテクチャ</h2></div>
-
+  <div class="section-head"><span class="section-num">00</span><h2>🏗️ 全体の仕組み</h2></div>
   <div class="diagram">
     <svg width="780" height="380" viewBox="0 0 780 380" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <marker id="ap" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M1,1 L6,3.5 L1,6 Z" fill="#7c3aed" opacity=".5"/>
-        </marker>
-        <marker id="at" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M1,1 L6,3.5 L1,6 Z" fill="#0891b2" opacity=".5"/>
-        </marker>
-        <marker id="ag" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
-          <path d="M1,1 L6,3.5 L1,6 Z" fill="#16a34a" opacity=".5"/>
-        </marker>
+        <marker id="ap" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#b08af0" opacity=".5"/></marker>
+        <marker id="ag" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#78d5b0" opacity=".5"/></marker>
       </defs>
-
-      <!-- macOS HOST -->
-      <rect x="8" y="8" width="764" height="364" rx="12" fill="#f7f8fa" stroke="#e2e5ec" stroke-width="1.5"/>
-      <text x="24" y="30" fill="#8a92a8" font-family="Syne,sans-serif" font-size="11" font-weight="600" letter-spacing="1">macOS HOST — Apple Silicon</text>
-
-      <!-- XQuartz -->
-      <rect x="24" y="44" width="150" height="52" rx="8" fill="white" stroke="#e2e5ec" stroke-width="1.5"/>
-      <text x="99" y="67" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle">XQuartz</text>
-      <text x="99" y="83" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">X11 server (macOS)</text>
-
-      <!-- Ghostty -->
-      <rect x="190" y="44" width="150" height="52" rx="8" fill="white" stroke="#e2e5ec" stroke-width="1.5"/>
-      <text x="265" y="67" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle">Ghostty</text>
-      <text x="265" y="83" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">terminal</text>
-
-      <!-- Ollama HOST -->
-      <rect x="356" y="44" width="200" height="52" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
-      <text x="456" y="67" fill="#16a34a" font-family="Syne,sans-serif" font-size="12" font-weight="700" text-anchor="middle">Ollama (ホスト)</text>
-      <text x="456" y="83" fill="#5a9060" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Metal backend · localhost:11434</text>
-
-      <!-- Lima label -->
-      <rect x="572" y="44" width="196" height="52" rx="8" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.5"/>
-      <text x="670" y="67" fill="#7c3aed" font-family="Syne,sans-serif" font-size="12" font-weight="700" text-anchor="middle">Lima VM</text>
-      <text x="670" y="83" fill="#9060c0" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">QEMU / vz · Ubuntu 24.04</text>
-
-      <!-- LIMA VM BG -->
-      <rect x="24" y="120" width="732" height="232" rx="10" fill="white" stroke="#ddd6fe" stroke-width="2" stroke-dasharray="7 3"/>
-      <text x="40" y="142" fill="#7c3aed" font-family="Syne,sans-serif" font-size="11" font-weight="600" letter-spacing="1" opacity=".7">LIMA VM — Ubuntu 24.04 (隔離層)</text>
-
-      <!-- GUI apps -->
-      <rect x="40" y="156" width="130" height="44" rx="7" fill="#f7f8fa" stroke="#e2e5ec" stroke-width="1.5"/>
-      <text x="105" y="176" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle">openbox</text>
-      <text x="105" y="191" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">WM + dbus-x11</text>
-
-      <rect x="186" y="156" width="130" height="44" rx="7" fill="#eff4ff" stroke="#bfdbfe" stroke-width="1.5"/>
-      <text x="251" y="176" fill="#2563eb" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle" font-weight="500">Windsurf</text>
-      <text x="251" y="191" fill="#6090d0" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Electron IDE</text>
-
-      <rect x="332" y="156" width="150" height="44" rx="7" fill="#ecfeff" stroke="#a5f3fc" stroke-width="1.5"/>
-      <text x="407" y="176" fill="#0891b2" font-family="JetBrains Mono,monospace" font-size="11" text-anchor="middle" font-weight="500">Antigravity</text>
-      <text x="407" y="191" fill="#5090a0" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Electron + Browser Agent</text>
-
-      <rect x="498" y="156" width="240" height="44" rx="7" fill="#f7f8fa" stroke="#e2e5ec" stroke-width="1.5"/>
-      <text x="618" y="174" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Claude Code · Codex · Gemini CLI</text>
-      <text x="618" y="190" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">OpenCode · aider</text>
-
-      <!-- runtime row -->
-      <rect x="40"  y="218" width="100" height="38" rx="6" fill="#f7f8fa" stroke="#e2e5ec"/>
-      <text x="90"  y="234" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Node.js</text>
-      <text x="90"  y="248" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">npm · npx</text>
-
-      <rect x="150" y="218" width="100" height="38" rx="6" fill="#f7f8fa" stroke="#e2e5ec"/>
-      <text x="200" y="234" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Python</text>
-      <text x="200" y="248" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">pip · venv</text>
-
-      <rect x="260" y="218" width="100" height="38" rx="6" fill="#f7f8fa" stroke="#e2e5ec"/>
-      <text x="310" y="234" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">Rust</text>
-      <text x="310" y="248" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">cargo</text>
-
-      <rect x="370" y="218" width="130" height="38" rx="6" fill="#f7f8fa" stroke="#e2e5ec"/>
-      <text x="435" y="234" fill="#4a5168" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">build-essential</text>
-      <text x="435" y="248" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">gcc · make</text>
-
-      <rect x="510" y="218" width="228" height="38" rx="6" fill="#f5f3ff" stroke="#ddd6fe"/>
-      <text x="624" y="234" fill="#7c3aed" font-family="JetBrains Mono,monospace" font-size="10" text-anchor="middle">~/.lima/agent/home</text>
-      <text x="624" y="248" fill="#9060c0" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle">永続ホームディレクトリ</text>
-
-      <!-- Ollama reach -->
-      <line x1="456" y1="98" x2="456" y2="118" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4 2" opacity=".5" marker-end="url(#ag)"/>
-      <text x="462" y="113" fill="#16a34a" font-family="JetBrains Mono,monospace" font-size="9" opacity=".7">localhost:11434</text>
-
-      <!-- XQuartz reach -->
-      <line x1="99" y1="98" x2="99" y2="118" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4 2" opacity=".4" marker-end="url(#ap)"/>
-      <text x="106" y="113" fill="#7c3aed" font-family="JetBrains Mono,monospace" font-size="9" opacity=".6">DISPLAY=:0</text>
-
-      <!-- warning label -->
-      <text x="24" y="316" fill="#d97706" font-family="JetBrains Mono,monospace" font-size="9" opacity=".8">⚠ XQuartz 共有のため Display 隔離は弱い。ホスト操作中はエージェントを停止推奨。</text>
-      <text x="24" y="330" fill="#8a92a8" font-family="JetBrains Mono,monospace" font-size="9">macOS ホスト FS へのアクセスは Lima がデフォルトで ~/  を read-only マウント (lima.yaml で制御可)</text>
+      <rect x="8" y="8" width="764" height="364" rx="16" fill="white" stroke="#ecdde8" stroke-width="1.5"/>
+      <text x="24" y="30" fill="#9890b0" font-family="Klee One,cursive" font-size="11" font-weight="600" letter-spacing="1">macOS HOST — Apple Silicon ✿</text>
+      <rect x="24" y="44" width="150" height="52" rx="12" fill="#fffaf6" stroke="#ecdde8" stroke-width="1.5"/>
+      <text x="99" y="67" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">XQuartz</text>
+      <text x="99" y="83" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">X11 server (macOS)</text>
+      <rect x="190" y="44" width="150" height="52" rx="12" fill="#fffaf6" stroke="#ecdde8" stroke-width="1.5"/>
+      <text x="265" y="67" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">Terminal</text>
+      <text x="265" y="83" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">terminal emulator</text>
+      <rect x="356" y="44" width="200" height="52" rx="12" fill="#e8faf2" stroke="#b5ead7" stroke-width="1.5"/>
+      <text x="456" y="67" fill="#78d5b0" font-family="Klee One,cursive" font-size="12" font-weight="600" text-anchor="middle">Ollama (ホスト)</text>
+      <text x="456" y="83" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">Metal backend · localhost:11434</text>
+      <rect x="572" y="44" width="196" height="52" rx="12" fill="#f0e8ff" stroke="#d4b8f8" stroke-width="1.5"/>
+      <text x="670" y="67" fill="#b08af0" font-family="Klee One,cursive" font-size="12" font-weight="600" text-anchor="middle">Lima VM</text>
+      <text x="670" y="83" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">QEMU / vz · Ubuntu 24.04</text>
+      <rect x="24" y="120" width="732" height="232" rx="14" fill="white" stroke="#d4b8f8" stroke-width="2" stroke-dasharray="7 3"/>
+      <text x="40" y="142" fill="#b08af0" font-family="Klee One,cursive" font-size="11" font-weight="600" letter-spacing="1" opacity=".7">LIMA VM — Ubuntu 24.04 (隔離層) ✿</text>
+      <rect x="40" y="156" width="130" height="44" rx="10" fill="#fffaf6" stroke="#ecdde8" stroke-width="1.5"/>
+      <text x="105" y="176" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">openbox</text>
+      <text x="105" y="191" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">WM + dbus-x11</text>
+      <rect x="186" y="156" width="130" height="44" rx="10" fill="#e8f4ff" stroke="#b8dff8" stroke-width="1.5"/>
+      <text x="251" y="176" fill="#7dc4f0" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">Windsurf</text>
+      <text x="251" y="191" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">Electron IDE</text>
+      <rect x="332" y="156" width="150" height="44" rx="10" fill="#e8faf2" stroke="#b5ead7" stroke-width="1.5"/>
+      <text x="407" y="176" fill="#78d5b0" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">Antigravity</text>
+      <text x="407" y="191" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">Electron + Browser</text>
+      <rect x="498" y="156" width="240" height="44" rx="10" fill="#fffaf6" stroke="#ecdde8" stroke-width="1.5"/>
+      <text x="618" y="174" fill="#4a4060" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">Claude · Codex · Goose · Gemini</text>
+      <text x="618" y="190" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">OpenCode · aider</text>
+      <rect x="40" y="218" width="100" height="38" rx="8" fill="#fffaf6" stroke="#ecdde8"/>
+      <text x="90" y="234" fill="#4a4060" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">Node.js</text>
+      <text x="90" y="248" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">npm · npx</text>
+      <rect x="150" y="218" width="100" height="38" rx="8" fill="#fffaf6" stroke="#ecdde8"/>
+      <text x="200" y="234" fill="#4a4060" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">Python</text>
+      <text x="200" y="248" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">pip · venv</text>
+      <rect x="260" y="218" width="100" height="38" rx="8" fill="#fffaf6" stroke="#ecdde8"/>
+      <text x="310" y="234" fill="#4a4060" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">Rust</text>
+      <text x="310" y="248" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">cargo</text>
+      <rect x="370" y="218" width="130" height="38" rx="8" fill="#fffaf6" stroke="#ecdde8"/>
+      <text x="435" y="234" fill="#4a4060" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">build-essential</text>
+      <text x="435" y="248" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">gcc · make</text>
+      <rect x="510" y="218" width="228" height="38" rx="8" fill="#f0e8ff" stroke="#d4b8f8"/>
+      <text x="624" y="234" fill="#b08af0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">~/.lima/agent/home</text>
+      <text x="624" y="248" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">永続ホームディレクトリ</text>
+      <line x1="456" y1="98" x2="456" y2="118" stroke="#78d5b0" stroke-width="1.5" stroke-dasharray="4 2" opacity=".5" marker-end="url(#ag)"/>
+      <text x="462" y="113" fill="#78d5b0" font-family="Nunito,sans-serif" font-size="9" opacity=".7">localhost:11434</text>
+      <line x1="99" y1="98" x2="99" y2="118" stroke="#b08af0" stroke-width="1.5" stroke-dasharray="4 2" opacity=".4" marker-end="url(#ap)"/>
+      <text x="106" y="113" fill="#b08af0" font-family="Nunito,sans-serif" font-size="9" opacity=".6">DISPLAY=:0</text>
+      <text x="24" y="316" fill="#ffad7d" font-family="Nunito,sans-serif" font-size="9" opacity=".8" font-weight="700">⚠ XQuartz 共有のため Display 隔離は弱い。ホスト操作中はエージェントを停止推奨。</text>
+      <text x="24" y="330" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9">macOS ホスト FS へのアクセスは Lima がデフォルトで ~/  を read-only マウント (lima.yaml で制御可)</text>
     </svg>
   </div>
-
-  <div class="callout callout-amber">
+  <div class="callout callout-peach">
     <span class="callout-icon">⚠</span>
-    <div class="callout-body"><strong>Display 隔離について:</strong> XQuartz はホストの X11 サーバーを共有するため、VM 内エージェントがホスト画面へアクセスできる可能性がある。Linux 版の Xephyr による完全分離とは異なる。コンテナ起動中はホスト操作を避ける運用で補う。</div>
+    <div class="callout-body"><strong>画面のガードについて:</strong> XQuartz はパソコン本体の仕組みを間借りするので、AIが気まぐれにホスト側の画面を覗き見してしまう可能性が少しだけあります👀 Linux版のような鉄壁のガードではないので、AIが動いている間は大事な作業は控えるようにしてくださいね💦</div>
   </div>
 </section>
 
 <!-- 01 PREREQ -->
 <section class="section" id="s1">
-  <div class="section-head"><span class="section-num">01</span><h2>ホスト準備 (macOS)</h2></div>
-
+  <div class="section-head"><span class="section-num">01</span><h2>🔧 最初の準備 (macOS)</h2></div>
   <div class="stack">
-    <div class="stack-card"><div class="stack-icon ic-amber">⬡</div><div><div class="stack-name">Homebrew</div><div class="stack-role">パッケージ管理</div></div></div>
-    <div class="stack-card"><div class="stack-icon ic-purple">⬡</div><div><div class="stack-name">Lima</div><div class="stack-role">Linux VM ランタイム</div></div></div>
-    <div class="stack-card"><div class="stack-icon ic-teal">⬡</div><div><div class="stack-name">XQuartz</div><div class="stack-role">X11 サーバー</div></div></div>
-    <div class="stack-card"><div class="stack-icon ic-green">⬡</div><div><div class="stack-name">Ollama</div><div class="stack-role">LLM (Metal backend)</div></div></div>
+    <div class="stack-card"><div class="stack-icon ic-peach">⬡</div><div><div class="stack-name">Homebrew</div><div class="stack-role">パッケージ管理</div></div></div>
+    <div class="stack-card"><div class="stack-icon ic-lav">⬡</div><div><div class="stack-name">Lima</div><div class="stack-role">Linux VM ランタイム</div></div></div>
+    <div class="stack-card"><div class="stack-icon ic-sky">⬡</div><div><div class="stack-name">XQuartz</div><div class="stack-role">X11 サーバー</div></div></div>
+    <div class="stack-card"><div class="stack-icon ic-mint">⬡</div><div><div class="stack-name">Ollama</div><div class="stack-role">LLM (Metal backend)</div></div></div>
   </div>
-
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># Homebrew (未インストールの場合)</span>
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -416,19 +281,16 @@ brew install --cask xquartz
 <span class="c"># Ollama (ホスト側 · Metal backend で動作)</span>
 brew install ollama</pre>
   </div>
-
-  <div class="callout callout-purple">
+  <div class="callout callout-lav">
     <span class="callout-icon">ℹ</span>
-    <div class="callout-body"><strong>XQuartz インストール後は一度ログアウト → ログインが必要。</strong> DISPLAY 環境変数が正しく設定されるまで X11 アプリが起動しない。</div>
+    <div class="callout-body"><strong>XQuartz を入れた後は、必ず一度ログアウトして入り直してくださいね🚪</strong> そうしないと魔法の環境変数（DISPLAY）がセットされず、アプリの画面が出なくて焦ることになります💦</div>
   </div>
 </section>
 
 <!-- 02 LIMA YAML -->
 <section class="section" id="s2">
-  <div class="section-head"><span class="section-num">02</span><h2>Lima VM 定義ファイル</h2></div>
-
-  <p>Lima は YAML で VM を定義する。ホスト FS のマウント範囲・CPU・メモリをここで制御する。</p>
-
+  <div class="section-head"><span class="section-num">02</span><h2>📝 Limaちゃんのお作法（VM 定義ファイル）</h2></div>
+  <p>Lima は YAML というファイルで「どのくらいパワーを使うか」「どのフォルダに触っていいか」をお約束します✨</p>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">yaml — ~/.lima/agent/lima.yaml</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># Lima VM 定義 — AI Agent Sandbox</span>
@@ -463,7 +325,6 @@ containerd:
   system: false         <span class="c"># 今回は不使用</span>
   user: false</pre>
   </div>
-
   <h3>作業ディレクトリ作成 (ホスト側)</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
@@ -473,8 +334,7 @@ containerd:
 
 <!-- 03 VM START -->
 <section class="section" id="s3">
-  <div class="section-head"><span class="section-num">03</span><h2>VM 起動 / セットアップ</h2></div>
-
+  <div class="section-head"><span class="section-num">03</span><h2>🚀 立ち上げて準備しよう！（起動とセットアップ）</h2></div>
   <h3>VM 作成 · 起動</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
@@ -488,7 +348,6 @@ limactl start agent
 <span class="c"># VM に入る (通常 SSH)</span>
 limactl shell agent</pre>
   </div>
-
   <h3>VM 内 — 基本セットアップ</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash — VM 内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
@@ -503,12 +362,15 @@ limactl shell agent</pre>
   <span class="c"># フォント</span>
   fonts-noto-cjk fonts-noto-color-emoji \
   <span class="c"># ユーティリティ / ビルドツール</span>
-  ca-certificates curl wget gnupg \
+  ca-certificates curl wget gnupg jq yq ripgrep fd-find vim \
+  <span class="c"># ブラウザ (Antigravity 用)</span>
+  chromium-browser \
+  <span class="c"># デザイン / 図表作成</span>
+  graphviz inkscape \
   build-essential git \
   <span class="c"># Python</span>
   python3 python3-pip python3-venv</pre>
   </div>
-
   <h3>VM 内 — Node.js (nvm)</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash — VM 内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
@@ -517,7 +379,6 @@ curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bas
 source "$NVM_DIR/nvm.sh"
 nvm install 22 && nvm alias default 22</pre>
   </div>
-
   <h3>VM 内 — Rust</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash — VM 内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
@@ -528,22 +389,25 @@ source "$HOME/.cargo/env"</pre>
 
 <!-- 04 AGENTS -->
 <section class="section" id="s4">
-  <div class="section-head"><span class="section-num">04</span><h2>エージェント導入 (VM 内)</h2></div>
-
+  <div class="section-head"><span class="section-num">04</span><h2>🤖 エージェントたちをお迎え (VM 内)</h2></div>
   <h3>CLI エージェント</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash — VM 内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
-    <pre><span class="c"># Claude Code / Codex / Gemini CLI / OpenCode</span>
+    <pre><span class="c"># Gemini CLI / OpenCode</span>
 npm install -g \
-  @anthropic-ai/claude-code \
-  @openai/codex \
   @google/gemini-cli \
-  opencode-ai
+  opencode-ai \
+  codex-cli \
+
+<span class="c"># Claude Code</span>
+curl -fsSL https://claude.ai/install.sh | sh
+
+<span class="c"># Goose</span>
+curl -fsSL https://github.com/block/goose/releases/latest/download/install.sh | bash
 
 <span class="c"># aider</span>
-pip3 install --break-system-packages aider-chat</pre>
+curl -LsSf https://aider.chat/install.sh | sh</pre>
   </div>
-
   <h3>Windsurf (.deb · arm64)</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash — VM 内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
@@ -553,32 +417,27 @@ curl -fsSL https://windsurf-stable.codeiumdata.com/linux-arm64/windsurf_latest_a
 sudo dpkg -i /tmp/windsurf.deb || sudo apt-get install -fy
 rm /tmp/windsurf.deb</pre>
   </div>
-
   <h3>Antigravity (.deb · arm64)</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash — VM 内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
-    <pre><span class="c"># URL は公開後に差し替え</span>
-curl -fsSL https://antigravity.google/download/antigravity_latest_arm64.deb \
+    <pre>curl -fsSL https://antigravity.google/releases/antigravity_latest_arm64.deb \
   -o /tmp/antigravity.deb
 sudo dpkg -i /tmp/antigravity.deb || sudo apt-get install -fy
 rm /tmp/antigravity.deb</pre>
   </div>
-
-  <div class="callout callout-amber">
+  <div class="callout callout-peach">
     <span class="callout-icon">⚠</span>
-    <div class="callout-body"><strong>arm64 版の存在確認が必要。</strong> Windsurf / Antigravity が arm64 Linux .deb を提供していない場合は、x86_64 版を Rosetta 2 経由で動かすか、CLI エージェントのみ使用する。<code>uname -m</code> で VM アーキテクチャを確認すること。</div>
+    <div class="callout-body"><strong>arm64 版があるかチェックしてくださいね🔍</strong> もしエージェントがApple Silicon向けのファイル（arm64 <code>.deb</code>）を用意していない時は、Rosetta 2 の魔法を使うか、黒い画面（CLI）だけのエージェントを使う必要があります💦 <code>uname -m</code> で VM アーキテクチャを確認すること。</div>
   </div>
 </section>
 
 <!-- 05 GUI -->
 <section class="section" id="s5">
-  <div class="section-head"><span class="section-num">05</span><h2>GUI 起動</h2></div>
-
-  <p>Lima VM への SSH X11 forwarding で XQuartz に出力する。</p>
-
+  <div class="section-head"><span class="section-num">05</span><h2>🖥️ 画面（GUI）を出してみよう！</h2></div>
+  <p>Lima VMの中から「画面だけパソコン側に送って！」とお願い（X11 forwarding）して、XQuartzに映してもらいます📺✨</p>
   <h3>XQuartz の事前設定 (ホスト側・初回のみ)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># XQuartz を起動し、設定 > セキュリティ で</span>
 <span class="c"># "ネットワーク・クライアントからの接続を許可" をオンにする</span>
 open -a XQuartz
@@ -586,10 +445,9 @@ open -a XQuartz
 <span class="c"># ホスト側 DISPLAY 確認</span>
 echo $DISPLAY   <span class="c"># → :0 または /tmp/launchd-*/com.apple.launchd.*/org.xquartz...</span></pre>
   </div>
-
   <h3>SSH X11 forwarding で VM に入り GUI 起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># -X: X11 forwarding 有効</span>
 limactl shell --shell=/bin/bash agent -- bash -c '
   eval $(dbus-launch --sh-syntax)
@@ -599,37 +457,33 @@ limactl shell --shell=/bin/bash agent -- bash -c '
   exec windsurf    # または antigravity
 '</pre>
   </div>
-
-  <div class="callout callout-teal">
+  <div class="callout callout-sky">
     <span class="callout-icon">💡</span>
-    <div class="callout-body">Lima の <code>limactl shell</code> は内部的に SSH -X を使用するため、XQuartz が起動していれば DISPLAY が自動的に転送される。</div>
+    <div class="callout-body">Lima の <code>limactl shell</code> は、実は裏でコッソリ画面転送のお願い（<code>SSH -X</code>）をしてくれています🤫 だからXQuartzさえ立ち上がっていれば、自動で画面がポンッと出てきますよ✨</div>
   </div>
-
   <h3>CLI エージェントのみの場合 (X11 不要)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># GUI 不要なら通常 shell で OK</span>
 limactl shell agent
 cd ~/lima-agent-work
 
 <span class="c"># Ollama はホスト側で動いているので直接呼べる</span>
 export OLLAMA_HOST=host.lima.internal:11434
-claude   # または codex / gemini / opencode / aider</pre>
+claude   <span class="c"># または goose / gemini / opencode / aider</span></pre>
   </div>
 </section>
 
 <!-- 06 OLLAMA -->
 <section class="section" id="s6">
-  <div class="section-head"><span class="section-num">06</span><h2>Ollama — ホスト側で Metal 動作</h2></div>
-
-  <div class="callout callout-green">
+  <div class="section-head"><span class="section-num">06</span><h2>🤖 Ollama — Mac本来の力を使おう！</h2></div>
+  <div class="callout callout-mint">
     <span class="callout-icon">✓</span>
-    <div class="callout-body">Ollama は <strong>macOS ホスト側で直接動作</strong>させる。Metal バックエンドで M2 GPU を使えるため VM 経由より高速。VM 内エージェントは <code>host.lima.internal:11434</code> 経由でアクセスできる。</div>
+    <div class="callout-body">Ollama は <strong>Mac本体側（ホスト側）で直接動かします💻</strong> こうするとMacの強力なGPU（Metal）がフルパワーで使えるので、VMの中で動かすよりずっと速いんです🚀 中のAIたちからは <code>host.lima.internal:11434</code> という魔法の宛先で呼び出せますよ♪</div>
   </div>
-
   <h3>Ollama サーバー起動 (ホスト)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># VM からのアクセスを受け入れるため 0.0.0.0 で Listen</span>
 OLLAMA_HOST=0.0.0.0:11434 ollama serve &
 
@@ -637,7 +491,6 @@ OLLAMA_HOST=0.0.0.0:11434 ollama serve &
 ollama pull qwen2.5-coder:3b   <span class="c"># ~2GB · 軽量</span>
 ollama pull qwen2.5-coder:7b   <span class="c"># ~5GB · バランス</span></pre>
   </div>
-
   <h3>VM 内エージェントから Ollama を使う</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash — VM 内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
@@ -647,7 +500,6 @@ export OLLAMA_HOST=host.lima.internal:11434
 <span class="c"># aider から Ollama モデルを使う例</span>
 aider --model ollama/qwen2.5-coder:7b</pre>
   </div>
-
   <h3>モデルサイズ目安 (M2 Unified Memory)</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">text</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
@@ -656,115 +508,99 @@ qwen2.5-coder:7b    ~5 GB    RAM 16GB+   バランス
 llama3.2:3b         ~2 GB    RAM 8GB+    汎用
 codellama:7b        ~4 GB    RAM 16GB+   コーディング特化</pre>
   </div>
-
-  <div class="callout callout-amber">
+  <div class="callout callout-peach">
     <span class="callout-icon">⚠</span>
-    <div class="callout-body">M2 は Unified Memory のため GPU/CPU がメモリを共有する。Ollama モデル + Lima VM (8GiB) + macOS の合計が物理 RAM を超えないよう注意。16GB RAM なら 7B モデルまでが安全圏。</div>
+    <div class="callout-body">MacのメモリはGPUとCPUで一緒のタンク（Unified Memory）を使っています🚰 OllamaとLima VM、そしてMac本体の消費分を合わせて、タンクがからっぽにならないように気をつけてくださいね！ メモリが16GBなら、7Bサイズくらいのモデルまでが安心です✨</div>
   </div>
 </section>
 
 <!-- 07 ISOLATION -->
 <section class="section" id="s7">
-  <div class="section-head"><span class="section-num">07</span><h2>隔離まとめ</h2></div>
-
+  <div class="section-head"><span class="section-num">07</span><h2>🛡️ ガードのまとめ (Isolation)</h2></div>
   <table class="iso-table">
-    <thead>
-      <tr><th>リソース</th><th>VM からのアクセス</th><th>備考</th></tr>
-    </thead>
+    <thead><tr><th>リソース</th><th>VM からのアクセス</th><th>備考</th></tr></thead>
     <tbody>
-      <tr>
-        <td>Host Filesystem (~/)</td>
-        <td><span class="tag tag-amber">READ ONLY</span></td>
-        <td style="color:var(--dim);font-size:12px">Lima デフォルト · lima.yaml で制御</td>
-      </tr>
-      <tr>
-        <td>作業ディレクトリ (~/lima-agent-work)</td>
-        <td><span class="tag tag-blue">READ / WRITE</span></td>
-        <td style="color:var(--dim);font-size:12px">lima.yaml で明示マウント</td>
-      </tr>
-      <tr>
-        <td>Host Display (XQuartz)</td>
-        <td><span class="tag tag-red">SHARED</span></td>
-        <td style="color:var(--dim);font-size:12px">SSH X11 forwarding · Linux 版より弱い</td>
-      </tr>
-      <tr>
-        <td>Host Keyboard / Clipboard</td>
-        <td><span class="tag tag-red">SHARED</span></td>
-        <td style="color:var(--dim);font-size:12px">XQuartz 共有に伴う制約</td>
-      </tr>
-      <tr>
-        <td>Host Network</td>
-        <td><span class="tag tag-amber">NAT only</span></td>
-        <td style="color:var(--dim);font-size:12px">Lima デフォルト NAT</td>
-      </tr>
-      <tr>
-        <td>Ollama (Metal)</td>
-        <td><span class="tag tag-green">API のみ</span></td>
-        <td style="color:var(--dim);font-size:12px">host.lima.internal:11434 経由</td>
-      </tr>
-      <tr>
-        <td>Host Kernel</td>
-        <td><span class="tag tag-green">ISOLATED</span></td>
-        <td style="color:var(--dim);font-size:12px">Lima VM (QEMU/vz) による仮想化</td>
-      </tr>
+      <tr><td>Host Filesystem (~/)</td><td><span class="tag tag-peach">READ ONLY</span></td><td style="color:var(--textdim);font-size:12px">Lima デフォルト · lima.yaml で制御</td></tr>
+      <tr><td>作業ディレクトリ (~/lima-agent-work)</td><td><span class="tag tag-sky">READ / WRITE</span></td><td style="color:var(--textdim);font-size:12px">lima.yaml で明示マウント</td></tr>
+      <tr><td>Host Display (XQuartz)</td><td><span class="tag tag-pink">SHARED</span></td><td style="color:var(--textdim);font-size:12px">SSH X11 forwarding · Linux 版より弱い</td></tr>
+      <tr><td>Host Keyboard / Clipboard</td><td><span class="tag tag-pink">SHARED</span></td><td style="color:var(--textdim);font-size:12px">XQuartz 共有に伴う制約</td></tr>
+      <tr><td>Host Network</td><td><span class="tag tag-peach">NAT only</span></td><td style="color:var(--textdim);font-size:12px">Lima デフォルト NAT</td></tr>
+      <tr><td>Ollama (Metal)</td><td><span class="tag tag-mint">API のみ</span></td><td style="color:var(--textdim);font-size:12px">host.lima.internal:11434 経由</td></tr>
+      <tr><td>Host Kernel</td><td><span class="tag tag-mint">ISOLATED</span></td><td style="color:var(--textdim);font-size:12px">Lima VM (QEMU/vz) による仮想化</td></tr>
     </tbody>
   </table>
-
-  <div class="callout callout-purple">
+  <div class="callout callout-lav">
     <span class="callout-icon">🔁</span>
-    <div class="callout-body"><strong>Linux 版との主な差分:</strong> Display / Clipboard は XQuartz 共有のため隔離が弱い。ホスト FS はデフォルト read-only で守られる。Kernel は VM で完全分離(Linux 版 Podman より強い)。Ollama は Metal で高速動作する。</div>
+    <div class="callout-body"><strong>Linux版との主な違い🐧🍎:</strong> 画面やクリップボードのガードは少しゆるめです💦 でも、パソコンのファイルは基本「見るだけ（read-only）」でガッチリ守られ、システムの中枢（Kernel）はVMで完全に切り離されているのでとても安心です🛡️✨ Ollamaが高速で動くのもMacならではですね！</div>
   </div>
 </section>
 
 <!-- 08 TIPS -->
 <section class="section" id="s8">
-  <div class="section-head"><span class="section-num">08</span><h2>Tips</h2></div>
-
+  <div class="section-head"><span class="section-num">08</span><h2>💡 便利なヒント集 (Tips)</h2></div>
   <h3>VM の停止 / 削除</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>limactl stop agent      <span class="c"># VM 停止 (ディスクは保持)</span>
 limactl start agent     <span class="c"># 再起動</span>
 limactl delete agent    <span class="c"># VM 削除 (ディスクも消える)</span></pre>
   </div>
-
   <h3>作業ディレクトリのバックアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># ~/lima-agent-work はホスト側に実体があるのでそのままコピー可</span>
 cp -r ~/lima-agent-work ~/lima-agent-work-backup-$(date +%Y%m%d)</pre>
   </div>
-
   <h3>VM スペック変更</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># VM を停止してから lima.yaml を編集 → 再起動</span>
 limactl stop agent
 vim ~/.lima/agent/lima.yaml   <span class="c"># cpus / memory を変更</span>
 limactl start agent</pre>
   </div>
-
   <h3>Ollama を launchd で常駐させる</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># brew services で自動起動 (OLLAMA_HOST は launchd 環境変数で別途設定が必要)</span>
 brew services start ollama</pre>
   </div>
-
-  <div class="callout callout-blue">
+  <div class="callout callout-sky">
     <span class="callout-icon">ℹ</span>
-    <div class="callout-body"><code>brew services start ollama</code> はデフォルトで <code>127.0.0.1:11434</code> で起動する。VM からアクセスするには <code>OLLAMA_HOST=0.0.0.0:11434</code> の環境変数設定が必要。launchd の plist を編集して EnvironmentVariables に追加する。</div>
+    <div class="callout-body">普通に <code>brew services start ollama</code> をすると、Mac本体からしか話しかけられないお留守番モード（127.0.0.1）になってしまいます🏠 中のVMからも話しかけられるようにするには、設定（plist）を少し書き換えてあげる必要がありますよ✨ (EnvironmentVariables に OLLAMA_HOST=0.0.0.0:11434 を追加します)</div>
   </div>
 </section>
 
 <footer>
-  <div>AI Agent Sandbox — macOS / Lima Setup Guide</div>
+  <div>AI Agent Sandbox — macOS / Lima Setup Guide ✿</div>
   <div>Lima VM · XQuartz · Ollama Metal · Homebrew</div>
 </footer>
 
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.code-wrap').forEach(wrap => {
+    const lang = (wrap.querySelector('.code-lang')?.textContent || '').toLowerCase();
+    if (lang.includes('zsh')) {
+      wrap.classList.add('wrap-host-mac');
+    } else if (lang.includes('powershell') || lang.includes('ps')) {
+      wrap.classList.add('wrap-host-win');
+    } else if (lang.includes('ホスト')) {
+      wrap.classList.add('wrap-host-linux');
+    } else if (lang.includes('ゲスト') || lang.includes('wsl2') || lang.includes('vm')) {
+      wrap.classList.add('wrap-guest');
+    } else if (lang.includes('bash') || lang.includes('shell')) {
+      if (lang === 'bash') wrap.classList.add('wrap-host-linux');
+      else wrap.classList.add('wrap-guest');
+    } else if (lang.includes('dockerfile') || lang.includes('yaml')) {
+      wrap.classList.add('wrap-infra');
+    } else {
+      wrap.classList.add('wrap-default');
+    }
+  });
+});
+
 function cp(btn) {
   const text = btn.closest('.code-wrap').querySelector('pre').innerText;
   navigator.clipboard.writeText(text).then(() => {
