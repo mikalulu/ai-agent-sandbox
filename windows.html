@@ -116,7 +116,28 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
 .section:nth-child(3){animation-delay:.12s}.section:nth-child(4){animation-delay:.16s}
 .section:nth-child(5){animation-delay:.20s}.section:nth-child(6){animation-delay:.24s}
 .section:nth-child(7){animation-delay:.28s}.section:nth-child(8){animation-delay:.32s}
-.section:nth-child(9){animation-delay:.36s}.section:nth-child(10){animation-delay:.40s}
+.section:nth-child(9){animation-delay:.36s}.section:nth-child(10){animation-delay:.40s}.section:nth-child(11){animation-delay:.44s}.section:nth-child(12){animation-delay:.48s}.section:nth-child(13){animation-delay:.52s}
+/* CHECKLIST */
+.check-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px;margin:14px 0}
+.check-list li{font-size:12px;font-weight:600;color:var(--textdim);display:flex;align-items:flex-start;gap:8px;background:white;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;line-height:1.6}
+.check-list li::before{content:'☐';font-size:14px;color:var(--accent);flex-shrink:0;margin-top:-1px}
+.check-list li strong{color:var(--text)}
+/* RESOURCE GRID */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
+.res-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px var(--shadow)}
+.res-label{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.res-val{font-size:13px;font-weight:800;color:var(--text)}
+.res-note{font-size:10px;color:var(--textdim);font-weight:600;margin-top:2px}
+/* FAQ */
+.faq-wrap{display:flex;flex-direction:column;gap:6px;margin:14px 0}
+details.faq-item{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow)}
+details.faq-item[open]{border-color:var(--accent-border)}
+details.faq-item summary{font-size:12px;font-weight:700;color:var(--text);padding:12px 16px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;user-select:none}
+details.faq-item summary::-webkit-details-marker{display:none}
+details.faq-item summary::before{content:'▶';font-size:9px;color:var(--accent);transition:transform .2s;flex-shrink:0}
+details.faq-item[open] summary::before{transform:rotate(90deg)}
+.faq-body{padding:0 16px 14px;border-top:1.5px solid var(--border)}
+.faq-body p{margin-top:10px;margin-bottom:6px}
 /* Code Block Theme Colors */
 .wrap-guest pre{background:#f4fefa;border-color:var(--mint)}
 .wrap-guest .code-bar{background:#e8faf2;border-color:var(--mint)}
@@ -187,6 +208,7 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
 
 <!-- TOC -->
 <nav class="toc">
+  <a href="#s-pre"><span class="toc-num">✦</span>はじめる前に</a>
   <a href="#s0"><span class="toc-num">00</span>全体の仕組み</a>
   <a href="#s1"><span class="toc-num">01</span>WSL2 を入れよう！</a>
   <a href="#s2"><span class="toc-num">02</span>NVIDIA/GPU の準備</a>
@@ -198,7 +220,32 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
   <a href="#s8"><span class="toc-num">08</span>Ollama モデル入門</a>
   <a href="#s9"><span class="toc-num">09</span>ガードのまとめ</a>
   <a href="#s10"><span class="toc-num">10</span>便利なヒント集</a>
+  <a href="#s11"><span class="toc-num">11</span>トラブルシューティング</a>
 </nav>
+
+<!-- ✦ はじめる前に -->
+<section class="section" id="s-pre">
+  <div class="section-head"><span class="section-num">✦</span><h2>📋 はじめる前に</h2></div>
+  <h3>前提条件チェックリスト</h3>
+  <ul class="check-list">
+    <li><strong>Windows 11 22H2 以上</strong>（WSLg 対応版）</li>
+    <li><strong>NVIDIA GPU</strong>（ドライバー 525.x 以上 — Windows 側）</li>
+    <li><strong>RAM: 16 GB 以上</strong>推奨（WSL2 VM + コンテナ + Windows 分）</li>
+    <li><strong>ディスク: 80 GB 以上</strong>の空き（WSL2 + モデル + 作業）</li>
+    <li><strong>WSL2 有効化済み</strong>（<code>wsl --list --verbose</code> で確認）</li>
+    <li><strong>NVIDIA ドライバー</strong>（Windows 側にインストール済み）</li>
+    <li><strong>インターネット接続</strong>（初期ダウンロード: 約 10〜20 GB）</li>
+  </ul>
+  <h3>時間・リソース目安</h3>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-label">ホスト準備</div><div class="res-val">30〜60 分</div><div class="res-note">WSL2 / CUDA / Podman</div></div>
+    <div class="res-card"><div class="res-label">コンテナビルド</div><div class="res-val">5〜15 分</div><div class="res-note">回線・PC 性能次第</div></div>
+    <div class="res-card"><div class="res-label">モデル DL (7B)</div><div class="res-val">3〜15 分</div><div class="res-note">100 Mbps 回線目安</div></div>
+    <div class="res-card"><div class="res-label">コンテナイメージ</div><div class="res-val">〜3 GB</div><div class="res-note">全ツール込み</div></div>
+    <div class="res-card"><div class="res-label">Ollama 7B モデル</div><div class="res-val">〜4 GB</div><div class="res-note">qwen2.5-coder:7b 等</div></div>
+    <div class="res-card"><div class="res-label">Ollama 13B モデル</div><div class="res-val">〜8 GB</div><div class="res-note">より高精度</div></div>
+  </div>
+</section>
 
 <!-- 00 ARCH -->
 <section class="section" id="s0">
@@ -597,6 +644,63 @@ nvidia-smi | grep "CUDA Version"</pre>
   </div>
 </section>
 
+<!-- 11 トラブルシューティング -->
+<section class="section" id="s11">
+  <div class="section-head"><span class="section-num">11</span><h2>🔍 トラブルシューティング</h2></div>
+  <div class="faq-wrap">
+    <details class="faq-item">
+      <summary>WSL2 内で nvidia-smi が見つからない / CUDA が使えない</summary>
+      <div class="faq-body">
+        <p>Windows 側の NVIDIA ドライバーが古いか未インストールです。WSL2 は Windows 側のドライバーをそのまま使うため、WSL2 内に別途 CUDA ドライバーをインストールする必要はありません。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">PowerShell</span></div><pre><span class="c"># Windows 側でドライバーバージョン確認（525.x 以上が必要）</span>
+nvidia-smi</pre></div>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash — WSL2</span></div><pre><span class="c"># WSL2 内で GPU デバイスが見えるか確認</span>
+ls /dev/nvidia*
+nvidia-smi</pre></div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>GUI ウィンドウが表示されない（WSLg が効かない）</summary>
+      <div class="faq-body">
+        <p>WSLg は Windows 11 の WSL2 に自動統合されています。DISPLAY 環境変数を確認します。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash — WSL2</span></div><pre>echo $DISPLAY    <span class="c"># /tmp/... などが表示されれば WSLg 有効</span>
+xclock           <span class="c"># テスト — ウィンドウが開けば OK</span></pre></div>
+        <p>表示されない場合は PowerShell で <code>wsl --update</code> を実行して WSL2 を最新版にしてください。</p>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>Podman が起動しない / "user namespace" エラー</summary>
+      <div class="faq-body">
+        <p>WSL2 カーネルが古い場合に発生します。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash — WSL2</span></div><pre><span class="c"># カーネルバージョン確認（5.15+ 推奨）</span>
+uname -r
+<span class="c"># rootless Podman のマイグレーション</span>
+podman system migrate</pre></div>
+        <p>解消しない場合は PowerShell で <code>wsl --update</code> 後に WSL2 を再起動してください。</p>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>コンテナ内で GPU が認識されない</summary>
+      <div class="faq-body">
+        <p>NVIDIA Container Toolkit の CDI 定義が未生成か古くなっています。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash — WSL2</span></div><pre><span class="c"># CDI ファイル確認</span>
+ls /etc/cdi/nvidia.yaml
+<span class="c"># 再生成（ドライバー更新後も再実行が必要）</span>
+sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
+<span class="c"># GPU 認識テスト</span>
+podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre></div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>ollama pull が途中で止まる</summary>
+      <div class="faq-body">
+        <p>Ctrl-C で中断して再実行すると続きからダウンロードされます。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash — WSL2</span></div><pre>ollama pull qwen2.5-coder:7b  <span class="c"># 再実行で続きから再開</span></pre></div>
+      </div>
+    </details>
+  </div>
+</section>
+
 <footer>
   <div>AI Agent Sandbox — Windows / WSL2 Setup Guide ✿</div>
   <div>WSL2 · Podman · WSLg · CUDA CDI · nvidia-container-toolkit</div>
@@ -631,6 +735,9 @@ function cp(btn){
   navigator.clipboard.writeText(text).then(()=>{
     btn.textContent='✓ copied';btn.classList.add('ok');
     setTimeout(()=>{btn.textContent='copy';btn.classList.remove('ok')},1800);
+  }).catch(()=>{
+    btn.textContent='✗ failed';
+    setTimeout(()=>{btn.textContent='copy'},1800);
   });
 }
 </script>

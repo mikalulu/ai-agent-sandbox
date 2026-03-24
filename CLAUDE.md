@@ -29,7 +29,7 @@ Each platform guide (`linux.html`, `mac.html`, `windows.html`) follows the same 
 
 **HTML/CSS patterns used across all pages:**
 - CSS custom properties for dark/light color system
-- JetBrains Mono for code blocks, Syne for headings
+- Klee One for headings, Nunito for body text and code blocks
 - Responsive grid layouts, callout boxes, platform badges
 
 ## Important Note

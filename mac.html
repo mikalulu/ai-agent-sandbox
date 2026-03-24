@@ -117,7 +117,28 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
 .section:nth-child(3){animation-delay:.12s}.section:nth-child(4){animation-delay:.16s}
 .section:nth-child(5){animation-delay:.20s}.section:nth-child(6){animation-delay:.24s}
 .section:nth-child(7){animation-delay:.28s}.section:nth-child(8){animation-delay:.32s}
-.section:nth-child(9){animation-delay:.36s}
+.section:nth-child(9){animation-delay:.36s}.section:nth-child(10){animation-delay:.40s}.section:nth-child(11){animation-delay:.44s}
+/* CHECKLIST */
+.check-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px;margin:14px 0}
+.check-list li{font-size:12px;font-weight:600;color:var(--textdim);display:flex;align-items:flex-start;gap:8px;background:white;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;line-height:1.6}
+.check-list li::before{content:'☐';font-size:14px;color:var(--accent);flex-shrink:0;margin-top:-1px}
+.check-list li strong{color:var(--text)}
+/* RESOURCE GRID */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
+.res-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px var(--shadow)}
+.res-label{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.res-val{font-size:13px;font-weight:800;color:var(--text)}
+.res-note{font-size:10px;color:var(--textdim);font-weight:600;margin-top:2px}
+/* FAQ */
+.faq-wrap{display:flex;flex-direction:column;gap:6px;margin:14px 0}
+details.faq-item{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow)}
+details.faq-item[open]{border-color:var(--accent-border)}
+details.faq-item summary{font-size:12px;font-weight:700;color:var(--text);padding:12px 16px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;user-select:none}
+details.faq-item summary::-webkit-details-marker{display:none}
+details.faq-item summary::before{content:'▶';font-size:9px;color:var(--accent);transition:transform .2s;flex-shrink:0}
+details.faq-item[open] summary::before{transform:rotate(90deg)}
+.faq-body{padding:0 16px 14px;border-top:1.5px solid var(--border)}
+.faq-body p{margin-top:10px;margin-bottom:6px}
 /* Code Block Theme Colors */
 .wrap-guest pre{background:#f4fefa;border-color:var(--mint)}
 .wrap-guest .code-bar{background:#e8faf2;border-color:var(--mint)}
@@ -183,6 +204,7 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
 
 <!-- TOC -->
 <nav class="toc">
+  <a href="#s-pre"><span class="toc-num">✦</span>はじめる前に</a>
   <a href="#s0"><span class="toc-num">00</span>全体の仕組み</a>
   <a href="#s1"><span class="toc-num">01</span>最初の準備</a>
   <a href="#s2"><span class="toc-num">02</span>Limaちゃんのお作法（VM 定義）</a>
@@ -192,7 +214,33 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
   <a href="#s6"><span class="toc-num">06</span>Ollama モデル入門</a>
   <a href="#s7"><span class="toc-num">07</span>ガードのまとめ</a>
   <a href="#s8"><span class="toc-num">08</span>便利なヒント集</a>
+  <a href="#s9"><span class="toc-num">09</span>トラブルシューティング</a>
 </nav>
+
+<!-- ✦ はじめる前に -->
+<section class="section" id="s-pre">
+  <div class="section-head"><span class="section-num">✦</span><h2>📋 はじめる前に</h2></div>
+  <h3>前提条件チェックリスト</h3>
+  <ul class="check-list">
+    <li><strong>macOS 13 (Ventura) 以上</strong></li>
+    <li><strong>Apple Silicon</strong>（M1 / M2 / M3 / M4 系）</li>
+    <li><strong>Unified Memory: 16 GB 以上</strong>推奨（VM + Ollama + ホスト分）</li>
+    <li><strong>ディスク: 100 GB 以上</strong>の空き（VM + モデル + 作業）</li>
+    <li><strong>Homebrew</strong> インストール済み</li>
+    <li><strong>XQuartz 2.8+</strong>（<code>xquartz --version</code> で確認）</li>
+    <li><strong>Lima 0.20+</strong>（<code>limactl --version</code> で確認）</li>
+    <li><strong>インターネット接続</strong>（初期ダウンロード: 約 5〜15 GB）</li>
+  </ul>
+  <h3>時間・リソース目安</h3>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-label">ホスト準備</div><div class="res-val">20〜40 分</div><div class="res-note">Homebrew / Lima / XQuartz</div></div>
+    <div class="res-card"><div class="res-label">VM 初回起動</div><div class="res-val">5〜10 分</div><div class="res-note">Ubuntu イメージ DL 込み</div></div>
+    <div class="res-card"><div class="res-label">モデル DL (7B)</div><div class="res-val">3〜15 分</div><div class="res-note">100 Mbps 回線目安</div></div>
+    <div class="res-card"><div class="res-label">VM ディスク使用量</div><div class="res-val">〜15 GB</div><div class="res-note">Ubuntu + ツール込み</div></div>
+    <div class="res-card"><div class="res-label">Ollama 7B モデル</div><div class="res-val">〜4 GB</div><div class="res-note">Metal で高速推論</div></div>
+    <div class="res-card"><div class="res-label">Ollama 13B モデル</div><div class="res-val">〜8 GB</div><div class="res-note">16 GB Unified Memory 推奨</div></div>
+  </div>
+</section>
 
 <!-- 00 ARCH -->
 <section class="section" id="s0">
@@ -571,6 +619,58 @@ brew services start ollama</pre>
   </div>
 </section>
 
+<!-- 09 トラブルシューティング -->
+<section class="section" id="s9">
+  <div class="section-head"><span class="section-num">09</span><h2>🔍 トラブルシューティング</h2></div>
+  <div class="faq-wrap">
+    <details class="faq-item">
+      <summary>XQuartz が "connection refused" を返す / DISPLAY が空</summary>
+      <div class="faq-body">
+        <p>XQuartz が起動していないか、"Allow connections from network clients" が無効です。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">zsh — ホスト</span></div><pre><span class="c"># XQuartz を起動</span>
+open -a XQuartz
+<span class="c"># Network client 接続を許可（要ログアウト→再ログイン）</span>
+defaults write org.xquartz.X11 nolisten_tcp -bool false
+<span class="c"># DISPLAY を確認</span>
+echo $DISPLAY   <span class="c"># :0 などが表示されれば OK</span></pre></div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>limactl start agent が失敗する / タイムアウトする</summary>
+      <div class="faq-body">
+        <p>デバッグモードで起動してエラーログを確認します。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">zsh — ホスト</span></div><pre>limactl start --debug agent 2>&amp;1 | tail -80</pre></div>
+        <p>VM ディスク容量が不足している場合は <code>lima.yaml</code> の <code>disk</code> を増やして再作成してください。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">zsh — ホスト</span></div><pre>limactl delete agent
+limactl start agent</pre></div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>VM 内から Ollama (localhost:11434) に繋がらない</summary>
+      <div class="faq-body">
+        <p>Ollama はデフォルトで 127.0.0.1 にしかバインドしないため、VM 内から到達できません。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">zsh — ホスト</span></div><pre><span class="c"># brew services を止めて、0.0.0.0 バインドで再起動</span>
+brew services stop ollama
+OLLAMA_HOST=0.0.0.0:11434 ollama serve &amp;</pre></div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>arm64 / aarch64 エラー — x86_64 バイナリを実行しようとしている</summary>
+      <div class="faq-body">
+        <p><code>lima.yaml</code> の <code>arch: aarch64</code> が正しいか確認してください。インストールスクリプトが x86_64 バイナリを DL している場合は arm64 版 URL を使ってください。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash — Lima VM</span></div><pre>uname -m   <span class="c"># aarch64 と表示されれば OK</span></pre></div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>ollama pull が途中で止まる</summary>
+      <div class="faq-body">
+        <p>Ctrl-C で中断して再実行すると続きからダウンロードされます。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">zsh — ホスト</span></div><pre>ollama pull qwen2.5-coder:7b  <span class="c"># 再実行で続きから再開</span></pre></div>
+      </div>
+    </details>
+  </div>
+</section>
+
 <footer>
   <div>AI Agent Sandbox — macOS / Lima Setup Guide ✿</div>
   <div>Lima VM · XQuartz · Ollama Metal · Homebrew</div>
@@ -607,6 +707,9 @@ function cp(btn) {
     btn.textContent = '✓ copied';
     btn.classList.add('ok');
     setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('ok'); }, 1800);
+  }).catch(() => {
+    btn.textContent = '✗ failed';
+    setTimeout(() => { btn.textContent = 'copy'; }, 1800);
   });
 }
 </script>

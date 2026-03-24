@@ -120,7 +120,28 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
 .section:nth-child(3){animation-delay:.12s}.section:nth-child(4){animation-delay:.16s}
 .section:nth-child(5){animation-delay:.20s}.section:nth-child(6){animation-delay:.24s}
 .section:nth-child(7){animation-delay:.28s}.section:nth-child(8){animation-delay:.32s}
-.section:nth-child(9){animation-delay:.36s}
+.section:nth-child(9){animation-delay:.36s}.section:nth-child(10){animation-delay:.40s}.section:nth-child(11){animation-delay:.44s}
+/* CHECKLIST */
+.check-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px;margin:14px 0}
+.check-list li{font-size:12px;font-weight:600;color:var(--textdim);display:flex;align-items:flex-start;gap:8px;background:white;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;line-height:1.6}
+.check-list li::before{content:'☐';font-size:14px;color:var(--accent);flex-shrink:0;margin-top:-1px}
+.check-list li strong{color:var(--text)}
+/* RESOURCE GRID */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
+.res-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px var(--shadow)}
+.res-label{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.res-val{font-size:13px;font-weight:800;color:var(--text)}
+.res-note{font-size:10px;color:var(--textdim);font-weight:600;margin-top:2px}
+/* FAQ */
+.faq-wrap{display:flex;flex-direction:column;gap:6px;margin:14px 0}
+details.faq-item{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow)}
+details.faq-item[open]{border-color:var(--accent-border)}
+details.faq-item summary{font-size:12px;font-weight:700;color:var(--text);padding:12px 16px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;user-select:none}
+details.faq-item summary::-webkit-details-marker{display:none}
+details.faq-item summary::before{content:'▶';font-size:9px;color:var(--accent);transition:transform .2s;flex-shrink:0}
+details.faq-item[open] summary::before{transform:rotate(90deg)}
+.faq-body{padding:0 16px 14px;border-top:1.5px solid var(--border)}
+.faq-body p{margin-top:10px;margin-bottom:6px}
 /* Code Block Theme Colors */
 .wrap-guest pre{background:#f4fefa;border-color:var(--mint)}
 .wrap-guest .code-bar{background:#e8faf2;border-color:var(--mint)}
@@ -171,6 +192,7 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
 
 <!-- TOC -->
 <nav class="toc">
+  <a href="#s-pre"><span class="toc-num">✦</span>はじめる前に</a>
   <a href="#s0"><span class="toc-num">00</span>全体の仕組み</a>
   <a href="#s1"><span class="toc-num">01</span>最初の準備</a>
   <a href="#s2"><span class="toc-num">02</span>Dockerfile</a>
@@ -180,7 +202,32 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
   <a href="#s6"><span class="toc-num">06</span>Ollama モデル入門</a>
   <a href="#s7"><span class="toc-num">07</span>ガードのまとめ</a>
   <a href="#s8"><span class="toc-num">08</span>便利なヒント集</a>
+  <a href="#s9"><span class="toc-num">09</span>トラブルシューティング</a>
 </nav>
+
+<!-- ✦ はじめる前に -->
+<section class="section" id="s-pre">
+  <div class="section-head"><span class="section-num">✦</span><h2>📋 はじめる前に</h2></div>
+  <h3>前提条件チェックリスト</h3>
+  <ul class="check-list">
+    <li><strong>Ubuntu 22.04 / 24.04 LTS</strong> または Debian 12+</li>
+    <li><strong>NVIDIA GPU</strong>（CUDA Compute Capability 5.0+）</li>
+    <li><strong>RAM: 16 GB 以上</strong>推奨（7B モデル + コンテナ + ホスト分）</li>
+    <li><strong>ディスク: 80 GB 以上</strong>の空き（モデル + イメージ + 作業）</li>
+    <li><strong>Podman 4.1.0+</strong>（<code>podman --version</code> で確認）</li>
+    <li><strong>sudo 権限</strong>（CUDA ドライバー・CDI 設定用）</li>
+    <li><strong>インターネット接続</strong>（初期ダウンロード: 約 10〜20 GB）</li>
+  </ul>
+  <h3>時間・リソース目安</h3>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-label">ホスト準備</div><div class="res-val">30〜60 分</div><div class="res-note">CUDA / Podman / Xephyr</div></div>
+    <div class="res-card"><div class="res-label">コンテナビルド</div><div class="res-val">5〜15 分</div><div class="res-note">回線・PC 性能次第</div></div>
+    <div class="res-card"><div class="res-label">モデル DL (7B)</div><div class="res-val">3〜15 分</div><div class="res-note">100 Mbps 回線目安</div></div>
+    <div class="res-card"><div class="res-label">コンテナイメージ</div><div class="res-val">〜3 GB</div><div class="res-note">全ツール込み</div></div>
+    <div class="res-card"><div class="res-label">Ollama 7B モデル</div><div class="res-val">〜4 GB</div><div class="res-note">qwen2.5-coder:7b 等</div></div>
+    <div class="res-card"><div class="res-label">Ollama 13B モデル</div><div class="res-val">〜8 GB</div><div class="res-note">より高精度</div></div>
+  </div>
+</section>
 
 <!-- 00 ARCH -->
 <section class="section" id="s0">
@@ -551,6 +598,62 @@ nvidia-smi | grep "CUDA Version"</pre>
   </div>
 </section>
 
+<!-- 09 トラブルシューティング -->
+<section class="section" id="s9">
+  <div class="section-head"><span class="section-num">09</span><h2>🔍 トラブルシューティング</h2></div>
+  <div class="faq-wrap">
+    <details class="faq-item">
+      <summary>コンテナ内で "cannot open display :10" が出る</summary>
+      <div class="faq-body">
+        <p>Xephyr が起動していないか、DISPLAY の番号がずれています。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash</span></div><pre><span class="c"># ホスト側：Xephyr を起動</span>
+Xephyr :10 -screen 1280x800 &amp;
+<span class="c"># Xephyr ウィンドウ内に別ターミナルが開けば OK</span>
+DISPLAY=:10 xterm &amp;</pre></div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>コンテナ内で nvidia-smi が見つからない / GPU が認識されない</summary>
+      <div class="faq-body">
+        <p>CDI 定義が未生成か、Podman が 4.1.0 未満の可能性があります。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash</span></div><pre><span class="c"># CDI ファイル確認</span>
+ls -la /etc/cdi/nvidia.yaml
+<span class="c"># 再生成</span>
+sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
+<span class="c"># GPU 認識テスト</span>
+podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre></div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>Xephyr ウィンドウが真っ黒のまま何も表示されない</summary>
+      <div class="faq-body">
+        <p>openbox または dbus の起動に失敗しています。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash</span></div><pre><span class="c"># コンテナのログを確認</span>
+podman logs agent-sandbox
+<span class="c"># openbox を手動で試す（コンテナ内）</span>
+podman exec -it agent-sandbox bash -c "DISPLAY=:10 openbox"</pre></div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>CUDA バージョンのミスマッチエラーが出る</summary>
+      <div class="faq-body">
+        <p>Dockerfile の <code>cuda-cudart-12-4</code> とホストドライバーの CUDA バージョンを合わせてください。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash</span></div><pre><span class="c"># ホスト側のバージョンを確認</span>
+nvidia-smi | grep "CUDA Version"
+<span class="c"># 例: 12.6 → Dockerfile 内の 12-4 を 12-6 に変更してリビルド</span>
+podman build --no-cache -t agent-sandbox:latest .</pre></div>
+      </div>
+    </details>
+    <details class="faq-item">
+      <summary>podman pull / ollama pull が途中で止まる</summary>
+      <div class="faq-body">
+        <p>Ctrl-C で中断して再実行すると続きからダウンロードされます。</p>
+        <div class="code-wrap"><div class="code-bar"><span class="code-lang">bash</span></div><pre>ollama pull qwen2.5-coder:7b  <span class="c"># 再実行で続きから再開</span></pre></div>
+      </div>
+    </details>
+  </div>
+</section>
+
 <footer>
   <div>AI Agent Sandbox — Linux Setup Guide ✿</div>
   <div>Podman · Xephyr · NVIDIA CDI · Ollama Volume</div>
@@ -588,6 +691,9 @@ function cp(btn) {
     btn.textContent = '✓ copied';
     btn.classList.add('ok');
     setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('ok'); }, 1800);
+  }).catch(() => {
+    btn.textContent = '✗ failed';
+    setTimeout(() => { btn.textContent = 'copy'; }, 1800);
   });
 }
 </script>
