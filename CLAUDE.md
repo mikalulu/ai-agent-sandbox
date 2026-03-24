@@ -14,6 +14,7 @@ Published at: `https://mikalulu.github.io/ai-agent-sandbox/`
 - `linux.html` — Linux guide: Podman + Xephyr + NVIDIA CDI
 - `mac.html` — macOS guide: Lima VM + XQuartz + Ollama Metal
 - `windows.html` — Windows guide: WSL2 + Podman + WSLg + CUDA
+- `compose.yml` — Podman / Docker Compose definition (Linux/Windows)
 - `README.md` — Japanese-language index with platform table
 
 ## Architecture & Conventions
