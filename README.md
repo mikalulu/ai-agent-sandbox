@@ -22,6 +22,9 @@ AI エージェント（Claude Code・Windsurf・Antigravity・Gemini CLI 等）
 | `linux.html` | Linux セットアップガイド |
 | `mac.html` | macOS セットアップガイド |
 | `windows.html` | Windows セットアップガイド |
+| `ai-tools-guide.html` | AI エージェント選択ガイド＆機能比較 |
+| `isolation-matrix.html` | プラットフォーム別隔離アーキテクチャ比較 |
+| `environment-matrix.html` | ホストシェル＆コンテナ環境リファレンス |
 | `compose.yml` | Podman / Docker Compose 定義 |
 
 ## Goals

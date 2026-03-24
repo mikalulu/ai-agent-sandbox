@@ -101,6 +101,19 @@ tr:hover td { background: #fef5fc; }
 .level-medium { color: var(--sky2); font-weight: 800; }
 .level-weak { color: var(--peach2); font-weight: 800; }
 
+/* NAV */
+.nav{display:flex;align-items:center;gap:6px;padding:14px 20px;background:white;border:1.5px solid var(--border);border-radius:20px;margin-bottom:32px;flex-wrap:wrap;box-shadow:0 4px 20px var(--shadow)}
+.nav-label{font-family:'Klee One',cursive;font-size:12px;font-weight:600;color:var(--textdim);margin-right:10px}
+.nav-pill{font-size:11px;font-weight:700;text-decoration:none;padding:4px 14px;border-radius:99px;border:1.5px solid var(--border);color:var(--textdim);transition:all .15s;background:white}
+.nav-pill:hover{transform:translateY(-1px);box-shadow:0 2px 8px var(--shadow)}
+.nav-pill.active{border-color:var(--pink);color:var(--pink2);background:#ffe8f0;font-weight:800}
+.nav-pill.index{border-style:dashed}
+
+/* TO-TOP */
+.to-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);background:white;color:var(--pink2);font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:opacity .3s,transform .25s;opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
+.to-top.show{opacity:1;pointer-events:auto}
+.to-top:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow)}
+
 footer {
   border-top: 1.5px solid var(--border);
   padding: 20px 0 10px;
@@ -121,6 +134,17 @@ footer a:hover { opacity: .7; }
 </head>
 <body>
 <div class="page">
+
+<nav class="nav">
+  <span class="nav-label">✿</span>
+  <a class="nav-pill index" href="./index.html">↩ Index</a>
+  <a class="nav-pill active" href="./isolation-matrix.html">🌸 Isolation</a>
+  <a class="nav-pill" href="./environment-matrix.html">🐚 Environment</a>
+  <a class="nav-pill" href="./ai-tools-guide.html">🤖 AI Tools</a>
+  <a class="nav-pill" href="./linux.html">🐧 Linux</a>
+  <a class="nav-pill" href="./mac.html">🍎 macOS</a>
+  <a class="nav-pill" href="./windows.html">⊞ Windows</a>
+</nav>
 
 <header>
   <h1>🌸 Isolation Matrix</h1>
@@ -173,9 +197,15 @@ footer a:hover { opacity: .7; }
 </div>
 
 <footer>
-  <a href="./" style="color:var(--pink2)">🏠 Back to Home</a>
+  <a href="./" style="color:var(--pink2)">🏠 ホームに戻る</a>
 </footer>
 
+<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 </div>
+<script>
+const t=document.querySelector('.to-top');
+window.addEventListener('scroll',()=>{t.classList.toggle('show',window.scrollY>300)});
+</script>
 </body>
 </html>
