@@ -138,6 +138,27 @@ details.faq-item summary::before{content:'▶';font-size:9px;color:var(--accent)
 details.faq-item[open] summary::before{transform:rotate(90deg)}
 .faq-body{padding:0 16px 14px;border-top:1.5px solid var(--border)}
 .faq-body p{margin-top:10px;margin-bottom:6px}
+/* FLUFFY */
+@keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes floatBubble{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.04)}}
+@keyframes softPulse{0%,100%{box-shadow:0 2px 10px var(--shadow)}50%{box-shadow:0 6px 28px rgba(125,196,240,0.18)}}
+.badge{animation:floatSlow 3s ease-in-out infinite}
+.badge:nth-child(2){animation-delay:.5s}.badge:nth-child(3){animation-delay:1s}.badge:nth-child(4){animation-delay:1.5s}.badge:nth-child(5){animation-delay:2s}
+.stack-card:hover{animation:softPulse 2s ease-in-out infinite}
+.page::before,.page::after{content:'';position:fixed;border-radius:50%;pointer-events:none;opacity:.12;z-index:-1;animation:floatBubble 9s ease-in-out infinite}
+.page::before{width:180px;height:180px;top:8%;left:-50px;background:radial-gradient(circle,var(--sky) 0%,transparent 70%)}
+.page::after{width:140px;height:140px;bottom:12%;right:-30px;background:radial-gradient(circle,var(--lav) 0%,transparent 70%);animation-delay:4s}
+/* SVG ALIVE */
+@keyframes svgMarch{to{stroke-dashoffset:-20}}
+@keyframes svgPulse{0%,100%{opacity:.25}50%{opacity:.6}}
+@keyframes svgGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.06)}}
+.diagram svg rect[stroke-dasharray]{animation:svgMarch 3s linear infinite}
+.diagram svg line{animation:svgPulse 2.5s ease-in-out infinite}
+.diagram svg line:nth-of-type(2n){animation-delay:.8s}
+.diagram svg line:nth-of-type(3n){animation-delay:1.6s}
+.diagram svg rect[fill="#e8f4ff"],.diagram svg rect[fill="#fff0e4"],.diagram svg rect[fill="#e8faf2"]{animation:svgGlow 4s ease-in-out infinite}
+.diagram svg rect[fill="#fff0e4"]{animation-delay:1.3s}
+.diagram svg rect[fill="#e8faf2"]{animation-delay:2.6s}
 /* Code Block Theme Colors */
 .wrap-guest pre{background:#f4fefa;border-color:var(--mint)}
 .wrap-guest .code-bar{background:#e8faf2;border-color:var(--mint)}
@@ -251,7 +272,8 @@ details.faq-item[open] summary::before{transform:rotate(90deg)}
 <section class="section" id="s0">
   <div class="section-head"><span class="section-num">00</span><h2>🏗️ 全体の仕組み</h2></div>
   <div class="diagram">
-    <svg width="780" height="400" viewBox="0 0 780 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="780" height="400" viewBox="0 0 780 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Windows 隔離アーキテクチャ: WSLg + WSL2 + Podman コンテナ (CUDA CDI)">
+      <title>Windows / WSL2 セットアップ アーキテクチャ図</title>
       <defs>
         <marker id="aa" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#7dc4f0" opacity=".5"/></marker>
         <marker id="ab" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#ffad7d" opacity=".5"/></marker>
@@ -529,6 +551,10 @@ podman volume create ollama-models</pre>
 <!-- 07 BUILD & RUN -->
 <section class="section" id="s7">
   <div class="section-head"><span class="section-num">07</span><h2>🔨 組み立てて動かす！ (Build &amp; Run)</h2></div>
+  <div class="callout callout-sky">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body"><code>compose.yml</code> を使うとワンコマンドで起動できます: <code>podman-compose up -d</code><br>compose.yml はリポジトリのルートに用意してあります（Windows 向けコメントあり）。以下は手動で実行する場合の手順です。</div>
+  </div>
   <h3>イメージビルド</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>

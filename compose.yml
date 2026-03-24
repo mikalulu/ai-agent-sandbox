@@ -1,0 +1,70 @@
+# compose.yml — AI Agent Sandbox
+# ─────────────────────────────────────────────
+# podman-compose up -d  または  docker compose up -d
+#
+# 事前準備:
+#   1. Dockerfile と entrypoint.sh を同じディレクトリに配置
+#   2. イメージをビルド:
+#      podman build -t agent-sandbox:latest .
+#   3. Linux のみ — Xephyr を起動:
+#      Xephyr :10 -screen 1920x1080 -ac &
+#
+# プラットフォーム別の違い:
+#   Linux   → DISPLAY=:10, X11 ソケット, Xephyr 経由
+#   Windows → DISPLAY は WSLg が自動設定, X11 ソケットは WSLg 管理
+#
+# 使い方:
+#   起動:   podman-compose up -d
+#   入る:   podman exec -it agent-sandbox bash
+#   停止:   podman-compose down
+#   ログ:   podman-compose logs -f
+# ─────────────────────────────────────────────
+
+services:
+  sandbox:
+    image: agent-sandbox:latest
+    container_name: agent-sandbox
+    stdin_open: true
+    tty: true
+
+    environment:
+      # --- Linux: Xephyr 経由 ---
+      - DISPLAY=:10
+      # --- Windows (WSLg): 以下に置き換え ---
+      # - DISPLAY=${DISPLAY}
+
+    volumes:
+      # X11 ソケット (Linux: Xephyr)
+      - /tmp/.X11-unix/X10:/tmp/.X11-unix/X10:ro
+      # --- Windows (WSLg): 以下に置き換え ---
+      # - /tmp/.X11-unix:/tmp/.X11-unix:ro
+      # - /mnt/wslg:/mnt/wslg:ro
+
+      # Chromium / Electron 用共有メモリ
+      - /dev/shm:/dev/shm
+
+      # 永続ボリューム
+      - agent-workspace:/home/agent/work
+      - ollama-models:/root/.ollama/models
+
+    devices:
+      # NVIDIA GPU (CDI — nvidia-ctk cdi generate 済みであること)
+      - nvidia.com/gpu=all
+
+    # ネットワーク隔離 (NAT)
+    # podman-compose は network_mode をサポート
+    # docker compose の場合は bridge に変更してください
+    network_mode: slirp4netns
+
+    # リソース制限（任意 — 必要に応じてコメント解除）
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 8g
+    #       cpus: "4"
+
+volumes:
+  agent-workspace:
+    # 作業ファイル永続化
+  ollama-models:
+    # LLM モデルキャッシュ永続化

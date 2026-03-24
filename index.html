@@ -278,6 +278,54 @@ footer {
 footer a { text-decoration: none; font-weight: 800; transition: opacity 0.15s; }
 footer a:hover { opacity: 0.7; }
 
+/* ── Quick Start ── */
+.quick-start{background:white;border:1.5px solid var(--border);border-radius:20px;padding:24px 28px;margin-bottom:40px;box-shadow:0 4px 24px var(--shadow);text-align:center}
+.qs-title{font-family:'Klee One',cursive;font-size:15px;font-weight:600;margin-bottom:16px;color:var(--text)}
+.qs-btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.qs-btn{font-family:'Nunito',sans-serif;font-size:13px;font-weight:700;padding:10px 22px;border-radius:14px;border:2px solid var(--border);background:white;color:var(--textdim);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px}
+.qs-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px var(--shadow)}
+.qs-btn.active-linux{border-color:var(--mint);background:#e8faf2;color:var(--mint2)}
+.qs-btn.active-mac{border-color:var(--lav);background:#f0e8ff;color:var(--lav2)}
+.qs-btn.active-win{border-color:var(--sky);background:#e8f4ff;color:var(--sky2)}
+.qs-result{display:none;padding:16px;border-radius:14px;border:1.5px solid var(--border);margin-top:12px;font-size:12px;font-weight:600;line-height:1.8;color:var(--textdim);text-align:left}
+.qs-result.show{display:block;animation:fadeUp .3s ease both}
+.qs-result strong{color:var(--text)}
+.qs-result a{font-weight:800;text-decoration:none;border-bottom:2px solid;padding-bottom:1px}
+
+/* ── Fluffy Effects ── */
+@keyframes floatBubble{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-20px) scale(1.05)}}
+@keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+@keyframes softPulse{0%,100%{box-shadow:0 4px 20px var(--shadow)}50%{box-shadow:0 8px 40px rgba(180,140,200,0.22)}}
+@keyframes twinkle{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.1)}}
+
+/* Floating hero tags */
+.htag{animation:floatSlow 3s ease-in-out infinite}
+.htag:nth-child(2){animation-delay:.4s}
+.htag:nth-child(3){animation-delay:.8s}
+.htag:nth-child(4){animation-delay:1.2s}
+.htag:nth-child(5){animation-delay:1.6s}
+.htag:nth-child(6){animation-delay:.2s}
+.htag:nth-child(7){animation-delay:.6s}
+.htag:nth-child(8){animation-delay:1s}
+.htag:nth-child(9){animation-delay:1.4s}
+
+/* Card soft glow pulse on hover */
+.card:hover{animation:softPulse 2s ease-in-out infinite}
+
+/* Decorative floating circles */
+.page::before,.page::after{
+  content:'';position:fixed;border-radius:50%;pointer-events:none;opacity:.15;z-index:-1;
+  animation:floatBubble 8s ease-in-out infinite;
+}
+.page::before{width:200px;height:200px;top:10%;left:-60px;background:radial-gradient(circle,var(--pink) 0%,transparent 70%)}
+.page::after{width:160px;height:160px;bottom:15%;right:-40px;background:radial-gradient(circle,var(--mint) 0%,transparent 70%);animation-delay:3s}
+
+/* Stack items gentle float */
+.stack-item{animation:floatSlow 4s ease-in-out infinite}
+.stack-item:nth-child(even){animation-delay:1s}
+.stack-item:nth-child(3n){animation-delay:2s}
+
 /* ── Animations ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(18px); }
@@ -285,6 +333,7 @@ footer a:hover { opacity: 0.7; }
 }
 header       { animation: fadeUp 0.5s ease both; }
 .cards       { animation: fadeUp 0.5s 0.1s ease both; }
+.quick-start { animation: fadeUp 0.5s 0.12s ease both; }
 .comp-wrap   { animation: fadeUp 0.5s 0.15s ease both; }
 .stack-section { animation: fadeUp 0.5s 0.2s ease both; }
 footer       { animation: fadeUp 0.5s 0.25s ease both; }
@@ -374,6 +423,37 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
     </div>
   </a>
 
+</div>
+
+<!-- Quick Start -->
+<div class="quick-start">
+  <div class="qs-title">🚀 クイックスタート診断 — どの手順書を読めばいい？</div>
+  <div class="qs-btns">
+    <button class="qs-btn" onclick="qsPick('linux')" data-os="linux">🐧 Linux を使っている</button>
+    <button class="qs-btn" onclick="qsPick('mac')" data-os="mac">🍎 Mac (Apple Silicon) を使っている</button>
+    <button class="qs-btn" onclick="qsPick('win')" data-os="win">⊞ Windows 11 を使っている</button>
+  </div>
+  <div class="qs-result" id="qs-linux" style="background:#f4fefa;border-color:var(--mint)">
+    <strong>🐧 Linux + NVIDIA GPU → 最強の隔離構成！</strong><br>
+    Podman + Xephyr で画面もファイルも完全に切り離せます。GPU は CDI で直結。<br>
+    <strong>必要なもの:</strong> Ubuntu 22.04+ / NVIDIA GPU / RAM 16GB+ / ディスク 80GB+<br>
+    <strong>所要時間:</strong> 約 1〜2 時間（初回）<br><br>
+    → <a href="./linux.html" style="color:var(--mint2)">🌿 Linux セットアップガイドへ</a>
+  </div>
+  <div class="qs-result" id="qs-mac" style="background:#f8f4ff;border-color:var(--lav)">
+    <strong>🍎 Apple Silicon Mac → Lima VM でふんわり隔離！</strong><br>
+    Lima VM の中にセットアップ。Ollama は Mac 本体の Metal パワーで快適動作。<br>
+    <strong>必要なもの:</strong> macOS 13+ / M1〜M4 / Unified Memory 16GB+ / ディスク 100GB+<br>
+    <strong>所要時間:</strong> 約 1 時間（初回）<br><br>
+    → <a href="./mac.html" style="color:var(--lav2)">🔮 macOS セットアップガイドへ</a>
+  </div>
+  <div class="qs-result" id="qs-win" style="background:#f4faff;border-color:var(--sky)">
+    <strong>⊞ Windows 11 → WSL2 + Podman でお手軽隔離！</strong><br>
+    WSL2 の中で Podman を動かす構成。画面は WSLg が自動で処理してくれます。<br>
+    <strong>必要なもの:</strong> Windows 11 22H2+ / NVIDIA GPU (ドライバー 525+) / RAM 16GB+ / ディスク 80GB+<br>
+    <strong>所要時間:</strong> 約 1〜2 時間（初回）<br><br>
+    → <a href="./windows.html" style="color:var(--sky2)">🌊 Windows セットアップガイドへ</a>
+  </div>
 </div>
 
 <!-- Comparison Table -->
@@ -475,5 +555,19 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
 </footer>
 
 </div>
+
+<script>
+function qsPick(os) {
+  document.querySelectorAll('.qs-btn').forEach(b => {
+    b.className = 'qs-btn';
+  });
+  document.querySelectorAll('.qs-result').forEach(r => r.classList.remove('show'));
+
+  const btn = document.querySelector('.qs-btn[data-os="' + os + '"]');
+  const cls = os === 'linux' ? 'active-linux' : os === 'mac' ? 'active-mac' : 'active-win';
+  btn.classList.add(cls);
+  document.getElementById('qs-' + os).classList.add('show');
+}
+</script>
 </body>
 </html>
