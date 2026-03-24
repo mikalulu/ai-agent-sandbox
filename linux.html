@@ -262,6 +262,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(120
   <div class="section-head"><span class="section-num">✦</span><h2>📋 はじめる前に</h2></div>
   <h3>前提条件チェックリスト</h3>
   <ul class="check-list">
+    <li><strong>x86_64 (amd64) アーキテクチャ必須</strong> — ARM Linux は非対応</li>
     <li><strong>Ubuntu 22.04 / 24.04 LTS</strong> または Debian 12+</li>
     <li><strong>NVIDIA GPU</strong>（CUDA Compute Capability 5.0+）</li>
     <li><strong>RAM: 16 GB 以上</strong>推奨（7B モデル + コンテナ + ホスト分）</li>
@@ -360,7 +361,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(120
   </div>
   <h3>インストール</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># Podman + Xephyr</span>
 sudo apt install -y podman xserver-xephyr
 
@@ -391,7 +392,7 @@ sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml</pre>
     <div class="callout-body">Windsurf や Antigravity は、公式の <code>.deb</code> ファイルを直接ダウンロードして入れます📦（外部の複雑な登録はしません✨）。Ollama は本体だけ入れておき、重たいモデルデータは別のお部屋（Volume）で管理します♪</div>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">dockerfile</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">dockerfile</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>FROM debian:12-slim
 
 <span class="c"># ── base deps ──────────────────────────────────</span>
@@ -444,12 +445,15 @@ RUN curl -LsSf https://aider.chat/install.sh | sh
 <span class="c"># ── Ollama (binary only, models → Volume) ──────</span>
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
-<span class="c"># ── Windsurf (.deb) ────────────────────────────</span>
-<span class="c"># ⚠️ URLは公式サイト https://codeium.com/windsurf/download から最新版を確認してください</span>
-ARG WINDSURF_DEB=https://windsurf-stable.codeiumdata.com/linux-x86_64/windsurf_latest_amd64.deb
-RUN curl -fsSL $WINDSURF_DEB -o /tmp/windsurf.deb \
-  && dpkg -i /tmp/windsurf.deb || apt-get install -fy \
-  && rm /tmp/windsurf.deb
+<span class="c"># ── Windsurf (apt repo) ─────────────────────────</span>
+RUN mkdir -p /etc/apt/keyrings \
+  && wget -qO- "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg" \
+     | gpg --dearmor > /etc/apt/keyrings/windsurf-stable.gpg \
+  && echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/windsurf-stable.gpg] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main" \
+     > /etc/apt/sources.list.d/windsurf.list \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends windsurf \
+  && rm -rf /var/lib/apt/lists/*
 
 <span class="c"># ── Antigravity (.deb) ─────────────────────────</span>
 ARG ANTIGRAVITY_DEB=https://antigravity.google/releases/antigravity_latest_amd64.deb
@@ -479,7 +483,7 @@ CMD ["bash"]</pre>
 <section class="section" id="s3">
   <div class="section-head"><span class="section-num">03</span><h2>🚀 entrypoint.sh</h2></div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>#!/bin/bash
 set -e
 
@@ -504,7 +508,7 @@ exec "${@:-bash}"</pre>
 <section class="section" id="s4">
   <div class="section-head"><span class="section-num">04</span><h2>💾 専用のお部屋（Volume）作り <small style="font-size:12px;font-weight:600;color:var(--textdim)">— 最初の一回だけ！</small></h2></div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># 作業スペース (コード・成果物)</span>
 podman volume create agent-workspace
 
@@ -522,19 +526,19 @@ podman volume create ollama-models</pre>
   </div>
   <h3>イメージビルド</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>podman build -t agent-sandbox:latest .</pre>
   </div>
   <h3>Xephyr 起動 — ホスト側・別ターミナル</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># XWayland 上でネスト X を独立ウィンドウとして起動</span>
 <span class="c"># -ac: コンテナからの接続を許可</span>
 Xephyr :10 -screen 1920x1080 -ac &</pre>
   </div>
   <h3>コンテナ起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>podman run -it --rm \
   <span class="c"># Xephyr のみ公開 (ホスト :0 は渡さない)</span>
   -e DISPLAY=:10 \
@@ -571,7 +575,7 @@ Xephyr :10 -screen 1920x1080 -ac &</pre>
   </div>
   <h3>モデルの pull (コンテナ内)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># コンテナ内で ollama サーバー起動 → モデル取得</span>
 ollama serve &
 sleep 2
@@ -584,7 +588,7 @@ ollama pull qwen2.5-coder:7b</pre>
   </div>
   <h3>モデルサイズ目安</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">text</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>qwen2.5-coder:3b     ~2 GB    VRAM 3GB+   軽量・高速
 qwen2.5-coder:7b     ~5 GB    VRAM 6GB+   バランス型
 llama3.2:3b          ~2 GB    VRAM 3GB+   汎用
@@ -621,13 +625,13 @@ codellama:7b         ~4 GB    VRAM 6GB+   コーディング特化</pre>
   <div class="section-head"><span class="section-num">08</span><h2>💡 便利なヒント集 (Tips)</h2></div>
   <h3>Xephyr 解像度変更</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># HiDPI (2560x1440)</span>
 Xephyr :10 -screen 2560x1440 -dpi 144 -ac &</pre>
   </div>
   <h3>ワークスペースのバックアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>podman run --rm \
   -v agent-workspace:/work:ro \
   -v $(pwd):/out \
@@ -636,7 +640,7 @@ Xephyr :10 -screen 2560x1440 -dpi 144 -ac &</pre>
   </div>
   <h3>Antigravity 権限制限 (ゲスト内設定)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">text</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>Settings > Terminal
   Auto Execution  →  Request Review   # 全コマンドを承認制に
   Deny List       →  rm -rf, curl, wget (任意)
@@ -646,7 +650,7 @@ Settings > Browser
   </div>
   <h3>CUDA バージョン確認</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># ホスト側で driver バージョンを確認してから Dockerfile を調整</span>
 nvidia-smi | grep "CUDA Version"</pre>
   </div>

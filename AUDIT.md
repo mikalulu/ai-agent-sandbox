@@ -18,8 +18,10 @@
 | マトリックスページ | ✅ 修正済 | 801749b から包括的バージョン（787/577行）を復元 |
 | スタックアイコン | ✅ 修正済 | ⬡ → 適切な emoji に置換（📦 🎮 🖥️ / 🍺 🐧 🦙） |
 | h2 見出し emoji | ✅ 修正済 | `-webkit-text-fill-color:transparent` バグ修正 |
-| Windsurf .deb URL | ⚠️ 404 | 公式ページ確認要（URL 変更済み） |
-| アクセシビリティ | ⚠️ 不足 | aria 属性・alt 属性がゼロ（低優先） |
+| Windsurf インストール | ✅ 修正済 | apt repo 方式に変更（.deb URL は 404 廃止） |
+| アーキテクチャ制限 | ✅ 修正済 | 前提条件に ARM Linux・Intel Mac 非対応を明記 |
+| SVG アクセシビリティ | ✅ 対応済 | 全ページ role="img" aria-label <title> あり |
+| コピーボタン type 属性 | ✅ 修正済 | 全ページの copy-btn に type="button" 追加 |
 
 ---
 
@@ -92,26 +94,37 @@ ERROR: This version requires zstd for extraction.
 
 ---
 
-### 1-6. Windsurf .deb URL が 404 ⚠️ 未解決
+### 1-6. Windsurf インストール方法を apt repo に修正 ✅ 修正済
 
-**発見**: `curl -fsSIL` で確認。
+**発見**: .deb URL `windsurf-stable.codeiumdata.com/linux-x86_64/windsurf_latest_amd64.deb` が HTTP 404。
 
-```
-HTTP/2 404
-```
+**修正**: linux.html, windows.html の Dockerfile を apt リポジトリ方式に変更:
 
-**状況**: Codeium/Windsurf の CDN URL `windsurf-stable.codeiumdata.com/linux-x86_64/windsurf_latest_amd64.deb` が 404。Windsurf は OpenAI に買収済みで配布インフラが変更された可能性あり。
-
-**対応**: Dockerfile にコメントで注記追加:
 ```dockerfile
-# ⚠️ URLは公式サイト https://codeium.com/windsurf/download から最新版を確認してください
+# ── Windsurf (apt repo) ─────────────────────────
+RUN mkdir -p /etc/apt/keyrings \
+  && wget -qO- "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg" \
+     | gpg --dearmor > /etc/apt/keyrings/windsurf-stable.gpg \
+  && echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/windsurf-stable.gpg] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main" \
+     > /etc/apt/sources.list.d/windsurf.list \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends windsurf \
+  && rm -rf /var/lib/apt/lists/*
 ```
 
-**アクション必要**: 実際に試す際は公式ダウンロードページで最新 URL を確認すること。
+`wget` と `gnupg` は既に前段の `apt-get install` で導入済み。
 
 ---
 
-### 1-7. compose.yml の GitHub リンクなし ✅ 修正済
+### 1-7. アーキテクチャ制限を前提条件に追記 ✅ 修正済
+
+- linux.html: 「x86_64 (amd64) アーキテクチャ必須 — ARM Linux は非対応」をチェックリスト先頭に追加
+- mac.html: Apple Silicon 必須 + Intel Mac 非対応を明記（Mac の先頭項目として配置）
+- windows.html: 「x86_64 (amd64) アーキテクチャ必須 — ARM Windows は非対応」を追加
+
+---
+
+### 1-8. compose.yml の GitHub リンクなし ✅ 修正済
 
 **修正**: linux.html, windows.html のコールアウトで「リポジトリのルート」に GitHub URL リンクを追加。
 
@@ -168,7 +181,8 @@ HTTP/2 404
 | 🔴 高 | zstd 追加（Ollama 必須） | ✅ 完了 |
 | 🔴 高 | matrix ページ内容復元 | ✅ 完了 |
 | 🟠 中 | ⬡ アイコン修正 | ✅ 完了 |
-| 🟠 中 | Windsurf .deb URL 確認 | ⚠️ 要確認 |
-| 🟡 低 | SVG aria-label 追加 | 未対応 |
-| 🟡 低 | コピーボタン type 属性 | 未対応 |
+| 🟠 中 | Windsurf apt repo に修正 | ✅ 完了 |
+| 🟠 中 | アーキテクチャ制限を前提条件に追記 | ✅ 完了 |
+| 🟡 低 | SVG aria-label 追加 | ✅ 完了（元から対応済み） |
+| 🟡 低 | コピーボタン type 属性 | ✅ 完了 |
 | 🔵 随時 | NVM・CUDA バージョン確認 | 随時 |

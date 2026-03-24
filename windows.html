@@ -281,6 +281,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125
   <div class="section-head"><span class="section-num">✦</span><h2>📋 はじめる前に</h2></div>
   <h3>前提条件チェックリスト</h3>
   <ul class="check-list">
+    <li><strong>x86_64 (amd64) アーキテクチャ必須</strong> — ARM Windows は非対応</li>
     <li><strong>Windows 11 22H2 以上</strong>（WSLg 対応版）</li>
     <li><strong>NVIDIA GPU</strong>（ドライバー 525.x 以上 — Windows 側）</li>
     <li><strong>RAM: 16 GB 以上</strong>推奨（WSL2 VM + コンテナ + Windows 分）</li>
@@ -377,7 +378,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125
   </div>
   <h3>PowerShell (管理者) で実行</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell — 管理者</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">powershell — 管理者</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># WSL2 + Ubuntu 24.04 をインストール</span>
 wsl --install -d Ubuntu-24.04
 
@@ -386,19 +387,19 @@ Restart-Computer</pre>
   </div>
   <h3>再起動後 — Ubuntu 初期設定</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># WSL2 がデフォルトになっていることを確認</span>
 wsl --set-default-version 2
 wsl --list --verbose   <span class="c"># VERSION が 2 であることを確認</span></pre>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2 Ubuntu 内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2 Ubuntu 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># Ubuntu 初回起動でユーザー名・パスワードを設定後</span>
 sudo apt update && sudo apt upgrade -y</pre>
   </div>
   <h3>.wslconfig でリソース制限 (任意)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">ini — %USERPROFILE%\.wslconfig</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">ini — %USERPROFILE%\.wslconfig</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>[wsl2]
 memory=8GB          <span class="c"># WSL2 に割り当てる最大 RAM</span>
 processors=4        <span class="c"># 使用する CPU コア数</span>
@@ -416,7 +417,7 @@ gpuMemoryFraction=0.8   <span class="c"># GPU メモリ割り当て比率</span>
   </div>
   <h3>1. Windows 側 NVIDIA ドライバー確認</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># Windows 側で CUDA 対応ドライバーが入っているか確認</span>
 nvidia-smi
 
@@ -425,7 +426,7 @@ winget install NVIDIA.CUDA</pre>
   </div>
   <h3>2. WSL2 内で nvidia-container-toolkit をインストール</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># NVIDIA Container Toolkit リポジトリ追加</span>
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
   | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
@@ -448,7 +449,7 @@ nvidia-smi</pre>
 <section class="section" id="s3">
   <div class="section-head"><span class="section-num">03</span><h2>📦 Podman を入れよう！</h2></div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># Ubuntu 24.04 は podman が公式リポジトリにある</span>
 sudo apt install -y podman
 
@@ -468,7 +469,7 @@ podman info | grep -i rootless</pre>
     <div class="callout-body">Linux版のDockerfileと違うのは <strong>DISPLAY の設定だけ</strong> です🐧 Xephyrがいらない分、少しスッキリしていますね✨ <code>cuda-cudart-12-4</code> の数字は、Windows側のドライバーと仲良しなバージョンに合わせてあげてください🤖</div>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">dockerfile</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">dockerfile</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>FROM debian:12-slim
 
 <span class="c"># ── base deps ─────────────────────────────────</span>
@@ -515,12 +516,15 @@ RUN curl -LsSf https://aider.chat/install.sh | sh
 <span class="c"># ── Ollama (binary only) ──────────────────────</span>
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
-<span class="c"># ── Windsurf (.deb) ───────────────────────────</span>
-<span class="c"># ⚠️ URLは公式サイト https://codeium.com/windsurf/download から最新版を確認してください</span>
-ARG WINDSURF_DEB=https://windsurf-stable.codeiumdata.com/linux-x86_64/windsurf_latest_amd64.deb
-RUN curl -fsSL $WINDSURF_DEB -o /tmp/windsurf.deb \
-  && dpkg -i /tmp/windsurf.deb || apt-get install -fy \
-  && rm /tmp/windsurf.deb
+<span class="c"># ── Windsurf (apt repo) ────────────────────────</span>
+RUN mkdir -p /etc/apt/keyrings \
+  && wget -qO- "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg" \
+     | gpg --dearmor > /etc/apt/keyrings/windsurf-stable.gpg \
+  && echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/windsurf-stable.gpg] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main" \
+     > /etc/apt/sources.list.d/windsurf.list \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends windsurf \
+  && rm -rf /var/lib/apt/lists/*
 
 <span class="c"># ── Antigravity (.deb) ────────────────────────</span>
 ARG ANTIGRAVITY_DEB=https://antigravity.google/releases/antigravity_latest_amd64.deb
@@ -554,7 +558,7 @@ CMD ["bash"]</pre>
     <div class="callout-body">ここはLinux版と全く同じです🐧 WSLgちゃんが画面の宛先（DISPLAY）を自動で作ってくれるので、起動する時にそれを渡すだけで動いてくれますよ✨</div>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>#!/bin/bash
 set -e
 
@@ -575,7 +579,7 @@ exec "${@:-bash}"</pre>
 <section class="section" id="s6">
   <div class="section-head"><span class="section-num">06</span><h2>💾 専用のお部屋（Volume）作り <small style="font-size:12px;font-weight:600;color:var(--textdim)">— 最初の一回だけ！</small></h2></div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>podman volume create agent-workspace
 podman volume create ollama-models</pre>
   </div>
@@ -590,12 +594,12 @@ podman volume create ollama-models</pre>
   </div>
   <h3>イメージビルド</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>podman build -t agent-sandbox:latest .</pre>
   </div>
   <h3>コンテナ起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>podman run -it --rm \
   <span class="c"># WSLg の DISPLAY をそのまま渡す (Xephyr 不要)</span>
   -e DISPLAY=$DISPLAY \
@@ -631,7 +635,7 @@ podman volume create ollama-models</pre>
   </div>
   <h3>コンテナ内で起動 · モデル取得</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>ollama serve &
 sleep 2
 
@@ -643,7 +647,7 @@ ollama ps   <span class="c"># SIZE (VRAM) が表示されれば GPU 動作中</s
   </div>
   <h3>VRAM 使用確認 (WSL2 側)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>nvidia-smi --query-gpu=memory.used,memory.free --format=csv</pre>
   </div>
 </section>
@@ -672,13 +676,13 @@ ollama ps   <span class="c"># SIZE (VRAM) が表示されれば GPU 動作中</s
   <div class="section-head"><span class="section-num">10</span><h2>💡 便利なヒント集 (Tips)</h2></div>
   <h3>WSL2 の再起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>wsl --shutdown          <span class="c"># 全 distro 停止</span>
 wsl -d Ubuntu-24.04     <span class="c"># 再起動</span></pre>
   </div>
   <h3>Windows Terminal から直接コンテナ起動するプロファイル</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">json — WT settings.json の profiles.list に追加</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">json — WT settings.json の profiles.list に追加</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>{
   "name": "Agent Sandbox",
   "commandline": "wsl.exe -d Ubuntu-24.04 -- bash -c 'podman start -ai agent-sandbox'",
@@ -688,7 +692,7 @@ wsl -d Ubuntu-24.04     <span class="c"># 再起動</span></pre>
   </div>
   <h3>ワークスペースのバックアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre>podman run --rm \
   -v agent-workspace:/work:ro \
   -v $(pwd):/out \
@@ -697,7 +701,7 @@ wsl -d Ubuntu-24.04     <span class="c"># 再起動</span></pre>
   </div>
   <h3>CUDA バージョン整合性確認</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
     <pre><span class="c"># Windows ドライバーの CUDA Version を確認して Dockerfile を調整</span>
 nvidia-smi | grep "CUDA Version"</pre>
   </div>
