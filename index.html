@@ -428,33 +428,14 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
 
 <!-- Quick Start -->
 <div class="quick-start">
-  <div class="qs-title">🚀 クイックスタート診断 — どの手順書を読めばいい？</div>
+  <div class="qs-title">🔍 環境診断 — 持っているマシンを全部えらんで！</div>
+  <div style="font-size:11px;color:var(--textdim);font-weight:600;margin-bottom:14px;text-align:center">複数台持ちもOK ✿ タップして切り替え</div>
   <div class="qs-btns">
-    <button class="qs-btn" onclick="qsPick('linux')" data-os="linux">🐧 Linux を使っている</button>
-    <button class="qs-btn" onclick="qsPick('mac')" data-os="mac">🍎 Mac (Apple Silicon) を使っている</button>
-    <button class="qs-btn" onclick="qsPick('win')" data-os="win">⊞ Windows 11 を使っている</button>
+    <button class="qs-btn" id="btn-linux" onclick="qsToggle('linux')">🐧 Linux がある</button>
+    <button class="qs-btn" id="btn-mac"   onclick="qsToggle('mac')">🍎 Mac (Apple Silicon) がある</button>
+    <button class="qs-btn" id="btn-win"   onclick="qsToggle('win')">⊞ Windows 11 がある</button>
   </div>
-  <div class="qs-result" id="qs-linux" style="background:#f4fefa;border-color:var(--mint)">
-    <strong>🐧 Linux + NVIDIA GPU → 最強の隔離構成！</strong><br>
-    Podman + Xephyr で画面もファイルも完全に切り離せます。GPU は CDI で直結。<br>
-    <strong>必要なもの:</strong> Ubuntu 22.04+ / NVIDIA GPU / RAM 16GB+ / ディスク 80GB+<br>
-    <strong>所要時間:</strong> 約 1〜2 時間（初回）<br><br>
-    → <a href="./linux.html" style="color:var(--mint2)">🌿 Linux セットアップガイドへ</a>
-  </div>
-  <div class="qs-result" id="qs-mac" style="background:#f8f4ff;border-color:var(--lav)">
-    <strong>🍎 Apple Silicon Mac → Lima VM でふんわり隔離！</strong><br>
-    Lima VM の中にセットアップ。Ollama は Mac 本体の Metal パワーで快適動作。<br>
-    <strong>必要なもの:</strong> macOS 13+ / M1〜M4 / Unified Memory 16GB+ / ディスク 100GB+<br>
-    <strong>所要時間:</strong> 約 1 時間（初回）<br><br>
-    → <a href="./mac.html" style="color:var(--lav2)">🔮 macOS セットアップガイドへ</a>
-  </div>
-  <div class="qs-result" id="qs-win" style="background:#f4faff;border-color:var(--sky)">
-    <strong>⊞ Windows 11 → WSL2 + Podman でお手軽隔離！</strong><br>
-    WSL2 の中で Podman を動かす構成。画面は WSLg が自動で処理してくれます。<br>
-    <strong>必要なもの:</strong> Windows 11 22H2+ / NVIDIA GPU (ドライバー 525+) / RAM 16GB+ / ディスク 80GB+<br>
-    <strong>所要時間:</strong> 約 1〜2 時間（初回）<br><br>
-    → <a href="./windows.html" style="color:var(--sky2)">🌊 Windows セットアップガイドへ</a>
-  </div>
+  <div class="qs-result" id="qs-result"></div>
 </div>
 
 <!-- Comparison Table -->
@@ -560,16 +541,97 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
 </div>
 
 <script>
-function qsPick(os) {
-  document.querySelectorAll('.qs-btn').forEach(b => {
-    b.className = 'qs-btn';
-  });
-  document.querySelectorAll('.qs-result').forEach(r => r.classList.remove('show'));
+const qsSel = new Set();
+const qsBtnCls = { linux:'active-linux', mac:'active-mac', win:'active-win' };
+const qsBg = {
+  linux: 'background:#f4fefa;border-color:var(--mint)',
+  mac:   'background:#f8f4ff;border-color:var(--lav)',
+  win:   'background:#f4faff;border-color:var(--sky)',
+};
 
-  const btn = document.querySelector('.qs-btn[data-os="' + os + '"]');
-  const cls = os === 'linux' ? 'active-linux' : os === 'mac' ? 'active-mac' : 'active-win';
-  btn.classList.add(cls);
-  document.getElementById('qs-' + os).classList.add('show');
+function qsToggle(os) {
+  qsSel.has(os) ? qsSel.delete(os) : qsSel.add(os);
+  document.getElementById('btn-' + os).className =
+    'qs-btn' + (qsSel.has(os) ? ' ' + qsBtnCls[os] : '');
+  qsRender();
+}
+
+function qsRender() {
+  const el = document.getElementById('qs-result');
+  const sel = [...qsSel].sort();
+  if (!sel.length) { el.classList.remove('show'); return; }
+
+  const C = {
+    linux: `<strong>🐧 Linux + NVIDIA GPU → 最強の隔離構成！</strong><br>
+Podman + Xephyr で画面もファイルも完全に切り離し。GPU は CDI で直結。<br>
+<strong>難度:</strong> <span style="color:var(--peach2)">★★★ やや高め</span> — Xephyr の設定と CDI 登録が鬼門<br>
+<strong>必要:</strong> Ubuntu 22.04+ / NVIDIA GPU / RAM 16GB+ / ディスク 80GB+<br>
+→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux セットアップガイドへ</a>`,
+
+    mac: `<strong>🍎 Apple Silicon Mac → Lima VM でふんわり隔離！</strong><br>
+Lima VM 内にセットアップ。Ollama は Mac 本体の Metal パワーで快適動作。<br>
+<strong>難度:</strong> <span style="color:var(--mint2)">★☆☆ かんたん</span> — brew で Lima 入れてほぼ完了<br>
+<strong>必要:</strong> macOS 13+ / M1〜M4 / Unified Memory 16GB+ / ディスク 100GB+<br>
+→ <a href="./mac.html" style="color:var(--lav2)">🔮 macOS セットアップガイドへ</a>`,
+
+    win: `<strong>⊞ Windows 11 → WSL2 + Podman でお手軽隔離！</strong><br>
+WSL2 内で Podman を動かす構成。画面は WSLg が自動で処理。<br>
+<strong>難度:</strong> <span style="color:var(--sky2)">★★☆ 普通</span> — WSL2 有効化とドライバー更新が必要<br>
+<strong>必要:</strong> Windows 11 22H2+ / NVIDIA GPU (ドライバー 525+) / RAM 16GB+<br>
+→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows セットアップガイドへ</a>`,
+  };
+
+  const M = {
+    'linux+mac': `<strong>🐧✕🍎 デュアル構成 — 役割分担で最強に！</strong><br><br>
+<span style="color:var(--mint2)">🐧 Linux</span> → AI エージェントの<strong>本番実行環境</strong>（Podman + CUDA 直結）<br>
+<span style="color:var(--lav2)">🍎 Mac</span> → Ollama Metal で<strong>ローカル LLM サーバー</strong>として運用<br><br>
+Linux の AI エージェントから Mac の Ollama に <code>OLLAMA_HOST</code> で接続すれば、<br>
+Apple Silicon の Metal 推論を Linux エージェントから透過的に使える。<br><br>
+→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux から始めよう</a>　→ <a href="./mac.html" style="color:var(--lav2)">🔮 macOS もセットアップ</a>`,
+
+    'linux+win': `<strong>🐧✕⊞ デュアル構成 — 開発 ＆ 互換性テスト！</strong><br><br>
+<span style="color:var(--mint2)">🐧 Linux</span> → 最強隔離の<strong>メイン開発・実験機</strong>（Xephyr + CDI GPU）<br>
+<span style="color:var(--sky2)">⊞ Windows</span> → Windows ネイティブアプリの動作確認・WSL2 補助環境<br><br>
+AI エージェントは Linux で走らせ、Windows しか動かないツールのテストや<br>
+WSL2 の挙動確認は Windows 側で。Git リポジトリはどちらからも共有できる。<br><br>
+→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux から始めよう</a>　→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows もセットアップ</a>`,
+
+    'mac+win': `<strong>🍎✕⊞ デュアル構成 — ローカル LLM ＆ 開発！</strong><br><br>
+<span style="color:var(--lav2)">🍎 Mac</span> → <strong>Ollama Metal LLM サーバー</strong> ＋ 設計・相談用メイン機<br>
+<span style="color:var(--sky2)">⊞ Windows</span> → WSL2 + Podman で<strong>エージェント実行環境</strong><br><br>
+Windows の AI エージェントから Mac の Ollama へ <code>OLLAMA_HOST=&lt;MacのIP&gt;</code> で接続。<br>
+ネットワーク越しにApple Silicon の Metal 推論を活用できる。<br><br>
+→ <a href="./mac.html" style="color:var(--lav2)">🔮 Mac から始めよう</a>　→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows もセットアップ</a>`,
+
+    'linux+mac+win': `<strong>🐧✕🍎✕⊞ フル装備 — 役割分担で死角なし！</strong><br><br>
+<span style="color:var(--mint2)">🐧 Linux</span> → <strong>エージェント本番実行</strong>（最強隔離 + CUDA）<br>
+<span style="color:var(--lav2)">🍎 Mac</span> → <strong>ローカル LLM サーバー</strong>（Metal 高速推論）+ 設計・相談<br>
+<span style="color:var(--sky2)">⊞ Windows</span> → <strong>GUI エージェント</strong>・Windows 専用ツールのテスト<br><br>
+Linux をメインに据え、Mac を <code>OLLAMA_HOST</code> で LLM サーバーに。<br>
+Windows は WSLg GUI アプリの動作確認専用にすると三台がきれいに噛み合う。<br><br>
+→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux</a>　→ <a href="./mac.html" style="color:var(--lav2)">🔮 macOS</a>　→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows</a>`,
+  };
+
+  const key = sel.join('+');
+  const isMulti = sel.length > 1;
+  const styleMap = {
+    linux: 'background:#f4fefa;border-color:var(--mint)',
+    mac:   'background:#f8f4ff;border-color:var(--lav)',
+    win:   'background:#f4faff;border-color:var(--sky)',
+    'linux+mac': 'background:#f2fcf6;border-color:var(--mint)',
+    'linux+win': 'background:#f0faff;border-color:var(--sky)',
+    'mac+win':   'background:#f6f0ff;border-color:var(--lav)',
+    'linux+mac+win': 'background:#fff8f4;border-color:var(--peach)',
+  };
+
+  let html = isMulti ? M[key] : '';
+  if (!isMulti) {
+    html = C[sel[0]];
+  }
+
+  el.setAttribute('style', (styleMap[key] || '') + ';display:block');
+  el.innerHTML = html;
+  el.classList.add('show');
 }
 </script>
 </body>
