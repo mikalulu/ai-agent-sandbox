@@ -148,25 +148,14 @@ Dockerfile は `USER agent` に切り替えてから起動するため `--no-san
 | `claude.ai/install.sh \| bash` | ✅ 成功 | `\| sh` は失敗（bash-only 構文） |
 | `aider.chat/install.sh \| sh` | ✅ 成功 | uv ベース、sh でも動作 |
 | `ollama.com/install.sh` | ⚠️ zstd 要 | zstd インストール後は正常 |
-| Windsurf .deb | ❌ 404 | URL 変更済み、要確認 |
+| Windsurf apt repo | ✅ 成功 | .deb URL は 404、apt repo 方式に変更・v1.108.2 非 root で動作確認 |
 | debian:12 の apt パッケージ | ✅ 全31個確認済 | 前回テストで確認 |
 
 ---
 
-## 3. 既存の問題（低優先度）
+## 3. 既存の問題
 
-### 3-1. SVG ダイアグラムに代替テキストなし
-
-**場所**: 全プラットフォームページのアーキテクチャ図
-
-**推奨**: `role="img"` と `aria-label` / `<title>` 要素を追加（一部ページは既に対応済み）。
-
-### 3-2. コピーボタンに `type` 属性なし
-
-```html
-<!-- 推奨 -->
-<button type="button" class="copy-btn" onclick="cp(this)">copy</button>
-```
+現時点で未解決の問題はありません。
 
 ---
 
