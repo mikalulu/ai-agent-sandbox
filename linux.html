@@ -354,9 +354,9 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(120
 <section class="section" id="s1">
   <div class="section-head"><span class="section-num">01</span><h2>🔧 最初の準備</h2></div>
   <div class="stack">
-    <div class="stack-card"><div class="stack-icon ic-mint">⬡</div><div><div class="stack-name">Podman 4.x+</div><div class="stack-role">コンテナランタイム</div></div></div>
-    <div class="stack-card"><div class="stack-icon ic-peach">⬡</div><div><div class="stack-name">nvidia-container-toolkit</div><div class="stack-role">GPU パススルー (CDI)</div></div></div>
-    <div class="stack-card"><div class="stack-icon ic-sky">⬡</div><div><div class="stack-name">Xephyr</div><div class="stack-role">ネスト X サーバー</div></div></div>
+    <div class="stack-card"><div class="stack-icon ic-mint">📦</div><div><div class="stack-name">Podman 4.x+</div><div class="stack-role">コンテナランタイム</div></div></div>
+    <div class="stack-card"><div class="stack-icon ic-peach">🎮</div><div><div class="stack-name">nvidia-container-toolkit</div><div class="stack-role">GPU パススルー (CDI)</div></div></div>
+    <div class="stack-card"><div class="stack-icon ic-sky">🖥️</div><div><div class="stack-name">Xephyr</div><div class="stack-role">ネスト X サーバー</div></div></div>
   </div>
   <h3>インストール</h3>
   <div class="code-wrap">
@@ -406,7 +406,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   <span class="c"># フォント</span>
   fonts-noto-cjk fonts-noto-color-emoji \
   <span class="c"># ユーティリティ</span>
-  ca-certificates curl wget gnupg jq yq ripgrep fd-find vim \
+  ca-certificates curl wget gnupg jq yq ripgrep fd-find vim zstd \
   <span class="c"># ブラウザ (Antigravity 用)</span>
   chromium \
   <span class="c"># デザイン / 図表作成</span>
@@ -436,7 +436,7 @@ RUN npm install -g \
   @google/gemini-cli \
   opencode-ai \
   codex-cli \
-  && curl -fsSL https://claude.ai/install.sh | sh \
+  && curl -fsSL https://claude.ai/install.sh | bash \
   && curl -fsSL https://github.com/block/goose/releases/latest/download/install.sh | bash
 
 RUN curl -LsSf https://aider.chat/install.sh | sh
@@ -445,6 +445,7 @@ RUN curl -LsSf https://aider.chat/install.sh | sh
 RUN curl -fsSL https://ollama.com/install.sh | sh
 
 <span class="c"># ── Windsurf (.deb) ────────────────────────────</span>
+<span class="c"># ⚠️ URLは公式サイト https://codeium.com/windsurf/download から最新版を確認してください</span>
 ARG WINDSURF_DEB=https://windsurf-stable.codeiumdata.com/linux-x86_64/windsurf_latest_amd64.deb
 RUN curl -fsSL $WINDSURF_DEB -o /tmp/windsurf.deb \
   && dpkg -i /tmp/windsurf.deb || apt-get install -fy \
@@ -517,7 +518,7 @@ podman volume create ollama-models</pre>
   <div class="section-head"><span class="section-num">05</span><h2>🔨 組み立てて動かす！ (Build & Run)</h2></div>
   <div class="callout callout-mint">
     <span class="callout-icon">💡</span>
-    <div class="callout-body"><code>compose.yml</code> を使うとワンコマンドで起動できます: <code>podman-compose up -d</code><br>compose.yml はリポジトリのルートに用意してあります。以下は手動で実行する場合の手順です。</div>
+    <div class="callout-body"><code>compose.yml</code> を使うとワンコマンドで起動できます: <code>podman-compose up -d</code><br>compose.yml は<a href="https://github.com/mikalulu/ai-agent-sandbox/blob/main/compose.yml" target="_blank" style="color:inherit;font-weight:800">リポジトリのルート</a>に用意してあります。以下は手動で実行する場合の手順です。</div>
   </div>
   <h3>イメージビルド</h3>
   <div class="code-wrap">
