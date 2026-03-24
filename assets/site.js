@@ -235,6 +235,15 @@ Windows 側から Mac の Ollama を見ると、Apple Silicon の推論パワー
     });
   }
 
+  function bindCopyButtons() {
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.copy-btn');
+      if (btn) {
+        copyCode(btn);
+      }
+    });
+  }
+
   window.cp = copyCode;
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -245,5 +254,6 @@ Windows 側から Mac の Ollama を見ると、Apple Silicon の推論パワー
     bindQuickStart();
     renderEnvironmentMatrix();
     enhanceExternalLinks();
+    bindCopyButtons();
   });
 })();

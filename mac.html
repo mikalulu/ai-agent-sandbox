@@ -20,43 +20,8 @@
 <title>AI Agent Sandbox ✿ macOS / Lima Setup Guide</title>
 <style>
 :root {
-  --bg:#fef6f0;--cream:#fffaf6;
-  --pink:#ffb3c6;--pink2:#ff8fab;--peach:#ffcba4;--peach2:#ffad7d;
-  --mint:#b5ead7;--mint2:#78d5b0;--sky:#b8dff8;--sky2:#7dc4f0;
-  --lav:#d4b8f8;--lav2:#b08af0;--yellow:#fde992;--yellow2:#f9d84a;
-  --text:#4a4060;--textdim:#9890b0;--border:#ecdde8;
-  --shadow:rgba(180,140,200,0.13);
   --accent:var(--lav2);--accent-bg:#f0e8ff;--accent-border:var(--lav);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  background-image:radial-gradient(circle at 15% 10%,#ffe0ec55 0%,transparent 40%),radial-gradient(circle at 85% 80%,#d4e8ff55 0%,transparent 40%),radial-gradient(circle at 50% 50%,#e8f8f055 0%,transparent 60%);
-  font-family:'Nunito',sans-serif;color:var(--text);min-height:100vh;padding:0 20px 56px;
-}
-body::before{content:'✿ ❀ ✦ ❋ ✿ ❀ ✦';position:fixed;top:18px;right:24px;font-size:13px;color:var(--pink);letter-spacing:8px;pointer-events:none;opacity:.5}
-.page{max-width:860px;margin:0 auto}
-
-.nav{display:flex;align-items:center;gap:6px;padding:14px 20px;background:white;border:1.5px solid var(--border);border-radius:20px;margin-bottom:32px;flex-wrap:wrap;box-shadow:0 4px 20px var(--shadow)}
-.nav-label{font-family:'Klee One',cursive;font-size:12px;font-weight:600;color:var(--textdim);margin-right:10px}
-.nav-pill{font-size:11px;font-weight:700;text-decoration:none;padding:4px 14px;border-radius:99px;border:1.5px solid var(--border);color:var(--textdim);transition:all .15s;background:white}
-.nav-pill:hover{transform:translateY(-1px);box-shadow:0 2px 8px var(--shadow)}
-.nav-pill.active{border-color:var(--accent-border);color:var(--accent);background:var(--accent-bg);font-weight:800}
-.nav-pill.index{border-style:dashed}
-
-.hero{padding:40px 0 36px;border-bottom:1.5px solid var(--border);margin-bottom:40px;text-align:center}
-.hero-deco{font-size:24px;letter-spacing:10px;margin-bottom:6px;animation:sway 4s ease-in-out infinite}
-@keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
-.badge-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:20px}
-.badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;border:1.5px solid;background:white;box-shadow:0 2px 6px var(--shadow)}
-.badge-mint{color:var(--mint2);border-color:var(--mint);background:#e8faf2}
-.badge-sky{color:var(--sky2);border-color:var(--sky);background:#e8f4ff}
-.badge-peach{color:var(--peach2);border-color:var(--peach);background:#fff0e4}
-.badge-lav{color:var(--lav2);border-color:var(--lav);background:#f0e8ff}
-h1{font-family:'Klee One',cursive;font-size:clamp(24px,4.5vw,40px);font-weight:600;color:var(--text);line-height:1.2;margin-bottom:12px}
-h1 .accent{color:var(--accent)}
-.hero-sub{font-size:12px;color:var(--textdim);max-width:520px;margin:0 auto;line-height:1.8;font-weight:600}
 
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:40px}
 .compare-card{background:white;border-radius:16px;border:1.5px solid var(--border);padding:18px 20px;box-shadow:0 2px 10px var(--shadow)}
@@ -65,40 +30,6 @@ h1 .accent{color:var(--accent)}
 .compare-card.active .compare-label{color:var(--accent)}
 .compare-title{font-family:'Klee One',cursive;font-size:15px;font-weight:600;margin-bottom:6px}
 .compare-desc{font-size:12px;color:var(--textdim);line-height:1.7;font-weight:600}
-
-.toc{background:white;border:1.5px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px 20px;box-shadow:0 2px 10px var(--shadow)}
-.toc a{font-size:12px;color:var(--textdim);text-decoration:none;display:flex;align-items:center;gap:8px;padding:5px 0;transition:color .15s;font-weight:600}
-.toc a:hover{color:var(--accent)}
-.toc-num{font-size:10px;color:var(--textdim);min-width:20px;font-weight:800}
-
-.section{margin-bottom:52px}
-.section-head{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:1.5px solid var(--border)}
-.section-num{font-size:12px;font-weight:800;color:var(--accent);background:var(--accent-bg);border:1.5px solid var(--accent-border);border-radius:8px;padding:2px 10px}
-h2{font-family:'Klee One',cursive;font-size:18px;font-weight:600}
-h3{font-family:'Klee One',cursive;font-size:13px;font-weight:600;color:var(--textdim);margin:20px 0 8px}
-p{color:var(--textdim);margin-bottom:10px;line-height:1.8;font-size:13px;font-weight:600}
-
-.diagram{background:white;border:1.5px solid var(--border);border-radius:16px;padding:24px;margin:16px 0;overflow-x:auto;box-shadow:0 2px 12px var(--shadow)}
-.diagram svg{display:block;margin:0 auto}
-
-.stack{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
-.stack-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;align-items:flex-start;gap:9px;box-shadow:0 2px 8px var(--shadow);transition:transform .12s}
-.stack-card:hover{transform:translateY(-2px)}
-.stack-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.ic-mint{background:#e8faf2;color:var(--mint2)} .ic-sky{background:#e8f4ff;color:var(--sky2)}
-.ic-peach{background:#fff0e4;color:var(--peach2)} .ic-lav{background:#f0e8ff;color:var(--lav2)}
-.stack-name{font-size:12px;font-weight:800;color:var(--text)}
-.stack-role{font-size:10px;color:var(--textdim);font-weight:600;margin-top:1px}
-
-.code-wrap{margin:10px 0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px var(--shadow)}
-.code-bar{background:white;border:1.5px solid var(--border);border-bottom:none;padding:7px 16px;display:flex;justify-content:space-between;align-items:center;border-radius:14px 14px 0 0}
-.code-lang{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.08em;text-transform:uppercase}
-.copy-btn{font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;color:var(--textdim);background:white;border:1.5px solid var(--border);border-radius:8px;padding:3px 12px;cursor:pointer;transition:all .15s}
-.copy-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
-.copy-btn.ok{border-color:var(--mint2);color:var(--mint2);background:#e8faf2}
-pre{background:white;border:1.5px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:18px 20px;overflow-x:auto;font-family:'Nunito',monospace;font-size:12px;line-height:1.8;color:var(--text);font-weight:600}
-pre .c{color:var(--textdim);font-style:italic}
-pre .k{color:var(--sky2)} pre .s{color:var(--mint2)} pre .v{color:var(--peach2)} pre .n{color:var(--yellow2)}
 
 .callout{border-radius:12px;padding:14px 18px;margin:12px 0;font-size:12px;display:flex;gap:10px;align-items:flex-start;border:1.5px solid;font-weight:600}
 .callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
@@ -114,6 +45,7 @@ pre .k{color:var(--sky2)} pre .s{color:var(--mint2)} pre .v{color:var(--peach2)}
 .iso-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid #f0e8f0;vertical-align:middle;font-weight:600}
 .iso-table tr:last-child td{border-bottom:none}
 .iso-table tr:hover td{background:#fef5fc}
+
 .tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;border:1.5px solid}
 .tag-mint{color:var(--mint2);border-color:var(--mint);background:#e8faf2}
 .tag-sky{color:var(--sky2);border-color:var(--sky);background:#e8f4ff}
@@ -121,15 +53,6 @@ pre .k{color:var(--sky2)} pre .s{color:var(--mint2)} pre .v{color:var(--peach2)}
 .tag-pink{color:var(--pink2);border-color:var(--pink);background:#ffe8f0}
 .tag-lav{color:var(--lav2);border-color:var(--lav);background:#f0e8ff}
 
-footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--textdim);font-weight:600}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.section{animation:fadeUp .4s ease both}
-.section:nth-child(1){animation-delay:.04s}.section:nth-child(2){animation-delay:.08s}
-.section:nth-child(3){animation-delay:.12s}.section:nth-child(4){animation-delay:.16s}
-.section:nth-child(5){animation-delay:.20s}.section:nth-child(6){animation-delay:.24s}
-.section:nth-child(7){animation-delay:.28s}.section:nth-child(8){animation-delay:.32s}
-.section:nth-child(9){animation-delay:.36s}.section:nth-child(10){animation-delay:.40s}.section:nth-child(11){animation-delay:.44s}
 /* CHECKLIST */
 .check-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px;margin:14px 0}
 .check-list li{font-size:12px;font-weight:600;color:var(--textdim);display:flex;align-items:flex-start;gap:8px;background:white;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;line-height:1.6}
@@ -140,36 +63,40 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
 .check-list li.checked strong{text-decoration:line-through}
 .check-list li:hover{transform:translateY(-1px);border-color:var(--accent-border)}
 .check-list li strong{color:var(--text)}
+
 /* RESOURCE GRID */
 .res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
 .res-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px var(--shadow)}
 .res-label{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
 .res-val{font-size:13px;font-weight:800;color:var(--text)}
 .res-note{font-size:10px;color:var(--textdim);font-weight:600;margin-top:2px}
+.res-card{transition:transform .25s,box-shadow .25s}
+.res-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(176,138,240,0.12)}
+
 /* FAQ */
 .faq-wrap{display:flex;flex-direction:column;gap:6px;margin:14px 0}
-details.faq-item{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow)}
+details.faq-item{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow);transition:transform .2s,box-shadow .2s}
 details.faq-item[open]{border-color:var(--accent-border)}
 details.faq-item summary{font-size:12px;font-weight:700;color:var(--text);padding:12px 16px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;user-select:none}
 details.faq-item summary::-webkit-details-marker{display:none}
 details.faq-item summary::before{content:'▶';font-size:9px;color:var(--accent);transition:transform .2s;flex-shrink:0}
 details.faq-item[open] summary::before{transform:rotate(90deg)}
+details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(176,138,240,0.1)}
 .faq-body{padding:0 16px 14px;border-top:1.5px solid var(--border)}
 .faq-body p{margin-top:10px;margin-bottom:6px}
-/* FLUFFY */
+
+/* FLUFFY EFFECTS */
 @keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes floatBubble{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.04)}}
 @keyframes softPulse{0%,100%{box-shadow:0 2px 10px var(--shadow)}50%{box-shadow:0 6px 28px rgba(176,138,240,0.18)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
 .badge{animation:floatSlow 3s ease-in-out infinite}
 .badge:nth-child(2){animation-delay:.5s}.badge:nth-child(3){animation-delay:1s}.badge:nth-child(4){animation-delay:1.5s}.badge:nth-child(5){animation-delay:2s}
 .stack-card{transition:transform .25s,box-shadow .25s}
 .stack-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(176,138,240,0.15);animation:softPulse 2s ease-in-out infinite}
-.res-card{transition:transform .25s,box-shadow .25s}
-.res-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(176,138,240,0.12)}
-details.faq-item{transition:transform .2s,box-shadow .2s}
-details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(176,138,240,0.1)}
+
 .section{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .section.visible{opacity:1;transform:translateY(0)}
 .section-head h2{color:var(--accent)}
@@ -181,6 +108,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(176
 .page::before,.page::after{content:'';position:fixed;border-radius:50%;pointer-events:none;opacity:.12;z-index:-1;animation:floatBubble 9s ease-in-out infinite}
 .page::before{width:180px;height:180px;top:8%;left:-50px;background:radial-gradient(circle,var(--lav) 0%,transparent 70%)}
 .page::after{width:140px;height:140px;bottom:12%;right:-30px;background:radial-gradient(circle,var(--pink) 0%,transparent 70%);animation-delay:4s}
+
 /* SVG ALIVE */
 @keyframes svgMarch{to{stroke-dashoffset:-20}}
 @keyframes svgPulse{0%,100%{opacity:.2}50%{opacity:.65}}
@@ -194,15 +122,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(176
 .diagram svg rect[fill="#e8f4ff"]{animation:svgBob 2.8s ease-in-out infinite}
 .diagram svg rect[fill="#fff0e4"]{animation:svgBob 2.8s ease-in-out infinite;animation-delay:.9s}
 .diagram svg rect[fill="#e8faf2"]{animation:svgBob 2.8s ease-in-out infinite;animation-delay:1.8s}
-/* FOOTER */
-.page-footer{margin-top:60px;padding:20px 0 10px;border-top:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--textdim);font-weight:600}
-.page-footer a{text-decoration:none;font-weight:800;transition:opacity .15s,transform .15s;display:inline-block}
-.page-footer a:hover{opacity:.7;transform:translateY(-1px)}
-.footer-links{display:flex;flex-wrap:wrap;gap:14px}
-/* TOP BUTTON */
-.to-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);background:white;color:var(--accent);font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:opacity .3s,transform .25s;opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
-.to-top.show{opacity:1;pointer-events:auto}
-.to-top:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow)}
+
 /* Code Block Theme Colors */
 .wrap-guest pre{background:#f4fefa;border-color:var(--mint)}
 .wrap-guest .code-bar{background:#e8faf2;border-color:var(--mint)}
@@ -385,7 +305,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(176
     <div class="stack-card"><div class="stack-icon ic-mint">🦙</div><div><div class="stack-name">Ollama</div><div class="stack-role">LLM (Metal backend)</div></div></div>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">zsh</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># Homebrew (未インストールの場合)</span>
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -407,7 +327,7 @@ brew install ollama</pre>
   <div class="section-head"><span class="section-num">02</span><h2>📝 Limaちゃんのお作法（VM 定義ファイル）</h2></div>
   <p>Lima は YAML というファイルで「どのくらいパワーを使うか」「どのフォルダに触っていいか」をお約束します✨</p>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">yaml — ~/.lima/agent/lima.yaml</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">yaml — ~/.lima/agent/lima.yaml</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># Lima VM 定義 — AI Agent Sandbox</span>
 vmType: vz              <span class="c"># Apple Virtualization.framework (M2 最速)</span>
 rosetta:
@@ -442,7 +362,7 @@ containerd:
   </div>
   <h3>作業ディレクトリ作成 (ホスト側)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>mkdir -p ~/lima-agent-work</pre>
   </div>
 </section>
@@ -452,7 +372,7 @@ containerd:
   <div class="section-head"><span class="section-num">03</span><h2>🚀 立ち上げて準備しよう！（起動とセットアップ）</h2></div>
   <h3>VM 作成 · 起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># lima.yaml を配置して VM 作成</span>
 mkdir -p ~/.lima/agent
 cp lima.yaml ~/.lima/agent/
@@ -465,7 +385,7 @@ limactl shell agent</pre>
   </div>
   <h3>VM 内 — 基本セットアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>sudo apt-get update && sudo apt-get install -y --no-install-recommends \
   <span class="c"># X11 / WM</span>
   xauth x11-apps openbox dbus-x11 xdg-utils \
@@ -488,7 +408,7 @@ limactl shell agent</pre>
   </div>
   <h3>VM 内 — Node.js (nvm)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>export NVM_DIR="$HOME/.nvm"
 curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 source "$NVM_DIR/nvm.sh"
@@ -496,7 +416,7 @@ nvm install 22 && nvm alias default 22</pre>
   </div>
   <h3>VM 内 — Rust</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"</pre>
   </div>
@@ -507,7 +427,7 @@ source "$HOME/.cargo/env"</pre>
   <div class="section-head"><span class="section-num">04</span><h2>🤖 エージェントたちをお迎え (VM 内)</h2></div>
   <h3>CLI エージェント</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># Gemini CLI / OpenCode</span>
 npm install -g \
   @google/gemini-cli \
@@ -525,7 +445,7 @@ curl -LsSf https://aider.chat/install.sh | sh</pre>
   </div>
   <h3>Windsurf (.deb · arm64)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># arm64 版 .deb を指定 (M2 = aarch64)</span>
 curl -fsSL https://windsurf-stable.codeiumdata.com/linux-arm64/windsurf_latest_arm64.deb \
   -o /tmp/windsurf.deb
@@ -534,7 +454,7 @@ rm /tmp/windsurf.deb</pre>
   </div>
   <h3>Antigravity (.deb · arm64)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>curl -fsSL https://antigravity.google/releases/antigravity_latest_arm64.deb \
   -o /tmp/antigravity.deb
 sudo dpkg -i /tmp/antigravity.deb || sudo apt-get install -fy
@@ -552,7 +472,7 @@ rm /tmp/antigravity.deb</pre>
   <p>Lima VMの中から「画面だけパソコン側に送って！」とお願い（X11 forwarding）して、XQuartzに映してもらいます📺✨</p>
   <h3>XQuartz の事前設定 (ホスト側・初回のみ)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># XQuartz を起動し、設定 > セキュリティ で</span>
 <span class="c"># "ネットワーク・クライアントからの接続を許可" をオンにする</span>
 open -a XQuartz
@@ -562,7 +482,7 @@ echo $DISPLAY   <span class="c"># → :0 または /tmp/launchd-*/com.apple.laun
   </div>
   <h3>SSH X11 forwarding で VM に入り GUI 起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># -X: X11 forwarding 有効</span>
 limactl shell --shell=/bin/bash agent -- bash -c '
   eval $(dbus-launch --sh-syntax)
@@ -578,7 +498,7 @@ limactl shell --shell=/bin/bash agent -- bash -c '
   </div>
   <h3>CLI エージェントのみの場合 (X11 不要)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># GUI 不要なら通常 shell で OK</span>
 limactl shell agent
 cd ~/lima-agent-work
@@ -598,7 +518,7 @@ claude   <span class="c"># または goose / gemini / opencode / aider</span></p
   </div>
   <h3>Ollama サーバー起動 (ホスト)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># VM からのアクセスを受け入れるため 0.0.0.0 で Listen</span>
 OLLAMA_HOST=0.0.0.0:11434 ollama serve &
 
@@ -608,7 +528,7 @@ ollama pull qwen2.5-coder:7b   <span class="c"># ~5GB · バランス</span></pr
   </div>
   <h3>VM 内エージェントから Ollama を使う</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># Lima が提供するホスト到達用の特殊 hostname</span>
 export OLLAMA_HOST=host.lima.internal:11434
 
@@ -617,7 +537,7 @@ aider --model ollama/qwen2.5-coder:7b</pre>
   </div>
   <h3>モデルサイズ目安 (M2 Unified Memory)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>qwen2.5-coder:3b    ~2 GB    RAM 8GB+    軽量・高速
 qwen2.5-coder:7b    ~5 GB    RAM 16GB+   バランス
 llama3.2:3b         ~2 GB    RAM 8GB+    汎用
@@ -655,20 +575,20 @@ codellama:7b        ~4 GB    RAM 16GB+   コーディング特化</pre>
   <div class="section-head"><span class="section-num">08</span><h2>💡 便利なヒント集 (Tips)</h2></div>
   <h3>VM の停止 / 削除</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>limactl stop agent      <span class="c"># VM 停止 (ディスクは保持)</span>
 limactl start agent     <span class="c"># 再起動</span>
 limactl delete agent    <span class="c"># VM 削除 (ディスクも消える)</span></pre>
   </div>
   <h3>作業ディレクトリのバックアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># ~/lima-agent-work はホスト側に実体があるのでそのままコピー可</span>
 cp -r ~/lima-agent-work ~/lima-agent-work-backup-$(date +%Y%m%d)</pre>
   </div>
   <h3>VM スペック変更</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># VM を停止してから lima.yaml を編集 → 再起動</span>
 limactl stop agent
 vim ~/.lima/agent/lima.yaml   <span class="c"># cpus / memory を変更</span>
@@ -676,7 +596,7 @@ limactl start agent</pre>
   </div>
   <h3>Ollama を launchd で常駐させる</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># brew services で自動起動 (OLLAMA_HOST は launchd 環境変数で別途設定が必要)</span>
 brew services start ollama</pre>
   </div>
@@ -750,7 +670,7 @@ OLLAMA_HOST=0.0.0.0:11434 ollama serve &amp;</pre></div>
   </div>
 </footer>
 
-<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="to-top" type="button">↑</button>
 
 </main>
 

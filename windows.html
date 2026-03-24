@@ -20,43 +20,8 @@
 <title>AI Agent Sandbox ✿ Windows / WSL2 Setup Guide</title>
 <style>
 :root {
-  --bg:#fef6f0;--cream:#fffaf6;
-  --pink:#ffb3c6;--pink2:#ff8fab;--peach:#ffcba4;--peach2:#ffad7d;
-  --mint:#b5ead7;--mint2:#78d5b0;--sky:#b8dff8;--sky2:#7dc4f0;
-  --lav:#d4b8f8;--lav2:#b08af0;--yellow:#fde992;--yellow2:#f9d84a;
-  --text:#4a4060;--textdim:#9890b0;--border:#ecdde8;
-  --shadow:rgba(180,140,200,0.13);
   --accent:var(--sky2);--accent-bg:#e8f4ff;--accent-border:var(--sky);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  background-image:radial-gradient(circle at 15% 10%,#ffe0ec55 0%,transparent 40%),radial-gradient(circle at 85% 80%,#d4e8ff55 0%,transparent 40%),radial-gradient(circle at 50% 50%,#e8f8f055 0%,transparent 60%);
-  font-family:'Nunito',sans-serif;color:var(--text);min-height:100vh;padding:0 20px 56px;
-}
-body::before{content:'✿ ❀ ✦ ❋ ✿ ❀ ✦';position:fixed;top:18px;right:24px;font-size:13px;color:var(--pink);letter-spacing:8px;pointer-events:none;opacity:.5}
-.page{max-width:860px;margin:0 auto}
-
-.nav{display:flex;align-items:center;gap:6px;padding:14px 20px;background:white;border:1.5px solid var(--border);border-radius:20px;margin-bottom:32px;flex-wrap:wrap;box-shadow:0 4px 20px var(--shadow)}
-.nav-label{font-family:'Klee One',cursive;font-size:12px;font-weight:600;color:var(--textdim);margin-right:10px}
-.nav-pill{font-size:11px;font-weight:700;text-decoration:none;padding:4px 14px;border-radius:99px;border:1.5px solid var(--border);color:var(--textdim);transition:all .15s;background:white}
-.nav-pill:hover{transform:translateY(-1px);box-shadow:0 2px 8px var(--shadow)}
-.nav-pill.active{border-color:var(--accent-border);color:var(--accent);background:var(--accent-bg);font-weight:800}
-.nav-pill.index{border-style:dashed}
-
-.hero{padding:40px 0 36px;border-bottom:1.5px solid var(--border);margin-bottom:40px;text-align:center}
-.hero-deco{font-size:24px;letter-spacing:10px;margin-bottom:6px;animation:sway 4s ease-in-out infinite}
-@keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
-.badge-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:20px}
-.badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;border:1.5px solid;background:white;box-shadow:0 2px 6px var(--shadow)}
-.badge-mint{color:var(--mint2);border-color:var(--mint);background:#e8faf2}
-.badge-sky{color:var(--sky2);border-color:var(--sky);background:#e8f4ff}
-.badge-peach{color:var(--peach2);border-color:var(--peach);background:#fff0e4}
-.badge-pink{color:var(--pink2);border-color:var(--pink);background:#ffe8f0}
-h1{font-family:'Klee One',cursive;font-size:clamp(24px,4.5vw,40px);font-weight:600;color:var(--text);line-height:1.2;margin-bottom:12px}
-h1 .accent{color:var(--accent)}
-.hero-sub{font-size:12px;color:var(--textdim);max-width:520px;margin:0 auto;line-height:1.8;font-weight:600}
 
 .compare{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:40px}
 .compare-card{background:white;border-radius:16px;border:1.5px solid var(--border);padding:18px 20px;box-shadow:0 2px 10px var(--shadow)}
@@ -65,40 +30,6 @@ h1 .accent{color:var(--accent)}
 .compare-card.active .compare-label{color:var(--accent)}
 .compare-title{font-family:'Klee One',cursive;font-size:15px;font-weight:600;margin-bottom:6px}
 .compare-desc{font-size:12px;color:var(--textdim);line-height:1.7;font-weight:600}
-
-.toc{background:white;border:1.5px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px 20px;box-shadow:0 2px 10px var(--shadow)}
-.toc a{font-size:12px;color:var(--textdim);text-decoration:none;display:flex;align-items:center;gap:8px;padding:5px 0;transition:color .15s;font-weight:600}
-.toc a:hover{color:var(--accent)}
-.toc-num{font-size:10px;color:var(--textdim);min-width:20px;font-weight:800}
-
-.section{margin-bottom:52px}
-.section-head{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:1.5px solid var(--border)}
-.section-num{font-size:12px;font-weight:800;color:var(--accent);background:var(--accent-bg);border:1.5px solid var(--accent-border);border-radius:8px;padding:2px 10px}
-h2{font-family:'Klee One',cursive;font-size:18px;font-weight:600}
-h3{font-family:'Klee One',cursive;font-size:13px;font-weight:600;color:var(--textdim);margin:20px 0 8px}
-p{color:var(--textdim);margin-bottom:10px;line-height:1.8;font-size:13px;font-weight:600}
-
-.diagram{background:white;border:1.5px solid var(--border);border-radius:16px;padding:24px;margin:16px 0;overflow-x:auto;box-shadow:0 2px 12px var(--shadow)}
-.diagram svg{display:block;margin:0 auto}
-
-.stack{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
-.stack-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;align-items:flex-start;gap:9px;box-shadow:0 2px 8px var(--shadow);transition:transform .12s}
-.stack-card:hover{transform:translateY(-2px)}
-.stack-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.ic-mint{background:#e8faf2;color:var(--mint2)} .ic-sky{background:#e8f4ff;color:var(--sky2)}
-.ic-peach{background:#fff0e4;color:var(--peach2)} .ic-pink{background:#ffe8f0;color:var(--pink2)}
-.stack-name{font-size:12px;font-weight:800;color:var(--text)}
-.stack-role{font-size:10px;color:var(--textdim);font-weight:600;margin-top:1px}
-
-.code-wrap{margin:10px 0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px var(--shadow)}
-.code-bar{background:white;border:1.5px solid var(--border);border-bottom:none;padding:7px 16px;display:flex;justify-content:space-between;align-items:center;border-radius:14px 14px 0 0}
-.code-lang{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.08em;text-transform:uppercase}
-.copy-btn{font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;color:var(--textdim);background:white;border:1.5px solid var(--border);border-radius:8px;padding:3px 12px;cursor:pointer;transition:all .15s}
-.copy-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
-.copy-btn.ok{border-color:var(--mint2);color:var(--mint2);background:#e8faf2}
-pre{background:white;border:1.5px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:18px 20px;overflow-x:auto;font-family:'Nunito',monospace;font-size:12px;line-height:1.8;color:var(--text);font-weight:600}
-pre .c{color:var(--textdim);font-style:italic}
-pre .k{color:var(--sky2)} pre .s{color:var(--mint2)} pre .v{color:var(--peach2)} pre .n{color:var(--yellow2)}
 
 .callout{border-radius:12px;padding:14px 18px;margin:12px 0;font-size:12px;display:flex;gap:10px;align-items:flex-start;border:1.5px solid;font-weight:600}
 .callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
@@ -113,6 +44,7 @@ pre .k{color:var(--sky2)} pre .s{color:var(--mint2)} pre .v{color:var(--peach2)}
 .iso-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid #f0e8f0;vertical-align:middle;font-weight:600}
 .iso-table tr:last-child td{border-bottom:none}
 .iso-table tr:hover td{background:#fef5fc}
+
 .tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;border:1.5px solid}
 .tag-mint{color:var(--mint2);border-color:var(--mint);background:#e8faf2}
 .tag-sky{color:var(--sky2);border-color:var(--sky);background:#e8f4ff}
@@ -120,15 +52,6 @@ pre .k{color:var(--sky2)} pre .s{color:var(--mint2)} pre .v{color:var(--peach2)}
 .tag-pink{color:var(--pink2);border-color:var(--pink);background:#ffe8f0}
 .tag-lav{color:var(--lav2);border-color:var(--lav);background:#f0e8ff}
 
-footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--textdim);font-weight:600}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.section{animation:fadeUp .4s ease both}
-.section:nth-child(1){animation-delay:.04s}.section:nth-child(2){animation-delay:.08s}
-.section:nth-child(3){animation-delay:.12s}.section:nth-child(4){animation-delay:.16s}
-.section:nth-child(5){animation-delay:.20s}.section:nth-child(6){animation-delay:.24s}
-.section:nth-child(7){animation-delay:.28s}.section:nth-child(8){animation-delay:.32s}
-.section:nth-child(9){animation-delay:.36s}.section:nth-child(10){animation-delay:.40s}.section:nth-child(11){animation-delay:.44s}.section:nth-child(12){animation-delay:.48s}.section:nth-child(13){animation-delay:.52s}
 /* CHECKLIST */
 .check-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px;margin:14px 0}
 .check-list li{font-size:12px;font-weight:600;color:var(--textdim);display:flex;align-items:flex-start;gap:8px;background:white;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;line-height:1.6}
@@ -139,36 +62,40 @@ footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;dis
 .check-list li.checked strong{text-decoration:line-through}
 .check-list li:hover{transform:translateY(-1px);border-color:var(--accent-border)}
 .check-list li strong{color:var(--text)}
+
 /* RESOURCE GRID */
 .res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
-.res-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px var(--shadow)}
+.res-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:0 2px 10px var(--shadow)}
 .res-label{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
 .res-val{font-size:13px;font-weight:800;color:var(--text)}
 .res-note{font-size:10px;color:var(--textdim);font-weight:600;margin-top:2px}
+.res-card{transition:transform .25s,box-shadow .25s}
+.res-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(125,196,240,0.12)}
+
 /* FAQ */
 .faq-wrap{display:flex;flex-direction:column;gap:6px;margin:14px 0}
-details.faq-item{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow)}
+details.faq-item{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow);transition:transform .2s,box-shadow .2s}
 details.faq-item[open]{border-color:var(--accent-border)}
 details.faq-item summary{font-size:12px;font-weight:700;color:var(--text);padding:12px 16px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;user-select:none}
 details.faq-item summary::-webkit-details-marker{display:none}
 details.faq-item summary::before{content:'▶';font-size:9px;color:var(--accent);transition:transform .2s;flex-shrink:0}
 details.faq-item[open] summary::before{transform:rotate(90deg)}
+details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125,196,240,0.1)}
 .faq-body{padding:0 16px 14px;border-top:1.5px solid var(--border)}
 .faq-body p{margin-top:10px;margin-bottom:6px}
-/* FLUFFY */
+
+/* FLUFFY EFFECTS */
 @keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes floatBubble{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.04)}}
 @keyframes softPulse{0%,100%{box-shadow:0 2px 10px var(--shadow)}50%{box-shadow:0 6px 28px rgba(125,196,240,0.18)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
 .badge{animation:floatSlow 3s ease-in-out infinite}
 .badge:nth-child(2){animation-delay:.5s}.badge:nth-child(3){animation-delay:1s}.badge:nth-child(4){animation-delay:1.5s}.badge:nth-child(5){animation-delay:2s}
 .stack-card{transition:transform .25s,box-shadow .25s}
 .stack-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(125,196,240,0.15);animation:softPulse 2s ease-in-out infinite}
-.res-card{transition:transform .25s,box-shadow .25s}
-.res-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(125,196,240,0.12)}
-details.faq-item{transition:transform .2s,box-shadow .2s}
-details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125,196,240,0.1)}
+
 .section{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .section.visible{opacity:1;transform:translateY(0)}
 .section-head h2{color:var(--accent)}
@@ -178,8 +105,9 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125
 .diagram{transition:transform .3s,box-shadow .3s}
 .diagram:hover{transform:scale(1.005);box-shadow:0 8px 32px rgba(125,196,240,0.12)}
 .page::before,.page::after{content:'';position:fixed;border-radius:50%;pointer-events:none;opacity:.12;z-index:-1;animation:floatBubble 9s ease-in-out infinite}
-.page::before{width:180px;height:180px;top:8%;left:-50px;background:radial-gradient(circle,var(--sky) 0%,transparent 70%)}
-.page::after{width:140px;height:140px;bottom:12%;right:-30px;background:radial-gradient(circle,var(--lav) 0%,transparent 70%);animation-delay:4s}
+.page::before{width:180px;height:180px;top:10%;left:-60px;background:radial-gradient(circle,var(--sky) 0%,transparent 70%)}
+.page::after{width:140px;height:140px;bottom:15%;right:-40px;background:radial-gradient(circle,var(--lav) 0%,transparent 70%);animation-delay:4s}
+
 /* SVG ALIVE */
 @keyframes svgMarch{to{stroke-dashoffset:-20}}
 @keyframes svgPulse{0%,100%{opacity:.2}50%{opacity:.65}}
@@ -193,15 +121,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125
 .diagram svg rect[fill="#e8f4ff"]{animation:svgBob 2.8s ease-in-out infinite}
 .diagram svg rect[fill="#fff0e4"]{animation:svgBob 2.8s ease-in-out infinite;animation-delay:.9s}
 .diagram svg rect[fill="#e8faf2"]{animation:svgBob 2.8s ease-in-out infinite;animation-delay:1.8s}
-/* FOOTER */
-.page-footer{margin-top:60px;padding:20px 0 10px;border-top:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--textdim);font-weight:600}
-.page-footer a{text-decoration:none;font-weight:800;transition:opacity .15s,transform .15s;display:inline-block}
-.page-footer a:hover{opacity:.7;transform:translateY(-1px)}
-.footer-links{display:flex;flex-wrap:wrap;gap:14px}
-/* TOP BUTTON */
-.to-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);background:white;color:var(--accent);font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:opacity .3s,transform .25s;opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
-.to-top.show{opacity:1;pointer-events:auto}
-.to-top:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow)}
+
 /* Code Block Theme Colors */
 .wrap-guest pre{background:#f4fefa;border-color:var(--mint)}
 .wrap-guest .code-bar{background:#e8faf2;border-color:var(--mint)}
@@ -391,7 +311,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125
   </div>
   <h3>PowerShell (管理者) で実行</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell — 管理者</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">powershell — 管理者</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># WSL2 + Ubuntu 24.04 をインストール</span>
 wsl --install -d Ubuntu-24.04
 
@@ -400,19 +320,19 @@ Restart-Computer</pre>
   </div>
   <h3>再起動後 — Ubuntu 初期設定</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># WSL2 がデフォルトになっていることを確認</span>
 wsl --set-default-version 2
 wsl --list --verbose   <span class="c"># VERSION が 2 であることを確認</span></pre>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2 Ubuntu 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2 Ubuntu 内</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># Ubuntu 初回起動でユーザー名・パスワードを設定後</span>
 sudo apt update && sudo apt upgrade -y</pre>
   </div>
   <h3>.wslconfig でリソース制限 (任意)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">ini — %USERPROFILE%\.wslconfig</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">ini — %USERPROFILE%\.wslconfig</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>[wsl2]
 memory=8GB          <span class="c"># WSL2 に割り当てる最大 RAM</span>
 processors=4        <span class="c"># 使用する CPU コア数</span>
@@ -430,7 +350,7 @@ gpuMemoryFraction=0.8   <span class="c"># GPU メモリ割り当て比率</span>
   </div>
   <h3>1. Windows 側 NVIDIA ドライバー確認</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># Windows 側で CUDA 対応ドライバーが入っているか確認</span>
 nvidia-smi
 
@@ -439,7 +359,7 @@ winget install NVIDIA.CUDA</pre>
   </div>
   <h3>2. WSL2 内で nvidia-container-toolkit をインストール</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># NVIDIA Container Toolkit リポジトリ追加</span>
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
   | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
@@ -462,7 +382,7 @@ nvidia-smi</pre>
 <section class="section" id="s3">
   <div class="section-head"><span class="section-num">03</span><h2>📦 Podman を入れよう！</h2></div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># Ubuntu 24.04 は podman が公式リポジトリにある</span>
 sudo apt install -y podman
 
@@ -482,7 +402,7 @@ podman info | grep -i rootless</pre>
     <div class="callout-body">Linux版のDockerfileと違うのは <strong>DISPLAY の設定だけ</strong> です🐧 Xephyrがいらない分、少しスッキリしていますね✨ <code>cuda-cudart-12-4</code> の数字は、Windows側のドライバーと仲良しなバージョンに合わせてあげてください🤖</div>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">dockerfile</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">dockerfile</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>FROM debian:12-slim
 
 <span class="c"># ── base deps ─────────────────────────────────</span>
@@ -571,7 +491,7 @@ CMD ["bash"]</pre>
     <div class="callout-body">ここはLinux版と全く同じです🐧 WSLgちゃんが画面の宛先（DISPLAY）を自動で作ってくれるので、起動する時にそれを渡すだけで動いてくれますよ✨</div>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>#!/bin/bash
 set -e
 
@@ -592,7 +512,7 @@ exec "${@:-bash}"</pre>
 <section class="section" id="s6">
   <div class="section-head"><span class="section-num">06</span><h2>💾 専用のお部屋（Volume）作り <small style="font-size:12px;font-weight:600;color:var(--textdim)">— 最初の一回だけ！</small></h2></div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>podman volume create agent-workspace
 podman volume create ollama-models</pre>
   </div>
@@ -607,12 +527,12 @@ podman volume create ollama-models</pre>
   </div>
   <h3>イメージビルド</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>podman build -t agent-sandbox:latest .</pre>
   </div>
   <h3>コンテナ起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>podman run -it --rm \
   <span class="c"># WSLg の DISPLAY をそのまま渡す (Xephyr 不要)</span>
   -e DISPLAY=$DISPLAY \
@@ -648,7 +568,7 @@ podman volume create ollama-models</pre>
   </div>
   <h3>コンテナ内で起動 · モデル取得</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>ollama serve &
 sleep 2
 
@@ -660,7 +580,7 @@ ollama ps   <span class="c"># SIZE (VRAM) が表示されれば GPU 動作中</s
   </div>
   <h3>VRAM 使用確認 (WSL2 側)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>nvidia-smi --query-gpu=memory.used,memory.free --format=csv</pre>
   </div>
 </section>
@@ -689,13 +609,13 @@ ollama ps   <span class="c"># SIZE (VRAM) が表示されれば GPU 動作中</s
   <div class="section-head"><span class="section-num">10</span><h2>💡 便利なヒント集 (Tips)</h2></div>
   <h3>WSL2 の再起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>wsl --shutdown          <span class="c"># 全 distro 停止</span>
 wsl -d Ubuntu-24.04     <span class="c"># 再起動</span></pre>
   </div>
   <h3>Windows Terminal から直接コンテナ起動するプロファイル</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">json — WT settings.json の profiles.list に追加</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">json — WT settings.json の profiles.list に追加</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>{
   "name": "Agent Sandbox",
   "commandline": "wsl.exe -d Ubuntu-24.04 -- bash -c 'podman start -ai agent-sandbox'",
@@ -705,7 +625,7 @@ wsl -d Ubuntu-24.04     <span class="c"># 再起動</span></pre>
   </div>
   <h3>ワークスペースのバックアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>podman run --rm \
   -v agent-workspace:/work:ro \
   -v $(pwd):/out \
@@ -714,7 +634,7 @@ wsl -d Ubuntu-24.04     <span class="c"># 再起動</span></pre>
   </div>
   <h3>CUDA バージョン整合性確認</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># Windows ドライバーの CUDA Version を確認して Dockerfile を調整</span>
 nvidia-smi | grep "CUDA Version"</pre>
   </div>
@@ -789,7 +709,7 @@ podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre></div
   </div>
 </footer>
 
-<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="to-top" type="button">↑</button>
 
 </main>
 

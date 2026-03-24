@@ -20,446 +20,177 @@
 <title>AI Agent Sandbox ✿ Linux Setup Guide</title>
 <style>
 :root {
-  --bg:#fef6f0;--cream:#fffaf6;
-  --pink:#ffb3c6;--pink2:#ff8fab;--peach:#ffcba4;--peach2:#ffad7d;
-  --mint:#b5ead7;--mint2:#78d5b0;--sky:#b8dff8;--sky2:#7dc4f0;
-  --lav:#d4b8f8;--lav2:#b08af0;--yellow:#fde992;--yellow2:#f9d84a;
-  --text:#4a4060;--textdim:#9890b0;--border:#ecdde8;
-  --shadow:rgba(180,140,200,0.13);
   --accent:var(--mint2);--accent-bg:#e8faf2;--accent-border:var(--mint);
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  background-image:radial-gradient(circle at 15% 10%,#ffe0ec55 0%,transparent 40%),radial-gradient(circle at 85% 80%,#d4e8ff55 0%,transparent 40%),radial-gradient(circle at 50% 50%,#e8f8f055 0%,transparent 60%);
-  font-family:'Nunito',sans-serif;color:var(--text);min-height:100vh;padding:0 20px 56px;
-}
-body::before{content:'✿ ❀ ✦ ❋ ✿ ❀ ✦';position:fixed;top:18px;right:24px;font-size:13px;color:var(--pink);letter-spacing:8px;pointer-events:none;opacity:.5}
-.page{max-width:860px;margin:0 auto}
 
-/* NAV */
-.nav{display:flex;align-items:center;gap:6px;padding:14px 20px;background:white;border:1.5px solid var(--border);border-radius:20px;margin-bottom:32px;flex-wrap:wrap;box-shadow:0 4px 20px var(--shadow)}
-.nav-label{font-family:'Klee One',cursive;font-size:12px;font-weight:600;color:var(--textdim);margin-right:10px}
-.nav-pill{font-size:11px;font-weight:700;text-decoration:none;padding:4px 14px;border-radius:99px;border:1.5px solid var(--border);color:var(--textdim);transition:all .15s;background:white}
-.nav-pill:hover{transform:translateY(-1px);box-shadow:0 2px 8px var(--shadow)}
-.nav-pill.active{border-color:var(--accent-border);color:var(--accent);background:var(--accent-bg);font-weight:800}
-.nav-pill.index{border-style:dashed}
+/* Page specific overrides or additions if any */
+.tag-mint{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border);padding:2px 8px;border-radius:6px;font-size:10px;font-weight:800}
+.tag-sky{background:#e8f4ff;color:var(--sky2);border:1px solid var(--sky);padding:2px 8px;border-radius:6px;font-size:10px;font-weight:800}
+.tag-peach{background:#fff0e4;color:var(--peach2);border:1px solid var(--peach);padding:2px 8px;border-radius:6px;font-size:10px;font-weight:800}
 
-/* HERO */
-.hero{padding:40px 0 36px;border-bottom:1.5px solid var(--border);margin-bottom:40px;text-align:center}
-.hero-deco{font-size:24px;letter-spacing:10px;margin-bottom:6px;animation:sway 4s ease-in-out infinite}
-@keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
-.badge-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:20px}
-.badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;border:1.5px solid;background:white;box-shadow:0 2px 6px var(--shadow)}
-.badge-mint{color:var(--mint2);border-color:var(--mint);background:#e8faf2}
-.badge-sky{color:var(--sky2);border-color:var(--sky);background:#e8f4ff}
-.badge-peach{color:var(--peach2);border-color:var(--peach);background:#fff0e4}
-.badge-lav{color:var(--lav2);border-color:var(--lav);background:#f0e8ff}
-h1{font-family:'Klee One',cursive;font-size:clamp(24px,4.5vw,40px);font-weight:600;color:var(--text);line-height:1.2;margin-bottom:12px}
-h1 .accent{color:var(--accent)}
-.hero-sub{font-size:12px;color:var(--textdim);max-width:520px;margin:0 auto;line-height:1.8;font-weight:600}
-
-/* TOC */
-.toc{background:white;border:1.5px solid var(--border);border-radius:16px;padding:18px 22px;margin-bottom:40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px 20px;box-shadow:0 2px 10px var(--shadow)}
-.toc a{font-size:12px;color:var(--textdim);text-decoration:none;display:flex;align-items:center;gap:8px;padding:5px 0;transition:color .15s;font-weight:600}
-.toc a:hover{color:var(--accent)}
-.toc-num{font-size:10px;color:var(--textdim);min-width:20px;font-weight:800}
-
-/* SECTION */
-.section{margin-bottom:52px}
-.section-head{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:1.5px solid var(--border)}
-.section-num{font-size:12px;font-weight:800;color:var(--accent);background:var(--accent-bg);border:1.5px solid var(--accent-border);border-radius:8px;padding:2px 10px}
-h2{font-family:'Klee One',cursive;font-size:18px;font-weight:600}
-h3{font-family:'Klee One',cursive;font-size:13px;font-weight:600;color:var(--textdim);margin:20px 0 8px}
-p{color:var(--textdim);margin-bottom:10px;line-height:1.8;font-size:13px;font-weight:600}
-
-/* DIAGRAM */
-.diagram{background:white;border:1.5px solid var(--border);border-radius:16px;padding:24px;margin:16px 0;overflow-x:auto;box-shadow:0 2px 12px var(--shadow)}
-.diagram svg{display:block;margin:0 auto}
-
-/* STACK */
-.stack{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
-.stack-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;align-items:flex-start;gap:9px;box-shadow:0 2px 8px var(--shadow);transition:transform .12s}
-.stack-card:hover{transform:translateY(-2px)}
-.stack-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.ic-mint{background:#e8faf2;color:var(--mint2)} .ic-sky{background:#e8f4ff;color:var(--sky2)}
-.ic-peach{background:#fff0e4;color:var(--peach2)} .ic-lav{background:#f0e8ff;color:var(--lav2)}
-.stack-name{font-size:12px;font-weight:800;color:var(--text)}
-.stack-role{font-size:10px;color:var(--textdim);font-weight:600;margin-top:1px}
-
-/* CODE */
-.code-wrap{margin:10px 0;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px var(--shadow)}
-.code-bar{background:white;border:1.5px solid var(--border);border-bottom:none;padding:7px 16px;display:flex;justify-content:space-between;align-items:center;border-radius:14px 14px 0 0}
-.code-lang{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.08em;text-transform:uppercase}
-.copy-btn{font-family:'Nunito',sans-serif;font-size:10px;font-weight:700;color:var(--textdim);background:white;border:1.5px solid var(--border);border-radius:8px;padding:3px 12px;cursor:pointer;transition:all .15s}
-.copy-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
-.copy-btn.ok{border-color:var(--mint2);color:var(--mint2);background:#e8faf2}
-pre{background:white;border:1.5px solid var(--border);border-top:none;border-radius:0 0 14px 14px;padding:18px 20px;overflow-x:auto;font-family:'Nunito',monospace;font-size:12px;line-height:1.8;color:var(--text);font-weight:600}
-pre .c{color:var(--textdim);font-style:italic}
-pre .k{color:var(--sky2)} pre .s{color:var(--mint2)} pre .v{color:var(--peach2)} pre .n{color:var(--yellow2)}
-
-/* CALLOUT */
-.callout{border-radius:12px;padding:14px 18px;margin:12px 0;font-size:12px;display:flex;gap:10px;align-items:flex-start;border:1.5px solid;font-weight:600}
-.callout-icon{font-size:15px;flex-shrink:0;margin-top:1px}
-.callout-body{color:var(--textdim);line-height:1.7}
-.callout-body strong{color:var(--text);font-weight:800}
-.callout-body code{background:#f5eef8;color:var(--lav2);padding:1px 5px;border-radius:5px;font-size:11px}
-.callout-mint{background:#e8faf2;border-color:var(--mint)} .callout-sky{background:#e8f4ff;border-color:var(--sky)}
-.callout-peach{background:#fff0e4;border-color:var(--peach)} .callout-lav{background:#f0e8ff;border-color:var(--lav)}
-.callout-pink{background:#ffe8f0;border-color:var(--pink)}
-
-/* ISO TABLE */
-.iso-table{width:100%;border-collapse:collapse;margin:14px 0;background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px var(--shadow)}
-.iso-table th{font-size:11px;font-weight:800;color:var(--textdim);padding:10px 14px;text-align:left;border-bottom:1.5px solid var(--border);background:linear-gradient(135deg,#fff5fa,#f5f0ff);letter-spacing:.05em}
-.iso-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid #f0e8f0;vertical-align:middle;font-weight:600}
+.iso-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px;background:white;border-radius:16px;overflow:hidden;border:1.5px solid var(--border);box-shadow:0 2px 10px var(--shadow)}
+.iso-table th{background:var(--accent-bg);color:var(--accent);padding:14px;text-align:left;font-family:'Klee One',cursive;font-weight:600;border-bottom:1.5px solid var(--border)}
+.iso-table td{padding:12px 14px;border-bottom:1px solid var(--border);font-weight:600}
 .iso-table tr:last-child td{border-bottom:none}
-.iso-table tr:hover td{background:#fef5fc}
-.tag{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;border:1.5px solid}
-.tag-mint{color:var(--mint2);border-color:var(--mint);background:#e8faf2}
-.tag-sky{color:var(--sky2);border-color:var(--sky);background:#e8f4ff}
-.tag-peach{color:var(--peach2);border-color:var(--peach);background:#fff0e4}
-.tag-pink{color:var(--pink2);border-color:var(--pink);background:#ffe8f0}
-.tag-lav{color:var(--lav2);border-color:var(--lav);background:#f0e8ff}
 
-/* FOOTER */
-footer{border-top:1.5px solid var(--border);padding-top:20px;margin-top:60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--textdim);font-weight:600}
+.faq-wrap{display:flex;flex-direction:column;gap:12px}
+.faq-item{background:white;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;transition:all .2s}
+.faq-item[open]{border-color:var(--accent-border);box-shadow:0 4px 15px var(--shadow)}
+summary{padding:14px 18px;cursor:pointer;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:space-between;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'＋';font-size:12px;color:var(--accent);transition:transform .2s}
+.faq-item[open] summary::after{content:'－';transform:rotate(90deg)}
+.faq-body{padding:0 18px 18px;border-top:1px dashed var(--border)}
+.faq-body p{margin-top:14px}
 
-/* ANIM */
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.section{animation:fadeUp .4s ease both}
-.section:nth-child(1){animation-delay:.04s}.section:nth-child(2){animation-delay:.08s}
-.section:nth-child(3){animation-delay:.12s}.section:nth-child(4){animation-delay:.16s}
-.section:nth-child(5){animation-delay:.20s}.section:nth-child(6){animation-delay:.24s}
-.section:nth-child(7){animation-delay:.28s}.section:nth-child(8){animation-delay:.32s}
-.section:nth-child(9){animation-delay:.36s}.section:nth-child(10){animation-delay:.40s}.section:nth-child(11){animation-delay:.44s}
-/* CHECKLIST */
-.check-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px;margin:14px 0}
-.check-list li{font-size:12px;font-weight:600;color:var(--textdim);display:flex;align-items:flex-start;gap:8px;background:white;border:1.5px solid var(--border);border-radius:10px;padding:8px 12px;line-height:1.6}
-.check-list li{cursor:pointer;transition:opacity .3s,border-color .3s,transform .2s;user-select:none}
-.check-list li::before{content:'☐';font-size:14px;color:var(--accent);flex-shrink:0;margin-top:-1px;transition:transform .25s}
-.check-list li.checked::before{content:'☑';transform:scale(1.15)}
-.check-list li.checked{opacity:.55;border-color:var(--accent-border)}
-.check-list li.checked strong{text-decoration:line-through}
-.check-list li:hover{transform:translateY(-1px);border-color:var(--accent-border)}
-.check-list li strong{color:var(--text)}
-/* RESOURCE GRID */
-.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
-.res-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px var(--shadow)}
-.res-label{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
-.res-val{font-size:13px;font-weight:800;color:var(--text)}
-.res-note{font-size:10px;color:var(--textdim);font-weight:600;margin-top:2px}
-/* FAQ */
-.faq-wrap{display:flex;flex-direction:column;gap:6px;margin:14px 0}
-details.faq-item{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px var(--shadow)}
-details.faq-item[open]{border-color:var(--accent-border)}
-details.faq-item summary{font-size:12px;font-weight:700;color:var(--text);padding:12px 16px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;user-select:none}
-details.faq-item summary::-webkit-details-marker{display:none}
-details.faq-item summary::before{content:'▶';font-size:9px;color:var(--accent);transition:transform .2s;flex-shrink:0}
-details.faq-item[open] summary::before{transform:rotate(90deg)}
-.faq-body{padding:0 16px 14px;border-top:1.5px solid var(--border)}
-.faq-body p{margin-top:10px;margin-bottom:6px}
-/* FLUFFY */
-@keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes floatBubble{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-18px) scale(1.04)}}
-@keyframes softPulse{0%,100%{box-shadow:0 2px 10px var(--shadow)}50%{box-shadow:0 6px 28px rgba(120,213,176,0.18)}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-.badge{animation:floatSlow 3s ease-in-out infinite}
-.badge:nth-child(2){animation-delay:.5s}.badge:nth-child(3){animation-delay:1s}.badge:nth-child(4){animation-delay:1.5s}
-.stack-card{transition:transform .25s,box-shadow .25s}
-.stack-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(120,213,176,0.15);animation:softPulse 2s ease-in-out infinite}
-.res-card{transition:transform .25s,box-shadow .25s}
-.res-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(120,213,176,0.12)}
-details.faq-item{transition:transform .2s,box-shadow .2s}
-details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(120,213,176,0.1)}
-.section{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-.section.visible{opacity:1;transform:translateY(0)}
-.section-head h2{color:var(--accent)}
-.section-head h2:hover{opacity:.8;transition:opacity .2s}
-.toc a{transition:transform .15s,color .15s}
-.toc a:hover{transform:translateX(4px)}
-.diagram{transition:transform .3s,box-shadow .3s}
-.diagram:hover{transform:scale(1.005);box-shadow:0 8px 32px rgba(120,213,176,0.12)}
-.page::before,.page::after{content:'';position:fixed;border-radius:50%;pointer-events:none;opacity:.12;z-index:-1;animation:floatBubble 9s ease-in-out infinite}
-.page::before{width:180px;height:180px;top:8%;left:-50px;background:radial-gradient(circle,var(--mint) 0%,transparent 70%)}
-.page::after{width:140px;height:140px;bottom:12%;right:-30px;background:radial-gradient(circle,var(--peach) 0%,transparent 70%);animation-delay:4s}
-/* SVG ALIVE */
-@keyframes svgMarch{to{stroke-dashoffset:-20}}
-@keyframes svgPulse{0%,100%{opacity:.2}50%{opacity:.65}}
-@keyframes svgFloat{0%,100%{transform:translateY(0) rotate(-.1deg)}50%{transform:translateY(-6px) rotate(.1deg)}}
-@keyframes svgBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.diagram svg{animation:svgFloat 7s ease-in-out infinite;transform-origin:50% 60%}
-.diagram svg rect[stroke-dasharray]{animation:svgMarch 3s linear infinite}
-.diagram svg line{animation:svgPulse 2.5s ease-in-out infinite}
-.diagram svg line:nth-of-type(2n){animation-delay:.8s}
-.diagram svg line:nth-of-type(3n){animation-delay:1.6s}
-.diagram svg rect[fill="#e8f4ff"]{animation:svgBob 2.8s ease-in-out infinite}
-.diagram svg rect[fill="#fff0e4"]{animation:svgBob 2.8s ease-in-out infinite;animation-delay:.9s}
-.diagram svg rect[fill="#e8faf2"]{animation:svgBob 2.8s ease-in-out infinite;animation-delay:1.8s}
-/* FOOTER */
-.page-footer{margin-top:60px;padding:20px 0 10px;border-top:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--textdim);font-weight:600}
-.page-footer a{text-decoration:none;font-weight:800;transition:opacity .15s,transform .15s;display:inline-block}
-.page-footer a:hover{opacity:.7;transform:translateY(-1px)}
-.footer-links{display:flex;flex-wrap:wrap;gap:14px}
-/* TOP BUTTON */
-.to-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);background:white;color:var(--accent);font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:opacity .3s,transform .25s;opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
-.to-top.show{opacity:1;pointer-events:auto}
-.to-top:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow)}
-/* Code Block Theme Colors */
-.wrap-guest pre{background:#f4fefa;border-color:var(--mint)}
-.wrap-guest .code-bar{background:#e8faf2;border-color:var(--mint)}
-.wrap-guest .code-lang{color:var(--mint2)}
-.wrap-host-linux pre{background:#f4faff;border-color:var(--sky)}
-.wrap-host-linux .code-bar{background:#e8f4ff;border-color:var(--sky)}
-.wrap-host-linux .code-lang{color:var(--sky2)}
-.wrap-host-mac pre{background:#f8f4ff;border-color:var(--lav)}
-.wrap-host-mac .code-bar{background:#f0e8ff;border-color:var(--lav)}
-.wrap-host-mac .code-lang{color:var(--lav2)}
-.wrap-host-win pre{background:#fffaf4;border-color:var(--peach)}
-.wrap-host-win .code-bar{background:#fff4e8;border-color:var(--peach)}
-.wrap-host-win .code-lang{color:var(--peach2)}
-.wrap-infra pre{background:#fff5f8;border-color:var(--pink)}
-.wrap-infra .code-bar{background:#ffeaf0;border-color:var(--pink)}
-.wrap-infra .code-lang{color:var(--pink2)}
-.wrap-default pre{background:#fafafa;border-color:var(--border)}
-.wrap-default .code-bar{background:#f5f5f5;border-color:var(--border)}
-.wrap-default .code-lang{color:var(--textdim)}
+.callout{background:white;border:1.5px solid var(--border);border-left:5px solid;border-radius:16px;padding:18px 22px;margin:24px 0;display:flex;gap:16px;box-shadow:0 2px 10px var(--shadow)}
+.callout-mint{border-left-color:var(--mint2);background:#e8faf266}
+.callout-peach{border-left-color:var(--peach2);background:#fff0e466}
+.callout-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.callout-body{font-size:13px;line-height:1.7;color:var(--text);font-weight:600}
+
+.check-list{list-style:none;margin:16px 0;display:flex;flex-direction:column;gap:10px}
+.check-list li{background:white;border:1.5px solid var(--border);border-radius:12px;padding:12px 16px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .15s}
+.check-list li::before{content:'';width:18px;height:18px;border-radius:6px;border:1.5px solid var(--border);flex-shrink:0;transition:all .15s}
+.check-list li.checked{border-color:var(--accent-border);background:var(--accent-bg);color:var(--accent)}
+.check-list li.checked::before{background:var(--accent);border-color:var(--accent);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");background-size:12px;background-repeat:no-repeat;background-position:center}
+
+@media (max-width:600px){
+  .toc{grid-template-columns:1fr}
+  .compare{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
+
+<nav class="nav page" aria-label="サイト案内">
+  <span class="nav-label">AI Agent Sandbox</span>
+  <a href="./" class="nav-pill index">🏠 Home</a>
+  <a href="./linux.html" class="nav-pill active">🐧 Linux</a>
+  <a href="./mac.html" class="nav-pill">🍎 macOS</a>
+  <a href="./windows.html" class="nav-pill">⊞ Windows</a>
+  <a href="./isolation-matrix.html" class="nav-pill">🌸 Matrix</a>
+  <a href="./ai-tools-guide.html" class="nav-pill">🤖 AI Tools</a>
+</nav>
+
 <main id="main-content" class="page">
 
-<!-- NAV -->
-<nav class="nav" aria-label="サイト案内">
-  <span class="nav-label">✿ Sandbox Docs</span>
-  <a class="nav-pill index" href="./index.html">↩ Index</a>
-  <a class="nav-pill" href="./isolation-matrix.html">🌸 Isolation</a>
-  <a class="nav-pill" href="./environment-matrix.html">🐚 Environment</a>
-  <a class="nav-pill" href="./ai-tools-guide.html">🤖 AI Tools</a>
-  <a class="nav-pill active" href="./linux.html" aria-current="page">🐧 Linux</a>
-  <a class="nav-pill" href="./mac.html">🍎 macOS</a>
-  <a class="nav-pill" href="./windows.html">⊞ Windows</a>
-</nav>
-
-<!-- HERO -->
 <header class="hero">
-  <div class="hero-deco">🐧 🛡️ 🔧 🖥️ 🐧</div>
+  <div class="hero-deco">🛡️ 🐧 🎮</div>
   <div class="badge-row">
-    <span class="badge badge-mint">Podman</span>
-    <span class="badge badge-sky">Xephyr</span>
-    <span class="badge badge-peach">NVIDIA CDI</span>
-    <span class="badge badge-mint">Wayland Host</span>
+    <span class="badge badge-mint">Podman 5.0+</span>
+    <span class="badge badge-sky">NVIDIA CDI</span>
+    <span class="badge badge-peach">Xephyr</span>
+    <span class="badge badge-lav">slirp4netns</span>
   </div>
-  <h1>AI Agent <span class="accent">Sandbox</span> ✿<br>Setup Guide</h1>
-  <p class="hero-sub">Podman + Xephyr を使って、大切なファイルや画面をしっかりガード🛡️ NVIDIA GPUのパワーはAIに直接届けて、モデルも安全な専用のお部屋（Volume）で管理します♪<br><br><strong>⚠️ 対象環境:</strong> 本ガイドは <strong>Linux + NVIDIA GPU</strong> を前提としています。</p>
+  <h1>Linux <span class="accent">Setup Guide</span></h1>
+  <p class="hero-sub">Podman と Xephyr を使い、AI エージェントがホスト OS を壊さないようにしっかり囲って動かすためのガイドです。NVIDIA GPU も CDI 経由でしっかり使えますよ✨</p>
 </header>
 
-<!-- TOC -->
 <nav class="toc" aria-label="ページ内目次">
-  <a href="#s-pre"><span class="toc-num">✦</span>はじめる前に</a>
-  <a href="#s0"><span class="toc-num">00</span>全体の仕組み</a>
-  <a href="#s1"><span class="toc-num">01</span>最初の準備</a>
-  <a href="#s2"><span class="toc-num">02</span>Dockerfile</a>
-  <a href="#s3"><span class="toc-num">03</span>entrypoint.sh</a>
-  <a href="#s4"><span class="toc-num">04</span>お部屋（Volume）作り</a>
-  <a href="#s5"><span class="toc-num">05</span>組み立てて動かす！</a>
-  <a href="#s6"><span class="toc-num">06</span>Ollama モデル入門</a>
-  <a href="#s7"><span class="toc-num">07</span>ガードのまとめ</a>
-  <a href="#s8"><span class="toc-num">08</span>便利なヒント集</a>
-  <a href="#s9"><span class="toc-num">09</span>トラブルシューティング</a>
+  <a href="#s1"><span class="toc-num">01</span> アーキテクチャ</a>
+  <a href="#s2"><span class="toc-num">02</span> ホスト側の準備</a>
+  <a href="#s3"><span class="toc-num">03</span> Dockerfile の作成</a>
+  <a href="#s4"><span class="toc-num">04</span> Entrypoint の作成</a>
+  <a href="#s5"><span class="toc-num">05</span> 起動とログイン</a>
+  <a href="#s6"><span class="toc-num">06</span> モデルの準備</a>
+  <a href="#s7"><span class="toc-num">07</span> ガードのまとめ</a>
+  <a href="#s8"><span class="toc-num">08</span> 便利なヒント集</a>
+  <a href="#s9"><span class="toc-num">09</span> トラブルシュート</a>
 </nav>
 
-<!-- ✦ はじめる前に -->
-<section class="section" id="s-pre">
-  <div class="section-head"><span class="section-num">✦</span><h2>📋 はじめる前に</h2></div>
-  <h3>前提条件チェックリスト</h3>
-  <ul class="check-list">
-    <li><strong>x86_64 (amd64) アーキテクチャ必須</strong> — ARM Linux は非対応</li>
-    <li><strong>Ubuntu 22.04 / 24.04 LTS</strong> または Debian 12+</li>
-    <li><strong>NVIDIA GPU</strong>（CUDA Compute Capability 5.0+）</li>
-    <li><strong>RAM: 16 GB 以上</strong>推奨（7B モデル + コンテナ + ホスト分）</li>
-    <li><strong>ディスク: 80 GB 以上</strong>の空き（モデル + イメージ + 作業）</li>
-    <li><strong>Podman 4.1.0+</strong>（<code>podman --version</code> で確認）</li>
-    <li><strong>sudo 権限</strong>（CUDA ドライバー・CDI 設定用）</li>
-    <li><strong>インターネット接続</strong>（初期ダウンロード: 約 10〜20 GB）</li>
-  </ul>
-  <h3>時間・リソース目安</h3>
-  <div class="res-grid">
-    <div class="res-card"><div class="res-label">ホスト準備</div><div class="res-val">30〜60 分</div><div class="res-note">CUDA / Podman / Xephyr</div></div>
-    <div class="res-card"><div class="res-label">コンテナビルド</div><div class="res-val">5〜15 分</div><div class="res-note">回線・PC 性能次第</div></div>
-    <div class="res-card"><div class="res-label">モデル DL (7B)</div><div class="res-val">3〜15 分</div><div class="res-note">100 Mbps 回線目安</div></div>
-    <div class="res-card"><div class="res-label">コンテナイメージ</div><div class="res-val">〜3 GB</div><div class="res-note">全ツール込み</div></div>
-    <div class="res-card"><div class="res-label">Ollama 7B モデル</div><div class="res-val">〜4 GB</div><div class="res-note">qwen2.5-coder:7b 等</div></div>
-    <div class="res-card"><div class="res-label">Ollama 13B モデル</div><div class="res-val">〜8 GB</div><div class="res-note">より高精度</div></div>
-  </div>
-</section>
-
-<!-- 00 ARCH -->
-<section class="section" id="s0">
-  <div class="section-head"><span class="section-num">00</span><h2>🏗️ 全体の仕組み</h2></div>
+<!-- 01 ARCHITECTURE -->
+<section class="section" id="s1">
+  <div class="section-head"><span class="section-num">01</span><h2>🏗️ アーキテクチャ (Architecture)</h2></div>
+  <p>Linux (Ubuntu/Fedora等) の上で Podman コンテナを動かし、Xephyr という「ウィンドウの中で動く X サーバー」を介して画面を表示します。これにより、エージェントがホストのクリップボードや他のウィンドウに勝手に触るのを防ぎます。</p>
+  
   <div class="diagram">
-    <svg width="780" height="400" viewBox="0 0 780 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Linux 隔離アーキテクチャ: Wayland → XWayland → Xephyr → Podman コンテナ (GPU CDI)">
-      <title>Linux セットアップ アーキテクチャ図</title>
+    <svg width="400" height="240" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Linux 隔離アーキテクチャ図">
+      <title>Architecture Diagram</title>
+      <rect x="10" y="10" width="380" height="220" rx="20" fill="white" stroke="var(--border)" stroke-width="2"/>
+      <rect x="30" y="50" width="340" height="160" rx="15" fill="var(--bg)" stroke="var(--border)" stroke-dasharray="4 4"/>
+      <text x="50" y="40" fill="var(--textdim)" font-size="12" font-weight="800">HOST OS (Linux)</text>
+      
+      <rect x="50" y="80" width="120" height="110" rx="12" fill="white" stroke="var(--mint2)" stroke-width="2"/>
+      <text x="65" y="105" fill="var(--text)" font-size="11" font-weight="800">Xephyr (:10)</text>
+      <rect x="65" y="120" width="90" height="55" rx="8" fill="var(--accent-bg)"/>
+      <text x="75" y="142" fill="var(--accent)" font-size="10" font-weight="800">Agent GUI</text>
+      <text x="75" y="158" fill="var(--accent)" font-size="9" font-weight="600">(Openbox)</text>
+      
+      <rect x="230" y="80" width="120" height="50" rx="12" fill="white" stroke="var(--peach2)" stroke-width="2"/>
+      <text x="245" y="105" fill="var(--text)" font-size="11" font-weight="800">Podman Container</text>
+      <text x="245" y="120" fill="var(--textdim)" font-size="9" font-weight="600">(Debian 12 slim)</text>
+      
+      <path d="M175 105 H225" stroke="var(--mint2)" stroke-width="2" stroke-dasharray="2 2" marker-end="url(#arrow)"/>
       <defs>
-        <marker id="a" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#78d5b0" opacity=".5"/></marker>
-        <marker id="b" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#ffad7d" opacity=".5"/></marker>
+        <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orientation="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="var(--mint2)"/>
+        </marker>
       </defs>
-      <rect x="8" y="8" width="764" height="384" rx="16" fill="white" stroke="#ecdde8" stroke-width="1.5"/>
-      <text x="24" y="30" fill="#9890b0" font-family="Klee One,cursive" font-size="11" font-weight="600" letter-spacing="1">HOST — Ubuntu · Wayland ✿</text>
-      <rect x="24" y="44" width="160" height="52" rx="12" fill="#fffaf6" stroke="#ecdde8" stroke-width="1.5"/>
-      <text x="104" y="68" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">Wayland</text>
-      <text x="104" y="84" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">Compositor</text>
-      <rect x="204" y="44" width="140" height="52" rx="12" fill="#fffaf6" stroke="#ecdde8" stroke-width="1.5"/>
-      <text x="274" y="68" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">XWayland</text>
-      <text x="274" y="84" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">X11 bridge</text>
-      <rect x="364" y="44" width="160" height="52" rx="12" fill="#e8f4ff" stroke="#7dc4f0" stroke-width="2"/>
-      <text x="444" y="66" fill="#7dc4f0" font-family="Klee One,cursive" font-size="12" font-weight="600" text-anchor="middle">Xephyr :10</text>
-      <text x="444" y="84" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">nested X · DISPLAY=:10</text>
-      <rect x="548" y="44" width="208" height="52" rx="12" fill="#fff0e4" stroke="#ffad7d" stroke-width="1.5"/>
-      <text x="652" y="66" fill="#ffad7d" font-family="Klee One,cursive" font-size="12" font-weight="600" text-anchor="middle">NVIDIA GPU</text>
-      <text x="652" y="84" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">/dev/dri · /dev/nvidia*</text>
-      <line x1="184" y1="70" x2="202" y2="70" stroke="#78d5b0" stroke-width="1.5" opacity=".4" marker-end="url(#a)"/>
-      <line x1="344" y1="70" x2="362" y2="70" stroke="#7dc4f0" stroke-width="1.5" opacity=".4" marker-end="url(#a)"/>
-      <rect x="24" y="120" width="732" height="256" rx="14" fill="white" stroke="#b5ead7" stroke-width="2" stroke-dasharray="7 3"/>
-      <text x="40" y="142" fill="#78d5b0" font-family="Klee One,cursive" font-size="11" font-weight="600" letter-spacing="1" opacity=".7">PODMAN CONTAINER — debian:12-slim ✿</text>
-      <rect x="40" y="156" width="130" height="44" rx="10" fill="#fffaf6" stroke="#ecdde8" stroke-width="1.5"/>
-      <text x="105" y="176" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">openbox</text>
-      <text x="105" y="191" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">WM + dbus-x11</text>
-      <rect x="186" y="156" width="130" height="44" rx="10" fill="#e8f4ff" stroke="#b8dff8" stroke-width="1.5"/>
-      <text x="251" y="176" fill="#7dc4f0" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">Windsurf</text>
-      <text x="251" y="191" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">Electron IDE</text>
-      <rect x="332" y="156" width="150" height="44" rx="10" fill="#e8faf2" stroke="#b5ead7" stroke-width="1.5"/>
-      <text x="407" y="176" fill="#78d5b0" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">Antigravity</text>
-      <text x="407" y="191" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">Electron + Browser</text>
-      <rect x="498" y="156" width="240" height="44" rx="10" fill="#fffaf6" stroke="#ecdde8" stroke-width="1.5"/>
-      <text x="618" y="174" fill="#4a4060" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">Claude · Codex · Goose · Gemini</text>
-      <text x="618" y="190" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">OpenCode · aider · Ollama</text>
-      <rect x="40" y="218" width="105" height="38" rx="8" fill="#fffaf6" stroke="#ecdde8"/>
-      <text x="92" y="234" fill="#4a4060" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">Node.js</text>
-      <text x="92" y="248" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">npm · npx</text>
-      <rect x="155" y="218" width="105" height="38" rx="8" fill="#fffaf6" stroke="#ecdde8"/>
-      <text x="207" y="234" fill="#4a4060" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">Python</text>
-      <text x="207" y="248" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">pip · venv</text>
-      <rect x="270" y="218" width="105" height="38" rx="8" fill="#fffaf6" stroke="#ecdde8"/>
-      <text x="322" y="234" fill="#4a4060" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">Rust</text>
-      <text x="322" y="248" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">cargo</text>
-      <rect x="385" y="218" width="130" height="38" rx="8" fill="#fffaf6" stroke="#ecdde8"/>
-      <text x="450" y="234" fill="#4a4060" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">build-essential</text>
-      <text x="450" y="248" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">gcc · make</text>
-      <rect x="525" y="218" width="213" height="38" rx="8" fill="#fff0e4" stroke="#ffcba4"/>
-      <text x="631" y="234" fill="#ffad7d" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">CUDA Toolkit</text>
-      <text x="631" y="248" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">nvidia-container-toolkit</text>
-      <rect x="40" y="274" width="356" height="36" rx="8" fill="#e8f4ff" stroke="#b8dff8" stroke-width="1.5"/>
-      <text x="218" y="290" fill="#7dc4f0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">agent-workspace → /home/agent/work</text>
-      <text x="218" y="304" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">永続 · 作業ファイル</text>
-      <rect x="408" y="274" width="330" height="36" rx="8" fill="#fff0e4" stroke="#ffcba4" stroke-width="1.5"/>
-      <text x="573" y="290" fill="#ffad7d" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="700">ollama-models → /root/.ollama/models</text>
-      <text x="573" y="304" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">永続 · LLM モデルデータ</text>
-      <line x1="444" y1="98" x2="444" y2="118" stroke="#7dc4f0" stroke-width="1.5" opacity=".3" marker-end="url(#a)"/>
-      <line x1="640" y1="98" x2="640" y2="118" stroke="#ffad7d" stroke-width="1.5" opacity=".3" marker-end="url(#b)"/>
-      <text x="750" y="348" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="end">network: slirp4netns (NAT)</text>
-      <text x="750" y="360" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="end">host FS: not mounted</text>
     </svg>
   </div>
-</section>
 
-<!-- 01 PREREQ -->
-<section class="section" id="s1">
-  <div class="section-head"><span class="section-num">01</span><h2>🔧 最初の準備</h2></div>
   <div class="stack">
-    <div class="stack-card"><div class="stack-icon ic-mint">📦</div><div><div class="stack-name">Podman 4.x+</div><div class="stack-role">コンテナランタイム</div></div></div>
-    <div class="stack-card"><div class="stack-icon ic-peach">🎮</div><div><div class="stack-name">nvidia-container-toolkit</div><div class="stack-role">GPU パススルー (CDI)</div></div></div>
-    <div class="stack-card"><div class="stack-icon ic-sky">🖥️</div><div><div class="stack-name">Xephyr</div><div class="stack-role">ネスト X サーバー</div></div></div>
-  </div>
-  <h3>インストール</h3>
-  <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
-    <pre><span class="c"># Podman + Xephyr</span>
-sudo apt install -y podman xserver-xephyr
-
-<span class="c"># NVIDIA Container Toolkit</span>
-curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
-  | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
-
-curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
-  | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
-  | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-
-sudo apt update && sudo apt install -y nvidia-container-toolkit
-
-<span class="c"># CDI デバイス定義生成(rootless Podman から GPU を認識させる)</span>
-sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml</pre>
-  </div>
-  <div class="callout callout-sky">
-    <span class="callout-icon">ℹ</span>
-    <div class="callout-body"><strong>CDI</strong> という仕組みを使うと、<code>--device nvidia.com/gpu=all</code> と書くだけで簡単にGPUが使えちゃいます✨ root権限がなくても安全にGPUのパワーを渡せる優れものです！</div>
+    <div class="stack-card">
+      <div class="stack-icon ic-mint">📦</div>
+      <div><div class="stack-name">Podman</div><div class="stack-role">Container</div></div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-icon ic-sky">🎮</div>
+      <div><div class="stack-name">NVIDIA CDI</div><div class="stack-role">GPU Accel</div></div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-icon ic-peach">🖥️</div>
+      <div><div class="stack-name">Xephyr</div><div class="stack-role">X11 Sandbox</div></div>
+    </div>
   </div>
 </section>
 
-<!-- 02 DOCKERFILE -->
+<!-- 02 HOST PREP -->
 <section class="section" id="s2">
-  <div class="section-head"><span class="section-num">02</span><h2>📦 Dockerfile</h2></div>
-  <div class="callout callout-mint">
-    <span class="callout-icon">📦</span>
-    <div class="callout-body">Windsurf や Antigravity は、公式の <code>.deb</code> ファイルを直接ダウンロードして入れます📦（外部の複雑な登録はしません✨）。Ollama は本体だけ入れておき、重たいモデルデータは別のお部屋（Volume）で管理します♪</div>
-  </div>
+  <div class="section-head"><span class="section-num">02</span><h2>🏗️ ホスト側の準備 (Host Preparation)</h2></div>
+  <ul class="check-list">
+    <li>x86_64 (amd64) アーキテクチャ必須 — ARM Linux は非対応</li>
+    <li>NVIDIA GPU 搭載マシン（VRAM 8GB 以上を推奨）</li>
+    <li>Podman 4.1.0 以上（CDI サポートのため 5.0+ 推奨）</li>
+    <li>xserver-xephyr (または単に xephyr) パッケージ</li>
+  </ul>
+
+  <h3>1. ツール一式のインストール</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">dockerfile</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
-    <pre>FROM debian:12-slim
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre>sudo apt update
+sudo apt install -y podman podman-compose xserver-xephyr x11-xserver-utils nvidia-container-toolkit</pre>
+  </div>
 
-<span class="c"># ── base deps ──────────────────────────────────</span>
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  <span class="c"># X / WM / D-Bus</span>
-  openbox dbus-x11 xdg-utils xauth \
-  <span class="c"># Electron / Chromium 共通ライブラリ</span>
-  libgbm1 libgl1-mesa-dri \
-  libnss3 libatk1.0-0 libatk-bridge2.0-0 \
-  libgdk-pixbuf2.0-0 libgtk-3-0 \
-  libasound2 libxss1 libxtst6 \
-  <span class="c"># フォント</span>
-  fonts-noto-cjk fonts-noto-color-emoji \
-  <span class="c"># ユーティリティ</span>
-  ca-certificates curl wget gnupg jq yq ripgrep fd-find vim zstd \
-  <span class="c"># ブラウザ (Antigravity 用)</span>
-  chromium \
-  <span class="c"># デザイン / 図表作成</span>
-  graphviz inkscape \
-  <span class="c"># ビルドツール</span>
-  build-essential git \
-  <span class="c"># Python</span>
-  python3 python3-pip python3-venv \
-  && rm -rf /var/lib/apt/lists/*
+  <h3>2. NVIDIA CDI の生成</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre>sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
+<span class="c"># 確認</span>
+podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre>
+  </div>
+</section>
 
-<span class="c"># ── Node.js (nvm) ──────────────────────────────</span>
-ENV NVM_DIR=/opt/nvm NODE_VERSION=22
-RUN mkdir -p $NVM_DIR \
-  && curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
-  && . $NVM_DIR/nvm.sh \
-  && nvm install $NODE_VERSION && nvm alias default $NODE_VERSION
-ENV PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin:$PATH"
+<!-- 03 DOCKERFILE -->
+<section class="section" id="s3">
+  <div class="section-head"><span class="section-num">03</span><h2>📦 Dockerfile の作成</h2></div>
+  <p>エージェントを動かすためのコンテナイメージを作成します。Node.js や Python、そして表示用の Openbox を詰め込みます。</p>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">Dockerfile</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre><span class="k">FROM</span> debian:12-slim
 
-<span class="c"># ── Rust ───────────────────────────────────────</span>
-ENV RUSTUP_HOME=/opt/rustup CARGO_HOME=/opt/cargo
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
-  | sh -s -- -y --no-modify-path
-ENV PATH="$CARGO_HOME/bin:$PATH"
-
-<span class="c"># ── CLI AI agents ──────────────────────────────</span>
-RUN npm install -g \
-  @google/gemini-cli \
-  opencode-ai \
-  codex-cli \
-  && curl -fsSL https://claude.ai/install.sh | bash \
-  && curl -fsSL https://github.com/block/goose/releases/latest/download/install.sh | bash
-
-RUN curl -LsSf https://aider.chat/install.sh | sh
-
-<span class="c"># ── Ollama (binary only, models → Volume) ──────</span>
-RUN curl -fsSL https://ollama.com/install.sh | sh
+<span class="k">RUN</span> apt-get update && apt-get install -y --no-install-recommends \
+    bash curl wget git procps python3 python3-pip python3-venv \
+    xterm openbox dbus-x11 libnss3 libatk1.0-0 libatk-bridge2.0-0 \
+    libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 \
+    libxrandr2 libgbm1 libasound2 zstd \
+    cuda-cudart-12-4 \
+    && rm -rf /var/lib/apt/lists/*
 
 <span class="c"># ── Windsurf (apt repo) ─────────────────────────</span>
-RUN mkdir -p /etc/apt/keyrings \
+<span class="k">RUN</span> mkdir -p /etc/apt/keyrings \
   && wget -qO- "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg" \
      | gpg --dearmor > /etc/apt/keyrings/windsurf-stable.gpg \
   && echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/windsurf-stable.gpg] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main" \
@@ -468,140 +199,83 @@ RUN mkdir -p /etc/apt/keyrings \
   && apt-get install -y --no-install-recommends windsurf \
   && rm -rf /var/lib/apt/lists/*
 
-<span class="c"># ── Antigravity (.deb) ─────────────────────────</span>
-ARG ANTIGRAVITY_DEB=https://antigravity.google/releases/antigravity_latest_amd64.deb
-RUN curl -fsSL $ANTIGRAVITY_DEB -o /tmp/antigravity.deb \
-  && dpkg -i /tmp/antigravity.deb || apt-get install -fy \
-  && rm /tmp/antigravity.deb
+<span class="k">RUN</span> useradd -m -s /bin/bash agent
+<span class="k">USER</span> agent
+<span class="k">WORKDIR</span> /home/agent/work
 
-<span class="c"># ── CUDA Toolkit (runtime のみ) ─────────────────</span>
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  cuda-cudart-12-4 libcublas-12-4 \
-  && rm -rf /var/lib/apt/lists/*
+<span class="c"># ── Claude Code ──</span>
+<span class="k">RUN</span> curl -fsSL https://claude.ai/install.sh | bash
 
-<span class="c"># ── user ───────────────────────────────────────</span>
-RUN useradd -m -s /bin/bash agent
-USER agent
-WORKDIR /home/agent/work
+<span class="c"># ── Aider ──</span>
+<span class="k">RUN</span> curl -fsSL https://aider.chat/install.sh | sh
 
-COPY --chown=agent:agent entrypoint.sh /home/agent/entrypoint.sh
-RUN chmod +x /home/agent/entrypoint.sh
-
-ENTRYPOINT ["/home/agent/entrypoint.sh"]
-CMD ["bash"]</pre>
+<span class="k">COPY</span> entrypoint.sh /usr/local/bin/
+<span class="k">ENTRYPOINT</span> ["/usr/local/bin/entrypoint.sh"]</pre>
   </div>
 </section>
 
-<!-- 03 ENTRYPOINT -->
-<section class="section" id="s3">
-  <div class="section-head"><span class="section-num">03</span><h2>🚀 entrypoint.sh</h2></div>
-  <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
-    <pre>#!/bin/bash
-set -e
-
-<span class="c"># D-Bus セッション起動 (Electron 必須)</span>
-eval $(dbus-launch --sh-syntax)
-export DBUS_SESSION_BUS_ADDRESS
-
-<span class="c"># WM 起動</span>
-openbox &
-
-<span class="c"># GPU 確認</span>
-[ -e /dev/dri/renderD128 ] && export LIBGL_ALWAYS_SOFTWARE=0 \
-                            || export LIBGL_ALWAYS_SOFTWARE=1
-
-sleep 0.5
-
-exec "${@:-bash}"</pre>
-  </div>
-</section>
-
-<!-- 04 VOLUMES -->
+<!-- 04 ENTRYPOINT -->
 <section class="section" id="s4">
-  <div class="section-head"><span class="section-num">04</span><h2>💾 専用のお部屋（Volume）作り <small style="font-size:12px;font-weight:600;color:var(--textdim)">— 最初の一回だけ！</small></h2></div>
+  <div class="section-head"><span class="section-num">04</span><h2>🏗️ Entrypoint の作成</h2></div>
+  <p>コンテナ起動時に X サーバーとの接続やウィンドウマネージャーをふわっと準備するスクリプトです。</p>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
-    <pre><span class="c"># 作業スペース (コード・成果物)</span>
-podman volume create agent-workspace
-
-<span class="c"># Ollama モデルデータ (3GB〜 のため分離管理)</span>
-podman volume create ollama-models</pre>
+    <div class="code-bar"><span class="code-lang">bash (entrypoint.sh)</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre>#!/bin/bash
+<span class="k">export</span> DISPLAY=:10
+<span class="c"># D-Bus の準備</span>
+eval $(dbus-launch --sh-syntax)
+<span class="c"># Openbox をバックグラウンドで起動</span>
+openbox &
+<span class="c"># ターミナルを表示して待機</span>
+xterm -maximized -e bash</pre>
   </div>
 </section>
 
-<!-- 05 BUILD & RUN -->
+<!-- 05 RUN -->
 <section class="section" id="s5">
-  <div class="section-head"><span class="section-num">05</span><h2>🔨 組み立てて動かす！ (Build & Run)</h2></div>
+  <div class="section-head"><span class="section-num">05</span><h2>🚀 起動とログイン</h2></div>
+  <p>準備ができたら、まずホスト側で Xephyr を起動し、その後にコンテナを立ち上げます。</p>
+
   <div class="callout callout-mint">
     <span class="callout-icon">💡</span>
-    <div class="callout-body"><code>compose.yml</code> を使うとワンコマンドで起動できます: <code>podman-compose up -d</code><br>compose.yml は<a href="https://github.com/mikalulu/ai-agent-sandbox/blob/main/compose.yml" target="_blank" rel="noopener noreferrer" style="color:inherit;font-weight:800">リポジトリのルート</a>に用意してあります。以下は手動で実行する場合の手順です。</div>
+    <div class="callout-body"><code>compose.yml</code> を使った管理がおすすめです。設定例はリポジトリのルートにある <a href="https://github.com/mikalulu/ai-agent-sandbox/blob/main/compose.yml" target="_blank" rel="noopener noreferrer">compose.yml</a> を見てみてくださいね🐾</div>
   </div>
-  <h3>イメージビルド</h3>
+
+  <h3>1. ホスト側で Xephyr 起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
-    <pre>podman build -t agent-sandbox:latest .</pre>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre><span class="c"># 1280x800 のウィンドウを作って X11 ディスプレイ番号 :10 を割り当て</span>
+Xephyr :10 -screen 1280x800 -ac &</pre>
   </div>
-  <h3>Xephyr 起動 — ホスト側・別ターミナル</h3>
+
+  <h3>2. コンテナのビルドと起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
-    <pre><span class="c"># XWayland 上でネスト X を独立ウィンドウとして起動</span>
-<span class="c"># -ac: コンテナからの接続を許可</span>
-Xephyr :10 -screen 1920x1080 -ac &</pre>
-  </div>
-  <h3>コンテナ起動</h3>
-  <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
-    <pre>podman run -it --rm \
-  <span class="c"># Xephyr のみ公開 (ホスト :0 は渡さない)</span>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre>podman build -t agent-sandbox .
+podman run -it --rm \
+  --device nvidia.com/gpu=all \
+  --network slirp4netns \
   -e DISPLAY=:10 \
   -v /tmp/.X11-unix/X10:/tmp/.X11-unix/X10:ro \
-  \
-  <span class="c"># Chromium / Electron が必要とする共有メモリ</span>
-  -v /dev/shm:/dev/shm \
-  \
-  <span class="c"># NVIDIA GPU (CDI)</span>
-  --device nvidia.com/gpu=all \
-  \
-  <span class="c"># ネットワーク隔離 (NAT)</span>
-  --network slirp4netns \
-  \
-  <span class="c"># 永続 Volume</span>
   -v agent-workspace:/home/agent/work \
-  -v ollama-models:/root/.ollama/models \
-  \
-  agent-sandbox:latest \
-  windsurf    <span class="c"># または antigravity / bash</span></pre>
-  </div>
-  <div class="callout callout-mint">
-    <span class="callout-icon">✓</span>
-    <div class="callout-body"><strong>一番大事なお約束：メインの画面（:0）は絶対に渡しません！</strong> コンテナが見れるのは Xephyrちゃん（:10）だけです📺 AIが勝手にパソコンを操作したりパスワードを覗き見したりすることは絶対にできないので安心してくださいね✨</div>
+  agent-sandbox</pre>
   </div>
 </section>
 
-<!-- 06 OLLAMA -->
+<!-- 06 MODELS -->
 <section class="section" id="s6">
-  <div class="section-head"><span class="section-num">06</span><h2>🤖 Ollama モデル入門</h2></div>
-  <div class="callout callout-peach">
-    <span class="callout-icon">⚠</span>
-    <div class="callout-body">重たいモデルデータをコンテナ本体に混ぜ込まず、専用の <strong>ollama-models Volume</strong> で大切に保管します📦 こうすることでコンテナはいつでも身軽で、モデルもずっと使い続けられますよ✨</div>
-  </div>
-  <h3>モデルの pull (コンテナ内)</h3>
+  <div class="section-head"><span class="section-num">06</span><h2>🦙 モデルの準備 (Ollama)</h2></div>
+  <p>コンテナ内、またはホスト側で Ollama を動かしてエージェントに脳みそを与えてあげましょう。コンテナ内に閉じ込める場合は、ボリュームを忘れずに！</p>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
-    <pre><span class="c"># コンテナ内で ollama サーバー起動 → モデル取得</span>
-ollama serve &
-sleep 2
-
-<span class="c"># 軽量モデル例 (~2GB)</span>
-ollama pull qwen2.5-coder:3b
-
-<span class="c"># 高性能モデル例 (~5GB, VRAM 6GB 以上推奨)</span>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre><span class="c"># コンテナ内で Ollama インストール</span>
+curl -fsSL https://ollama.com/install.sh | bash
+<span class="c"># 推奨モデル（コーディング特化）をプル</span>
 ollama pull qwen2.5-coder:7b</pre>
   </div>
   <h3>モデルサイズ目安</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>qwen2.5-coder:3b     ~2 GB    VRAM 3GB+   軽量・高速
 qwen2.5-coder:7b     ~5 GB    VRAM 6GB+   バランス型
 llama3.2:3b          ~2 GB    VRAM 3GB+   汎用
@@ -638,13 +312,13 @@ codellama:7b         ~4 GB    VRAM 6GB+   コーディング特化</pre>
   <div class="section-head"><span class="section-num">08</span><h2>💡 便利なヒント集 (Tips)</h2></div>
   <h3>Xephyr 解像度変更</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># HiDPI (2560x1440)</span>
 Xephyr :10 -screen 2560x1440 -dpi 144 -ac &</pre>
   </div>
   <h3>ワークスペースのバックアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>podman run --rm \
   -v agent-workspace:/work:ro \
   -v $(pwd):/out \
@@ -653,7 +327,7 @@ Xephyr :10 -screen 2560x1440 -dpi 144 -ac &</pre>
   </div>
   <h3>Antigravity 権限制限 (ゲスト内設定)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre>Settings > Terminal
   Auto Execution  →  Request Review   # 全コマンドを承認制に
   Deny List       →  rm -rf, curl, wget (任意)
@@ -663,7 +337,7 @@ Settings > Browser
   </div>
   <h3>CUDA バージョン確認</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># ホスト側で driver バージョンを確認してから Dockerfile を調整</span>
 nvidia-smi | grep "CUDA Version"</pre>
   </div>
@@ -741,7 +415,7 @@ podman build --no-cache -t agent-sandbox:latest .</pre></div>
   </div>
 </footer>
 
-<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="to-top" type="button">↑</button>
 
 </main>
 
