@@ -18,7 +18,7 @@
 | マトリックスページ | ✅ 修正済 | 801749b から包括的バージョン（787/577行）を復元 |
 | スタックアイコン | ✅ 修正済 | ⬡ → 適切な emoji に置換（📦 🎮 🖥️ / 🍺 🐧 🦙） |
 | h2 見出し emoji | ✅ 修正済 | `-webkit-text-fill-color:transparent` バグ修正 |
-| Windsurf インストール | ✅ 修正済 | apt repo 方式に変更（.deb URL は 404 廃止） |
+| Windsurf インストール | ✅ 検証済 | apt repo 方式に変更・v1.108.2 非 root で動作確認 |
 | アーキテクチャ制限 | ✅ 修正済 | 前提条件に ARM Linux・Intel Mac 非対応を明記 |
 | SVG アクセシビリティ | ✅ 対応済 | 全ページ role="img" aria-label <title> あり |
 | コピーボタン type 属性 | ✅ 修正済 | 全ページの copy-btn に type="button" 追加 |
@@ -113,6 +113,15 @@ RUN mkdir -p /etc/apt/keyrings \
 ```
 
 `wget` と `gnupg` は既に前段の `apt-get install` で導入済み。
+
+**実機検証（2026-03-25）**: `podman run --rm debian:12-slim` で apt repo 経由インストール → `su -c 'windsurf --version' agent` を実行。
+
+```
+windsurf 1.108.2 (745a6c1a, x64)  ← 非 root ユーザーで正常起動
+exit: 0
+```
+
+Dockerfile は `USER agent` に切り替えてから起動するため `--no-sandbox` 不要を確認。
 
 ---
 
