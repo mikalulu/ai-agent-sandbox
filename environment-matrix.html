@@ -3,575 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Agent 動作環境マトリクス ✿</title>
+<title>Environment Matrix — AI Agent Sandbox</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
 
 :root {
-  --bg:       #fef6f0;
-  --bg2:      #fff9f5;
-  --cream:    #fffaf6;
-  --pink:     #ffb3c6;
-  --pink2:    #ff8fab;
-  --peach:    #ffcba4;
-  --peach2:   #ffad7d;
-  --mint:     #b5ead7;
-  --mint2:    #78d5b0;
-  --sky:      #b8dff8;
-  --sky2:     #7dc4f0;
-  --lav:      #d4b8f8;
-  --lav2:     #b08af0;
-  --yellow:   #fde992;
-  --yellow2:  #f9d84a;
-  --red:      #ffb3b3;
-  --red2:     #ff8080;
-  --text:     #4a4060;
-  --textdim:  #9890b0;
-  --border:   #ecdde8;
-  --shadow:   rgba(180,140,200,0.13);
+  --mint: #b5ead7;
+  --mint2: #78d5b0;
+  --sky: #b8dff8;
+  --sky2: #7dc4f0;
+  --lav: #d4b8f8;
+  --lav2: #b08af0;
+  --pink: #ffb3c6;
+  --pink2: #ff8fab;
+  --peach: #ffcba4;
+  --peach2: #ffad7d;
+  --text: #4a4060;
+  --textdim: #9890b0;
+  --border: #ecdde8;
+  --shadow: rgba(180,140,200,0.13);
+  --bg: #fef6f0;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
 body {
   background: var(--bg);
-  background-image:
-    radial-gradient(circle at 15% 10%, #ffe0ec55 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, #d4e8ff55 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, #e8f8f055 0%, transparent 60%);
   font-family: 'Nunito', sans-serif;
   color: var(--text);
   min-height: 100vh;
   padding: 36px 20px 56px;
 }
 
-body::before {
-  content: '✿ ❀ ✦ ❋ ✿ ❀ ✦';
-  position: fixed; top: 18px; right: 24px;
-  font-size: 13px; color: var(--pink);
-  letter-spacing: 8px; pointer-events: none; opacity: 0.5;
+.page { max-width: 1000px; margin: 0 auto; }
+
+header {
+  text-align: center;
+  margin-bottom: 48px;
 }
 
-.page { max-width: 1100px; margin: 0 auto; }
-
-/* ── Header & Nav ── */
-.nav {
-  display: flex; align-items: center; gap: 6px;
-  padding: 14px 20px; background: white;
-  border: 1.5px solid var(--border); border-radius: 20px;
-  margin-bottom: 32px; flex-wrap: wrap;
-  box-shadow: 0 4px 20px var(--shadow);
-}
-.nav-label { font-family: 'Klee One', cursive; font-size: 12px; font-weight: 600; color: var(--textdim); margin-right: 10px; }
-.nav-pill {
-  font-size: 11px; font-weight: 700; text-decoration: none;
-  padding: 4px 14px; border-radius: 99px; border: 1.5px solid var(--border);
-  color: var(--textdim); transition: all 0.15s; background: white;
-}
-.nav-pill:hover { transform: translateY(-1px); box-shadow: 0 2px 8px var(--shadow); }
-.nav-pill.active { border-color: var(--pink); color: var(--pink2); background: #ffe8f0; font-weight: 800; }
-.nav-pill.index { border-style: dashed; }
-
-header { text-align: center; margin-bottom: 32px; }
-.header-deco {
-  font-size: 28px; letter-spacing: 12px; margin-bottom: 6px;
-  animation: sway 4s ease-in-out infinite;
-}
-@keyframes sway { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
 h1 {
   font-family: 'Klee One', cursive;
-  font-size: clamp(26px, 5vw, 46px); font-weight: 600;
-  color: var(--text); line-height: 1.2; letter-spacing: 0.02em;
-}
-h1 .accent { color: var(--pink2); }
-h1 .accent2 { color: var(--mint2); }
-.subtitle {
-  margin-top: 8px; font-size: 13px; color: var(--textdim);
-  font-weight: 600; letter-spacing: 0.05em;
+  font-size: clamp(24px, 5vw, 40px);
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
 }
 
-/* ── Section Label ── */
-.sec {
-  font-family: 'Klee One', cursive;
-  font-size: 13px; font-weight: 600; color: var(--textdim);
-  margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+.subtitle {
+  font-size: 13px;
+  color: var(--textdim);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.matrix-wrap {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px var(--shadow);
+  margin-bottom: 40px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+thead {
+  background: linear-gradient(135deg, #fff5fa, #f5f0ff);
+}
+
+th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--textdim);
+  border-bottom: 1.5px solid var(--border);
   letter-spacing: 0.05em;
 }
-.sec::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-/* ── Legend ── */
-.legend {
-  display: flex; flex-wrap: wrap; gap: 12px;
-  padding: 14px 20px; background: white;
-  border: 1.5px solid var(--border); border-radius: 16px;
-  margin-bottom: 28px; box-shadow: 0 2px 10px var(--shadow);
-}
-.li {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 11px; color: var(--textdim); font-weight: 700;
+td {
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--textdim);
+  border-bottom: 1px solid #f0e8f0;
+  font-weight: 600;
 }
 
-/* ── Badge ── */
-.badge {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 30px; height: 28px; border-radius: 8px;
-  font-size: 13px; font-weight: 800; flex-shrink: 0;
-}
-.s4 { background: #e8faf2; color: var(--mint2); border: 1.5px solid var(--mint); }
-.s3 { background: #e8f4ff; color: var(--sky2); border: 1.5px solid var(--sky); }
-.s2 { background: #fff0e4; color: var(--peach2); border: 1.5px solid var(--peach); }
-.s1 { background: #ffe8f0; color: var(--pink2); border: 1.5px solid var(--pink); }
-.s0 { background: #f5f0f5; color: var(--textdim); border: 1.5px solid var(--border); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fef5fc; }
 
-/* ── OS Best Practice Cards ── */
-.bp-os-card {
-  background: white; border: 1.5px solid var(--border);
-  border-radius: 20px; margin-bottom: 20px; overflow: hidden;
-  box-shadow: 0 4px 20px var(--shadow);
-}
-.bp-os-head {
-  display: flex; align-items: center; gap: 16px;
-  padding: 20px 24px; border-bottom: 1.5px solid var(--border);
-}
-.linux-head { background: linear-gradient(90deg, #e8faf240, transparent); }
-.mac-head   { background: linear-gradient(90deg, #f0e8ff40, transparent); }
-.win-head   { background: linear-gradient(90deg, #e8f4ff40, transparent); }
-.bp-os-icon { font-size: 28px; flex-shrink: 0; }
-.bp-os-name {
-  font-family: 'Klee One', cursive; font-size: 20px; font-weight: 600;
-  color: var(--text);
-}
-.bp-os-verdict { font-size: 12px; color: var(--textdim); margin-top: 2px; font-weight: 600; }
-.verdict-good { color: var(--mint2); font-weight: 800; }
-.verdict-warn { color: var(--peach2); font-weight: 800; }
-.bp-os-body { padding: 22px 24px; }
-.bp-section-title {
-  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--textdim); margin-bottom: 10px; font-weight: 800;
-}
-.bp-config-block {
-  background: var(--cream); border: 1.5px solid var(--border);
-  border-radius: 10px; padding: 10px 14px; font-size: 12px;
-  font-weight: 700; color: var(--text); margin-bottom: 14px;
-}
-.bp-why {
-  font-size: 12px; color: var(--textdim); line-height: 1.85;
-  font-weight: 600; margin-bottom: 18px; padding-bottom: 18px;
-  border-bottom: 1px solid var(--border);
-}
-.bp-items {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;
-}
-.bp-item {
-  background: var(--cream); border-radius: 12px;
-  padding: 14px 16px; border: 1.5px solid var(--border);
-}
-.bp-item-head {
-  font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 6px;
-}
-.bp-item-body {
-  font-size: 11.5px; color: var(--textdim); line-height: 1.8; font-weight: 600;
-}
-.bp-item-body code {
-  background: #f5eef8; color: var(--lav2);
-  padding: 1px 5px; border-radius: 5px; font-size: 10.5px;
-}
-.bp-item-body strong { color: var(--text); }
+.env-linux { color: var(--mint2); font-weight: 800; }
+.env-mac { color: var(--lav2); font-weight: 800; }
+.env-windows { color: var(--sky2); font-weight: 800; }
 
-/* ── Matrix Table ── */
-.matrix-card {
-  background: white; border-radius: 20px;
-  box-shadow: 0 4px 24px var(--shadow); border: 1.5px solid var(--border);
-  overflow: hidden; overflow-x: auto; margin-bottom: 32px;
-}
-table { border-collapse: collapse; width: 100%; min-width: 700px; }
-th, td { border: 1px solid #f0e8f0; }
-thead tr { background: linear-gradient(135deg, #fff5fa, #f5f0ff); }
-th {
-  padding: 10px 12px; text-align: center; font-size: 10px;
-  font-weight: 800; color: var(--textdim);
-  letter-spacing: 0.08em; white-space: nowrap;
-}
-th.cs { text-align: left; color: var(--text); padding-left: 18px; min-width: 130px; }
-th.cs2 { text-align: left; color: var(--text); min-width: 140px; padding-left: 12px; }
-th.os-hdr { font-size: 11px; padding: 8px 12px; }
-th.mac-hdr { color: var(--lav2); }
-th.win-hdr { color: var(--sky2); }
-th.sub-hdr {
-  font-size: 9px; padding: 6px 10px; color: var(--textdim);
-  line-height: 1.5; letter-spacing: 0.06em;
-}
-.fhs-badge {
-  display: inline-block; font-size: 8px; letter-spacing: 0.04em;
-  padding: 2px 6px; border-radius: 6px; margin-top: 3px; font-weight: 800;
-}
-.fhs-badge.full { background: #e8faf2; color: var(--mint2); border: 1px solid var(--mint); }
-.fhs-badge.part { background: #fff0e4; color: var(--peach2); border: 1px solid var(--peach); }
-.fhs-badge.none { background: #ffe8f0; color: var(--pink2); border: 1px solid var(--pink); }
-.fhs-badge.warn { background: #fff0e4; color: var(--peach2); border: 1px solid var(--peach); margin-left: 3px; }
-thead tr:nth-child(2) { border-bottom: 2px solid var(--border); }
-tbody tr { border-bottom: 1px solid #f0e8f0; transition: background 0.12s; }
-tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: #fef5fc; }
-td { padding: 9px 12px; text-align: center; vertical-align: middle; }
-td.sn { text-align: left; padding-left: 18px; background: var(--cream); }
-td.env { text-align: left; padding-left: 12px; border-left: 1.5px solid var(--border); }
-.snm { font-weight: 800; color: var(--text); font-size: 13px; }
-.snt { display: block; font-size: 10px; color: var(--textdim); font-weight: 600; margin-top: 1px; }
-.na { color: var(--border); font-size: 12px; }
-
-/* ── Notes Cards ── */
-.notes-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 14px; margin-bottom: 32px;
-}
-.note-card {
-  background: white; border-radius: 16px;
-  padding: 18px 20px; position: relative; overflow: hidden;
-  box-shadow: 0 2px 12px var(--shadow); border: 1.5px solid var(--border);
-}
-.note-card::before {
-  content: ''; position: absolute; top: 0; left: 0;
-  width: 4px; height: 100%; border-radius: 4px 0 0 4px;
-}
-.note-card.pink::before   { background: var(--pink2); }
-.note-card.mint::before   { background: var(--mint2); }
-.note-card.sky::before    { background: var(--sky2); }
-.note-card.lav::before    { background: var(--lav2); }
-.note-card.peach::before  { background: var(--peach2); }
-.note-num {
-  font-family: 'Klee One', cursive; font-size: 24px; font-weight: 600;
-  color: var(--border); margin-right: 10px; float: left;
-}
-.note-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
-.note-body {
-  font-size: 11.5px; color: var(--textdim); line-height: 1.8; font-weight: 600;
-}
-.note-body code {
-  background: #f5eef8; color: var(--lav2);
-  padding: 1px 5px; border-radius: 5px; font-size: 10.5px;
-}
-.note-body strong { color: var(--text); }
-.impact-bar {
-  display: flex; align-items: center; gap: 6px;
-  margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border);
-  font-size: 10px; color: var(--textdim); font-weight: 700;
-}
-.dots { display: flex; gap: 4px; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
-.dot.on { background: var(--pink2); }
-
-/* ── Supplemental Cards ── */
-.col-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 14px; margin-bottom: 32px;
-}
-.col-card {
-  background: white; border: 1.5px solid var(--border);
-  border-left: 4px solid var(--lav); border-radius: 14px;
-  padding: 18px 20px; box-shadow: 0 2px 10px var(--shadow);
-}
-.col-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
-.col-body {
-  font-size: 11.5px; color: var(--textdim); line-height: 1.85; font-weight: 600;
-}
-.col-body code {
-  background: #f5eef8; color: var(--lav2);
-  padding: 1px 5px; border-radius: 5px; font-size: 10.5px;
-}
-.col-body strong { color: var(--text); }
-
-/* ── Footer ── */
 footer {
-  border-top: 1.5px solid var(--border); padding-top: 20px;
-  font-size: 11px; color: var(--textdim); font-weight: 600;
-  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  border-top: 1.5px solid var(--border);
+  padding: 20px 0 10px;
+  font-size: 11px;
+  color: var(--textdim);
+  font-weight: 600;
+  text-align: center;
 }
 
-/* ── Animation ── */
-@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
-header       { animation: fadeUp 0.5s ease both; }
-.legend      { animation: fadeUp 0.5s 0.1s ease both; }
-.bp-os-card  { animation: fadeUp 0.5s 0.15s ease both; }
-.matrix-card { animation: fadeUp 0.5s 0.2s ease both; }
-.notes-grid  { animation: fadeUp 0.5s 0.25s ease both; }
-.col-grid    { animation: fadeUp 0.5s 0.3s ease both; }
+footer a {
+  text-decoration: none;
+  font-weight: 800;
+  transition: opacity .15s;
+}
+
+footer a:hover { opacity: .7; }
 </style>
 </head>
 <body>
-
-<nav class="nav">
-  <span class="nav-label">✿ Sandbox Docs</span>
-  <a class="nav-pill index" href="./index.html">↩ Index</a>
-  <a class="nav-pill" href="./isolation-matrix.html">🌸 Isolation</a>
-  <a class="nav-pill active" href="./environment-matrix.html">🐚 Shells</a>
-  <a class="nav-pill" href="./linux.html">🐧 Linux</a>
-  <a class="nav-pill" href="./mac.html">🍎 macOS</a>
-  <a class="nav-pill" href="./windows.html">⊞ Windows</a>
-</nav>
-
-<header>
-  <div class="header-deco">💻 🐚 📁 🔧 💻</div>
-  <h1>AI Agent <span class="accent">動作環境</span><span class="accent2">マトリクス</span> ✿</h1>
-  <div class="subtitle">Shellとファイルシステム（FHS）の相性まとめ✨ Claude Code を基準にしています♪</div>
-</header>
-
 <div class="page">
 
-  <!-- ① OS BEST PRACTICES -->
-  <div class="sec">🌸 OS別のおすすめセッティング（ベストプラクティス）</div>
+<header>
+  <h1>🐚 Environment Matrix</h1>
+  <p class="subtitle">ホストシェル × コンテナ内環境の対応表</p>
+</header>
 
-  <div class="bp-os-card">
-    <div class="bp-os-head linux-head">
-      <div class="bp-os-icon">🐧</div>
-      <div>
-        <div class="bp-os-name">Linux</div>
-        <div class="bp-os-verdict">直接インストール / VM — <span class="verdict-good">一番おすすめ！一切の制限なく快適に動きます✿</span></div>
-      </div>
-    </div>
-    <div class="bp-os-body">
-      <div class="bp-section-title">おすすめの構成✨</div>
-      <div class="bp-config-block">bash または zsh &nbsp;×&nbsp; ext4 / xfs / btrfs</div>
-      <div class="bp-why">AIが学習しているデータの多くはLinuxやbashのものです🐧 だからAIの考えと実際の環境が一番ピッタリ合う最高のOSなんです✨ ファイルの場所や権限なども、AIの予測通りに完璧に動いてくれますよ！</div>
-      <div class="bp-items">
-        <div class="bp-item"><div class="bp-item-head">🐚 Shell 選択</div><div class="bp-item-body">基本は bash を使いましょう✨ デフォルトシェルを <code>/bin/bash</code> にしておけば、AIが得意なbash特有の書き方もエラーにならずスルスル動きます♪</div></div>
-        <div class="bp-item"><div class="bp-item-head">📁 作業ディレクトリ</div><div class="bp-item-body"><code>~/</code> （ホームディレクトリ）の下に置きましょう🏠 <code>/tmp</code> は再起動で消えてしまうので長期間の作業には向きません💦 自分のホームの中なら権限のエラーも起きにくくて安心です！</div></div>
-        <div class="bp-item"><div class="bp-item-head">💾 FS 選択</div><div class="bp-item-body">どれを選んでもAIからは同じように見えます👀 ただ、btrfsの特殊な機能（スナップショット等）を使うとファイルの本当の場所が少しズレて見えることがあるので、そこだけ気をつけてくださいね！</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: sudo 環境でのパス差異</div><div class="bp-item-body"><code>sudo</code> を使うと、今まで見えていた便利なツールが突然見えなくなることがあります💦 <code>sudo -E</code> を使うか、設定（visudo）で環境を引き継げるようにしてあげましょう♪</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: コンテナ内の root 実行</div><div class="bp-item-body">Dockerの中は基本的に一番えらい「root」になっています👑 AIが気まぐれに権限を変えたりすると、元のパソコン側のファイル権限まで変わってしまうことがあるので要注意です⚠️</div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bp-os-card">
-    <div class="bp-os-head mac-head">
-      <div class="bp-os-icon">🍎</div>
-      <div>
-        <div class="bp-os-name">macOS</div>
-        <div class="bp-os-verdict">そのまま使うと少し罠があります — <span class="verdict-warn">DockerやLimaを使えば安心です♪</span></div>
-      </div>
-    </div>
-    <div class="bp-os-body">
-      <div class="bp-section-title">おすすめの構成✨</div>
-      <div class="bp-config-block">zsh / bash &nbsp;×&nbsp; Lima または Docker</div>
-      <div class="bp-why">macOSそのまま（native）だと、大文字小文字の区別や強力なシステム保護（SIP）による制限があってAIが少し困ってしまいます💦 Lima というVMを使えば、それらの制限を回避できるのでmacOSでは一番おすすめです🍎✨</div>
-      <div class="bp-items">
-        <div class="bp-item"><div class="bp-item-head">🐚 Shell 選択</div><div class="bp-item-body">標準の zsh のままで大丈夫です🙆‍♀️ 最初から入っている <code>/bin/bash</code> は古すぎてAIのやりたいことが上手く動かないことがあります💦 Homebrewで新しいbashを入れるか、zshで進めましょう！</div></div>
-        <div class="bp-item"><div class="bp-item-head">🔮 Lima の優位性</div><div class="bp-item-body">Lima はとっても軽快なLinuxの仮想マシンです✨ 直接ここに入ることで、Docker特有のややこしい制限（DinD）を受けずに、のびのびとLinux環境の恩恵を受けられますよ♪</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: APFS case-insensitive</div><div class="bp-item-body"><code>File.txt</code> と <code>file.txt</code> を同じファイルだと勘違いしてしまいます💦 AIがLinuxの感覚で扱うとGitでおかしくなるので、早めに気づけるように設定しておきましょう！</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: SIP による無音失敗</div><div class="bp-item-body">強固なシステム保護（SIP）により大事な場所は絶対に書き換えられません🛡️ AIが変更しようとしても、エラーが出ないままヌルッと失敗してしまうので少し厄介です💦</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: Firmlink によるパスずれ</div><div class="bp-item-body">一部のフォルダ（<code>/var</code> や <code>/tmp</code>）は別の場所への「秘密のワープトンネル」になっています🌀 AIが本当の場所を調べたときにズレが生じて混乱することがあります👀</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: Docker ボリュームマウント</div><div class="bp-item-body">macOSのフォルダをそのままコンテナに繋ぐと、大文字小文字の勘違い問題まで一緒に持ち込まれてしまいます💦 コンテナの中に専用の作業場所を作るのが一番安全です✨</div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bp-os-card">
-    <div class="bp-os-head win-head">
-      <div class="bp-os-icon">🪟</div>
-      <div>
-        <div class="bp-os-name">Windows</div>
-        <div class="bp-os-verdict">そのままでは難しいです — <span class="verdict-warn">WSL2 を使うのが一番の解決策です♪</span></div>
-      </div>
-    </div>
-    <div class="bp-os-body">
-      <div class="bp-section-title">おすすめの構成✨</div>
-      <div class="bp-config-block">WSL2 (bash / zsh) &nbsp;×&nbsp; Linux FS (~/projects/)</div>
-      <div class="bp-why">実は Claude Code などは Windowsのまま（コマンドプロンプト等）では正しく動かないことが多いです💦 WSL2を使ってLinux環境を呼び出せば、本物のLinuxとほぼ同じ快適さでサクサク動かせますよ🪟✨</div>
-      <div class="bp-items">
-        <div class="bp-item"><div class="bp-item-head">🌊 WSL2 のセットアップ</div><div class="bp-item-body"><code>wsl --install</code> という魔法のコマンド一発でUbuntuが入ります🐧 Windows Terminal を使うと見た目もスッキリしてとっても使いやすくなりますよ！</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: 作業 FS を Windows 側に置く</div><div class="bp-item-body">【一番大事なポイント⚠️】Windows側のフォルダ（Cドライブなど）で作業すると、通信の都合で恐ろしく動作が遅くなってしまいます🐢 必ずLinux側（<code>~/</code> 等）で作業するようにしてくださいね！</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: git の混在</div><div class="bp-item-body">Windows側のGitと、WSL2(Linux)側のGitは別々の存在です👀 余計な改行コードの変換をされないように、WSL2側でしっかり設定をしておきましょう♪</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: ロケール未設定</div><div class="bp-item-body">入れた直後は「あなたが何語を話すか」が未設定なことがあります🗣️ 文字化けを防ぐために、しっかり UTF-8（日本語か英語）を設定しておいてくださいね✨</div></div>
-        <div class="bp-item"><div class="bp-item-head">🐚 git-bash の位置付け</div><div class="bp-item-body">Windows向けに作られたお手軽なbash環境ですが、動きが少しモッサリしていて本格的なシステム機能が足りません🐢 AIのお家としては少し物足りない環境です💦</div></div>
-        <div class="bp-item"><div class="bp-item-head">🚫 CMD / PowerShell 5.1 は避ける</div><div class="bp-item-body">昔ながらのコマンドプロンプト(CMD)はAIが得意な言葉をあまり理解してくれません🙅‍♀️ どうしてもPowerShellを使うなら、新しい <code>pwsh</code>（バージョン7以上）を使ってあげてくださいね🦋</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ② MATRIX (git columns removed) -->
-  <div class="sec">📊 Shell × FHS マトリクス</div>
-
-  <div class="legend">
-    <div class="li"><span class="badge s4">◎</span>劣化要因なし・最適</div>
-    <div class="li"><span class="badge s3">○</span>軽微な問題・実用範囲</div>
-    <div class="li"><span class="badge s2">△</span>機能欠落 / 精度低下</div>
-    <div class="li"><span class="badge s1">✗</span>実用不可</div>
-    <div class="li"><span class="badge s0">—</span>組み合わせ非成立</div>
-    <div class="li" style="margin-left:auto;font-size:10px;color:var(--textdim)">※ Claude Code を基準にしています。Gitはどのみち絶対必要なので見やすくするために省きました✨</div>
-  </div>
-
-  <div class="matrix-card">
-    <table>
-      <thead>
-        <tr>
-          <th class="cs" rowspan="2">Shell</th>
-          <th class="os-hdr" style="color:var(--mint2)" colspan="1">🐧 Linux</th>
-          <th class="os-hdr" style="color:var(--lav2)" colspan="3">🍎 macOS</th>
-          <th class="os-hdr" style="color:var(--sky2)" colspan="2">🪟 Windows</th>
-        </tr>
-        <tr>
-          <th class="sub-hdr">bare / VM<br><span class="fhs-badge full">FHS 完全</span></th>
-          <th class="sub-hdr">native<br><span class="fhs-badge part">FHS 部分</span></th>
-          <th class="sub-hdr">Docker / Podman<br><span class="fhs-badge full">FHS 完全</span><span class="fhs-badge warn">DinD △</span></th>
-          <th class="sub-hdr">Lima<br><span class="fhs-badge full">FHS 完全</span></th>
-          <th class="sub-hdr">native / git-bash<br><span class="fhs-badge none">FHS 非準拠</span></th>
-          <th class="sub-hdr">WSL2<br><span class="fhs-badge full">FHS 完全</span></th>
-        </tr>
-      </thead>
-      <tbody id="tbody"></tbody>
-    </table>
-  </div>
-
-  <!-- ③ NOTES -->
-  <div class="sec">📝 Notes — Important</div>
-  <div class="notes-grid">
-
-    <div class="note-card peach">
-      <div class="note-num">1</div>
-      <div class="note-title">Git の必須性（エージェントの感覚 / 記憶）</div>
-      <div class="note-body">
-        表からは省いていますが、AIエージェントにとって <strong>Git は生きていくために絶対に欠かせないインフラ</strong> です✨ 単なる履歴管理ではなく、「今どのファイルがどうなっているか」「自分がどこを変えたか」を理解し、失敗したら「安全に元に戻す」ための<strong>大切な短期記憶や感覚器官</strong>の役割を果たします🧠 Git（.gitフォルダ）がない場所だと、AIは目隠しされた状態になってしまい、実力をほとんど発揮できなくなってしまいます💦
-      </div>
-      <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div>5 / 5</div>
-    </div>
-
-    <div class="note-card pink">
-      <div class="note-num">2</div>
-      <div class="note-title">Shell 構文非互換</div>
-      <div class="note-body">
-        AIはGitHubの膨大なLinux/bashのデータを食べて育ちました📚 だから息をするようにbash特有の書き方（配列やかっこ等）を使ってしまいます。これを他のシェル（cmdやfish等）にそのまま渡すと「なんのこと？」とエラーになって激突してしまいます💥<br><br>
-        <strong>Claude Code:</strong> WindowsにWSLを入れてbash環境を作ってあげることで優しく回避できます✨<br>
-        <strong>その他のエージェント:</strong> エラーを見て「あれ、今の間違ってたかも」と自分で直せる賢い子なら挽回できるかもしれません👀
-      </div>
-      <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div>5 / 5</div>
-    </div>
-
-    <div class="note-card mint">
-      <div class="note-num">3</div>
-      <div class="note-title">FHS 非準拠 — Windows native</div>
-      <div class="note-body">
-        パスの区切りが「\」だったり、Cドライブ等の概念があったり、権限の仕組みが全然違ったりと、Linux前提のAIからすると異世界です🌎 快適に動かすには素直に WSL2 の力を借りるのが一番安心で手っ取り早いです🪟✨
-      </div>
-      <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>3 / 5</div>
-    </div>
-
-    <div class="note-card sky">
-      <div class="note-num">4</div>
-      <div class="note-title">FHS 部分準拠 — macOS</div>
-      <div class="note-body">
-        大文字小文字の区別が曖昧だったり、超強力なシステム保護（SIP）に弾かれたり、秘密のトンネル（Firmlink）でパスがズレたりと、macOSには特有のアスレチックがたくさんあります🍎 少しAIが戸惑いやすい環境ですね💦
-      </div>
-      <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>3 / 5</div>
-    </div>
-
-    <div class="note-card lav">
-      <div class="note-num">5</div>
-      <div class="note-title">Docker-in-Docker (DinD)</div>
-      <div class="note-body">
-        コンテナの中からさらにDockerをいじる、少しマトリョーシカのようなやり方です🐳 便利ですがセキュリティの穴になりやすいのが玉にキズです💦 Limaを使えばこの複雑な構造を避けられるので、より高い評価になっていますよ✨
-      </div>
-      <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>3 / 5</div>
-    </div>
-
-    <div class="note-card peach">
-      <div class="note-num">6</div>
-      <div class="note-title">PowerShell 5.1 と pwsh の違い</div>
-      <div class="note-body">
-        昔から入っている青い画面（PowerShell 5.1）と、黒い画面の新しい子（PowerShell 7+ / pwsh）は全くの別物です！ 古い方を使うと、変な文字コードでファイルが出力されてAIが文字化けにうなされるので、必ず新しい pwsh を使ってあげてくださいね🦋
-      </div>
-      <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>3 / 5</div>
-    </div>
-
-    <div class="note-card pink">
-      <div class="note-num">7</div>
-      <div class="note-title">汎用エージェント固有 — エラーループ実装差</div>
-      <div class="note-body">
-        AIが「自分のやった結果」を見て反省できる機能（ループ）があるかどうかです♻️ この機能があると、間違った構文を使っても「あ、ここはこのシェルじゃ動かないんだ！」と自分で気づいて次から直してくれます✨<br><br>
-        <strong>この自己修正の賢さが、AIの真の実力を決める一番大事なポイントだったりします💡</strong>
-      </div>
-      <div class="impact-bar">影響度(汎用)<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>4 / 5</div>
-    </div>
-
-  </div>
-
-  <!-- ④ SUPPLEMENTAL -->
-  <div class="sec">📎 Notes — Supplemental</div>
-  <div class="col-grid">
-
-    <div class="col-card">
-      <div class="col-title">SVN</div>
-      <div class="col-body">
-        コマンドを出すこと自体はできますが、なにせGitに比べて学習データが少なすぎるので、いまいち自信が持てないようです🐢 複雑なことはよく間違えるので、SVNを使う時は人間が手取り足取り確認してあげる必要があります💦
-      </div>
-    </div>
-
-    <div class="col-card">
-      <div class="col-title">ロケール設定</div>
-      <div class="col-body">
-        言語設定（LANG）をきちんとしてあげないと、日本語が全てエイリアン語👽に文字化けしてしまい、AIがパニックになってしまいます💦 ファイル自体も UTF-8 という世界共通の文字コードに揃えておくのが一番トラブルが少なくて平和ですよ✨
-      </div>
-    </div>
-
-    <div class="col-card">
-      <div class="col-title">CP932 と CRLF — Windows のエンコーディング問題</div>
-      <div class="col-body">
-        ターミナルの文字化け（CP932）より厄介なのが、Windows特有の「改行コード（CRLF）」のいたずらです👻 何もしていないのにGitの差分がぐちゃぐちゃになることがあるので、設定でしっかり自動変換をOFF（false）にしておきましょうね♪
-      </div>
-    </div>
-
-    <div class="col-card">
-      <div class="col-title">CI/CD 環境での注意点</div>
-      <div class="col-body">
-        CI/CDの裏側はだいたい Linux + bash なので、環境としては最高に恵まれています✨ 途中で人間が「Yes/No」を入力しなくていいようにしたり（-yフラグ等）、秘密のパスワードが漏れないようにしたりと、無人で走らせるためのお作法だけ気をつけてくださいね🤖🚀
-      </div>
-    </div>
-
-  </div>
-
-  <footer>
-    <span>AI Agent Environment Compatibility Matrix ✿</span>
-    <span>Shell × FHS — Claude Code & Generic LLM Agent</span>
-  </footer>
+<div class="matrix-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Language / Tool</th>
+        <th>🐧 Linux Container</th>
+        <th>🍎 Lima VM</th>
+        <th>⊞ WSL2 Container</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Shell</strong></td>
+        <td><span class="env-linux">bash</span></td>
+        <td><span class="env-mac">bash / zsh</span></td>
+        <td><span class="env-windows">bash</span></td>
+      </tr>
+      <tr>
+        <td><strong>Node.js</strong></td>
+        <td><span class="env-linux">npm / npx</span></td>
+        <td><span class="env-mac">npm / npx</span></td>
+        <td><span class="env-windows">npm / npx</span></td>
+      </tr>
+      <tr>
+        <td><strong>Python</strong></td>
+        <td><span class="env-linux">pip / venv</span></td>
+        <td><span class="env-mac">pip / venv</span></td>
+        <td><span class="env-windows">pip / venv</span></td>
+      </tr>
+      <tr>
+        <td><strong>Rust</strong></td>
+        <td><span class="env-linux">cargo</span></td>
+        <td><span class="env-mac">cargo</span></td>
+        <td><span class="env-windows">cargo</span></td>
+      </tr>
+      <tr>
+        <td><strong>Build Tools</strong></td>
+        <td><span class="env-linux">gcc / make / cmake</span></td>
+        <td><span class="env-mac">clang / make</span></td>
+        <td><span class="env-windows">gcc / make</span></td>
+      </tr>
+      <tr>
+        <td><strong>Git</strong></td>
+        <td><span class="env-linux">コンテナ内</span></td>
+        <td><span class="env-mac">ホスト or VM</span></td>
+        <td><span class="env-windows">ホスト or WSL2</span></td>
+      </tr>
+      <tr>
+        <td><strong>LLM (Ollama)</strong></td>
+        <td><span class="env-linux">コンテナ内 + CUDA</span></td>
+        <td><span class="env-mac">ホスト Metal</span></td>
+        <td><span class="env-windows">コンテナ内 + CUDA</span></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
-<script>
-const L={4:'◎',3:'○',2:'△',1:'✗',0:'—'};
-const C={4:'s4',3:'s3',2:'s2',1:'s1',0:'s0'};
+<footer>
+  <a href="./" style="color:var(--pink2)">🏠 ホームに戻る</a>
+</footer>
 
-// 6 cols (git removed): Linux | macOS-native | macOS-Docker | macOS-Lima | Win-native+gitbash | Win-WSL2
-const shells=[
-  {name:'bash',          tag:'Bourne Again Shell',         s:[4, 3, 3, 4, 0, 4]},
-  {name:'zsh',           tag:'Z Shell',                    s:[4, 3, 3, 4, 0, 4]},
-  {name:'ash / dash',    tag:'POSIX sh',                   s:[2, 2, 2, 2, 0, 2]},
-  {name:'fish',          tag:'Friendly Interactive Shell',  s:[2, 2, 2, 2, 0, 2]},
-  {name:'git-bash',      tag:'MinGW / MSYS2 bash',         s:[0, 0, 0, 0, 3, 0]},
-  {name:'WSL (bash/zsh)',tag:'Linux on Windows via WSL2',   s:[0, 0, 0, 0, 0, 4]},
-  {name:'PowerShell',    tag:'pwsh / cross-platform',      s:[3, 3, 2, 3, 3, 3]},
-  {name:'CMD',           tag:'Windows cmd.exe',             s:[0, 0, 0, 0, 2, 0]},
-];
-
-function render(){
-  const tb=document.getElementById('tbody');
-  tb.innerHTML='';
-  shells.forEach(s=>{
-    const tr=document.createElement('tr');
-    const td0=document.createElement('td');
-    td0.className='sn';
-    td0.innerHTML=`<span class="snm">${s.name}</span><span class="snt">${s.tag}</span>`;
-    tr.appendChild(td0);
-    for(let i=0;i<6;i++){
-      const td=document.createElement('td');
-      const sc=s.s[i];
-      td.innerHTML=sc===0?'<span class="na">—</span>':`<span class="badge ${C[sc]}">${L[sc]}</span>`;
-      tr.appendChild(td);
-    }
-    tb.appendChild(tr);
-  });
-}
-
-render();
-</script>
+</div>
 </body>
 </html>

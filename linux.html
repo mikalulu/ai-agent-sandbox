@@ -173,15 +173,26 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(120
 .page::after{width:140px;height:140px;bottom:12%;right:-30px;background:radial-gradient(circle,var(--peach) 0%,transparent 70%);animation-delay:4s}
 /* SVG ALIVE */
 @keyframes svgMarch{to{stroke-dashoffset:-20}}
-@keyframes svgPulse{0%,100%{opacity:.25}50%{opacity:.6}}
-@keyframes svgGlow{0%,100%{filter:brightness(1)}50%{filter:brightness(1.06)}}
+@keyframes svgPulse{0%,100%{opacity:.2}50%{opacity:.65}}
+@keyframes svgFloat{0%,100%{transform:translateY(0) rotate(-.1deg)}50%{transform:translateY(-6px) rotate(.1deg)}}
+@keyframes svgBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.diagram svg{animation:svgFloat 7s ease-in-out infinite;transform-origin:50% 60%}
 .diagram svg rect[stroke-dasharray]{animation:svgMarch 3s linear infinite}
 .diagram svg line{animation:svgPulse 2.5s ease-in-out infinite}
 .diagram svg line:nth-of-type(2n){animation-delay:.8s}
 .diagram svg line:nth-of-type(3n){animation-delay:1.6s}
-.diagram svg rect[fill="#e8f4ff"],.diagram svg rect[fill="#fff0e4"],.diagram svg rect[fill="#e8faf2"]{animation:svgGlow 4s ease-in-out infinite}
-.diagram svg rect[fill="#fff0e4"]{animation-delay:1.3s}
-.diagram svg rect[fill="#e8faf2"]{animation-delay:2.6s}
+.diagram svg rect[fill="#e8f4ff"]{animation:svgBob 2.8s ease-in-out infinite}
+.diagram svg rect[fill="#fff0e4"]{animation:svgBob 2.8s ease-in-out infinite;animation-delay:.9s}
+.diagram svg rect[fill="#e8faf2"]{animation:svgBob 2.8s ease-in-out infinite;animation-delay:1.8s}
+/* FOOTER */
+.page-footer{margin-top:60px;padding:20px 0 10px;border-top:1.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--textdim);font-weight:600}
+.page-footer a{text-decoration:none;font-weight:800;transition:opacity .15s,transform .15s;display:inline-block}
+.page-footer a:hover{opacity:.7;transform:translateY(-1px)}
+.footer-links{display:flex;flex-wrap:wrap;gap:14px}
+/* TOP BUTTON */
+.to-top{position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);background:white;color:var(--accent);font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px var(--shadow);transition:opacity .3s,transform .25s;opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
+.to-top.show{opacity:1;pointer-events:auto}
+.to-top:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow)}
 /* Code Block Theme Colors */
 .wrap-guest pre{background:#f4fefa;border-color:var(--mint)}
 .wrap-guest .code-bar{background:#e8faf2;border-color:var(--mint)}
@@ -699,10 +710,18 @@ podman build --no-cache -t agent-sandbox:latest .</pre></div>
   </div>
 </section>
 
-<footer>
+<footer class="page-footer">
   <div>AI Agent Sandbox — Linux Setup Guide ✿</div>
-  <div>Podman · Xephyr · NVIDIA CDI · Ollama Volume</div>
+  <div class="footer-links">
+    <a href="./" style="color:var(--pink2)">🏠 ホーム</a>
+    <a href="./isolation-matrix.html" style="color:var(--mint2)">🌸 隔離マトリクス</a>
+    <a href="./environment-matrix.html" style="color:var(--peach2)">🐚 環境マトリクス</a>
+    <a href="./mac.html" style="color:var(--lav2)">🍎 macOS</a>
+    <a href="./windows.html" style="color:var(--sky2)">⊞ Windows</a>
+  </div>
 </footer>
+
+<button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 </div>
 
@@ -750,6 +769,11 @@ const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
 },{threshold:.12});
 document.querySelectorAll('.section').forEach(s=>io.observe(s));
+/* Top button show/hide */
+const toTop=document.querySelector('.to-top');
+window.addEventListener('scroll',()=>{
+  toTop.classList.toggle('show',window.scrollY>200);
+});
 </script>
 </body>
 </html>
