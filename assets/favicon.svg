@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AI Agent Sandbox">
+  <defs>
+    <linearGradient id="g" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffb3c6"/>
+      <stop offset="50%" stop-color="#b8dff8"/>
+      <stop offset="100%" stop-color="#b5ead7"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="18" fill="#fffaf6" stroke="#ecdde8" stroke-width="3"/>
+  <circle cx="32" cy="32" r="15" fill="url(#g)"/>
+  <path d="M20 21h24v22H20z" fill="none" stroke="#4a4060" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M25 16v8M39 16v8M25 40v8M39 40v8M16 25h8M40 25h8M16 39h8M40 39h8" fill="none" stroke="#4a4060" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="32" cy="32" r="4" fill="#4a4060"/>
+</svg>

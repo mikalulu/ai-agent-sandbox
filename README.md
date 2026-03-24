@@ -8,6 +8,8 @@ AI エージェント（Claude Code・Windsurf・Antigravity・Gemini CLI 等）
 
 **[https://mikalulu.github.io/ai-agent-sandbox/](https://mikalulu.github.io/ai-agent-sandbox/)**
 
+GitHub Pages 向けの静的HTMLサイトです。
+
 | OS | 構成 | ガイド |
 |---|---|---|
 | Linux | Podman + Xephyr + NVIDIA CDI | [linux.html](./linux.html) |
@@ -26,6 +28,10 @@ AI エージェント（Claude Code・Windsurf・Antigravity・Gemini CLI 等）
 | `isolation-matrix.html` | プラットフォーム別隔離アーキテクチャ比較 |
 | `environment-matrix.html` | ホストシェル＆コンテナ環境リファレンス |
 | `compose.yml` | Podman / Docker Compose 定義 |
+
+## Check
+
+最小チェックは `python3 scripts/check_docs.py` で回せます。
 
 ## Goals
 

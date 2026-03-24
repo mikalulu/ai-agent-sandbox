@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description" content="Windows 11 で WSL2 と Podman を使い、AI エージェントをやさしく隔離するためのセットアップガイドです。">
+<meta name="theme-color" content="#fef6f0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Agent Sandbox ✿ Windows / WSL2 Setup Guide">
+<meta property="og:description" content="Windows 11 で WSL2 と Podman を使い、AI エージェントをやさしく隔離するためのセットアップガイドです。">
+<meta property="og:url" content="https://mikalulu.github.io/ai-agent-sandbox/windows.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Agent Sandbox ✿ Windows / WSL2 Setup Guide">
+<meta name="twitter:description" content="Windows 11 で WSL2 と Podman を使い、AI エージェントをやさしく隔離するためのセットアップガイドです。">
+<link rel="canonical" href="https://mikalulu.github.io/ai-agent-sandbox/windows.html">
+<link rel="stylesheet" href="./assets/site.css">
 <title>AI Agent Sandbox ✿ Windows / WSL2 Setup Guide</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
-
 :root {
   --bg:#fef6f0;--cream:#fffaf6;
   --pink:#ffb3c6;--pink2:#ff8fab;--peach:#ffcba4;--peach2:#ffad7d;
@@ -212,10 +224,11 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125
 </style>
 </head>
 <body>
-<div class="page">
+<a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
+<main id="main-content" class="page">
 
 <!-- NAV -->
-<nav class="nav">
+<nav class="nav" aria-label="サイト案内">
   <span class="nav-label">✿ Sandbox Docs</span>
   <a class="nav-pill index" href="./index.html">↩ Index</a>
   <a class="nav-pill" href="./isolation-matrix.html">🌸 Isolation</a>
@@ -223,7 +236,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125
   <a class="nav-pill" href="./ai-tools-guide.html">🤖 AI Tools</a>
   <a class="nav-pill" href="./linux.html">🐧 Linux</a>
   <a class="nav-pill" href="./mac.html">🍎 macOS</a>
-  <a class="nav-pill active" href="./windows.html">⊞ Windows</a>
+  <a class="nav-pill active" href="./windows.html" aria-current="page">⊞ Windows</a>
 </nav>
 
 <!-- HERO -->
@@ -260,7 +273,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125
 </div>
 
 <!-- TOC -->
-<nav class="toc">
+<nav class="toc" aria-label="ページ内目次">
   <a href="#s-pre"><span class="toc-num">✦</span>はじめる前に</a>
   <a href="#s0"><span class="toc-num">00</span>全体の仕組み</a>
   <a href="#s1"><span class="toc-num">01</span>WSL2 を入れよう！</a>
@@ -378,7 +391,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(125
   </div>
   <h3>PowerShell (管理者) で実行</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell — 管理者</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">powershell — 管理者</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># WSL2 + Ubuntu 24.04 をインストール</span>
 wsl --install -d Ubuntu-24.04
 
@@ -387,19 +400,19 @@ Restart-Computer</pre>
   </div>
   <h3>再起動後 — Ubuntu 初期設定</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># WSL2 がデフォルトになっていることを確認</span>
 wsl --set-default-version 2
 wsl --list --verbose   <span class="c"># VERSION が 2 であることを確認</span></pre>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2 Ubuntu 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2 Ubuntu 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># Ubuntu 初回起動でユーザー名・パスワードを設定後</span>
 sudo apt update && sudo apt upgrade -y</pre>
   </div>
   <h3>.wslconfig でリソース制限 (任意)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">ini — %USERPROFILE%\.wslconfig</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">ini — %USERPROFILE%\.wslconfig</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>[wsl2]
 memory=8GB          <span class="c"># WSL2 に割り当てる最大 RAM</span>
 processors=4        <span class="c"># 使用する CPU コア数</span>
@@ -417,7 +430,7 @@ gpuMemoryFraction=0.8   <span class="c"># GPU メモリ割り当て比率</span>
   </div>
   <h3>1. Windows 側 NVIDIA ドライバー確認</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># Windows 側で CUDA 対応ドライバーが入っているか確認</span>
 nvidia-smi
 
@@ -426,7 +439,7 @@ winget install NVIDIA.CUDA</pre>
   </div>
   <h3>2. WSL2 内で nvidia-container-toolkit をインストール</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># NVIDIA Container Toolkit リポジトリ追加</span>
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
   | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
@@ -449,7 +462,7 @@ nvidia-smi</pre>
 <section class="section" id="s3">
   <div class="section-head"><span class="section-num">03</span><h2>📦 Podman を入れよう！</h2></div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># Ubuntu 24.04 は podman が公式リポジトリにある</span>
 sudo apt install -y podman
 
@@ -469,7 +482,7 @@ podman info | grep -i rootless</pre>
     <div class="callout-body">Linux版のDockerfileと違うのは <strong>DISPLAY の設定だけ</strong> です🐧 Xephyrがいらない分、少しスッキリしていますね✨ <code>cuda-cudart-12-4</code> の数字は、Windows側のドライバーと仲良しなバージョンに合わせてあげてください🤖</div>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">dockerfile</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">dockerfile</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>FROM debian:12-slim
 
 <span class="c"># ── base deps ─────────────────────────────────</span>
@@ -558,7 +571,7 @@ CMD ["bash"]</pre>
     <div class="callout-body">ここはLinux版と全く同じです🐧 WSLgちゃんが画面の宛先（DISPLAY）を自動で作ってくれるので、起動する時にそれを渡すだけで動いてくれますよ✨</div>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>#!/bin/bash
 set -e
 
@@ -579,7 +592,7 @@ exec "${@:-bash}"</pre>
 <section class="section" id="s6">
   <div class="section-head"><span class="section-num">06</span><h2>💾 専用のお部屋（Volume）作り <small style="font-size:12px;font-weight:600;color:var(--textdim)">— 最初の一回だけ！</small></h2></div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>podman volume create agent-workspace
 podman volume create ollama-models</pre>
   </div>
@@ -590,16 +603,16 @@ podman volume create ollama-models</pre>
   <div class="section-head"><span class="section-num">07</span><h2>🔨 組み立てて動かす！ (Build &amp; Run)</h2></div>
   <div class="callout callout-sky">
     <span class="callout-icon">💡</span>
-    <div class="callout-body"><code>compose.yml</code> を使うとワンコマンドで起動できます: <code>podman-compose up -d</code><br>compose.yml は<a href="https://github.com/mikalulu/ai-agent-sandbox/blob/main/compose.yml" target="_blank" style="color:inherit;font-weight:800">リポジトリのルート（Windows向けコメントあり）</a>に用意してあります。以下は手動で実行する場合の手順です。</div>
+    <div class="callout-body"><code>compose.yml</code> を使うとワンコマンドで起動できます: <code>podman-compose up -d</code><br>compose.yml は<a href="https://github.com/mikalulu/ai-agent-sandbox/blob/main/compose.yml" target="_blank" rel="noopener noreferrer" style="color:inherit;font-weight:800">リポジトリのルート（Windows向けコメントあり）</a>に用意してあります。以下は手動で実行する場合の手順です。</div>
   </div>
   <h3>イメージビルド</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>podman build -t agent-sandbox:latest .</pre>
   </div>
   <h3>コンテナ起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>podman run -it --rm \
   <span class="c"># WSLg の DISPLAY をそのまま渡す (Xephyr 不要)</span>
   -e DISPLAY=$DISPLAY \
@@ -635,7 +648,7 @@ podman volume create ollama-models</pre>
   </div>
   <h3>コンテナ内で起動 · モデル取得</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>ollama serve &
 sleep 2
 
@@ -647,7 +660,7 @@ ollama ps   <span class="c"># SIZE (VRAM) が表示されれば GPU 動作中</s
   </div>
   <h3>VRAM 使用確認 (WSL2 側)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>nvidia-smi --query-gpu=memory.used,memory.free --format=csv</pre>
   </div>
 </section>
@@ -676,13 +689,13 @@ ollama ps   <span class="c"># SIZE (VRAM) が表示されれば GPU 動作中</s
   <div class="section-head"><span class="section-num">10</span><h2>💡 便利なヒント集 (Tips)</h2></div>
   <h3>WSL2 の再起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">powershell</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>wsl --shutdown          <span class="c"># 全 distro 停止</span>
 wsl -d Ubuntu-24.04     <span class="c"># 再起動</span></pre>
   </div>
   <h3>Windows Terminal から直接コンテナ起動するプロファイル</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">json — WT settings.json の profiles.list に追加</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">json — WT settings.json の profiles.list に追加</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>{
   "name": "Agent Sandbox",
   "commandline": "wsl.exe -d Ubuntu-24.04 -- bash -c 'podman start -ai agent-sandbox'",
@@ -692,7 +705,7 @@ wsl -d Ubuntu-24.04     <span class="c"># 再起動</span></pre>
   </div>
   <h3>ワークスペースのバックアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>podman run --rm \
   -v agent-workspace:/work:ro \
   -v $(pwd):/out \
@@ -701,7 +714,7 @@ wsl -d Ubuntu-24.04     <span class="c"># 再起動</span></pre>
   </div>
   <h3>CUDA バージョン整合性確認</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — WSL2</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># Windows ドライバーの CUDA Version を確認して Dockerfile を調整</span>
 nvidia-smi | grep "CUDA Version"</pre>
   </div>
@@ -778,55 +791,8 @@ podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre></div
 
 <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-</div>
+</main>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.code-wrap').forEach(wrap => {
-    const lang = (wrap.querySelector('.code-lang')?.textContent || '').toLowerCase();
-    if (lang.includes('zsh')) {
-      wrap.classList.add('wrap-host-mac');
-    } else if (lang.includes('powershell') || lang.includes('ps')) {
-      wrap.classList.add('wrap-host-win');
-    } else if (lang.includes('ホスト')) {
-      wrap.classList.add('wrap-host-linux');
-    } else if (lang.includes('ゲスト') || lang.includes('wsl2') || lang.includes('vm')) {
-      wrap.classList.add('wrap-guest');
-    } else if (lang.includes('bash') || lang.includes('shell')) {
-      if (lang === 'bash') wrap.classList.add('wrap-host-linux');
-      else wrap.classList.add('wrap-guest');
-    } else if (lang.includes('dockerfile') || lang.includes('yaml')) {
-      wrap.classList.add('wrap-infra');
-    } else {
-      wrap.classList.add('wrap-default');
-    }
-  });
-});
-
-function cp(btn){
-  const text=btn.closest('.code-wrap').querySelector('pre').innerText;
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.textContent='✓ copied';btn.classList.add('ok');
-    setTimeout(()=>{btn.textContent='copy';btn.classList.remove('ok')},1800);
-  }).catch(()=>{
-    btn.textContent='✗ failed';
-    setTimeout(()=>{btn.textContent='copy'},1800);
-  });
-}
-/* Checklist toggle */
-document.querySelectorAll('.check-list li').forEach(li=>{
-  li.addEventListener('click',()=>li.classList.toggle('checked'));
-});
-/* Scroll reveal */
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
-},{threshold:.12});
-document.querySelectorAll('.section').forEach(s=>io.observe(s));
-/* Top button show/hide */
-const toTop=document.querySelector('.to-top');
-window.addEventListener('scroll',()=>{
-  toTop.classList.toggle('show',window.scrollY>200);
-});
-</script>
+<script defer src="./assets/site.js"></script>
 </body>
 </html>

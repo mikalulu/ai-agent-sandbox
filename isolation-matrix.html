@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description" content="隔離手法を強さや特徴ごとにふんわり見比べられる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
+<meta name="theme-color" content="#fef6f0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Isolation Matrix ✿">
+<meta property="og:description" content="隔離手法を強さや特徴ごとにふんわり見比べられる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
+<meta property="og:url" content="https://mikalulu.github.io/ai-agent-sandbox/isolation-matrix.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Isolation Matrix ✿">
+<meta name="twitter:description" content="隔離手法を強さや特徴ごとにふんわり見比べられる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
+<link rel="canonical" href="https://mikalulu.github.io/ai-agent-sandbox/isolation-matrix.html">
+<link rel="stylesheet" href="./assets/site.css">
 <title>Isolation Matrix ✿</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
-
 :root {
   --bg:       #fef6f0;
   --bg2:      #fff9f5;
@@ -378,11 +390,12 @@ header        { animation: fadeUp 0.5s ease both; }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
 
-<nav class="nav">
+<nav class="nav" aria-label="サイト案内">
   <span class="nav-label">✿ Sandbox Docs</span>
   <a class="nav-pill index" href="./index.html">↩ Index</a>
-  <a class="nav-pill active" href="./isolation-matrix.html">🌸 Isolation</a>
+  <a class="nav-pill active" href="./isolation-matrix.html" aria-current="page">🌸 Isolation</a>
   <a class="nav-pill" href="./environment-matrix.html">🐚 Environment</a>
   <a class="nav-pill" href="./ai-tools-guide.html">🤖 AI Tools</a>
   <a class="nav-pill" href="./linux.html">🐧 Linux</a>
@@ -390,13 +403,14 @@ header        { animation: fadeUp 0.5s ease both; }
   <a class="nav-pill" href="./windows.html">⊞ Windows</a>
 </nav>
 
+<main id="main-content" class="page">
+
 <!-- Header -->
 <header>
   <div class="header-deco">🔒 🛡️ 🔑 🧱 🔒</div>
   <h1>Isolation <span class="accent">Matrix</span> <span class="accent2">✿</span></h1>
   <div class="subtitle">
-    隔離度(Isolation Strength) × 分類(Type) &nbsp;—&nbsp;
-    <span>全手法まとめ ♪</span>
+    隔離の強さや役割を、ふわっと横ならびで見比べるまとめです♪
   </div>
 </header>
 
@@ -761,7 +775,7 @@ header        { animation: fadeUp 0.5s ease both; }
   <div class="icon-legend-item">❌ 対象外 / N/A</div>
   <div class="icon-legend-item">➖ 管理者管理 / Admin</div>
   <div class="icon-legend-item">👤 ユーザー操作可 / User-ctrl</div>
-  <div style="margin-left:auto;font-size:11px;color:var(--textdim);">※ 隔離度はスタンドアロン評価。実環境では組み合わせが前提。</div>
+  <div style="margin-left:auto;font-size:11px;color:var(--textdim);">※ 隔離度は単体で見たときの目安です。実運用では重ねがけすると安心です♪</div>
 </div>
 
 <!-- Notes -->
@@ -784,5 +798,7 @@ header        { animation: fadeUp 0.5s ease both; }
   </div>
 </div>
 
+</main>
+<script defer src="./assets/site.js"></script>
 </body>
 </html>

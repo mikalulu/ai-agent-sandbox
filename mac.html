@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description" content="Apple Silicon Mac で Lima VM と XQuartz を使い、AI エージェントをふんわり安全に動かすためのセットアップガイドです。">
+<meta name="theme-color" content="#fef6f0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Agent Sandbox ✿ macOS / Lima Setup Guide">
+<meta property="og:description" content="Apple Silicon Mac で Lima VM と XQuartz を使い、AI エージェントをふんわり安全に動かすためのセットアップガイドです。">
+<meta property="og:url" content="https://mikalulu.github.io/ai-agent-sandbox/mac.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Agent Sandbox ✿ macOS / Lima Setup Guide">
+<meta name="twitter:description" content="Apple Silicon Mac で Lima VM と XQuartz を使い、AI エージェントをふんわり安全に動かすためのセットアップガイドです。">
+<link rel="canonical" href="https://mikalulu.github.io/ai-agent-sandbox/mac.html">
+<link rel="stylesheet" href="./assets/site.css">
 <title>AI Agent Sandbox ✿ macOS / Lima Setup Guide</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
-
 :root {
   --bg:#fef6f0;--cream:#fffaf6;
   --pink:#ffb3c6;--pink2:#ff8fab;--peach:#ffcba4;--peach2:#ffad7d;
@@ -213,17 +225,18 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(176
 </style>
 </head>
 <body>
-<div class="page">
+<a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
+<main id="main-content" class="page">
 
 <!-- NAV -->
-<nav class="nav">
+<nav class="nav" aria-label="サイト案内">
   <span class="nav-label">✿ Sandbox Docs</span>
   <a class="nav-pill index" href="./index.html">↩ Index</a>
   <a class="nav-pill" href="./isolation-matrix.html">🌸 Isolation</a>
   <a class="nav-pill" href="./environment-matrix.html">🐚 Environment</a>
   <a class="nav-pill" href="./ai-tools-guide.html">🤖 AI Tools</a>
   <a class="nav-pill" href="./linux.html">🐧 Linux</a>
-  <a class="nav-pill active" href="./mac.html">🍎 macOS</a>
+  <a class="nav-pill active" href="./mac.html" aria-current="page">🍎 macOS</a>
   <a class="nav-pill" href="./windows.html">⊞ Windows</a>
 </nav>
 
@@ -256,7 +269,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(176
 </div>
 
 <!-- TOC -->
-<nav class="toc">
+<nav class="toc" aria-label="ページ内目次">
   <a href="#s-pre"><span class="toc-num">✦</span>はじめる前に</a>
   <a href="#s0"><span class="toc-num">00</span>全体の仕組み</a>
   <a href="#s1"><span class="toc-num">01</span>最初の準備</a>
@@ -372,7 +385,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(176
     <div class="stack-card"><div class="stack-icon ic-mint">🦙</div><div><div class="stack-name">Ollama</div><div class="stack-role">LLM (Metal backend)</div></div></div>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># Homebrew (未インストールの場合)</span>
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
@@ -394,7 +407,7 @@ brew install ollama</pre>
   <div class="section-head"><span class="section-num">02</span><h2>📝 Limaちゃんのお作法（VM 定義ファイル）</h2></div>
   <p>Lima は YAML というファイルで「どのくらいパワーを使うか」「どのフォルダに触っていいか」をお約束します✨</p>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">yaml — ~/.lima/agent/lima.yaml</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">yaml — ~/.lima/agent/lima.yaml</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># Lima VM 定義 — AI Agent Sandbox</span>
 vmType: vz              <span class="c"># Apple Virtualization.framework (M2 最速)</span>
 rosetta:
@@ -429,7 +442,7 @@ containerd:
   </div>
   <h3>作業ディレクトリ作成 (ホスト側)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>mkdir -p ~/lima-agent-work</pre>
   </div>
 </section>
@@ -439,7 +452,7 @@ containerd:
   <div class="section-head"><span class="section-num">03</span><h2>🚀 立ち上げて準備しよう！（起動とセットアップ）</h2></div>
   <h3>VM 作成 · 起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># lima.yaml を配置して VM 作成</span>
 mkdir -p ~/.lima/agent
 cp lima.yaml ~/.lima/agent/
@@ -452,7 +465,7 @@ limactl shell agent</pre>
   </div>
   <h3>VM 内 — 基本セットアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>sudo apt-get update && sudo apt-get install -y --no-install-recommends \
   <span class="c"># X11 / WM</span>
   xauth x11-apps openbox dbus-x11 xdg-utils \
@@ -475,7 +488,7 @@ limactl shell agent</pre>
   </div>
   <h3>VM 内 — Node.js (nvm)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>export NVM_DIR="$HOME/.nvm"
 curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 source "$NVM_DIR/nvm.sh"
@@ -483,7 +496,7 @@ nvm install 22 && nvm alias default 22</pre>
   </div>
   <h3>VM 内 — Rust</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"</pre>
   </div>
@@ -494,7 +507,7 @@ source "$HOME/.cargo/env"</pre>
   <div class="section-head"><span class="section-num">04</span><h2>🤖 エージェントたちをお迎え (VM 内)</h2></div>
   <h3>CLI エージェント</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># Gemini CLI / OpenCode</span>
 npm install -g \
   @google/gemini-cli \
@@ -512,7 +525,7 @@ curl -LsSf https://aider.chat/install.sh | sh</pre>
   </div>
   <h3>Windsurf (.deb · arm64)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># arm64 版 .deb を指定 (M2 = aarch64)</span>
 curl -fsSL https://windsurf-stable.codeiumdata.com/linux-arm64/windsurf_latest_arm64.deb \
   -o /tmp/windsurf.deb
@@ -521,7 +534,7 @@ rm /tmp/windsurf.deb</pre>
   </div>
   <h3>Antigravity (.deb · arm64)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>curl -fsSL https://antigravity.google/releases/antigravity_latest_arm64.deb \
   -o /tmp/antigravity.deb
 sudo dpkg -i /tmp/antigravity.deb || sudo apt-get install -fy
@@ -539,7 +552,7 @@ rm /tmp/antigravity.deb</pre>
   <p>Lima VMの中から「画面だけパソコン側に送って！」とお願い（X11 forwarding）して、XQuartzに映してもらいます📺✨</p>
   <h3>XQuartz の事前設定 (ホスト側・初回のみ)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># XQuartz を起動し、設定 > セキュリティ で</span>
 <span class="c"># "ネットワーク・クライアントからの接続を許可" をオンにする</span>
 open -a XQuartz
@@ -549,7 +562,7 @@ echo $DISPLAY   <span class="c"># → :0 または /tmp/launchd-*/com.apple.laun
   </div>
   <h3>SSH X11 forwarding で VM に入り GUI 起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># -X: X11 forwarding 有効</span>
 limactl shell --shell=/bin/bash agent -- bash -c '
   eval $(dbus-launch --sh-syntax)
@@ -565,7 +578,7 @@ limactl shell --shell=/bin/bash agent -- bash -c '
   </div>
   <h3>CLI エージェントのみの場合 (X11 不要)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># GUI 不要なら通常 shell で OK</span>
 limactl shell agent
 cd ~/lima-agent-work
@@ -585,7 +598,7 @@ claude   <span class="c"># または goose / gemini / opencode / aider</span></p
   </div>
   <h3>Ollama サーバー起動 (ホスト)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># VM からのアクセスを受け入れるため 0.0.0.0 で Listen</span>
 OLLAMA_HOST=0.0.0.0:11434 ollama serve &
 
@@ -595,7 +608,7 @@ ollama pull qwen2.5-coder:7b   <span class="c"># ~5GB · バランス</span></pr
   </div>
   <h3>VM 内エージェントから Ollama を使う</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># Lima が提供するホスト到達用の特殊 hostname</span>
 export OLLAMA_HOST=host.lima.internal:11434
 
@@ -604,7 +617,7 @@ aider --model ollama/qwen2.5-coder:7b</pre>
   </div>
   <h3>モデルサイズ目安 (M2 Unified Memory)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>qwen2.5-coder:3b    ~2 GB    RAM 8GB+    軽量・高速
 qwen2.5-coder:7b    ~5 GB    RAM 16GB+   バランス
 llama3.2:3b         ~2 GB    RAM 8GB+    汎用
@@ -642,20 +655,20 @@ codellama:7b        ~4 GB    RAM 16GB+   コーディング特化</pre>
   <div class="section-head"><span class="section-num">08</span><h2>💡 便利なヒント集 (Tips)</h2></div>
   <h3>VM の停止 / 削除</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>limactl stop agent      <span class="c"># VM 停止 (ディスクは保持)</span>
 limactl start agent     <span class="c"># 再起動</span>
 limactl delete agent    <span class="c"># VM 削除 (ディスクも消える)</span></pre>
   </div>
   <h3>作業ディレクトリのバックアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># ~/lima-agent-work はホスト側に実体があるのでそのままコピー可</span>
 cp -r ~/lima-agent-work ~/lima-agent-work-backup-$(date +%Y%m%d)</pre>
   </div>
   <h3>VM スペック変更</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># VM を停止してから lima.yaml を編集 → 再起動</span>
 limactl stop agent
 vim ~/.lima/agent/lima.yaml   <span class="c"># cpus / memory を変更</span>
@@ -663,7 +676,7 @@ limactl start agent</pre>
   </div>
   <h3>Ollama を launchd で常駐させる</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">zsh — ホスト</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># brew services で自動起動 (OLLAMA_HOST は launchd 環境変数で別途設定が必要)</span>
 brew services start ollama</pre>
   </div>
@@ -739,56 +752,8 @@ OLLAMA_HOST=0.0.0.0:11434 ollama serve &amp;</pre></div>
 
 <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-</div>
+</main>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.code-wrap').forEach(wrap => {
-    const lang = (wrap.querySelector('.code-lang')?.textContent || '').toLowerCase();
-    if (lang.includes('zsh')) {
-      wrap.classList.add('wrap-host-mac');
-    } else if (lang.includes('powershell') || lang.includes('ps')) {
-      wrap.classList.add('wrap-host-win');
-    } else if (lang.includes('ホスト')) {
-      wrap.classList.add('wrap-host-linux');
-    } else if (lang.includes('ゲスト') || lang.includes('wsl2') || lang.includes('vm')) {
-      wrap.classList.add('wrap-guest');
-    } else if (lang.includes('bash') || lang.includes('shell')) {
-      if (lang === 'bash') wrap.classList.add('wrap-host-linux');
-      else wrap.classList.add('wrap-guest');
-    } else if (lang.includes('dockerfile') || lang.includes('yaml')) {
-      wrap.classList.add('wrap-infra');
-    } else {
-      wrap.classList.add('wrap-default');
-    }
-  });
-});
-
-function cp(btn) {
-  const text = btn.closest('.code-wrap').querySelector('pre').innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '✓ copied';
-    btn.classList.add('ok');
-    setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('ok'); }, 1800);
-  }).catch(() => {
-    btn.textContent = '✗ failed';
-    setTimeout(() => { btn.textContent = 'copy'; }, 1800);
-  });
-}
-/* Checklist toggle */
-document.querySelectorAll('.check-list li').forEach(li=>{
-  li.addEventListener('click',()=>li.classList.toggle('checked'));
-});
-/* Scroll reveal */
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
-},{threshold:.12});
-document.querySelectorAll('.section').forEach(s=>io.observe(s));
-/* Top button show/hide */
-const toTop=document.querySelector('.to-top');
-window.addEventListener('scroll',()=>{
-  toTop.classList.toggle('show',window.scrollY>200);
-});
-</script>
+<script defer src="./assets/site.js"></script>
 </body>
 </html>

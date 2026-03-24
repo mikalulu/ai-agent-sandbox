@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description" content="Shell とファイルシステムの相性を、OS 別にやさしく整理した動作環境マトリクスです。">
+<meta name="theme-color" content="#fef6f0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Agent 動作環境マトリクス ✿">
+<meta property="og:description" content="Shell とファイルシステムの相性を、OS 別にやさしく整理した動作環境マトリクスです。">
+<meta property="og:url" content="https://mikalulu.github.io/ai-agent-sandbox/environment-matrix.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Agent 動作環境マトリクス ✿">
+<meta name="twitter:description" content="Shell とファイルシステムの相性を、OS 別にやさしく整理した動作環境マトリクスです。">
+<link rel="canonical" href="https://mikalulu.github.io/ai-agent-sandbox/environment-matrix.html">
+<link rel="stylesheet" href="./assets/site.css">
 <title>AI Agent 動作環境マトリクス ✿</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
-
 :root {
   --bg:       #fef6f0;
   --bg2:      #fff9f5;
@@ -300,12 +312,13 @@ header       { animation: fadeUp 0.5s ease both; }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
 
-<nav class="nav">
+<nav class="nav" aria-label="サイト案内">
   <span class="nav-label">✿ Sandbox Docs</span>
   <a class="nav-pill index" href="./index.html">↩ Index</a>
   <a class="nav-pill" href="./isolation-matrix.html">🌸 Isolation</a>
-  <a class="nav-pill active" href="./environment-matrix.html">🐚 Environment</a>
+  <a class="nav-pill active" href="./environment-matrix.html" aria-current="page">🐚 Environment</a>
   <a class="nav-pill" href="./ai-tools-guide.html">🤖 AI Tools</a>
   <a class="nav-pill" href="./linux.html">🐧 Linux</a>
   <a class="nav-pill" href="./mac.html">🍎 macOS</a>
@@ -315,10 +328,10 @@ header       { animation: fadeUp 0.5s ease both; }
 <header>
   <div class="header-deco">💻 🐚 📁 🔧 💻</div>
   <h1>AI Agent <span class="accent">動作環境</span><span class="accent2">マトリクス</span> ✿</h1>
-  <div class="subtitle">Shellとファイルシステム（FHS）の相性まとめ✨ Claude Code を基準にしています♪</div>
+  <div class="subtitle">Shell とファイルまわりの相性を、OS ごとにふんわり整理した早見表です♪</div>
 </header>
 
-<div class="page">
+<main id="main-content" class="page">
 
   <!-- ① OS BEST PRACTICES -->
   <div class="sec">🌸 OS別のおすすめセッティング（ベストプラクティス）</div>
@@ -328,7 +341,7 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="bp-os-icon">🐧</div>
       <div>
         <div class="bp-os-name">Linux</div>
-        <div class="bp-os-verdict">直接インストール / VM — <span class="verdict-good">一番おすすめ！一切の制限なく快適に動きます✿</span></div>
+        <div class="bp-os-verdict">直接インストール / VM — <span class="verdict-good">一番のびのび使いやすいです✿</span></div>
       </div>
     </div>
     <div class="bp-os-body">
@@ -350,7 +363,7 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="bp-os-icon">🍎</div>
       <div>
         <div class="bp-os-name">macOS</div>
-        <div class="bp-os-verdict">そのまま使うと少し罠があります — <span class="verdict-warn">DockerやLimaを使えば安心です♪</span></div>
+        <div class="bp-os-verdict">そのままだと少しクセがありますが、Docker や Lima を添えるとかなり安心です♪</div>
       </div>
     </div>
     <div class="bp-os-body">
@@ -373,7 +386,7 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="bp-os-icon">🪟</div>
       <div>
         <div class="bp-os-name">Windows</div>
-        <div class="bp-os-verdict">そのままでは難しいです — <span class="verdict-warn">WSL2 を使うのが一番の解決策です♪</span></div>
+        <div class="bp-os-verdict">そのままだとご機嫌取りが大変なので、WSL2 を使うのがいちばんやさしい解決策です♪</div>
       </div>
     </div>
     <div class="bp-os-body">
@@ -535,44 +548,8 @@ header       { animation: fadeUp 0.5s ease both; }
     <span>AI Agent Environment Compatibility Matrix ✿</span>
     <span>Shell × FHS — Claude Code & Generic LLM Agent</span>
   </footer>
-</div>
+</main>
 
-<script>
-const L={4:'◎',3:'○',2:'△',1:'✗',0:'—'};
-const C={4:'s4',3:'s3',2:'s2',1:'s1',0:'s0'};
-
-// 6 cols (git removed): Linux | macOS-native | macOS-Docker | macOS-Lima | Win-native+gitbash | Win-WSL2
-const shells=[
-  {name:'bash',          tag:'Bourne Again Shell',         s:[4, 3, 3, 4, 0, 4]},
-  {name:'zsh',           tag:'Z Shell',                    s:[4, 3, 3, 4, 0, 4]},
-  {name:'ash / dash',    tag:'POSIX sh',                   s:[2, 2, 2, 2, 0, 2]},
-  {name:'fish',          tag:'Friendly Interactive Shell',  s:[2, 2, 2, 2, 0, 2]},
-  {name:'git-bash',      tag:'MinGW / MSYS2 bash',         s:[0, 0, 0, 0, 3, 0]},
-  {name:'WSL (bash/zsh)',tag:'Linux on Windows via WSL2',   s:[0, 0, 0, 0, 0, 4]},
-  {name:'PowerShell',    tag:'pwsh / cross-platform',      s:[3, 3, 2, 3, 3, 3]},
-  {name:'CMD',           tag:'Windows cmd.exe',             s:[0, 0, 0, 0, 2, 0]},
-];
-
-function render(){
-  const tb=document.getElementById('tbody');
-  tb.innerHTML='';
-  shells.forEach(s=>{
-    const tr=document.createElement('tr');
-    const td0=document.createElement('td');
-    td0.className='sn';
-    td0.innerHTML=`<span class="snm">${s.name}</span><span class="snt">${s.tag}</span>`;
-    tr.appendChild(td0);
-    for(let i=0;i<6;i++){
-      const td=document.createElement('td');
-      const sc=s.s[i];
-      td.innerHTML=sc===0?'<span class="na">—</span>':`<span class="badge ${C[sc]}">${L[sc]}</span>`;
-      tr.appendChild(td);
-    }
-    tb.appendChild(tr);
-  });
-}
-
-render();
-</script>
+<script defer src="./assets/site.js"></script>
 </body>
 </html>

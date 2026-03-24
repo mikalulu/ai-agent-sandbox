@@ -3,9 +3,9 @@
 # podman-compose up -d  または  docker compose up -d
 #
 # 事前準備:
-#   1. Dockerfile と entrypoint.sh を同じディレクトリに配置
+#   1. すぐ試すだけなら examples/ の最小サンプルを使います
 #   2. イメージをビルド:
-#      podman build -t agent-sandbox:latest .
+#      podman build -t agent-sandbox:latest ./examples
 #   3. Linux のみ — Xephyr を起動:
 #      Xephyr :10 -screen 1920x1080 -ac &
 #

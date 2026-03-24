@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description" content="Claude Code、Codex、Goose、Gemini CLI などを、使いどころごとにゆるっと比べられる AI ツール案内ページです。">
+<meta name="theme-color" content="#fef6f0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Tools Guide — AI Agent Sandbox">
+<meta property="og:description" content="Claude Code、Codex、Goose、Gemini CLI などを、使いどころごとにゆるっと比べられる AI ツール案内ページです。">
+<meta property="og:url" content="https://mikalulu.github.io/ai-agent-sandbox/ai-tools-guide.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Tools Guide — AI Agent Sandbox">
+<meta name="twitter:description" content="Claude Code、Codex、Goose、Gemini CLI などを、使いどころごとにゆるっと比べられる AI ツール案内ページです。">
+<link rel="canonical" href="https://mikalulu.github.io/ai-agent-sandbox/ai-tools-guide.html">
+<link rel="stylesheet" href="./assets/site.css">
 <title>AI Tools Guide — AI Agent Sandbox</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
-
 :root {
   --mint: #b5ead7;
   --mint2: #78d5b0;
@@ -333,14 +345,15 @@ footer a:hover { opacity: .7; }
 </style>
 </head>
 <body>
-<div class="page">
+<a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
+<main id="main-content" class="page">
 
-<nav class="nav">
+<nav class="nav" aria-label="サイト案内">
   <span class="nav-label">✿</span>
   <a class="nav-pill index" href="./index.html">↩ Index</a>
   <a class="nav-pill" href="./isolation-matrix.html">🌸 Isolation</a>
   <a class="nav-pill" href="./environment-matrix.html">🐚 Environment</a>
-  <a class="nav-pill active" href="./ai-tools-guide.html">🤖 AI Tools</a>
+  <a class="nav-pill active" href="./ai-tools-guide.html" aria-current="page">🤖 AI Tools</a>
   <a class="nav-pill" href="./linux.html">🐧 Linux</a>
   <a class="nav-pill" href="./mac.html">🍎 macOS</a>
   <a class="nav-pill" href="./windows.html">⊞ Windows</a>
@@ -348,7 +361,7 @@ footer a:hover { opacity: .7; }
 
 <header>
   <h1>🤖 AI Tools Guide</h1>
-  <p class="subtitle">エージェント選択ガイド＆機能比較</p>
+  <p class="subtitle">どの子を選ぶとしっくりくるか、やさしく見比べるためのガイドです♪</p>
 </header>
 
 <section class="tools-grid">
@@ -360,10 +373,10 @@ footer a:hover { opacity: .7; }
       <div class="tool-name">Claude Code</div>
       <span class="tool-badge badge-claude">Anthropic</span>
     </div>
-    <div class="tool-type">CLI Agent</div>
-    <div class="tool-desc">自然言語処理に特化したエージェント。コード生成・デバッグに最適。</div>
+    <div class="tool-type">おしゃべり CLI Agent</div>
+    <div class="tool-desc">ことばで相談しながら、実装やデバッグをいっしょに進めるのが得意な子です。</div>
     
-    <div class="tool-section-title">特徴</div>
+    <div class="tool-section-title">できること</div>
     <ul class="tool-features">
       <li>会話型インターフェース (REPL)</li>
       <li>マルチステップ推論・計画立案</li>
@@ -371,7 +384,7 @@ footer a:hover { opacity: .7; }
       <li>Shell実行＋結果フィードバック</li>
     </ul>
     
-    <div class="tool-section-title">ユースケース</div>
+    <div class="tool-section-title">こんなときにぴったり</div>
     <ul class="tool-usecases">
       <li>設計・実装フローの相談</li>
       <li>コードレビュー＆リファクタリング</li>
@@ -396,10 +409,10 @@ footer a:hover { opacity: .7; }
       <div class="tool-name">Windsurf</div>
       <span class="tool-badge badge-microsoft">Codeium</span>
     </div>
-    <div class="tool-type">IDE (Electron)</div>
-    <div class="tool-desc">Electron ベースの IDE。AI 補完統合により高速開発が可能。</div>
+    <div class="tool-type">GUI つよつよ IDE</div>
+    <div class="tool-desc">IDE の中で AI 補完や相談をそのまま受けたいときに、かなり相性がいい子です。</div>
     
-    <div class="tool-section-title">特徴</div>
+    <div class="tool-section-title">できること</div>
     <ul class="tool-features">
       <li>VSCode 互換（Extensions 活用可）</li>
       <li>インライン AI 補完・コード生成</li>
@@ -407,7 +420,7 @@ footer a:hover { opacity: .7; }
       <li>統合ターミナル＆デバッグ</li>
     </ul>
     
-    <div class="tool-section-title">ユースケース</div>
+    <div class="tool-section-title">こんなときにぴったり</div>
     <ul class="tool-usecases">
       <li>日常開発・タイピング時短</li>
       <li>テンプレート・定型コード生成</li>
@@ -432,10 +445,10 @@ footer a:hover { opacity: .7; }
       <div class="tool-name">Antigravity</div>
       <span class="tool-badge badge-google">Google</span>
     </div>
-    <div class="tool-type">Browser Agent</div>
-    <div class="tool-desc">Electron + Chrome。Web UI を持つエージェント。視覚的インタラクション対応。</div>
+    <div class="tool-type">ブラウザおまかせ Agent</div>
+    <div class="tool-desc">画面を見ながら Web を触ってほしいときに頼りやすい、視覚派のエージェントです。</div>
     
-    <div class="tool-section-title">特徴</div>
+    <div class="tool-section-title">できること</div>
     <ul class="tool-features">
       <li>Browser 統合環境</li>
       <li>スクリーンショット認識</li>
@@ -443,7 +456,7 @@ footer a:hover { opacity: .7; }
       <li>ビジュアル フィードバック</li>
     </ul>
     
-    <div class="tool-section-title">ユースケース</div>
+    <div class="tool-section-title">こんなときにぴったり</div>
     <ul class="tool-usecases">
       <li>Web アプリ自動テスト</li>
       <li>UI / UX の改善提案</li>
@@ -465,10 +478,10 @@ footer a:hover { opacity: .7; }
       <div class="tool-name">Goose</div>
       <span class="tool-badge badge-microsoft">Block</span>
     </div>
-    <div class="tool-type">GitHub CLI Agent</div>
-    <div class="tool-desc">GitHub 連携エージェント。PR・Issue 管理の自動化に特化。</div>
+    <div class="tool-type">GitHub おしゃべり CLI Agent</div>
+    <div class="tool-desc">PR や Issue まわりを、GitHub と仲良くしながら回したいときに向いています。</div>
     
-    <div class="tool-section-title">特徴</div>
+    <div class="tool-section-title">できること</div>
     <ul class="tool-features">
       <li>GitHub API 直結</li>
       <li>PR レビュー・自動修正</li>
@@ -476,7 +489,7 @@ footer a:hover { opacity: .7; }
       <li>CI/CD パイプライン統合</li>
     </ul>
     
-    <div class="tool-section-title">ユースケース</div>
+    <div class="tool-section-title">こんなときにぴったり</div>
     <ul class="tool-usecases">
       <li>PR の自動レビュー</li>
       <li>バグ報告の自動分類</li>
@@ -501,10 +514,10 @@ footer a:hover { opacity: .7; }
       <div class="tool-name">Codex CLI</div>
       <span class="tool-badge badge-microsoft">OpenAI</span>
     </div>
-    <div class="tool-type">CLI Agent (OpenAI)</div>
-    <div class="tool-desc">OpenAI Codex API ベース。軽量で高速な CLI ツール。</div>
+    <div class="tool-type">かるがる CLI Agent (OpenAI)</div>
+    <div class="tool-desc">さっと試したい軽めの作業や、コマンド相談をテンポよく進めたいときに便利です。</div>
     
-    <div class="tool-section-title">特徴</div>
+    <div class="tool-section-title">できること</div>
     <ul class="tool-features">
       <li>軽量・高速レスポンス</li>
       <li>Shell コマンド生成</li>
@@ -512,7 +525,7 @@ footer a:hover { opacity: .7; }
       <li>API キー設定で簡単運用</li>
     </ul>
     
-    <div class="tool-section-title">ユースケース</div>
+    <div class="tool-section-title">こんなときにぴったり</div>
     <ul class="tool-usecases">
       <li>Shell コマンド補完</li>
       <li>簡易コード生成</li>
@@ -537,10 +550,10 @@ footer a:hover { opacity: .7; }
       <div class="tool-name">Gemini CLI</div>
       <span class="tool-badge badge-google">Google</span>
     </div>
-    <div class="tool-type">CLI Agent (Google)</div>
-    <div class="tool-desc">Google Gemini API 統合。マルチモーダル対応。画像認識活用可。</div>
+    <div class="tool-type">ひらめき CLI Agent (Google)</div>
+    <div class="tool-desc">画像やテキストをいっしょに見てもらいたいときに、ふわっと頼りやすい子です。</div>
     
-    <div class="tool-section-title">特徴</div>
+    <div class="tool-section-title">できること</div>
     <ul class="tool-features">
       <li>マルチモーダル入力（テキスト＋画像）</li>
       <li>高速推論（緊急時に便利）</li>
@@ -548,7 +561,7 @@ footer a:hover { opacity: .7; }
       <li>無料枠あり（試験環境向け）</li>
     </ul>
     
-    <div class="tool-section-title">ユースケース</div>
+    <div class="tool-section-title">こんなときにぴったり</div>
     <ul class="tool-usecases">
       <li>スクリーンショット 分析</li>
       <li>設計図・仕様書の読み取り</li>
@@ -573,10 +586,10 @@ footer a:hover { opacity: .7; }
       <div class="tool-name">OpenCode</div>
       <span class="tool-badge badge-local">Open Source</span>
     </div>
-    <div class="tool-type">CLI Agent (Local)</div>
-    <div class="tool-desc">オープンソース系エージェント。自分でホスト＆カスタマイズ可能。</div>
+    <div class="tool-type">ローカル派 CLI Agent</div>
+    <div class="tool-desc">自分の手元でじっくり育てたいときにぴったりな、カスタムしやすい OSS 系です。</div>
     
-    <div class="tool-section-title">特徴</div>
+    <div class="tool-section-title">できること</div>
     <ul class="tool-features">
       <li>完全なローカルコントロール</li>
       <li>プライベートデータ保持</li>
@@ -584,7 +597,7 @@ footer a:hover { opacity: .7; }
       <li>API 費用なし</li>
     </ul>
     
-    <div class="tool-section-title">ユースケース</div>
+    <div class="tool-section-title">こんなときにぴったり</div>
     <ul class="tool-usecases">
       <li>プライバシー重視開発</li>
       <li>エアギャップ環境</li>
@@ -606,10 +619,10 @@ footer a:hover { opacity: .7; }
       <div class="tool-name">aider</div>
       <span class="tool-badge badge-local">Open Source</span>
     </div>
-    <div class="tool-type">Git-Connected Agent</div>
-    <div class="tool-desc">Git ワークフロー統合型エージェント。pair programming 体験。</div>
+    <div class="tool-type">Git なかよし Agent</div>
+    <div class="tool-desc">差分を見ながら、ペアプロっぽく一歩ずつ進めたいときにしっくりきます。</div>
     
-    <div class="tool-section-title">特徴</div>
+    <div class="tool-section-title">できること</div>
     <ul class="tool-features">
       <li>自動 git diff 生成</li>
       <li>段階的なコミット作成</li>
@@ -617,7 +630,7 @@ footer a:hover { opacity: .7; }
       <li>複数ファイル同時編集</li>
     </ul>
     
-    <div class="tool-section-title">ユースケース</div>
+    <div class="tool-section-title">こんなときにぴったり</div>
     <ul class="tool-usecases">
       <li>Pair programming シミュレーション</li>
       <li>段階的リファクタリング</li>
@@ -639,7 +652,7 @@ footer a:hover { opacity: .7; }
 
 <!-- DECISION FLOW -->
 <section class="flow-section">
-  <h2 class="flow-title">🎯 エージェント選択フロー</h2>
+  <h2 class="flow-title">🎯 どの子が合うかフロー</h2>
 
   <div class="diagram">
     <svg width="760" height="520" viewBox="0 0 760 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIエージェント選択フロー: Q1 GUI? → Q2 ローカル? → Q3 用途? の順で決まる">
@@ -656,7 +669,7 @@ footer a:hover { opacity: .7; }
       <!-- START -->
       <rect x="230" y="30" width="300" height="44" rx="14" fill="#f0e8ff" stroke="#b08af0" stroke-width="2"/>
       <text x="380" y="50" fill="#b08af0" font-family="Klee One,cursive" font-size="13" text-anchor="middle" font-weight="600">🤖 AI エージェントを選ぼう</text>
-      <text x="380" y="67" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="600">以下の質問に順番に答えてね</text>
+      <text x="380" y="67" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="600">下の質問にふわっと答えると決めやすいです</text>
       <!-- start → D1 -->
       <line x1="300" y1="74" x2="220" y2="110" stroke="#b08af0" stroke-width="1.5" opacity=".35" marker-end="url(#fl)"/>
 
@@ -724,7 +737,7 @@ footer a:hover { opacity: .7; }
   </div>
 
   <div style="margin-bottom: 32px;">
-    <h3 style="font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 16px;">シナリオ別ガイド</h3>
+    <h3 style="font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 16px;">こんな場面ならこの子</h3>
     
     <table class="comparison-table">
       <thead>
@@ -810,10 +823,7 @@ footer a:hover { opacity: .7; }
 
 <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-</div>
-<script>
-const t=document.querySelector('.to-top');
-window.addEventListener('scroll',()=>{t.classList.toggle('show',window.scrollY>300)});
-</script>
+</main>
+<script defer src="./assets/site.js"></script>
 </body>
 </html>

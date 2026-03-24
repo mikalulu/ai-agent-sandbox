@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description" content="AI エージェントをふんわり安全に囲うための静的ドキュメントサイトです。Linux・macOS・Windows 向けの隔離セットアップをまとめています。">
+<meta name="theme-color" content="#fef6f0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Agent Sandbox ✿ Documentation">
+<meta property="og:description" content="AI エージェントをふんわり安全に囲うための静的ドキュメントサイトです。Linux・macOS・Windows 向けの隔離セットアップをまとめています。">
+<meta property="og:url" content="https://mikalulu.github.io/ai-agent-sandbox/index.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Agent Sandbox ✿ Documentation">
+<meta name="twitter:description" content="AI エージェントをふんわり安全に囲うための静的ドキュメントサイトです。Linux・macOS・Windows 向けの隔離セットアップをまとめています。">
+<link rel="canonical" href="https://mikalulu.github.io/ai-agent-sandbox/index.html">
+<link rel="stylesheet" href="./assets/site.css">
 <title>AI Agent Sandbox ✿ Documentation</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
-
 :root {
   --bg:       #fef6f0;
   --bg2:      #fff9f5;
@@ -343,13 +355,14 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
 </style>
 </head>
 <body>
-<div class="page">
+<a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
+<main id="main-content" class="page">
 
 <!-- Header -->
 <header>
   <div class="header-deco">🤖 🛡️ 🔧 🧱 🤖</div>
   <h1>AI Agent <span class="accent">Sandbox</span> <span class="accent2">✿</span></h1>
-  <p class="hero-sub">Podman や Lima、WSL2 を使って AI エージェントを安全に動かすためのセットアップガイドです✨ お使いの環境を選んでくださいね ♪</p>
+  <p class="hero-sub">Podman や Lima、WSL2 を使って AI エージェントをふんわり安全に囲うためのセットアップガイドです✨ お使いの環境を選んでくださいね♪</p>
   <div class="hero-tags">
     <span class="htag">Podman</span>
     <span class="htag">Xephyr</span>
@@ -373,7 +386,7 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
       <div class="card-icon icon-linux">🐧</div>
       <div class="card-os os-linux">Linux</div>
       <div class="card-title">Ubuntu<br>+ Podman + Xephyr</div>
-      <div class="card-desc">一番しっかり隔離できる安心の構成です🐧 Xephyr を使って画面も完全に切り離します✨ NVIDIA CDI で GPU のパワーもばっちり使えますよ！</div>
+      <div class="card-desc">一番しっかり囲える安心の構成です🐧 Xephyr で画面もきれいに分けつつ、NVIDIA CDI で GPU のパワーもしっかり受け取れますよ✨</div>
       <div class="card-tags">
         <span class="ctag ctag-mint">Podman</span>
         <span class="ctag ctag-mint">Xephyr</span>
@@ -393,7 +406,7 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
       <div class="card-icon icon-mac">🍎</div>
       <div class="card-os os-mac">macOS</div>
       <div class="card-title">Apple Silicon<br>+ Lima VM</div>
-      <div class="card-desc">Lima VM の中でふんわり安全に動かします🍎 Ollama は Metal を使ってサクサク動作♪ 画面表示には XQuartz を使います✨</div>
+      <div class="card-desc">Lima VM の中でふんわり安全に動かす構成です🍎 Ollama は Metal で軽やかに動いて、画面表示は XQuartz におまかせです✨</div>
       <div class="card-tags">
         <span class="ctag ctag-lav">Lima VM</span>
         <span class="ctag ctag-lav">XQuartz</span>
@@ -413,7 +426,7 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
       <div class="card-icon icon-win">⊞</div>
       <div class="card-os os-win">Windows</div>
       <div class="card-title">Windows 11<br>+ WSL2 + Podman</div>
-      <div class="card-desc">WSL2 の上で Podman を動かすお手軽構成です🪟 画面設定は WSLg が自動でやってくれます✨ CUDA も透過的に使えてとっても便利！</div>
+      <div class="card-desc">WSL2 の上で Podman を動かす、ほどよく手軽な構成です🪟 画面まわりは WSLg がふわっと面倒を見てくれて、CUDA もそのまま使えます✨</div>
       <div class="card-tags">
         <span class="ctag ctag-sky">WSL2</span>
         <span class="ctag ctag-sky">WSLg</span>
@@ -541,101 +554,8 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
   </div>
 </footer>
 
-</div>
+</main>
 
-<script>
-const qsSel = new Set();
-const qsBtnCls = { linux:'active-linux', mac:'active-mac', win:'active-win' };
-const qsBg = {
-  linux: 'background:#f4fefa;border-color:var(--mint)',
-  mac:   'background:#f8f4ff;border-color:var(--lav)',
-  win:   'background:#f4faff;border-color:var(--sky)',
-};
-
-function qsToggle(os) {
-  qsSel.has(os) ? qsSel.delete(os) : qsSel.add(os);
-  document.getElementById('btn-' + os).className =
-    'qs-btn' + (qsSel.has(os) ? ' ' + qsBtnCls[os] : '');
-  qsRender();
-}
-
-function qsRender() {
-  const el = document.getElementById('qs-result');
-  const sel = [...qsSel].sort();
-  if (!sel.length) { el.classList.remove('show'); return; }
-
-  const C = {
-    linux: `<strong>🐧 Linux + NVIDIA GPU → 最強の隔離構成！</strong><br>
-Podman + Xephyr で画面もファイルも完全に切り離し。GPU は CDI で直結。<br>
-<strong>難度:</strong> <span style="color:var(--peach2)">★★★ やや高め</span> — Xephyr の設定と CDI 登録が鬼門<br>
-<strong>必要:</strong> Ubuntu 22.04+ / NVIDIA GPU / RAM 16GB+ / ディスク 80GB+<br>
-→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux セットアップガイドへ</a>`,
-
-    mac: `<strong>🍎 Apple Silicon Mac → Lima VM でふんわり隔離！</strong><br>
-Lima VM 内にセットアップ。Ollama は Mac 本体の Metal パワーで快適動作。<br>
-<strong>難度:</strong> <span style="color:var(--mint2)">★☆☆ かんたん</span> — brew で Lima 入れてほぼ完了<br>
-<strong>必要:</strong> macOS 13+ / M1〜M4 / Unified Memory 16GB+ / ディスク 100GB+<br>
-→ <a href="./mac.html" style="color:var(--lav2)">🔮 macOS セットアップガイドへ</a>`,
-
-    win: `<strong>⊞ Windows 11 → WSL2 + Podman でお手軽隔離！</strong><br>
-WSL2 内で Podman を動かす構成。画面は WSLg が自動で処理。<br>
-<strong>難度:</strong> <span style="color:var(--sky2)">★★☆ 普通</span> — WSL2 有効化とドライバー更新が必要<br>
-<strong>必要:</strong> Windows 11 22H2+ / NVIDIA GPU (ドライバー 525+) / RAM 16GB+<br>
-→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows セットアップガイドへ</a>`,
-  };
-
-  const M = {
-    'linux+mac': `<strong>🐧✕🍎 デュアル構成 — 役割分担で最強に！</strong><br><br>
-<span style="color:var(--mint2)">🐧 Linux</span> → AI エージェントの<strong>本番実行環境</strong>（Podman + CUDA 直結）<br>
-<span style="color:var(--lav2)">🍎 Mac</span> → Ollama Metal で<strong>ローカル LLM サーバー</strong>として運用<br><br>
-Linux の AI エージェントから Mac の Ollama に <code>OLLAMA_HOST</code> で接続すれば、<br>
-Apple Silicon の Metal 推論を Linux エージェントから透過的に使える。<br><br>
-→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux から始めよう</a>　→ <a href="./mac.html" style="color:var(--lav2)">🔮 macOS もセットアップ</a>`,
-
-    'linux+win': `<strong>🐧✕⊞ デュアル構成 — 開発 ＆ 互換性テスト！</strong><br><br>
-<span style="color:var(--mint2)">🐧 Linux</span> → 最強隔離の<strong>メイン開発・実験機</strong>（Xephyr + CDI GPU）<br>
-<span style="color:var(--sky2)">⊞ Windows</span> → Windows ネイティブアプリの動作確認・WSL2 補助環境<br><br>
-AI エージェントは Linux で走らせ、Windows しか動かないツールのテストや<br>
-WSL2 の挙動確認は Windows 側で。Git リポジトリはどちらからも共有できる。<br><br>
-→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux から始めよう</a>　→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows もセットアップ</a>`,
-
-    'mac+win': `<strong>🍎✕⊞ デュアル構成 — ローカル LLM ＆ 開発！</strong><br><br>
-<span style="color:var(--lav2)">🍎 Mac</span> → <strong>Ollama Metal LLM サーバー</strong> ＋ 設計・相談用メイン機<br>
-<span style="color:var(--sky2)">⊞ Windows</span> → WSL2 + Podman で<strong>エージェント実行環境</strong><br><br>
-Windows の AI エージェントから Mac の Ollama へ <code>OLLAMA_HOST=&lt;MacのIP&gt;</code> で接続。<br>
-ネットワーク越しにApple Silicon の Metal 推論を活用できる。<br><br>
-→ <a href="./mac.html" style="color:var(--lav2)">🔮 Mac から始めよう</a>　→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows もセットアップ</a>`,
-
-    'linux+mac+win': `<strong>🐧✕🍎✕⊞ フル装備 — 役割分担で死角なし！</strong><br><br>
-<span style="color:var(--mint2)">🐧 Linux</span> → <strong>エージェント本番実行</strong>（最強隔離 + CUDA）<br>
-<span style="color:var(--lav2)">🍎 Mac</span> → <strong>ローカル LLM サーバー</strong>（Metal 高速推論）+ 設計・相談<br>
-<span style="color:var(--sky2)">⊞ Windows</span> → <strong>GUI エージェント</strong>・Windows 専用ツールのテスト<br><br>
-Linux をメインに据え、Mac を <code>OLLAMA_HOST</code> で LLM サーバーに。<br>
-Windows は WSLg GUI アプリの動作確認専用にすると三台がきれいに噛み合う。<br><br>
-→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux</a>　→ <a href="./mac.html" style="color:var(--lav2)">🔮 macOS</a>　→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows</a>`,
-  };
-
-  const key = sel.join('+');
-  const isMulti = sel.length > 1;
-  const styleMap = {
-    linux: 'background:#f4fefa;border-color:var(--mint)',
-    mac:   'background:#f8f4ff;border-color:var(--lav)',
-    win:   'background:#f4faff;border-color:var(--sky)',
-    'linux+mac': 'background:#f2fcf6;border-color:var(--mint)',
-    'linux+win': 'background:#f0faff;border-color:var(--sky)',
-    'mac+win':   'background:#f6f0ff;border-color:var(--lav)',
-    'linux+mac+win': 'background:#fff8f4;border-color:var(--peach)',
-  };
-
-  let html = isMulti ? M[key] : '';
-  if (!isMulti) {
-    html = C[sel[0]];
-  }
-
-  el.setAttribute('style', (styleMap[key] || '') + ';display:block');
-  el.innerHTML = html;
-  el.classList.add('show');
-}
-</script>
+<script defer src="./assets/site.js"></script>
 </body>
 </html>

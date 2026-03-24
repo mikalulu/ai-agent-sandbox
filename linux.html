@@ -3,10 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description" content="Linux で Podman と Xephyr を使い、AI エージェントをしっかり隔離して動かすためのゆるふわセットアップガイドです。">
+<meta name="theme-color" content="#fef6f0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Agent Sandbox ✿ Linux Setup Guide">
+<meta property="og:description" content="Linux で Podman と Xephyr を使い、AI エージェントをしっかり隔離して動かすためのゆるふわセットアップガイドです。">
+<meta property="og:url" content="https://mikalulu.github.io/ai-agent-sandbox/linux.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Agent Sandbox ✿ Linux Setup Guide">
+<meta name="twitter:description" content="Linux で Podman と Xephyr を使い、AI エージェントをしっかり隔離して動かすためのゆるふわセットアップガイドです。">
+<link rel="canonical" href="https://mikalulu.github.io/ai-agent-sandbox/linux.html">
+<link rel="stylesheet" href="./assets/site.css">
 <title>AI Agent Sandbox ✿ Linux Setup Guide</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
-
 :root {
   --bg:#fef6f0;--cream:#fffaf6;
   --pink:#ffb3c6;--pink2:#ff8fab;--peach:#ffcba4;--peach2:#ffad7d;
@@ -215,16 +227,17 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(120
 </style>
 </head>
 <body>
-<div class="page">
+<a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
+<main id="main-content" class="page">
 
 <!-- NAV -->
-<nav class="nav">
+<nav class="nav" aria-label="サイト案内">
   <span class="nav-label">✿ Sandbox Docs</span>
   <a class="nav-pill index" href="./index.html">↩ Index</a>
   <a class="nav-pill" href="./isolation-matrix.html">🌸 Isolation</a>
   <a class="nav-pill" href="./environment-matrix.html">🐚 Environment</a>
   <a class="nav-pill" href="./ai-tools-guide.html">🤖 AI Tools</a>
-  <a class="nav-pill active" href="./linux.html">🐧 Linux</a>
+  <a class="nav-pill active" href="./linux.html" aria-current="page">🐧 Linux</a>
   <a class="nav-pill" href="./mac.html">🍎 macOS</a>
   <a class="nav-pill" href="./windows.html">⊞ Windows</a>
 </nav>
@@ -243,7 +256,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(120
 </header>
 
 <!-- TOC -->
-<nav class="toc">
+<nav class="toc" aria-label="ページ内目次">
   <a href="#s-pre"><span class="toc-num">✦</span>はじめる前に</a>
   <a href="#s0"><span class="toc-num">00</span>全体の仕組み</a>
   <a href="#s1"><span class="toc-num">01</span>最初の準備</a>
@@ -361,7 +374,7 @@ details.faq-item:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(120
   </div>
   <h3>インストール</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># Podman + Xephyr</span>
 sudo apt install -y podman xserver-xephyr
 
@@ -392,7 +405,7 @@ sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml</pre>
     <div class="callout-body">Windsurf や Antigravity は、公式の <code>.deb</code> ファイルを直接ダウンロードして入れます📦（外部の複雑な登録はしません✨）。Ollama は本体だけ入れておき、重たいモデルデータは別のお部屋（Volume）で管理します♪</div>
   </div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">dockerfile</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">dockerfile</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>FROM debian:12-slim
 
 <span class="c"># ── base deps ──────────────────────────────────</span>
@@ -483,7 +496,7 @@ CMD ["bash"]</pre>
 <section class="section" id="s3">
   <div class="section-head"><span class="section-num">03</span><h2>🚀 entrypoint.sh</h2></div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>#!/bin/bash
 set -e
 
@@ -508,7 +521,7 @@ exec "${@:-bash}"</pre>
 <section class="section" id="s4">
   <div class="section-head"><span class="section-num">04</span><h2>💾 専用のお部屋（Volume）作り <small style="font-size:12px;font-weight:600;color:var(--textdim)">— 最初の一回だけ！</small></h2></div>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># 作業スペース (コード・成果物)</span>
 podman volume create agent-workspace
 
@@ -522,23 +535,23 @@ podman volume create ollama-models</pre>
   <div class="section-head"><span class="section-num">05</span><h2>🔨 組み立てて動かす！ (Build & Run)</h2></div>
   <div class="callout callout-mint">
     <span class="callout-icon">💡</span>
-    <div class="callout-body"><code>compose.yml</code> を使うとワンコマンドで起動できます: <code>podman-compose up -d</code><br>compose.yml は<a href="https://github.com/mikalulu/ai-agent-sandbox/blob/main/compose.yml" target="_blank" style="color:inherit;font-weight:800">リポジトリのルート</a>に用意してあります。以下は手動で実行する場合の手順です。</div>
+    <div class="callout-body"><code>compose.yml</code> を使うとワンコマンドで起動できます: <code>podman-compose up -d</code><br>compose.yml は<a href="https://github.com/mikalulu/ai-agent-sandbox/blob/main/compose.yml" target="_blank" rel="noopener noreferrer" style="color:inherit;font-weight:800">リポジトリのルート</a>に用意してあります。以下は手動で実行する場合の手順です。</div>
   </div>
   <h3>イメージビルド</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>podman build -t agent-sandbox:latest .</pre>
   </div>
   <h3>Xephyr 起動 — ホスト側・別ターミナル</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># XWayland 上でネスト X を独立ウィンドウとして起動</span>
 <span class="c"># -ac: コンテナからの接続を許可</span>
 Xephyr :10 -screen 1920x1080 -ac &</pre>
   </div>
   <h3>コンテナ起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>podman run -it --rm \
   <span class="c"># Xephyr のみ公開 (ホスト :0 は渡さない)</span>
   -e DISPLAY=:10 \
@@ -575,7 +588,7 @@ Xephyr :10 -screen 1920x1080 -ac &</pre>
   </div>
   <h3>モデルの pull (コンテナ内)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># コンテナ内で ollama サーバー起動 → モデル取得</span>
 ollama serve &
 sleep 2
@@ -588,7 +601,7 @@ ollama pull qwen2.5-coder:7b</pre>
   </div>
   <h3>モデルサイズ目安</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>qwen2.5-coder:3b     ~2 GB    VRAM 3GB+   軽量・高速
 qwen2.5-coder:7b     ~5 GB    VRAM 6GB+   バランス型
 llama3.2:3b          ~2 GB    VRAM 3GB+   汎用
@@ -625,13 +638,13 @@ codellama:7b         ~4 GB    VRAM 6GB+   コーディング特化</pre>
   <div class="section-head"><span class="section-num">08</span><h2>💡 便利なヒント集 (Tips)</h2></div>
   <h3>Xephyr 解像度変更</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># HiDPI (2560x1440)</span>
 Xephyr :10 -screen 2560x1440 -dpi 144 -ac &</pre>
   </div>
   <h3>ワークスペースのバックアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>podman run --rm \
   -v agent-workspace:/work:ro \
   -v $(pwd):/out \
@@ -640,7 +653,7 @@ Xephyr :10 -screen 2560x1440 -dpi 144 -ac &</pre>
   </div>
   <h3>Antigravity 権限制限 (ゲスト内設定)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre>Settings > Terminal
   Auto Execution  →  Request Review   # 全コマンドを承認制に
   Deny List       →  rm -rf, curl, wget (任意)
@@ -650,7 +663,7 @@ Settings > Browser
   </div>
   <h3>CUDA バージョン確認</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn" onclick="cp(this)">copy♪</button></div>
     <pre><span class="c"># ホスト側で driver バージョンを確認してから Dockerfile を調整</span>
 nvidia-smi | grep "CUDA Version"</pre>
   </div>
@@ -730,57 +743,8 @@ podman build --no-cache -t agent-sandbox:latest .</pre></div>
 
 <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-</div>
+</main>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.code-wrap').forEach(wrap => {
-    const lang = (wrap.querySelector('.code-lang')?.textContent || '').toLowerCase();
-    if (lang.includes('zsh')) {
-      wrap.classList.add('wrap-host-mac'); // Zsh(Mac) = Purple
-    } else if (lang.includes('powershell') || lang.includes('ps')) {
-      wrap.classList.add('wrap-host-win'); // PS(Win) = Peach
-    } else if (lang.includes('ホスト')) {
-      wrap.classList.add('wrap-host-linux'); // Bash Host = Sky
-    } else if (lang.includes('ゲスト') || lang.includes('wsl2') || lang.includes('vm')) {
-      wrap.classList.add('wrap-guest'); // Guest = Mint
-    } else if (lang.includes('bash') || lang.includes('shell')) {
-      // Default bash depends on page context but usually guest in these guides
-      if (lang === 'bash') wrap.classList.add('wrap-host-linux'); // Pure 'bash' = Sky
-      else wrap.classList.add('wrap-guest'); 
-    } else if (lang.includes('dockerfile') || lang.includes('yaml')) {
-      wrap.classList.add('wrap-infra'); // Config = Pink
-    } else {
-      wrap.classList.add('wrap-default');
-    }
-  });
-});
-
-function cp(btn) {
-  const text = btn.closest('.code-wrap').querySelector('pre').innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '✓ copied';
-    btn.classList.add('ok');
-    setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('ok'); }, 1800);
-  }).catch(() => {
-    btn.textContent = '✗ failed';
-    setTimeout(() => { btn.textContent = 'copy'; }, 1800);
-  });
-}
-/* Checklist toggle */
-document.querySelectorAll('.check-list li').forEach(li=>{
-  li.addEventListener('click',()=>li.classList.toggle('checked'));
-});
-/* Scroll reveal */
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
-},{threshold:.12});
-document.querySelectorAll('.section').forEach(s=>io.observe(s));
-/* Top button show/hide */
-const toTop=document.querySelector('.to-top');
-window.addEventListener('scroll',()=>{
-  toTop.classList.toggle('show',window.scrollY>200);
-});
-</script>
+<script defer src="./assets/site.js"></script>
 </body>
 </html>
