@@ -204,6 +204,36 @@ footer a:hover { opacity: .7; }
         <td><span class="env-mac">ホスト Metal</span></td>
         <td><span class="env-windows">コンテナ内 + CUDA</span></td>
       </tr>
+      <tr>
+        <td><strong>Claude Code</strong></td>
+        <td><span class="env-linux">npm install -g (コンテナ内)</span></td>
+        <td><span class="env-mac">npm install -g (VM 内)</span></td>
+        <td><span class="env-windows">npm install -g (WSL2 内)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Display / GUI</strong></td>
+        <td><span class="env-linux">DISPLAY=:10 (Xephyr)</span></td>
+        <td><span class="env-mac">DISPLAY (XQuartz)</span></td>
+        <td><span class="env-windows">DISPLAY (WSLg 自動)</span></td>
+      </tr>
+      <tr>
+        <td><strong>ポート転送</strong></td>
+        <td><span class="env-linux">-p 8080:8080 (Podman)</span></td>
+        <td><span class="env-mac">limactl port-forward</span></td>
+        <td><span class="env-windows">localhost 共有 (WSL2)</span></td>
+      </tr>
+      <tr>
+        <td><strong>GPU ランタイム</strong></td>
+        <td><span class="env-linux">--device nvidia.com/gpu=all</span></td>
+        <td><span class="env-mac">Metal 共有 (自動)</span></td>
+        <td><span class="env-windows">--gpus all (NVIDIA)</span></td>
+      </tr>
+      <tr>
+        <td><strong>ボリューム永続化</strong></td>
+        <td><span class="env-linux">podman volume create</span></td>
+        <td><span class="env-mac">Lima disk (virtiofs)</span></td>
+        <td><span class="env-windows">podman volume create</span></td>
+      </tr>
     </tbody>
   </table>
 </div>

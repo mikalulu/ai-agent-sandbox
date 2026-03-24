@@ -148,7 +148,7 @@ footer a:hover { opacity: .7; }
 
 <header>
   <h1>🌸 Isolation Matrix</h1>
-  <p class="subtitle">Platform isolation architecture comparison</p>
+  <p class="subtitle">AI エージェント隔離構成の比較</p>
 </header>
 
 <div class="matrix-wrap">
@@ -191,6 +191,36 @@ footer a:hover { opacity: .7; }
         <td><span class="level-strong">Direct (CDI)</span></td>
         <td><span class="level-weak">Ollama のみ</span></td>
         <td><span class="level-strong">透過的 (CUDA)</span></td>
+      </tr>
+      <tr>
+        <td><strong>Syscall フィルタ</strong></td>
+        <td><span class="level-medium">seccomp (Podman 既定)</span></td>
+        <td><span class="level-strong">VM ハイパーバイザー</span></td>
+        <td><span class="level-medium">Windows カーネル制約</span></td>
+      </tr>
+      <tr>
+        <td><strong>ファイル書き込み制御</strong></td>
+        <td><span class="level-strong">--volume 指定のみ</span></td>
+        <td><span class="level-medium">VM 内 + virtiofs</span></td>
+        <td><span class="level-strong">WSL2 内に限定</span></td>
+      </tr>
+      <tr>
+        <td><strong>エージェント脱出リスク</strong></td>
+        <td><span class="level-medium">namespace 抜けは難しい</span></td>
+        <td><span class="level-strong">VM 壁で非常に困難</span></td>
+        <td><span class="level-medium">WSL2 ↔ Win 境界あり</span></td>
+      </tr>
+      <tr>
+        <td><strong>セットアップ難度</strong></td>
+        <td><span class="level-weak">★★★ CDI 登録が鬼門</span></td>
+        <td><span class="level-strong">★☆☆ brew 数コマンド</span></td>
+        <td><span class="level-medium">★★☆ WSL2 有効化要</span></td>
+      </tr>
+      <tr>
+        <td><strong>総合隔離スコア</strong></td>
+        <td><span class="level-strong">⚡⚡⚡ 最強</span></td>
+        <td><span class="level-strong">⚡⚡⚡ VM 壁は強固</span></td>
+        <td><span class="level-medium">⚡⚡ 実用十分</span></td>
       </tr>
     </tbody>
   </table>
