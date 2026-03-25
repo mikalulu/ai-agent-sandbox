@@ -778,6 +778,99 @@ header        { animation: fadeUp 0.5s ease both; }
   <div style="margin-left:auto;font-size:11px;color:var(--textdim);">※ 隔離度は単体で見たときの目安です。実運用では重ねがけすると安心です♪</div>
 </div>
 
+<!-- Container Runtime Comparison -->
+<div style="margin-top:32px">
+  <div style="text-align:center;margin-bottom:16px">
+    <div style="font-family:'Klee One',cursive;font-size:22px;font-weight:600;color:var(--text)">🐳 コンテナランタイム比較</div>
+    <div style="font-size:12px;color:var(--textdim);margin-top:4px;font-weight:600">LXC / Docker / Podman — AI Sandbox 観点の違い</div>
+  </div>
+  <div class="matrix-card">
+  <table>
+  <thead>
+  <tr>
+    <th class="col-head row-label-head">項目</th>
+    <th class="col-head"><span class="icon">📦</span>LXC / LXD</th>
+    <th class="col-head"><span class="icon">🐳</span>Docker</th>
+    <th class="col-head"><span class="icon">🦭</span>Podman</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="row-label"><div class="row-name">タイプ</div><div class="row-sub">コンテナの性格</div></td>
+    <td class="cell" style="font-size:12px;font-weight:700">システムコンテナ<br><span style="font-size:10px;color:var(--textdim)">init プロセス · OS 相当</span></td>
+    <td class="cell" style="font-size:12px;font-weight:700">アプリコンテナ<br><span style="font-size:10px;color:var(--textdim)">1プロセス = 1コンテナ</span></td>
+    <td class="cell" style="font-size:12px;font-weight:700">アプリコンテナ<br><span style="font-size:10px;color:var(--textdim)">1プロセス = 1コンテナ</span></td>
+  </tr>
+  <tr>
+    <td class="row-label"><div class="row-name">デーモン</div><div class="row-sub">常駐プロセス</div></td>
+    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#fde992">lxd (root)</span></td>
+    <td class="cell"><span class="tag" style="background:#ffd6d6;color:#d44;border-color:#ffb3b3">dockerd (root) ⚠</span></td>
+    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#b5ead7">なし ✅</span></td>
+  </tr>
+  <tr>
+    <td class="row-label"><div class="row-name">rootless</div><div class="row-sub">非root動作</div></td>
+    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#fde992">LXD 経由で対応</span></td>
+    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#fde992">rootless mode<br><span style="font-size:9px">設定が複雑</span></span></td>
+    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#b5ead7">デフォルト ✅</span></td>
+  </tr>
+  <tr>
+    <td class="row-label"><div class="row-name">カーネル分離</div><div class="row-sub">Kernel Isolation</div></td>
+    <td class="cell icon-cell">〰️</td>
+    <td class="cell icon-cell">〰️</td>
+    <td class="cell icon-cell">〰️</td>
+  </tr>
+  <tr>
+    <td class="row-label"><div class="row-name">OCI 互換</div><div class="row-sub">Docker イメージ</div></td>
+    <td class="cell icon-cell">❌</td>
+    <td class="cell icon-cell">✅</td>
+    <td class="cell icon-cell">✅</td>
+  </tr>
+  <tr>
+    <td class="row-label"><div class="row-name">ネットワーク (rootless)</div><div class="row-sub">NW 実装</div></td>
+    <td class="cell" style="font-size:11px;color:var(--textdim);font-weight:600">veth + bridge<br>(root 必須)</td>
+    <td class="cell" style="font-size:11px;color:var(--textdim);font-weight:600">bridge NAT<br>(root 必須)</td>
+    <td class="cell" style="font-size:11px;color:var(--textdim);font-weight:600">slirp4netns<br>(rootless 対応)</td>
+  </tr>
+  <tr>
+    <td class="row-label"><div class="row-name">NVIDIA GPU</div><div class="row-sub">GPU パススルー</div></td>
+    <td class="cell" style="font-size:11px;color:var(--textdim);font-weight:600">複雑 / 非公式</td>
+    <td class="cell" style="font-size:11px;color:var(--textdim);font-weight:600">nvidia-docker2 /<br>--gpus all</td>
+    <td class="cell" style="font-size:11px;color:var(--textdim);font-weight:600">CDI<br>--device nvidia.com/gpu=all</td>
+  </tr>
+  <tr>
+    <td class="row-label"><div class="row-name">重さ / 速度</div><div class="row-sub">起動・イメージサイズ</div></td>
+    <td class="cell"><span class="tag" style="background:#ffd6d6;color:#d44;border-color:#ffb3b3">重い (OS 丸ごと)</span></td>
+    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#b5ead7">軽い</span></td>
+    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#b5ead7">軽い</span></td>
+  </tr>
+  <tr class="group-row" style="background:linear-gradient(90deg,#f0e8ff,#f8f5ff)">
+    <td style="color:#7a50c0;font-weight:800;padding:8px 14px" colspan="4">🤖 AI Sandbox での評価</td>
+  </tr>
+  <tr>
+    <td class="row-label"><div class="row-name">AI Sandbox 適性</div><div class="row-sub">このサイトのユースケース</div><div class="row-comment">rootless + OCI + GPU の3条件で評価</div></td>
+    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#fde992">△ 不向き<br><span style="font-size:9px">OCI 非互換 · 重い</span></span></td>
+    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#fde992">△ 注意<br><span style="font-size:9px">root daemon リスク</span></span></td>
+    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#b5ead7">◎ 推奨<br><span style="font-size:9px">rootless · CDI · OCI</span></span></td>
+  </tr>
+  </tbody>
+  </table>
+  </div>
+  <div class="notes" style="margin-top:14px">
+    <div class="note-card mint">
+      <div class="note-title">🦭 Podman が推奨な理由</div>
+      <p>デーモンレスで常に rootless 動作するため、<code>dockerd</code> の root 権限による socket hijack リスクがありません。<code>slirp4netns</code> による NAT は外部への通信を許可しつつ、コンテナからホスト内ネットワークへのアクセスを遮断します。NVIDIA CDI も公式サポートされており、GPU AI Sandbox にとって最も設定が整っています✨</p>
+    </div>
+    <div class="note-card pink">
+      <div class="note-title">🐳 Docker の注意点</div>
+      <p><code>dockerd</code> は root で動作するため、<code>/var/run/docker.sock</code> にアクセスできると実質 root 権限が取れます。コンテナ内から <code>docker.sock</code> をマウントすると「コンテナ脱出」が容易になるため、AI Sandbox 環境ではマウントしないことが必須です⚠</p>
+    </div>
+    <div class="note-card sky">
+      <div class="note-title">📦 LXC を使う場面</div>
+      <p>フル OS 環境 (systemd 込み) が必要なテスト、あるいは Proxmox 上の仮想化として使われます。AI エージェントの軽量サンドボックスには重すぎますが、開発環境まるごとを隔離したい場合には Lima (macOS) と並ぶ選択肢になります🐧</p>
+    </div>
+  </div>
+</div>
+
 <!-- Notes -->
 <div class="notes">
   <div class="note-card pink">

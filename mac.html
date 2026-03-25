@@ -383,6 +383,18 @@ limactl start agent
 <span class="c"># VM に入る (通常 SSH)</span>
 limactl shell agent</pre>
   </div>
+  <div class="callout callout-lav">
+    <span class="callout-icon">🔑</span>
+    <div class="callout-body"><strong>API キーの設定:</strong> VM 内の <code>~/.bashrc</code> に書いて永続化するか、ホスト側から Lima 経由で渡しましょう✨<br>
+    <pre style="margin:.5rem 0 0;font-size:.82rem;background:transparent;border:none;padding:0"># VM 内 ~/.bashrc に追記
+export ANTHROPIC_API_KEY="sk-ant-..."
+export GEMINI_API_KEY="AIza..."
+export OPENAI_API_KEY="sk-..."
+
+# または limactl shell 実行前にホスト側で設定
+export ANTHROPIC_API_KEY="sk-ant-..."
+limactl shell agent   # ← Lima が環境変数を引き継ぎます</pre></div>
+  </div>
   <h3>VM 内 — 基本セットアップ</h3>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
@@ -463,7 +475,8 @@ rm /tmp/windsurf.deb</pre>
   <div class="code-wrap">
     <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
     <pre><span class="c"># CLI インストーラー (arm64 対応)</span>
-curl -fsSL https://cli.kiro.dev/install | bash</pre>
+curl -fsSL https://cli.kiro.dev/install | bash
+<span class="c"># ⚠️ インストール後のコマンド名は "kiro-cli" です (kiro ではありません)</span></pre>
   </div>
   <h3>Antigravity (.deb · arm64)</h3>
   <div class="code-wrap">
@@ -476,6 +489,25 @@ rm /tmp/antigravity.deb</pre>
   <div class="callout callout-peach">
     <span class="callout-icon">⚠</span>
     <div class="callout-body"><strong>arm64 版があるかチェックしてくださいね🔍</strong> もしエージェントがApple Silicon向けのファイル（arm64 <code>.deb</code>）を用意していない時は、Rosetta 2 の魔法を使うか、黒い画面（CLI）だけのエージェントを使う必要があります💦 <code>uname -m</code> で VM アーキテクチャを確認すること。</div>
+  </div>
+  <h3>🔐 OAuth ログイン (ブラウザ認証)</h3>
+  <p>API キー不要でブラウザ OAuth を使う場合は、VM 内でブラウザが XQuartz に転送されます。</p>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre><span class="c"># Claude Code — ブラウザが XQuartz に開いて OAuth 完了</span>
+claude login
+
+<span class="c"># Kiro — ブラウザ OAuth (AWS SSO / GitHub)</span>
+kiro-cli login
+
+<span class="c"># Gemini CLI — Google アカウント認証</span>
+gemini auth login</pre>
+  </div>
+  <div class="callout callout-mint">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body"><strong>認証情報の永続化:</strong> Lima VM の <code>~/.config/claude</code>・<code>~/.kiro</code> 等は VM ディスクに保持されます。<code>limactl stop</code> しても消えません✨ VM を削除（<code>limactl delete</code>）するときだけバックアップを忘れずに！<br>
+    <pre style="margin:.5rem 0 0;font-size:.82rem;background:transparent;border:none;padding:0"># 認証済み設定ディレクトリを確認
+ls ~/.config/claude ~/.kiro ~/.config/windsurf 2>/dev/null</pre></div>
   </div>
 </section>
 
@@ -580,6 +612,22 @@ codellama:7b        ~4 GB    RAM 16GB+   コーディング特化</pre>
   <div class="callout callout-lav">
     <span class="callout-icon">🔁</span>
     <div class="callout-body"><strong>Linux版との主な違い🐧🍎:</strong> 画面やクリップボードのガードは少しゆるめです💦 でも、パソコンのファイルは基本「見るだけ（read-only）」でガッチリ守られ、システムの中枢（Kernel）はVMで完全に切り離されているのでとても安心です🛡️✨ Ollamaが高速で動くのもMacならではですね！</div>
+  </div>
+  <h3>隔離の動作確認コマンド</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — VM 内</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre><span class="c"># ホスト ~/  が read-only でマウントされていることを確認</span>
+mount | grep lima   <span class="c"># → rw または ro フラグ確認</span>
+touch ~/testfile 2>&amp;1   <span class="c"># → Read-only filesystem (write ブロック確認)</span>
+
+<span class="c"># 作業ディレクトリには書き込みできることを確認</span>
+touch ~/lima-agent-work/testfile &amp;&amp; echo "write OK" &amp;&amp; rm ~/lima-agent-work/testfile
+
+<span class="c"># ネットワーク NAT 経由で外に出られることを確認</span>
+curl -s -o /dev/null -w "%{http_code}" https://example.com   <span class="c"># → 200</span>
+
+<span class="c"># Ollama API がホスト経由で届くことを確認</span>
+curl http://host.lima.internal:11434/api/tags   <span class="c"># → JSON レスポンス</span></pre>
   </div>
 </section>
 

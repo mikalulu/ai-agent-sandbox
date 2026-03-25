@@ -260,12 +260,32 @@ podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre>
     libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 \
     libxrandr2 libgbm1 libasound2 zstd gnupg unzip \
     locales fonts-noto-cjk fonts-noto-color-emoji \
-    cuda-cudart-12-4 \
     && sed -i 's/# ja_JP.UTF-8/ja_JP.UTF-8/' /etc/locale.gen \
     && locale-gen \
     && rm -rf /var/lib/apt/lists/*
 
 <span class="k">ENV</span> LANG=ja_JP.UTF-8 LC_ALL=ja_JP.UTF-8
+
+<span class="c"># NOTE: cuda-cudart-12-4 はスキップ (NVIDIA GPU なし)</span>
+<span class="c"># GPU あり環境では下記を有効化:</span>
+<span class="c"># RUN curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/cuda-keyring_1.1-1_all.deb \</span>
+<span class="c">#     -o /tmp/cuda-keyring.deb && dpkg -i /tmp/cuda-keyring.deb && rm /tmp/cuda-keyring.deb \</span>
+<span class="c">#     && apt-get update && apt-get install -y --no-install-recommends cuda-cudart-12-4 \</span>
+<span class="c">#     && rm -rf /var/lib/apt/lists/*</span>
+
+<span class="c"># ── Node.js (NVM) ───────────────────────────────</span>
+<span class="k">ENV</span> NVM_DIR=/opt/nvm NODE_VERSION=22
+<span class="k">RUN</span> mkdir -p $NVM_DIR \
+  && curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
+  && . $NVM_DIR/nvm.sh \
+  && nvm install $NODE_VERSION && nvm alias default $NODE_VERSION
+<span class="k">ENV</span> PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin:$PATH"
+
+<span class="c"># ── npm CLI tools ───────────────────────────────</span>
+<span class="k">RUN</span> npm install -g \
+  @google/gemini-cli \
+  opencode-ai \
+  codex-cli
 
 <span class="c"># ── Windsurf (apt repo) ─────────────────────────</span>
 <span class="k">RUN</span> mkdir -p /etc/apt/keyrings \
@@ -288,7 +308,7 @@ podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre>
 <span class="c"># ── Aider ──</span>
 <span class="k">RUN</span> curl -fsSL https://aider.chat/install.sh | sh
 
-<span class="c"># ── Kiro ──</span>
+<span class="c"># ── Kiro ── (コマンド名は kiro-cli)</span>
 <span class="k">RUN</span> curl -fsSL https://cli.kiro.dev/install | bash
 
 <span class="k">COPY</span> entrypoint.sh /usr/local/bin/
@@ -340,7 +360,42 @@ podman run -it --rm \
   -e DISPLAY=:10 \
   -v /tmp/.X11-unix/X10:/tmp/.X11-unix/X10:ro \
   -v agent-workspace:/home/agent/work \
+  -v claude-auth:/home/agent/.config/claude \
+  -v windsurf-auth:/home/agent/.config/windsurf \
+  -v kiro-auth:/home/agent/.kiro \
+  --env-file ~/.config/agent-sandbox/.env \
   agent-sandbox</pre>
+  </div>
+  <div class="callout callout-lav">
+    <span class="callout-icon">🔑</span>
+    <div class="callout-body"><strong>API キーの注入:</strong> Dockerfile に API キーを書いてはいけません！ <code>--env-file</code> で安全に渡しましょう✨<br>
+    <pre style="margin:.5rem 0 0;font-size:.82rem;background:transparent;border:none;padding:0"># ~/.config/agent-sandbox/.env (chmod 600 で保護！)
+ANTHROPIC_API_KEY=sk-ant-...
+GEMINI_API_KEY=AIza...
+OPENAI_API_KEY=sk-...
+
+mkdir -p ~/.config/agent-sandbox
+chmod 700 ~/.config/agent-sandbox</pre></div>
+  </div>
+  <h3>🔐 OAuth ログイン (ブラウザ認証)</h3>
+  <p>API キー不要でブラウザ OAuth を使う場合は、コンテナ内でブラウザが Xephyr に表示されます。</p>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre><span class="c"># Claude Code — ブラウザが Xephyr に開いて OAuth 完了</span>
+claude login
+
+<span class="c"># Kiro — ブラウザ OAuth (AWS SSO / GitHub)</span>
+kiro-cli login
+
+<span class="c"># Gemini CLI — Google アカウント認証</span>
+gemini auth login</pre>
+  </div>
+  <div class="callout callout-mint">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body"><strong>認証情報の永続化:</strong> <code>-v claude-auth:/home/agent/.config/claude</code> 等の named volume に認証トークンが保存されます。コンテナを再起動しても再ログイン不要です✨<br>ボリュームを初めて作る場合:<br>
+    <pre style="margin:.5rem 0 0;font-size:.82rem;background:transparent;border:none;padding:0">podman volume create claude-auth
+podman volume create windsurf-auth
+podman volume create kiro-auth</pre></div>
   </div>
 </section>
 
@@ -387,6 +442,21 @@ codellama:7b         ~4 GB    VRAM 6GB+   コーディング特化</pre>
       <tr><td>Host Kernel</td><td><span class="tag tag-peach">SHARED</span></td><td style="color:var(--textdim);font-size:12px">namespace 分離 (Podman)</td></tr>
     </tbody>
   </table>
+  <h3>隔離の動作確認コマンド</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre><span class="c"># ホスト FS が見えないことを確認 (agent ディレクトリのみ表示される)</span>
+ls /home
+
+<span class="c"># ネットワーク NAT 経由で外に出られることを確認</span>
+curl -s -o /dev/null -w "%{http_code}" https://example.com   <span class="c"># → 200</span>
+
+<span class="c"># ホスト名がコンテナ固有値であることを確認</span>
+hostname   <span class="c"># → コンテナ ID (ホスト名と異なる)</span>
+
+<span class="c"># GPU が使えることを確認 (NVIDIA 環境)</span>
+nvidia-smi</pre>
+  </div>
 </section>
 
 <!-- 08 TIPS -->

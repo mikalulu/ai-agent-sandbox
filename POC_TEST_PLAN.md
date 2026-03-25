@@ -114,6 +114,7 @@
 | A-7-1 | `[C]` | `podman run --rm --entrypoint "" agent-sandbox bash -c 'export PATH="$HOME/.local/bin:$PATH" && claude --version'` | バージョン表示 | **PASS** — 2.1.81 (PATH 修正必要) |
 | A-7-2 | `[C]` | `podman run --rm --entrypoint "" agent-sandbox bash -c 'export PATH="$HOME/.local/bin:$PATH" && aider --version'` | バージョン表示 | **PASS** — 0.86.2 (PATH 修正必要) |
 | A-7-3 | `[C]` | `podman run --rm --entrypoint "" agent-sandbox bash -c 'windsurf --version'` | バージョン表示 | **PASS** — 1.108.2 |
+| A-7-4 | `[C]` | `podman run --rm --entrypoint "" agent-sandbox:poc2 bash -c 'export PATH="$HOME/.local/bin:$PATH" && kiro-cli --version'` | バージョン表示 | **PASS** — 1.28.1 (unzip 追加後ビルド agent-sandbox:poc2) |
 
 ### A-8. compose.yml 経由の起動 (compose.yml)
 
@@ -152,8 +153,11 @@
 |---|---|---|---|---|
 | BUG-1 | **HIGH** | linux.html §03 Dockerfile | `gnupg` パッケージ未記載。Windsurf GPG 鍵インポートで `gpg: not found` (exit 127) | **FIXED** — linux.html に `gnupg` 追加。mac.html / windows.html は元から含まれていた |
 | BUG-2 | **HIGH** | linux.html §03 / windows.html §04 Dockerfile | claude / aider が `~/.local/bin/` にインストールされるが PATH に未追加。コンテナ内で `claude` `aider` コマンドが見つからない | **FIXED** — linux.html, windows.html 両方に `ENV PATH="/home/agent/.local/bin:$PATH"` 追加。mac.html は VM 直接インストールのため該当なし |
-| NOTE-1 | INFO | linux.html §03 Dockerfile | Node.js はインストールされない (Windows 版 Dockerfile とは異なる)。PoC テスト計画の期待値を修正 | — |
+| BUG-3 | **HIGH** | linux.html / windows.html / mac.html Dockerfile | `unzip` パッケージ未記載。Kiro CLI インストーラーが `❌ Missing required dependencies: unzip` で exit 1 | **FIXED** — 全 3 ガイドの apt install リストに `unzip` 追加。PoC ビルド (agent-sandbox:poc2) で kiro-cli 1.28.1 動作確認 ✅ |
+| BUG-4 | **HIGH** | windows.html §04 Dockerfile | Claude Code / Goose / Aider / Kiro が `USER agent` より前 (root) でインストールされ、`/root/.local/bin` に展開される。agent ユーザーから PATH 外で実行不可 | **FIXED** — npm グローバルツールのみ root ブロックに残し、curl インストーラー 4 本を `USER agent` 以降に移動 |
+| NOTE-1 | INFO | linux.html §03 Dockerfile | Node.js + npm (Gemini CLI / OpenCode / Codex CLI) が未インストール。Windows 版とアーキテクチャが一致しない | **FIXED** — NVM + Node.js 22 + npm グローバル 3 ツールを追加 |
 | NOTE-2 | INFO | linux.html §05 コンテナ起動 | entrypoint.sh が DISPLAY=:10 で xterm を起動するため、Xephyr が起動していないとコンテナ即終了する。`CMD` や引数によるフォールバックなし | — |
+| NOTE-3 | INFO | linux.html §03 Dockerfile | `cuda-cudart-12-4` が NVIDIA CUDA apt リポジトリなしで apt install に含まれていた。NVIDIA 環境でビルド失敗する可能性あり | **FIXED** — cuda 行を削除、CUDA repo セットアップのコメントアウト例として残す |
 
 ---
 

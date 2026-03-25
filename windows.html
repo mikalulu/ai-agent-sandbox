@@ -440,15 +440,11 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
   | sh -s -- -y --no-modify-path
 ENV PATH="$CARGO_HOME/bin:$PATH"
 
-<span class="c"># ── CLI AI agents ─────────────────────────────</span>
+<span class="c"># ── CLI AI agents (npm global, root) ──────────</span>
 RUN npm install -g \
   @google/gemini-cli \
   opencode-ai \
-  codex-cli \
-  && curl -fsSL https://claude.ai/install.sh | bash \
-  && curl -fsSL https://github.com/block/goose/releases/latest/download/install.sh | bash
-
-RUN curl -LsSf https://aider.chat/install.sh | sh
+  codex-cli
 
 <span class="c"># ── Ollama (binary only) ──────────────────────</span>
 RUN curl -fsSL https://ollama.com/install.sh | sh
@@ -469,9 +465,6 @@ RUN curl -fsSL $ANTIGRAVITY_DEB -o /tmp/antigravity.deb \
   && dpkg -i /tmp/antigravity.deb || apt-get install -fy \
   && rm /tmp/antigravity.deb
 
-<span class="c"># ── Kiro ──────────────────────────────────────</span>
-RUN curl -fsSL https://cli.kiro.dev/install | bash
-
 <span class="c"># ── CUDA Toolkit (runtime のみ) ───────────────</span>
 RUN apt-get update && apt-get install -y --no-install-recommends \
   cuda-cudart-12-4 libcublas-12-4 \
@@ -482,6 +475,18 @@ RUN useradd -m -s /bin/bash agent
 USER agent
 WORKDIR /home/agent/work
 <span class="k">ENV</span> PATH="/home/agent/.local/bin:$PATH"
+
+<span class="c"># ── Claude Code ────────────────────────────────</span>
+<span class="k">RUN</span> curl -fsSL https://claude.ai/install.sh | bash
+
+<span class="c"># ── Goose ──────────────────────────────────────</span>
+<span class="k">RUN</span> curl -fsSL https://github.com/block/goose/releases/latest/download/install.sh | bash
+
+<span class="c"># ── Aider ──────────────────────────────────────</span>
+<span class="k">RUN</span> curl -LsSf https://aider.chat/install.sh | sh
+
+<span class="c"># ── Kiro ─────────────────── (コマンド名は kiro-cli)</span>
+<span class="k">RUN</span> curl -fsSL https://cli.kiro.dev/install | bash
 
 COPY --chown=agent:agent entrypoint.sh /home/agent/entrypoint.sh
 RUN chmod +x /home/agent/entrypoint.sh
@@ -557,9 +562,45 @@ podman volume create ollama-models</pre>
   \
   -v agent-workspace:/home/agent/work \
   -v ollama-models:/root/.ollama/models \
+  -v claude-auth:/home/agent/.config/claude \
+  -v windsurf-auth:/home/agent/.config/windsurf \
+  -v kiro-auth:/home/agent/.kiro \
+  \
+  --env-file ~/.config/agent-sandbox/.env \
   \
   agent-sandbox:latest \
   windsurf</pre>
+  </div>
+  <div class="callout callout-lav">
+    <span class="callout-icon">🔑</span>
+    <div class="callout-body"><strong>API キーの注入:</strong> Dockerfile に API キーを書いてはいけません！ <code>--env-file</code> で安全に渡しましょう✨<br>
+    <pre style="margin:.5rem 0 0;font-size:.82rem;background:transparent;border:none;padding:0"># ~/.config/agent-sandbox/.env (chmod 600 で保護！)
+ANTHROPIC_API_KEY=sk-ant-...
+GEMINI_API_KEY=AIza...
+OPENAI_API_KEY=sk-...
+
+mkdir -p ~/.config/agent-sandbox
+chmod 700 ~/.config/agent-sandbox</pre></div>
+  </div>
+  <h3>🔐 OAuth ログイン (ブラウザ認証)</h3>
+  <p>API キー不要でブラウザ OAuth を使う場合は、コンテナ内でブラウザが WSLg に表示されます。</p>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre><span class="c"># Claude Code — ブラウザが WSLg に開いて OAuth 完了</span>
+claude login
+
+<span class="c"># Kiro — ブラウザ OAuth (AWS SSO / GitHub)</span>
+kiro-cli login
+
+<span class="c"># Gemini CLI — Google アカウント認証</span>
+gemini auth login</pre>
+  </div>
+  <div class="callout callout-mint">
+    <span class="callout-icon">💡</span>
+    <div class="callout-body"><strong>認証情報の永続化:</strong> <code>-v claude-auth:/home/agent/.config/claude</code> 等の named volume に認証トークンが保存されます。コンテナを再起動しても再ログイン不要です✨<br>ボリューム作成 (初回のみ):<br>
+    <pre style="margin:.5rem 0 0;font-size:.82rem;background:transparent;border:none;padding:0">podman volume create claude-auth
+podman volume create windsurf-auth
+podman volume create kiro-auth</pre></div>
   </div>
   <div class="callout callout-peach">
     <span class="callout-icon">⚠</span>
@@ -610,6 +651,24 @@ ollama ps   <span class="c"># SIZE (VRAM) が表示されれば GPU 動作中</s
       <tr><td>Windows Kernel</td><td><span class="tag tag-peach">SHARED</span></td><td style="color:var(--textdim);font-size:12px">WSL2 = Microsoft カスタム Linux kernel</td></tr>
     </tbody>
   </table>
+  <h3>隔離の動作確認コマンド</h3>
+  <div class="code-wrap">
+    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn">copy♪</button></div>
+    <pre><span class="c"># ホスト FS が見えないことを確認 (agent ディレクトリのみ表示される)</span>
+ls /home
+
+<span class="c"># /mnt/c 等 Windows FS がマウントされていないことを確認</span>
+ls /mnt   <span class="c"># → 空 または agent-workspace のみ</span>
+
+<span class="c"># ネットワーク NAT 経由で外に出られることを確認</span>
+curl -s -o /dev/null -w "%{http_code}" https://example.com   <span class="c"># → 200</span>
+
+<span class="c"># ホスト名がコンテナ固有値であることを確認</span>
+hostname
+
+<span class="c"># GPU が使えることを確認 (NVIDIA 環境)</span>
+nvidia-smi</pre>
+  </div>
 </section>
 
 <!-- 10 TIPS -->
