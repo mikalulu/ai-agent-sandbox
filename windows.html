@@ -474,6 +474,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN useradd -m -s /bin/bash agent
 USER agent
 WORKDIR /home/agent/work
+<span class="k">ENV</span> PATH="/home/agent/.local/bin:$PATH"
 
 COPY --chown=agent:agent entrypoint.sh /home/agent/entrypoint.sh
 RUN chmod +x /home/agent/entrypoint.sh
