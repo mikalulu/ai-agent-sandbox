@@ -71,9 +71,34 @@ a.htag:hover { border-color: var(--lav2); color: var(--lav2); }
 .comp-text div:first-child { font-family: 'Klee One', cursive; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
 .comp-text div:last-child  { font-size: 11px; color: var(--textdim); font-weight: 600; }
 
-/* STACK PREVIEW */
-.stack-section { margin-bottom: 56px; text-align: center; }
-.stack-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
+/* COMPARISON TABLE */
+.section-label { font-family: 'Klee One', cursive; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.matrix-card { background: white; border-radius: 20px; box-shadow: 0 4px 24px var(--shadow); border: 1.5px solid var(--border); overflow: hidden; overflow-x: auto; margin-bottom: 40px; }
+.comp-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+.comp-table th { font-size: 11px; font-weight: 800; color: var(--textdim); padding: 12px 16px; text-align: left; border-bottom: 1.5px solid var(--border); background: linear-gradient(135deg,#fff5fa,#f5f0ff); letter-spacing: .05em; }
+.comp-table td { padding: 10px 16px; font-size: 12px; border-bottom: 1px solid #f0e8f0; vertical-align: middle; font-weight: 600; color: var(--textdim); }
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:hover td { background: #fef5fc; }
+.cell-head { font-weight: 800; color: var(--text); font-size: 12px; }
+.tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; border: 1.5px solid; }
+.tag-mint  { color: var(--mint2);  border-color: var(--mint);  background: #e8faf2; }
+.tag-peach { color: var(--peach2); border-color: var(--peach); background: #fff0e4; }
+.tag-pink  { color: var(--pink2);  border-color: var(--pink);  background: #ffe8f0; }
+.tag-sky   { color: var(--sky2);   border-color: var(--sky);   background: #e8f4ff; }
+.tag-lav   { color: var(--lav2);   border-color: var(--lav);   background: #f0e8ff; }
+
+/* AI TOOLS GRID */
+.stack-section { margin-bottom: 56px; }
+.stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.stack-item { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 12px 14px; box-shadow: 0 2px 10px var(--shadow); transition: transform 0.12s; text-decoration: none; display: block; color: inherit; }
+.stack-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--shadow); }
+.stack-name { font-size: 12px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+.stack-role { font-size: 10px; color: var(--textdim); font-weight: 600; }
+.stack-plat { display: flex; gap: 4px; margin-top: 7px; flex-wrap: wrap; }
+.plat { font-size: 9px; font-weight: 800; padding: 2px 7px; border-radius: 99px; border: 1.5px solid; }
+.plat-l { color: var(--mint2); border-color: var(--mint); background: #e8faf2; }
+.plat-m { color: var(--lav2);  border-color: var(--lav);  background: #f0e8ff; }
+.plat-w { color: var(--sky2);  border-color: var(--sky);  background: #e8f4ff; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
@@ -215,27 +240,104 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
   </a>
 </div>
 
-<!-- Tech Stack -->
+<!-- Platform Comparison -->
 <div class="stack-section">
-  <h2 style="font-family:'Klee One',cursive;font-size:18px;margin-bottom:8px">🛠️ 使用している主要技術</h2>
-  <div class="stack-grid">
-    <div class="badge badge-mint">Podman</div>
-    <div class="badge badge-lav">Lima VM</div>
-    <div class="badge badge-sky">WSL2 / WSLg</div>
-    <div class="badge badge-peach">NVIDIA CDI</div>
-    <div class="badge badge-mint">Ollama</div>
-    <div class="badge badge-lav">XQuartz</div>
-    <div class="badge badge-peach">Xephyr</div>
+  <div class="section-label">📊 プラットフォーム比較</div>
+  <div class="matrix-card">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>項目</th>
+          <th>🐧 Linux</th>
+          <th>🍎 macOS</th>
+          <th>⊞ Windows</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cell-head">隔離層</td>
+          <td>Podman namespace</td>
+          <td>Lima VM (vz)</td>
+          <td>Podman namespace</td>
+        </tr>
+        <tr>
+          <td class="cell-head">FS 隔離</td>
+          <td><span class="tag tag-mint">強 (マウントなし)</span></td>
+          <td><span class="tag tag-peach">read-only</span></td>
+          <td><span class="tag tag-mint">強 (マウントなし)</span></td>
+        </tr>
+        <tr>
+          <td class="cell-head">Display 隔離</td>
+          <td><span class="tag tag-mint">強 (Xephyr)</span></td>
+          <td><span class="tag tag-pink">弱 (XQuartz 共有)</span></td>
+          <td><span class="tag tag-peach">中 (WSLg 共有)</span></td>
+        </tr>
+        <tr>
+          <td class="cell-head">Kernel 分離</td>
+          <td><span class="tag tag-peach">namespace</span></td>
+          <td><span class="tag tag-mint">完全 (VM)</span></td>
+          <td><span class="tag tag-peach">MS Linux Kernel</span></td>
+        </tr>
+        <tr>
+          <td class="cell-head">GPU</td>
+          <td><span class="tag tag-sky">NVIDIA CDI</span></td>
+          <td><span class="tag tag-lav">Ollama Metal のみ</span></td>
+          <td><span class="tag tag-sky">CUDA (WSL2 透過)</span></td>
+        </tr>
+        <tr>
+          <td class="cell-head">Ollama</td>
+          <td>コンテナ内 (GPU)</td>
+          <td>ホスト側 Metal</td>
+          <td>コンテナ内 (CUDA)</td>
+        </tr>
+        <tr>
+          <td class="cell-head">速度</td>
+          <td><span class="tag tag-mint">はやい✨</span></td>
+          <td><span class="tag tag-peach">Lima の分すこしゆっくり</span></td>
+          <td><span class="tag tag-peach">WSL2 の分すこしゆっくり</span></td>
+        </tr>
+        <tr>
+          <td class="cell-head">セットアップ難易度</td>
+          <td>ふつう</td>
+          <td>ふつう</td>
+          <td>ふつう（WSL2 の準備あり🎈）</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
-<footer class="page-footer">
-  <div>AI Agent Sandbox — Documentation ✿</div>
-  <div class="footer-links">
-    <a href="https://github.com/mikalulu/ai-agent-sandbox" target="_blank" rel="noopener noreferrer" style="color:var(--textdim)">GitHub Repository</a>
-    <a href="./isolation-matrix.html" style="color:var(--mint2)">Isolation Matrix</a>
-    <a href="./environment-matrix.html" style="color:var(--peach2)">Environment Matrix</a>
-    <a href="./ai-tools-guide.html" style="color:var(--lav2)">AI Tools Guide</a>
+<!-- AI Tools Quick Ref -->
+<div class="stack-section">
+  <div class="section-label">🤖 AI Tools Quick Ref</div>
+  <div class="stack-grid">
+    <a class="stack-item" href="./ai-tools-guide.html#tool-claude-code"><div class="stack-name">Claude Code</div><div class="stack-role">自然言語処理＆会話</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M</span><span class="plat plat-w">W</span></div></a>
+    <a class="stack-item" href="./ai-tools-guide.html#tool-windsurf"><div class="stack-name">Windsurf</div><div class="stack-role">IDE ネイティブ補完</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M*</span><span class="plat plat-w">W</span></div></a>
+    <a class="stack-item" href="./ai-tools-guide.html#tool-antigravity"><div class="stack-name">Antigravity</div><div class="stack-role">Browser 統合</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M*</span><span class="plat plat-w">W</span></div></a>
+    <a class="stack-item" href="./ai-tools-guide.html#tool-kiro"><div class="stack-name">Kiro</div><div class="stack-role">設計書ファースト IDE</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M</span><span class="plat plat-w">W</span></div></a>
+    <a class="stack-item" href="./ai-tools-guide.html#tool-goose"><div class="stack-name">Goose</div><div class="stack-role">GitHub 自動化</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M</span><span class="plat plat-w">W</span></div></a>
+    <a class="stack-item" href="./ai-tools-guide.html#tool-aider"><div class="stack-name">aider</div><div class="stack-role">Git 統合</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M</span><span class="plat plat-w">W</span></div></a>
+    <a class="stack-item" href="./ai-tools-guide.html#tool-gemini"><div class="stack-name">Gemini CLI</div><div class="stack-role">マルチモーダル</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M</span><span class="plat plat-w">W</span></div></a>
+    <a class="stack-item" href="./ai-tools-guide.html#tool-codex"><div class="stack-name">Codex CLI</div><div class="stack-role">軽量 CLI</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M</span><span class="plat plat-w">W</span></div></a>
+    <a class="stack-item" href="./ai-tools-guide.html#tool-opencode"><div class="stack-name">OpenCode</div><div class="stack-role">ローカル OSS</div><div class="stack-plat"><span class="plat plat-l">L</span><span class="plat plat-m">M</span><span class="plat plat-w">W</span></div></a>
+  </div>
+  <p style="font-size:11px;color:var(--textdim);margin-top:16px;font-weight:600;">
+    📖 <strong>詳細なガイド・選択基準・ユースケース比較は</strong>
+    <a href="./ai-tools-guide.html" style="color:var(--sky2);font-weight:800;text-decoration:none;">🤖 AI Tools Guide</a>
+    <strong>をご覧ください</strong><br>
+    * arm64 Linux 版は要確認です👀
+  </p>
+</div>
+
+<footer style="border-top:1.5px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:11px;color:var(--textdim);font-weight:600;">
+  <div>AI Agent Sandbox — Documentation Index ✿</div>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;">
+    <a href="./ai-tools-guide.html"      style="color:var(--sky2);text-decoration:none;font-weight:800;">🤖 AI Tools Guide →</a>
+    <a href="./isolation-matrix.html"    style="color:var(--pink2);text-decoration:none;font-weight:800;">🌸 Isolation Matrix →</a>
+    <a href="./environment-matrix.html"  style="color:var(--peach2);text-decoration:none;font-weight:800;">🐚 Environment Matrix →</a>
+    <a href="./linux.html"               style="color:var(--mint2);text-decoration:none;font-weight:800;">🌿 Linux →</a>
+    <a href="./mac.html"                 style="color:var(--lav2);text-decoration:none;font-weight:800;">🔮 macOS →</a>
+    <a href="./windows.html"             style="color:var(--sky2);text-decoration:none;font-weight:800;">🌊 Windows →</a>
   </div>
 </footer>
 
