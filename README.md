@@ -1,37 +1,36 @@
 # AI Agent Sandbox
 
-AI エージェント（Claude Code・Windsurf・Antigravity・Gemini CLI 等）をホスト環境から隔離して安全に動かすためのセットアップガイド。
+AI エージェントをホスト環境から隔離して安全に動かすためのセットアップガイド。
 
-> **Note:** このドキュメントは AI（Claude Sonnet / Opus）によって生成・改良されました。実環境での検証は一部のみです。
+> このドキュメントは Claude / GPT / Gemini が共同（？）で生成・改良しました。実環境での検証は一部のみです。
 
 ## Docs
 
 **[https://mikalulu.github.io/ai-agent-sandbox/](https://mikalulu.github.io/ai-agent-sandbox/)**
 
-GitHub Pages 向けの静的HTMLサイトです。
-
 | OS | 構成 | ガイド |
 |---|---|---|
-| Linux | Podman + Xephyr + NVIDIA CDI | [linux.html](./linux.html) |
-| macOS | Lima VM + XQuartz + Ollama Metal | [mac.html](./mac.html) |
+| Linux (amd64) | Podman + Xephyr + NVIDIA CDI | [linux.html](./linux.html) |
+| macOS (Apple Silicon) | Lima VM + XQuartz + Ollama Metal | [mac.html](./mac.html) |
 | Windows | WSL2 + Podman + WSLg + CUDA | [windows.html](./windows.html) |
+
+## 対応ツール
+
+Claude Code / Windsurf / Antigravity / Kiro / Goose / aider / Gemini CLI / Codex CLI / OpenCode
 
 ## Files
 
 | ファイル | 内容 |
 |---|---|
-| `index.html` | ランディングページ（OS 選択・クイックスタート） |
+| `index.html` | ランディングページ |
 | `linux.html` | Linux セットアップガイド |
 | `mac.html` | macOS セットアップガイド |
 | `windows.html` | Windows セットアップガイド |
-| `ai-tools-guide.html` | AI エージェント選択ガイド＆機能比較 |
-| `isolation-matrix.html` | プラットフォーム別隔離アーキテクチャ比較 |
-| `environment-matrix.html` | ホストシェル＆コンテナ環境リファレンス |
+| `ai-tools-guide.html` | ツール選択ガイド・機能比較 |
+| `isolation-matrix.html` | 隔離手法マトリクス（LXC / Docker / Podman 比較含む） |
+| `environment-matrix.html` | ホスト・コンテナ環境リファレンス |
 | `compose.yml` | Podman / Docker Compose 定義 |
-
-## Check
-
-最小チェックは `python3 scripts/check_docs.py` で回せます。
+| `COMMIT_LOG_JA.md` | コミットメッセージ日本語意訳 |
 
 ## Goals
 
@@ -39,3 +38,10 @@ GitHub Pages 向けの静的HTMLサイトです。
 - Display 分離（Xephyr / XQuartz / WSLg）
 - GPU パススルー（NVIDIA CDI / Metal）
 - ネットワーク隔離（slirp4netns / NAT）
+- API キー・OAuth トークンの安全な注入
+
+## Check
+
+```
+python3 scripts/check_docs.py
+```
