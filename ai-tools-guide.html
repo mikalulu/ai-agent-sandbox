@@ -690,7 +690,7 @@ footer a:hover { opacity: .7; }
   <h2 class="flow-title">🎯 どの子が合うかフロー</h2>
 
   <div class="diagram">
-    <svg width="760" height="520" viewBox="0 0 760 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIエージェント選択フロー: Q1 GUI? → Q2 ローカル? → Q3 用途? の順で決まる">
+    <svg width="760" height="560" viewBox="0 0 760 560" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AIエージェント選択フロー: Q1 GUI? → Q2 ローカル? → Q3 Git連携? → Q4 画像認識? の順で決まる">
       <title>AI エージェント選択フロー（上から下）</title>
       <defs>
         <marker id="fl"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#b08af0" opacity=".5"/></marker>
@@ -698,76 +698,79 @@ footer a:hover { opacity: .7; }
         <marker id="flr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#ff8fab" opacity=".6"/></marker>
       </defs>
       <!-- Background -->
-      <rect x="4" y="4" width="752" height="512" rx="16" fill="white" stroke="#ecdde8" stroke-width="1.5"/>
+      <rect x="4" y="4" width="752" height="552" rx="16" fill="white" stroke="#ecdde8" stroke-width="1.5"/>
       <text x="376" y="22" fill="#9890b0" font-family="Klee One,cursive" font-size="11" text-anchor="middle" font-weight="600" letter-spacing="1">上から順に答えると → ツールが決まる ✿</text>
 
       <!-- START -->
       <rect x="230" y="30" width="300" height="44" rx="14" fill="#f0e8ff" stroke="#b08af0" stroke-width="2"/>
       <text x="380" y="50" fill="#b08af0" font-family="Klee One,cursive" font-size="13" text-anchor="middle" font-weight="600">🤖 AI エージェントを選ぼう</text>
       <text x="380" y="67" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle" font-weight="600">下の質問にふわっと答えると決めやすいです</text>
-      <!-- start → D1 -->
-      <line x1="300" y1="74" x2="220" y2="110" stroke="#b08af0" stroke-width="1.5" opacity=".35" marker-end="url(#fl)"/>
+      <!-- start → Q1 -->
+      <line x1="300" y1="74" x2="220" y2="102" stroke="#b08af0" stroke-width="1.5" opacity=".35" marker-end="url(#fl)"/>
 
-      <!-- ── D1: GUI/IDE ── -->
-      <rect x="20" y="112" width="258" height="46" rx="10" fill="#fef9c3" stroke="#f9d84a" stroke-width="1.5"/>
-      <text x="149" y="132" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">Q1. GUI / IDE で作業したい？</text>
-      <text x="149" y="149" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">ビジュアル編集・ブラウザ操作・エディタ統合</text>
-      <!-- D1 YES → right result -->
-      <text x="307" y="128" fill="#78d5b0" font-family="Nunito,sans-serif" font-size="9" font-weight="800" text-anchor="middle">YES →</text>
-      <line x1="278" y1="135" x2="354" y2="135" stroke="#78d5b0" stroke-width="1.5" opacity=".6" marker-end="url(#flg)"/>
-      <rect x="357" y="110" width="378" height="48" rx="10" fill="white" stroke="#ecdde8" stroke-width="1.5"/>
-      <text x="546" y="131" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">💨 Windsurf <tspan fill="#9890b0" font-size="10" font-weight="600">— IDE 補完・日常開発</tspan></text>
-      <text x="546" y="149" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🚀 Antigravity <tspan fill="#9890b0" font-size="10" font-weight="600">— Web / ブラウザ操作</tspan></text>
-      <!-- D1 NO ↓ -->
-      <text x="164" y="174" fill="#ff8fab" font-family="Nunito,sans-serif" font-size="9" font-weight="800">NO ↓</text>
-      <line x1="149" y1="158" x2="149" y2="200" stroke="#ff8fab" stroke-width="1.5" opacity=".5" marker-end="url(#flr)"/>
+      <!-- ── Q1: GUI/IDE ── -->
+      <rect x="20" y="104" width="258" height="48" rx="10" fill="#fef9c3" stroke="#f9d84a" stroke-width="1.5"/>
+      <text x="149" y="125" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">Q1. GUI / IDE で作業したい？</text>
+      <text x="149" y="142" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">ビジュアル編集・IDE 統合・ブラウザ操作</text>
+      <!-- Q1 YES → R1 -->
+      <text x="307" y="122" fill="#78d5b0" font-family="Nunito,sans-serif" font-size="9" font-weight="800" text-anchor="middle">YES →</text>
+      <line x1="278" y1="128" x2="354" y2="128" stroke="#78d5b0" stroke-width="1.5" opacity=".6" marker-end="url(#flg)"/>
+      <rect x="357" y="104" width="378" height="70" rx="10" fill="white" stroke="#ecdde8" stroke-width="1.5"/>
+      <text x="546" y="124" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">💨 Windsurf <tspan fill="#9890b0" font-size="10" font-weight="600">— IDE 補完・日常開発</tspan></text>
+      <text x="546" y="142" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🚀 Antigravity <tspan fill="#9890b0" font-size="10" font-weight="600">— Web / ブラウザ操作</tspan></text>
+      <text x="546" y="160" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🪄 Kiro <tspan fill="#9890b0" font-size="10" font-weight="600">— 設計書ファースト・AWS 連携</tspan></text>
+      <!-- Q1 NO ↓ -->
+      <text x="164" y="170" fill="#ff8fab" font-family="Nunito,sans-serif" font-size="9" font-weight="800">NO ↓</text>
+      <line x1="149" y1="152" x2="149" y2="200" stroke="#ff8fab" stroke-width="1.5" opacity=".5" marker-end="url(#flr)"/>
 
-      <!-- ── D2: ローカル専用 ── -->
-      <rect x="20" y="202" width="258" height="46" rx="10" fill="#fef9c3" stroke="#f9d84a" stroke-width="1.5"/>
-      <text x="149" y="222" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">Q2. 完全ローカル・プライバシー重視？</text>
-      <text x="149" y="239" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">API 費用なし・データをクラウドに送りたくない</text>
-      <!-- D2 YES → right result -->
-      <text x="307" y="218" fill="#78d5b0" font-family="Nunito,sans-serif" font-size="9" font-weight="800" text-anchor="middle">YES →</text>
-      <line x1="278" y1="225" x2="354" y2="225" stroke="#78d5b0" stroke-width="1.5" opacity=".6" marker-end="url(#flg)"/>
-      <rect x="357" y="203" width="378" height="44" rx="10" fill="#e8faf2" stroke="#78d5b0" stroke-width="1.5"/>
+      <!-- ── Q2: ローカル専用 ── -->
+      <rect x="20" y="202" width="258" height="48" rx="10" fill="#fef9c3" stroke="#f9d84a" stroke-width="1.5"/>
+      <text x="149" y="223" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">Q2. 完全ローカル・プライバシー重視？</text>
+      <text x="149" y="240" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">API 費用なし・データをクラウドに送らない</text>
+      <!-- Q2 YES → R2 -->
+      <text x="307" y="220" fill="#78d5b0" font-family="Nunito,sans-serif" font-size="9" font-weight="800" text-anchor="middle">YES →</text>
+      <line x1="278" y1="226" x2="354" y2="226" stroke="#78d5b0" stroke-width="1.5" opacity=".6" marker-end="url(#flg)"/>
+      <rect x="357" y="202" width="378" height="48" rx="10" fill="#e8faf2" stroke="#78d5b0" stroke-width="1.5"/>
       <text x="546" y="223" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🛠️ OpenCode</text>
-      <text x="546" y="239" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">自社ホスト・Ollama 連携・API 費用ゼロ</text>
-      <!-- D2 NO ↓ -->
-      <text x="164" y="264" fill="#ff8fab" font-family="Nunito,sans-serif" font-size="9" font-weight="800">NO ↓</text>
-      <line x1="149" y1="248" x2="149" y2="290" stroke="#ff8fab" stroke-width="1.5" opacity=".5" marker-end="url(#flr)"/>
+      <text x="546" y="240" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">自社ホスト・Ollama 連携・API 費用ゼロ</text>
+      <!-- Q2 NO ↓ -->
+      <text x="164" y="266" fill="#ff8fab" font-family="Nunito,sans-serif" font-size="9" font-weight="800">NO ↓</text>
+      <line x1="149" y1="250" x2="149" y2="298" stroke="#ff8fab" stroke-width="1.5" opacity=".5" marker-end="url(#flr)"/>
 
-      <!-- ── D3: 主な用途 ── -->
-      <rect x="20" y="292" width="258" height="46" rx="10" fill="#fef9c3" stroke="#f9d84a" stroke-width="1.5"/>
-      <text x="149" y="313" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">Q3. 主な用途は？</text>
-      <text x="149" y="329" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">やりたいことに合わせてツールを選ぼう</text>
-      <!-- D3 fan-out → 5 results -->
-      <line x1="278" y1="306" x2="354" y2="300" stroke="#78d5b0" stroke-width="1.2" opacity=".5" marker-end="url(#flg)"/>
-      <line x1="278" y1="311" x2="354" y2="342" stroke="#78d5b0" stroke-width="1.2" opacity=".5" marker-end="url(#flg)"/>
-      <line x1="278" y1="316" x2="354" y2="383" stroke="#78d5b0" stroke-width="1.2" opacity=".5" marker-end="url(#flg)"/>
-      <line x1="278" y1="321" x2="354" y2="424" stroke="#78d5b0" stroke-width="1.2" opacity=".5" marker-end="url(#flg)"/>
-      <line x1="278" y1="326" x2="354" y2="465" stroke="#78d5b0" stroke-width="1.2" opacity=".5" marker-end="url(#flg)"/>
-      <!-- Goose -->
-      <rect x="357" y="286" width="378" height="40" rx="10" fill="#fff0e4" stroke="#ffad7d" stroke-width="1.5"/>
-      <text x="546" y="304" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🦆 Goose</text>
-      <text x="546" y="319" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">GitHub / PR / Issue 管理の自動化</text>
-      <!-- aider -->
-      <rect x="357" y="330" width="378" height="40" rx="10" fill="white" stroke="#ecdde8" stroke-width="1.5"/>
-      <text x="546" y="348" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🔄 aider</text>
-      <text x="546" y="363" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">Pair programming・自動 commit・Git 連携</text>
-      <!-- Gemini CLI -->
-      <rect x="357" y="374" width="378" height="40" rx="10" fill="#f0e8ff" stroke="#b08af0" stroke-width="1.5"/>
-      <text x="546" y="392" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">✨ Gemini CLI</text>
-      <text x="546" y="407" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">画像認識・マルチモーダル・無料枠あり</text>
-      <!-- Codex CLI -->
-      <rect x="357" y="418" width="378" height="40" rx="10" fill="#fef9c3" stroke="#f9d84a" stroke-width="1.5"/>
-      <text x="546" y="436" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🔧 Codex CLI</text>
-      <text x="546" y="451" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">Shell 補完・軽量タスク・API コスト最小</text>
-      <!-- Claude Code -->
-      <rect x="357" y="462" width="378" height="40" rx="10" fill="#e8f4ff" stroke="#7dc4f0" stroke-width="1.5"/>
-      <text x="546" y="480" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🧠 Claude Code</text>
-      <text x="546" y="495" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">複雑推論・設計相談・マルチステップ実装</text>
+      <!-- ── Q3: Git 連携 ── -->
+      <rect x="20" y="300" width="258" height="48" rx="10" fill="#fef9c3" stroke="#f9d84a" stroke-width="1.5"/>
+      <text x="149" y="321" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">Q3. Git 連携・ペアプロを重視？</text>
+      <text x="149" y="338" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">自動 commit・PR / Issue 管理・差分確認</text>
+      <!-- Q3 YES → R3 -->
+      <text x="307" y="318" fill="#78d5b0" font-family="Nunito,sans-serif" font-size="9" font-weight="800" text-anchor="middle">YES →</text>
+      <line x1="278" y1="324" x2="354" y2="324" stroke="#78d5b0" stroke-width="1.5" opacity=".6" marker-end="url(#flg)"/>
+      <rect x="357" y="300" width="378" height="64" rx="10" fill="#fff0e4" stroke="#ffad7d" stroke-width="1.5"/>
+      <text x="546" y="322" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🔄 aider <tspan fill="#9890b0" font-size="10" font-weight="600">— Pair programming・自動 commit</tspan></text>
+      <text x="546" y="348" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🦆 Goose <tspan fill="#9890b0" font-size="10" font-weight="600">— GitHub / PR / Issue 管理</tspan></text>
+      <!-- Q3 NO ↓ -->
+      <text x="164" y="364" fill="#ff8fab" font-family="Nunito,sans-serif" font-size="9" font-weight="800">NO ↓</text>
+      <line x1="149" y1="348" x2="149" y2="396" stroke="#ff8fab" stroke-width="1.5" opacity=".5" marker-end="url(#flr)"/>
+
+      <!-- ── Q4: 画像認識 ── -->
+      <rect x="20" y="398" width="258" height="48" rx="10" fill="#fef9c3" stroke="#f9d84a" stroke-width="1.5"/>
+      <text x="149" y="419" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">Q4. 画像認識・マルチモーダル必要？</text>
+      <text x="149" y="436" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">スクショ分析・UI テスト・視覚的フィードバック</text>
+      <!-- Q4 YES → R4 -->
+      <text x="307" y="416" fill="#78d5b0" font-family="Nunito,sans-serif" font-size="9" font-weight="800" text-anchor="middle">YES →</text>
+      <line x1="278" y1="422" x2="354" y2="422" stroke="#78d5b0" stroke-width="1.5" opacity=".6" marker-end="url(#flg)"/>
+      <rect x="357" y="398" width="378" height="48" rx="10" fill="#f0e8ff" stroke="#b08af0" stroke-width="1.5"/>
+      <text x="546" y="419" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">✨ Gemini CLI</text>
+      <text x="546" y="436" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="middle">画像認識・マルチモーダル・無料枠あり</text>
+      <!-- Q4 NO → R5 (L字: ↓ then →) -->
+      <text x="164" y="462" fill="#ff8fab" font-family="Nunito,sans-serif" font-size="9" font-weight="800">NO ↓</text>
+      <line x1="149" y1="446" x2="149" y2="502" stroke="#ff8fab" stroke-width="1.5" opacity=".5"/>
+      <line x1="149" y1="502" x2="354" y2="502" stroke="#ff8fab" stroke-width="1.5" opacity=".5" marker-end="url(#flr)"/>
+      <!-- R5: Claude Code + Codex -->
+      <rect x="357" y="470" width="378" height="72" rx="10" fill="#e8f4ff" stroke="#7dc4f0" stroke-width="1.5"/>
+      <text x="546" y="496" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🧠 Claude Code <tspan fill="#9890b0" font-size="10" font-weight="600">— 複雑推論・設計相談・マルチステップ</tspan></text>
+      <text x="546" y="524" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="800">🔧 Codex CLI <tspan fill="#9890b0" font-size="10" font-weight="600">— Shell 補完・軽量タスク・API コスト最小</tspan></text>
       <!-- Legend -->
-      <text x="736" y="510" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="end">YES → ツール決定 · NO → 次の質問へ</text>
+      <text x="736" y="549" fill="#9890b0" font-family="Nunito,sans-serif" font-size="9" text-anchor="end">YES → ツール決定 · NO → 次の質問へ</text>
     </svg>
   </div>
 
@@ -823,25 +826,15 @@ footer a:hover { opacity: .7; }
           <td>🔄 aider</td>
           <td>Git ワークフロー統合で自然</td>
         </tr>
+        <tr>
+          <td><strong>設計書ファースト・AWS 連携</strong></td>
+          <td>🪄 Kiro</td>
+          <td>Spec 駆動開発・Bedrock 統合</td>
+        </tr>
       </tbody>
     </table>
   </div>
 
-  <div>
-    <h3 style="font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 16px;">判断基準チェックリスト</h3>
-    <div style="background: #fef5fc; border: 1px solid var(--border); border-radius: 12px; padding: 16px; font-size: 12px; color: var(--textdim); line-height: 1.8; font-weight: 600;">
-      <strong style="display: block; color: var(--text); margin-bottom: 10px;">🤔 このエージェントを選ぶ前に確認：</strong>
-      <ul style="margin-left: 18px;">
-        <li>対応プラットフォーム（Linux / macOS / Windows）は？</li>
-        <li>API キー設定は必要か？ → SaaS か Local か</li>
-        <li>リアルタイム反応が必要か？ → IDE 系か CLI 系か</li>
-        <li>Git 統合が必須か？ → aider / Goose を検討</li>
-        <li>画像認識が必要か？ → Gemini / Antigravity</li>
-        <li>ローカル・プライバシー重視か？ → OpenCode / Local 系</li>
-        <li>予算制約（API 費用）はあるか？</li>
-      </ul>
-    </div>
-  </div>
 </section>
 
 <footer>
