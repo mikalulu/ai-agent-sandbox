@@ -55,6 +55,14 @@ summary::after{content:'＋';font-size:12px;color:var(--accent);transition:trans
 .check-list li.checked{border-color:var(--accent-border);background:var(--accent-bg);color:var(--accent)}
 .check-list li.checked::before{background:var(--accent);border-color:var(--accent);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");background-size:12px;background-repeat:no-repeat;background-position:center}
 
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:14px 0}
+.res-card{background:white;border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px var(--shadow)}
+.res-label{font-size:10px;font-weight:800;color:var(--textdim);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.res-val{font-size:13px;font-weight:800;color:var(--text)}
+.res-note{font-size:10px;color:var(--textdim);font-weight:600;margin-top:2px}
+.res-card{transition:transform .25s,box-shadow .25s}
+.res-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(120,213,176,0.12)}
+
 @media (max-width:600px){
   .toc{grid-template-columns:1fr}
   .compare{grid-template-columns:1fr}
@@ -89,6 +97,7 @@ summary::after{content:'＋';font-size:12px;color:var(--accent);transition:trans
 </header>
 
 <nav class="toc" aria-label="ページ内目次">
+  <a href="#s-pre"><span class="toc-num">✦</span> はじめる前に</a>
   <a href="#s1"><span class="toc-num">01</span> アーキテクチャ</a>
   <a href="#s2"><span class="toc-num">02</span> ホスト側の準備</a>
   <a href="#s3"><span class="toc-num">03</span> Dockerfile の作成</a>
@@ -99,6 +108,31 @@ summary::after{content:'＋';font-size:12px;color:var(--accent);transition:trans
   <a href="#s8"><span class="toc-num">08</span> 便利なヒント集</a>
   <a href="#s9"><span class="toc-num">09</span> トラブルシュート</a>
 </nav>
+
+<!-- ✦ はじめる前に -->
+<section class="section" id="s-pre">
+  <div class="section-head"><span class="section-num">✦</span><h2>📋 はじめる前に</h2></div>
+  <h3>前提条件チェックリスト</h3>
+  <ul class="check-list">
+    <li><strong>x86_64 (amd64) アーキテクチャ必須</strong> — ARM Linux は非対応</li>
+    <li><strong>Ubuntu 22.04 / 24.04 LTS</strong> または Debian 12+</li>
+    <li><strong>NVIDIA GPU</strong>（CUDA Compute Capability 5.0+）</li>
+    <li><strong>RAM: 16 GB 以上</strong>推奨（7B モデル + コンテナ + ホスト分）</li>
+    <li><strong>ディスク: 80 GB 以上</strong>の空き（モデル + イメージ + 作業）</li>
+    <li><strong>Podman 4.1.0+</strong>（<code>podman --version</code> で確認）</li>
+    <li><strong>sudo 権限</strong>（CUDA ドライバー・CDI 設定用）</li>
+    <li><strong>インターネット接続</strong>（初期ダウンロード: 約 10〜20 GB）</li>
+  </ul>
+  <h3>時間・リソース目安</h3>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-label">ホスト準備</div><div class="res-val">30〜60 分</div><div class="res-note">CUDA / Podman / Xephyr</div></div>
+    <div class="res-card"><div class="res-label">コンテナビルド</div><div class="res-val">5〜15 分</div><div class="res-note">回線・PC 性能次第</div></div>
+    <div class="res-card"><div class="res-label">モデル DL (7B)</div><div class="res-val">3〜15 分</div><div class="res-note">100 Mbps 回線目安</div></div>
+    <div class="res-card"><div class="res-label">コンテナイメージ</div><div class="res-val">〜3 GB</div><div class="res-note">全ツール込み</div></div>
+    <div class="res-card"><div class="res-label">Ollama 7B モデル</div><div class="res-val">〜4 GB</div><div class="res-note">qwen2.5-coder:7b 等</div></div>
+    <div class="res-card"><div class="res-label">Ollama 13B モデル</div><div class="res-val">〜8 GB</div><div class="res-note">より高精度</div></div>
+  </div>
+</section>
 
 <!-- 01 ARCHITECTURE -->
 <section class="section" id="s1">
