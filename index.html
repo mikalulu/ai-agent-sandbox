@@ -25,6 +25,8 @@ h1 .accent2 { color: var(--mint2); }
 
 .hero-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
 .htag { font-size: 10px; font-weight: 800; color: var(--textdim); background: white; border: 1.5px solid var(--border); border-radius: 8px; padding: 3px 10px; }
+a.htag { text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+a.htag:hover { border-color: var(--lav2); color: var(--lav2); }
 
 /* PLATFORM CARDS */
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 56px; }
@@ -101,10 +103,13 @@ footer       { animation: fadeUp 0.5s 0.25s ease both; }
     <span class="htag">Lima VM</span>
     <span class="htag">NVIDIA CDI</span>
     <span class="htag">Ollama</span>
-    <span class="htag">Windsurf</span>
-    <span class="htag">Antigravity</span>
-    <span class="htag">Claude Code</span>
-    <span class="htag">Goose</span>
+    <a href="./ai-tools-guide.html#tool-windsurf" class="htag">Windsurf</a>
+    <a href="./ai-tools-guide.html#tool-antigravity" class="htag">Antigravity</a>
+    <a href="./ai-tools-guide.html#tool-claude-code" class="htag">Claude Code</a>
+    <a href="./ai-tools-guide.html#tool-goose" class="htag">Goose</a>
+    <a href="./ai-tools-guide.html#tool-aider" class="htag">aider</a>
+    <a href="./ai-tools-guide.html#tool-kiro" class="htag">Kiro</a>
+    <a href="./ai-tools-guide.html#tool-gemini" class="htag">Gemini CLI</a>
   </div>
 </header>
 
