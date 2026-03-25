@@ -469,6 +469,9 @@ RUN curl -fsSL $ANTIGRAVITY_DEB -o /tmp/antigravity.deb \
   && dpkg -i /tmp/antigravity.deb || apt-get install -fy \
   && rm /tmp/antigravity.deb
 
+<span class="c"># ── Kiro ──────────────────────────────────────</span>
+RUN curl -fsSL https://cli.kiro.dev/install | bash
+
 <span class="c"># ── CUDA Toolkit (runtime のみ) ───────────────</span>
 RUN apt-get update && apt-get install -y --no-install-recommends \
   cuda-cudart-12-4 libcublas-12-4 \

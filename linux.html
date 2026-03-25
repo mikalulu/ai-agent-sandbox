@@ -254,6 +254,9 @@ podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre>
 <span class="c"># ── Aider ──</span>
 <span class="k">RUN</span> curl -fsSL https://aider.chat/install.sh | sh
 
+<span class="c"># ── Kiro ──</span>
+<span class="k">RUN</span> curl -fsSL https://cli.kiro.dev/install | bash
+
 <span class="k">COPY</span> entrypoint.sh /usr/local/bin/
 <span class="k">ENTRYPOINT</span> ["/usr/local/bin/entrypoint.sh"]</pre>
   </div>
