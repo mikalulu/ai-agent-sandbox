@@ -186,8 +186,13 @@ podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre>
     xterm openbox dbus-x11 libnss3 libatk1.0-0 libatk-bridge2.0-0 \
     libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 \
     libxrandr2 libgbm1 libasound2 zstd gnupg \
+    locales fonts-noto-cjk fonts-noto-color-emoji \
     cuda-cudart-12-4 \
+    && sed -i 's/# ja_JP.UTF-8/ja_JP.UTF-8/' /etc/locale.gen \
+    && locale-gen \
     && rm -rf /var/lib/apt/lists/*
+
+<span class="k">ENV</span> LANG=ja_JP.UTF-8 LC_ALL=ja_JP.UTF-8
 
 <span class="c"># ── Windsurf (apt repo) ─────────────────────────</span>
 <span class="k">RUN</span> mkdir -p /etc/apt/keyrings \

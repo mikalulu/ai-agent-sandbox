@@ -394,8 +394,8 @@ limactl shell agent</pre>
   libnss3 libatk1.0-0 libatk-bridge2.0-0 \
   libgdk-pixbuf2.0-0 libgtk-3-0 \
   libasound2 libxss1 libxtst6 \
-  <span class="c"># フォント</span>
-  fonts-noto-cjk fonts-noto-color-emoji \
+  <span class="c"># フォント / ロケール</span>
+  fonts-noto-cjk fonts-noto-color-emoji locales \
   <span class="c"># ユーティリティ / ビルドツール</span>
   ca-certificates curl wget gnupg jq yq ripgrep fd-find vim \
   <span class="c"># ブラウザ (Antigravity 用)</span>
@@ -404,7 +404,14 @@ limactl shell agent</pre>
   graphviz inkscape \
   build-essential git \
   <span class="c"># Python</span>
-  python3 python3-pip python3-venv</pre>
+  python3 python3-pip python3-venv \
+  && sudo sed -i 's/# ja_JP.UTF-8/ja_JP.UTF-8/' /etc/locale.gen \
+  && sudo locale-gen</pre>
+  </div>
+  <div class="callout callout-lav">
+    <span class="callout-icon">ℹ</span>
+    <div class="callout-body">日本語ロケールを有効にするには、<code>~/.bashrc</code> に <code>export LANG=ja_JP.UTF-8</code> を追加してください。</div>
+  </div>
   </div>
   <h3>VM 内 — Node.js (nvm)</h3>
   <div class="code-wrap">
