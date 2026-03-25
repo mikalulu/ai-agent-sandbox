@@ -47,6 +47,11 @@ services:
       - agent-workspace:/home/agent/work
       - ollama-models:/root/.ollama/models
 
+      # 認証情報永続化 (OAuth ログイン済みトークンを保持)
+      - claude-auth:/home/agent/.config/claude
+      - windsurf-auth:/home/agent/.config/windsurf
+      - kiro-auth:/home/agent/.kiro
+
     devices:
       # NVIDIA GPU (CDI — nvidia-ctk cdi generate 済みであること)
       - nvidia.com/gpu=all
@@ -63,8 +68,18 @@ services:
     #       memory: 8g
     #       cpus: "4"
 
+    # API キー注入 (Dockerfile に書かず env-file で渡す)
+    # env_file:
+    #   - ~/.config/agent-sandbox/.env
+
 volumes:
   agent-workspace:
     # 作業ファイル永続化
   ollama-models:
     # LLM モデルキャッシュ永続化
+  claude-auth:
+    # Claude Code OAuth トークン
+  windsurf-auth:
+    # Windsurf ログイン情報
+  kiro-auth:
+    # Kiro ログイン情報
