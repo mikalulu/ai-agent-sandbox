@@ -6,18 +6,18 @@
 <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<meta name="description" content="隔離手法を強さや特徴ごとにふんわり見比べられる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
+<meta name="description" content="隔離手法を強さや特徴ごとに比較できる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
 <meta name="theme-color" content="#fef6f0">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Isolation Matrix ✿">
-<meta property="og:description" content="隔離手法を強さや特徴ごとにふんわり見比べられる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
+<meta property="og:title" content="Isolation Matrix">
+<meta property="og:description" content="隔離手法を強さや特徴ごとに比較できる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
 <meta property="og:url" content="https://mikalulu.github.io/ai-agent-sandbox/isolation-matrix.html">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Isolation Matrix ✿">
-<meta name="twitter:description" content="隔離手法を強さや特徴ごとにふんわり見比べられる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
+<meta name="twitter:title" content="Isolation Matrix">
+<meta name="twitter:description" content="隔離手法を強さや特徴ごとに比較できる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
 <link rel="canonical" href="https://mikalulu.github.io/ai-agent-sandbox/isolation-matrix.html">
 <link rel="stylesheet" href="./assets/site.css">
-<title>Isolation Matrix ✿</title>
+<title>Isolation Matrix</title>
 <style>
 :root {
   --bg:       #fef6f0;
@@ -62,7 +62,7 @@ body {
 
 /* floating deco dots */
 body::before {
-  content: '✿ ❀ ✦ ❋ ✿ ❀ ✦';
+  content: ''; display: none;
   position: fixed;
   top: 18px; right: 24px;
   font-size: 13px;
@@ -390,10 +390,10 @@ header        { animation: fadeUp 0.5s ease both; }
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
+<a class="skip-link" href="#main-content">本文へスキップ</a>
 
 <nav class="nav" aria-label="サイト案内">
-  <span class="nav-label">✿ Sandbox Docs</span>
+  <span class="nav-label">Sandbox Docs</span>
   <a class="nav-pill index" href="./index.html">↩ Index</a>
   <a class="nav-pill active" href="./isolation-matrix.html" aria-current="page">🌸 Isolation</a>
   <a class="nav-pill" href="./environment-matrix.html">🐚 Environment</a>
@@ -408,9 +408,9 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Header -->
 <header>
   <div class="header-deco">🔒 🛡️ 🔑 🧱 🔒</div>
-  <h1>Isolation <span class="accent">Matrix</span> <span class="accent2">✿</span></h1>
+  <h1>Isolation <span class="accent">Matrix</span></h1>
   <div class="subtitle">
-    隔離の強さや役割を、ふわっと横ならびで見比べるまとめです♪
+    隔離の強さや役割を横並びで比較するまとめです。
   </div>
 </header>
 
@@ -449,7 +449,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Physical Air Gap -->
 <tr>
-  <td class="row-label"><div class="row-name">物理 Air Gap</div><div class="row-sub">Physical Air Gap</div><div class="row-comment">💬 ケーブルを抜いてしまう究極の隔離方法です🔌 ネットワークの道が物理的にふさがれます✨</div></td>
+  <td class="row-label"><div class="row-name">物理 Air Gap</div><div class="row-sub">Physical Air Gap</div><div class="row-comment">💬 ケーブルを物理的に切断する究極の隔離手法です。ネットワーク経路が物理的に遮断されます。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">5/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -460,7 +460,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Secure Element -->
 <tr>
-  <td class="row-label"><div class="row-name">Secure Element (SE)</div><div class="row-sub">耐タンパーチップ / GlobalPlatform / ISO 7816</div><div class="row-comment">💬 SIMやICカードに入っている小さな金庫のようなチップです🔑 鍵が外に漏れることは絶対にありません✨</div></td>
+  <td class="row-label"><div class="row-name">Secure Element (SE)</div><div class="row-sub">耐タンパーチップ / GlobalPlatform / ISO 7816</div><div class="row-comment">💬 SIM や IC カードに搭載される耐タンパーチップです。鍵が外部に漏洩しません。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">5/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -471,7 +471,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- HSM -->
 <tr>
-  <td class="row-label"><div class="row-name">HSM</div><div class="row-sub">Hardware Security Module / FIPS 140-3</div><div class="row-comment">💬 証明書の根幹を守る頑丈な専用機器です🛡️ ガッチリ守られたハードウェアの中で鍵を作ったり署名したりします！</div></td>
+  <td class="row-label"><div class="row-name">HSM</div><div class="row-sub">Hardware Security Module / FIPS 140-3</div><div class="row-comment">💬 証明書の根幹を守る専用ハードウェアです。耐タンパー筐体内で鍵の生成・署名を行います。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">5/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -482,7 +482,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- TEE -->
 <tr>
-  <td class="row-label"><div class="row-name">TEE / SGX / TrustZone</div><div class="row-sub">Trusted Execution Environment</div><div class="row-comment">💬 OSすら信用しない、特別な「飛び地」の実行環境です🏰 CPUがデータを暗号化したまま安全に計算してくれますよ♪</div></td>
+  <td class="row-label"><div class="row-name">TEE / SGX / TrustZone</div><div class="row-sub">Trusted Execution Environment</div><div class="row-comment">💬 OS も信頼しない隔離実行環境です。CPU がデータを暗号化したまま処理します。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -493,7 +493,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- IOMMU -->
 <tr>
-  <td class="row-label"><div class="row-name">IOMMU</div><div class="row-sub">VT-d / AMD-Vi — DMA保護</div><div class="row-comment">💬 USBやThunderboltの機器が勝手にメモリを読み書きするのを防いでくれる、頼もしい番人です👮‍♀️</div></td>
+  <td class="row-label"><div class="row-name">IOMMU</div><div class="row-sub">VT-d / AMD-Vi — DMA保護</div><div class="row-comment">💬 USB や Thunderbolt 機器による不正な DMA アクセスを防止します。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">3/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">➖</td>
@@ -509,7 +509,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- VM -->
 <tr>
-  <td class="row-label"><div class="row-name">VM (Type-1 Hypervisor)</div><div class="row-sub">KVM / ESXi — QEMU/KVM</div><div class="row-comment">💬 カーネルごとまるっと分離します📦 ウイルス解析や、たくさんの人が使う環境を安全に分けるときの基本です✨</div></td>
+  <td class="row-label"><div class="row-name">VM (Type-1 Hypervisor)</div><div class="row-sub">KVM / ESXi — QEMU/KVM</div><div class="row-comment">💬 カーネルごと完全に分離します。マルウェア解析やマルチテナント環境の基本手法です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -520,7 +520,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Container -->
 <tr>
-  <td class="row-label"><div class="row-name">コンテナ (Container)</div><div class="row-sub">Docker / Podman — namespace+cgroups</div><div class="row-comment">💬 カーネルは共有してプロセスだけを分けます🐳 とっても軽いですが、すり抜けられるリスクはVMより少し高めです💦</div></td>
+  <td class="row-label"><div class="row-name">コンテナ (Container)</div><div class="row-sub">Docker / Podman — namespace+cgroups</div><div class="row-comment">💬 カーネルを共有しプロセスのみを分離します。軽量ですが、脱出リスクは VM より高くなります。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -531,7 +531,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- gVisor -->
 <tr>
-  <td class="row-label"><div class="row-name">gVisor</div><div class="row-sub">Google — ユーザー空間カーネル (Sentry)</div><div class="row-comment">💬 カーネルの動きをユーザー空間で真似っこして処理を代行します🛡️ コンテナみたいに軽いのに、VM並みにしっかり隔離できますよ✨</div></td>
+  <td class="row-label"><div class="row-name">gVisor</div><div class="row-sub">Google — ユーザー空間カーネル (Sentry)</div><div class="row-comment">💬 カーネルの動作をユーザー空間で代行します。コンテナ並みの軽量性と VM 並みの隔離性を両立します。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
   <td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -542,7 +542,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Firecracker -->
 <tr>
-  <td class="row-label"><div class="row-name">Firecracker</div><div class="row-sub">AWS — マイクロVM / KVM</div><div class="row-comment">💬 Lambdaなどの裏側で動いているすごい技術です🔥 VM級の隔離をほんの一瞬（125ms!）で立ち上げる超軽量な仕組みです🚀</div></td>
+  <td class="row-label"><div class="row-name">Firecracker</div><div class="row-sub">AWS — マイクロVM / KVM</div><div class="row-comment">💬 AWS Lambda 等の基盤技術です。VM 級の隔離を約 125ms で起動する軽量マイクロ VM です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -553,7 +553,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Unikernel -->
 <tr>
-  <td class="row-label"><div class="row-name">Unikernel</div><div class="row-sub">MirageOS / Unikraft</div><div class="row-comment">💬 アプリと小さなOSをぎゅっと一つにまとめます🎁 シェルも何もないので、攻撃される隙がほとんどありません✨</div></td>
+  <td class="row-label"><div class="row-name">Unikernel</div><div class="row-sub">MirageOS / Unikraft</div><div class="row-comment">💬 アプリケーションと最小限の OS を単一イメージに統合します。シェルが存在しないため攻撃面が極めて小さくなります。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -564,7 +564,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- SELinux -->
 <tr>
-  <td class="row-label"><div class="row-name">SELinux</div><div class="row-sub">MAC — Type Enforcement / MLS (NSA)</div><div class="row-comment">💬 全てのものにラベルをペタッと貼ってアクセスを厳しくチェックします🏷️ RHEL系ではおなじみの機能ですね♪</div></td>
+  <td class="row-label"><div class="row-name">SELinux</div><div class="row-sub">MAC — Type Enforcement / MLS (NSA)</div><div class="row-comment">💬 全オブジェクトにラベルを付与し、アクセスを厳密に制御します。RHEL 系で標準的に利用されています。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -575,7 +575,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- AppArmor -->
 <tr>
-  <td class="row-label"><div class="row-name">AppArmor</div><div class="row-sub">MAC — パスベース / LSM (Ubuntu/Debian)</div><div class="row-comment">💬 プロファイルを使ってアプリの行動範囲をあらかじめ決めておきます📝 SELinuxよりも設定が少しシンプルで使いやすいです✨</div></td>
+  <td class="row-label"><div class="row-name">AppArmor</div><div class="row-sub">MAC — パスベース / LSM (Ubuntu/Debian)</div><div class="row-comment">💬 プロファイルでアプリケーションの動作範囲を事前に定義します。SELinux より設定が簡潔です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:55%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -586,7 +586,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- seccomp -->
 <tr>
-  <td class="row-label"><div class="row-name">seccomp</div><div class="row-sub">Secure Computing Mode — BPFフィルタ</div><div class="row-comment">💬 プロセスが使える命令（syscall）をフィルターでぎゅっと絞り込みます✂️ Dockerの標準的なバリアントとしても活躍してます！</div></td>
+  <td class="row-label"><div class="row-name">seccomp</div><div class="row-sub">Secure Computing Mode — BPFフィルタ</div><div class="row-comment">💬 プロセスが使用可能な syscall を BPF フィルタで制限します。Docker の標準的な防御機構としても利用されています。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -597,7 +597,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Landlock -->
 <tr>
-  <td class="row-label"><div class="row-name">Landlock</div><div class="row-sub">Linux 5.13+ — 非特権FS制限</div><div class="row-comment">💬 root権限がなくても、アプリ自身で「ここにはアクセスしません」と宣言できる便利な機能です🔒</div></td>
+  <td class="row-label"><div class="row-name">Landlock</div><div class="row-sub">Linux 5.13+ — 非特権FS制限</div><div class="row-comment">💬 非特権プロセスが自身のファイルアクセスを制限できる機能です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">➖</td>
@@ -608,7 +608,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- chroot -->
 <tr>
-  <td class="row-label"><div class="row-name">chroot</div><div class="row-sub">POSIX — rootfs付け替え</div><div class="row-comment">💬 見た目上のルートディレクトリを付け替えるだけの簡易的な壁です🚪 root権限があると簡単に抜け出せてしまうので過信は禁物です💦</div></td>
+  <td class="row-label"><div class="row-name">chroot</div><div class="row-sub">POSIX — rootfs付け替え</div><div class="row-comment">💬 ルートディレクトリを付け替えるだけの簡易的な隔離です。root 権限があれば容易に脱出できるため過信は禁物です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:15%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">1/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">❌</td>
   <td class="cell icon-cell">➖</td>
@@ -619,7 +619,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- OverlayFS -->
 <tr>
-  <td class="row-label"><div class="row-name">OverlayFS / Immutable FS</div><div class="row-sub">Copy-on-Write — tmpfs upper layer</div><div class="row-comment">💬 変更点はメモリ上の層だけに書き込んで、元のファイルを汚さないようにします✨ 使い捨ての環境を作るときの基本ですね！</div></td>
+  <td class="row-label"><div class="row-name">OverlayFS / Immutable FS</div><div class="row-sub">Copy-on-Write — tmpfs upper layer</div><div class="row-comment">💬 変更はメモリ上の上位層にのみ書き込み、元のファイルを保護します。使い捨て環境の基本手法です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:20%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">1/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">❌</td>
   <td class="cell icon-cell">👤</td>
@@ -635,7 +635,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Logical Air Gap -->
 <tr>
-  <td class="row-label"><div class="row-name">論理 Air Gap</div><div class="row-sub">データダイオード / VLAN+ACL / SDN</div><div class="row-comment">💬 ケーブルは繋がっていても、通信の道を論理的に一方通行にしたり遮断したりします🚧 重要なシステムを守る定番の手法です✨</div></td>
+  <td class="row-label"><div class="row-name">論理 Air Gap</div><div class="row-sub">データダイオード / VLAN+ACL / SDN</div><div class="row-comment">💬 物理接続を維持したまま、通信経路を論理的に一方通行化または遮断します。重要システム保護の定番手法です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">➖</td>
@@ -646,7 +646,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- VRF -->
 <tr>
-  <td class="row-label"><div class="row-name">VRF</div><div class="row-sub">Virtual Routing and Forwarding / MPLS</div><div class="row-comment">💬 ルーティング情報を分割して、論理的に別々のネットワークを同じ場所で仲良く同居させます🏠</div></td>
+  <td class="row-label"><div class="row-name">VRF</div><div class="row-sub">Virtual Routing and Forwarding / MPLS</div><div class="row-comment">💬 ルーティングテーブルを分割し、論理的に独立したネットワークを同一機器上で共存させます。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">3/5</div></div></td>
   <td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td>
   <td class="cell icon-cell">➖</td>
@@ -657,7 +657,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- MACsec -->
 <tr>
-  <td class="row-label"><div class="row-name">MACsec</div><div class="row-sub">IEEE 802.1AE — L2暗号化 AES-GCM</div><div class="row-comment">💬 機器同士の通信を強力に暗号化します🔒 盗聴やなりすましをしっかり防いでくれますよ✨</div></td>
+  <td class="row-label"><div class="row-name">MACsec</div><div class="row-sub">IEEE 802.1AE — L2暗号化 AES-GCM</div><div class="row-comment">💬 L2 レベルで機器間通信を暗号化します。盗聴・なりすましを防止します。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">3/5</div></div></td>
   <td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td>
   <td class="cell icon-cell">➖</td>
@@ -668,7 +668,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- VDI / RBI -->
 <tr>
-  <td class="row-label"><div class="row-name">VDI / RBI</div><div class="row-sub">Remote Browser Isolation / 画面転送型</div><div class="row-comment">💬 別の安全な場所で動かして画面だけを手元に送ります📺 危険なデータが手元に届かない、究極のネットワーク隔離方法です！</div></td>
+  <td class="row-label"><div class="row-name">VDI / RBI</div><div class="row-sub">Remote Browser Isolation / 画面転送型</div><div class="row-comment">💬 リモート環境で処理を実行し、画面のみをクライアントに転送します。端末にデータが到達しないネットワーク隔離手法です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -684,7 +684,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Wasm -->
 <tr>
-  <td class="row-label"><div class="row-name">WebAssembly / WASI</div><div class="row-sub">線形メモリ(Linear Memory)サンドボックス</div><div class="row-comment">💬 プログラムを専用のメモリ空間の中にピタッと閉じ込めます📦 ブラウザの外でも安全に動かせる注目の技術です✨</div></td>
+  <td class="row-label"><div class="row-name">WebAssembly / WASI</div><div class="row-sub">線形メモリ(Linear Memory)サンドボックス</div><div class="row-comment">💬 プログラムを線形メモリ空間内に閉じ込めます。ブラウザ外でも安全に実行可能な技術です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#d4b8f8,#b08af0)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
@@ -695,7 +695,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- eBPF -->
 <tr>
-  <td class="row-label"><div class="row-name">eBPF</div><div class="row-sub">Extended BPF — カーネル内Verifier</div><div class="row-comment">💬 チェック済みの安全なコードだけをカーネルの中で動かします🔍 隔離というよりは、システムを観察したり制御するのに大活躍しますよ♪</div></td>
+  <td class="row-label"><div class="row-name">eBPF</div><div class="row-sub">Extended BPF — カーネル内Verifier</div><div class="row-comment">💬 検証済みコードのみをカーネル内で実行します。隔離よりもシステムの観測・制御に活用されます。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#d4b8f8,#b08af0)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">➖</td>
@@ -706,7 +706,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Deno -->
 <tr>
-  <td class="row-label"><div class="row-name">Deno</div><div class="row-sub">Rust製ランタイム — 明示的許可モデル</div><div class="row-comment">💬 許可フラグがないと何も読めない・書けない安心設計です🛡️ AIエージェントを動かすのにもぴったりのサンドボックスですよ✨</div></td>
+  <td class="row-label"><div class="row-name">Deno</div><div class="row-sub">Rust製ランタイム — 明示的許可モデル</div><div class="row-comment">💬 明示的な許可フラグなしではファイルの読み書きができない設計です。AI エージェントの実行環境としても適しています。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#d4b8f8,#b08af0)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">👤</td>
@@ -722,7 +722,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- DAC -->
 <tr>
-  <td class="row-label"><div class="row-name">DAC (chmod / POSIX ACL)</div><div class="row-sub">Discretionary Access Control</div><div class="row-comment">💬 持ち主が自由に権限を設定できる、一番基本的なアクセス制限です🔑 ただ、rootユーザーには効かないので注意です💦</div></td>
+  <td class="row-label"><div class="row-name">DAC (chmod / POSIX ACL)</div><div class="row-sub">Discretionary Access Control</div><div class="row-comment">💬 所有者が自由に権限を設定できる基本的なアクセス制御です。root ユーザーには適用されないため注意が必要です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:20%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">1/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">👤</td>
@@ -733,7 +733,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Capabilities -->
 <tr>
-  <td class="row-label"><div class="row-name">Linux Capabilities</div><div class="row-sub">CAP_* — root権限の細分化</div><div class="row-comment">💬 強力すぎるroot権限を細かく切り分けて、必要な分だけを渡す仕組みです✂️ あげすぎには気をつけてくださいね！</div></td>
+  <td class="row-label"><div class="row-name">Linux Capabilities</div><div class="row-sub">CAP_* — root権限の細分化</div><div class="row-comment">💬 root 権限を細分化し、必要最小限の権限のみを付与する仕組みです。過剰な付与には注意が必要です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">👤</td>
@@ -744,7 +744,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- pledge/unveil -->
 <tr>
-  <td class="row-label"><div class="row-name">pledge / unveil</div><div class="row-sub">OpenBSD — syscall宣言制限</div><div class="row-comment">💬 アプリが最初に「自分はこれしかやりません！」と宣言するお行儀のいい仕組みです🙋‍♀️ OpenBSDならではのシンプルな制限ですね✨</div></td>
+  <td class="row-label"><div class="row-name">pledge / unveil</div><div class="row-sub">OpenBSD — syscall宣言制限</div><div class="row-comment">💬 アプリケーションが利用する syscall を起動時に宣言する仕組みです。OpenBSD 固有のシンプルな制限機構です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:45%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">👤</td>
@@ -755,7 +755,7 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Namespace solo -->
 <tr>
-  <td class="row-label"><div class="row-name">Namespace (単体)</div><div class="row-sub">pid/net/mnt/uts/ipc/user</div><div class="row-comment">💬 プロセスやネットワークの見え方を区切るLinuxの基本機能です📦 単体だと少し弱いので、他と組み合わせて使うのが前提になります！</div></td>
+  <td class="row-label"><div class="row-name">Namespace (単体)</div><div class="row-sub">pid/net/mnt/uts/ipc/user</div><div class="row-comment">💬 プロセスやネットワークの可視範囲を分離する Linux の基本機能です。単体では不十分なため、他の手法との併用が前提です。</div></td>
   <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:30%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">👤</td>
@@ -775,7 +775,7 @@ header        { animation: fadeUp 0.5s ease both; }
   <div class="icon-legend-item">❌ 対象外 / N/A</div>
   <div class="icon-legend-item">➖ 管理者管理 / Admin</div>
   <div class="icon-legend-item">👤 ユーザー操作可 / User-ctrl</div>
-  <div style="margin-left:auto;font-size:11px;color:var(--textdim);">※ 隔離度は単体で見たときの目安です。実運用では重ねがけすると安心です♪</div>
+  <div style="margin-left:auto;font-size:11px;color:var(--textdim);">※ 隔離度は単体での目安です。実運用では複数手法を組み合わせることを推奨します。</div>
 </div>
 
 <!-- Container Runtime Comparison -->
@@ -858,7 +858,7 @@ header        { animation: fadeUp 0.5s ease both; }
   <div class="notes" style="margin-top:14px">
     <div class="note-card mint">
       <div class="note-title">🦭 Podman が推奨な理由</div>
-      <p>デーモンレスで常に rootless 動作するため、<code>dockerd</code> の root 権限による socket hijack リスクがありません。<code>slirp4netns</code> による NAT は外部への通信を許可しつつ、コンテナからホスト内ネットワークへのアクセスを遮断します。NVIDIA CDI も公式サポートされており、GPU AI Sandbox にとって最も設定が整っています✨</p>
+      <p>デーモンレスで常に rootless 動作するため、<code>dockerd</code> の root 権限による socket hijack リスクがありません。<code>slirp4netns</code> による NAT は外部への通信を許可しつつ、コンテナからホスト内ネットワークへのアクセスを遮断します。NVIDIA CDI も公式サポートされており、GPU AI Sandbox にとって最も設定が整っています。</p>
     </div>
     <div class="note-card pink">
       <div class="note-title">🐳 Docker の注意点</div>
@@ -875,19 +875,19 @@ header        { animation: fadeUp 0.5s ease both; }
 <div class="notes">
   <div class="note-card pink">
     <div class="note-title">🔐 Secure Element (SE) vs HSM</div>
-    <p>SEはスマートカードやSIMのチップです💳 HSMよりも小さくてお安いですが、計算スピードは控えめです🐢 どちらも「鍵が外に漏れない」という一番大事な点は同じですよ✨</p>
+    <p>SE はスマートカードや SIM のチップです。HSM より小型で安価ですが、処理速度は低めです。どちらも鍵が外部に漏洩しない点は共通です。</p>
   </div>
   <div class="note-card mint">
     <div class="note-title">🛡️ SELinux vs AppArmor</div>
-    <p>SELinuxはラベルを使って細かくきっちり管理します🏷️ AppArmorはファイルの場所（パス）ベースで、設定が読みやすくて自動生成もできる親しみやすいツールですね🌿</p>
+    <p>SELinux はラベルベースで細粒度の制御を行います。AppArmor はパスベースで、設定が読みやすく自動生成にも対応しています。</p>
   </div>
   <div class="note-card sky">
     <div class="note-title">🧅 多層防御 (Defense in Depth)</div>
-    <p>実際の環境では、1つの方法だけに頼らずいくつも壁を作ります🧅 いろんな手法を組み合わせて、攻撃される隙を少しずつ減らしていくのが一番安心です✨</p>
+    <p>実環境では単一の手法に頼らず、複数の防御層を重ねます。手法を組み合わせることで攻撃面を段階的に縮小できます。</p>
   </div>
   <div class="note-card lav">
     <div class="note-title">👤 ユーザー制御層の注意点</div>
-    <p>ユーザー制御層の機能は、管理者なら操作できてしまいます🛠️ もしrootを取られると壁を壊されてしまうリスクがあるので、他の強い隔離（MAC層など）と組み合わせて守りを固めてくださいね🛡️💦</p>
+    <p>ユーザー制御層の機能は管理者権限で変更可能です。root 権限を奪取されると無効化されるリスクがあるため、MAC 層など他の隔離手法との併用が必要です。</p>
   </div>
 </div>
 

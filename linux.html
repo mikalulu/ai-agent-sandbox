@@ -6,18 +6,18 @@
 <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<meta name="description" content="Linux で Podman と Xephyr を使い、AI エージェントをしっかり隔離して動かすためのゆるふわセットアップガイドです。">
+<meta name="description" content="Linux で Podman と Xephyr を使い、AI エージェントを隔離して動かすためのセットアップガイドです。">
 <meta name="theme-color" content="#fef6f0">
 <meta property="og:type" content="website">
-<meta property="og:title" content="AI Agent Sandbox ✿ Linux Setup Guide">
-<meta property="og:description" content="Linux で Podman と Xephyr を使い、AI エージェントをしっかり隔離して動かすためのゆるふわセットアップガイドです。">
+<meta property="og:title" content="AI Agent Sandbox Linux Setup Guide">
+<meta property="og:description" content="Linux で Podman と Xephyr を使い、AI エージェントを隔離して動かすためのセットアップガイドです。">
 <meta property="og:url" content="https://mikalulu.github.io/ai-agent-sandbox/linux.html">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AI Agent Sandbox ✿ Linux Setup Guide">
-<meta name="twitter:description" content="Linux で Podman と Xephyr を使い、AI エージェントをしっかり隔離して動かすためのゆるふわセットアップガイドです。">
+<meta name="twitter:title" content="AI Agent Sandbox Linux Setup Guide">
+<meta name="twitter:description" content="Linux で Podman と Xephyr を使い、AI エージェントを隔離して動かすためのセットアップガイドです。">
 <link rel="canonical" href="https://mikalulu.github.io/ai-agent-sandbox/linux.html">
 <link rel="stylesheet" href="./assets/site.css">
-<title>AI Agent Sandbox ✿ Linux Setup Guide</title>
+<title>AI Agent Sandbox Linux Setup Guide</title>
 <style>
 :root {
   --accent:var(--mint2);--accent-bg:#e8faf2;--accent-border:var(--mint);
@@ -70,7 +70,7 @@ summary::after{content:'＋';font-size:12px;color:var(--accent);transition:trans
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
+<a class="skip-link" href="#main-content">本文へスキップ</a>
 
 <nav class="nav page" aria-label="サイト案内">
   <span class="nav-label">AI Agent Sandbox</span>
@@ -93,7 +93,7 @@ summary::after{content:'＋';font-size:12px;color:var(--accent);transition:trans
     <span class="badge badge-lav">slirp4netns</span>
   </div>
   <h1>Linux <span class="accent">Setup Guide</span></h1>
-  <p class="hero-sub">Podman と Xephyr を使い、AI エージェントがホスト OS を壊さないようにしっかり囲って動かすためのガイドです。NVIDIA GPU も CDI 経由でしっかり使えますよ✨</p>
+  <p class="hero-sub">Podman と Xephyr を使い、AI エージェントがホスト OS を壊さないように隔離して実行するためのガイドです。NVIDIA GPU は CDI 経由で利用できます。</p>
 </header>
 
 <nav class="toc" aria-label="ページ内目次">
@@ -147,7 +147,7 @@ summary::after{content:'＋';font-size:12px;color:var(--accent);transition:trans
         <marker id="b" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6 Z" fill="#ffad7d" opacity=".5"/></marker>
       </defs>
       <rect x="8" y="8" width="764" height="384" rx="16" fill="white" stroke="#ecdde8" stroke-width="1.5"/>
-      <text x="24" y="30" fill="#9890b0" font-family="Klee One,cursive" font-size="11" font-weight="600" letter-spacing="1">HOST — Ubuntu · Wayland ✿</text>
+      <text x="24" y="30" fill="#9890b0" font-family="Klee One,cursive" font-size="11" font-weight="600" letter-spacing="1">HOST — Ubuntu · Wayland</text>
       <rect x="24" y="44" width="160" height="52" rx="12" fill="#fffaf6" stroke="#ecdde8" stroke-width="1.5"/>
       <text x="104" y="68" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">Wayland</text>
       <text x="104" y="84" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">Compositor</text>
@@ -163,7 +163,7 @@ summary::after{content:'＋';font-size:12px;color:var(--accent);transition:trans
       <line x1="184" y1="70" x2="202" y2="70" stroke="#78d5b0" stroke-width="1.5" opacity=".4" marker-end="url(#a)"/>
       <line x1="344" y1="70" x2="362" y2="70" stroke="#7dc4f0" stroke-width="1.5" opacity=".4" marker-end="url(#a)"/>
       <rect x="24" y="120" width="732" height="256" rx="14" fill="white" stroke="#b5ead7" stroke-width="2" stroke-dasharray="7 3"/>
-      <text x="40" y="142" fill="#78d5b0" font-family="Klee One,cursive" font-size="11" font-weight="600" letter-spacing="1" opacity=".7">PODMAN CONTAINER — debian:12-slim ✿</text>
+      <text x="40" y="142" fill="#78d5b0" font-family="Klee One,cursive" font-size="11" font-weight="600" letter-spacing="1" opacity=".7">PODMAN CONTAINER — debian:12-slim</text>
       <rect x="40" y="156" width="130" height="44" rx="10" fill="#fffaf6" stroke="#ecdde8" stroke-width="1.5"/>
       <text x="105" y="176" fill="#4a4060" font-family="Nunito,sans-serif" font-size="11" text-anchor="middle" font-weight="700">openbox</text>
       <text x="105" y="191" fill="#9890b0" font-family="Nunito,sans-serif" font-size="10" text-anchor="middle">WM + dbus-x11</text>
@@ -232,14 +232,14 @@ summary::after{content:'＋';font-size:12px;color:var(--accent);transition:trans
 
   <h3>1. ツール一式のインストール</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy</button></div>
     <pre>sudo apt update
 sudo apt install -y podman podman-compose xserver-xephyr x11-xserver-utils nvidia-container-toolkit</pre>
   </div>
 
   <h3>2. NVIDIA CDI の生成</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy</button></div>
     <pre>sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
 <span class="c"># 確認</span>
 podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre>
@@ -251,7 +251,7 @@ podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre>
   <div class="section-head"><span class="section-num">03</span><h2>📦 Dockerfile の作成</h2></div>
   <p>エージェントを動かすためのコンテナイメージを作成します。Node.js や Python、そして表示用の Openbox を詰め込みます。</p>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">Dockerfile</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">Dockerfile</span><button type="button" class="copy-btn">copy</button></div>
     <pre><span class="k">FROM</span> debian:12-slim
 
 <span class="k">RUN</span> apt-get update && apt-get install -y --no-install-recommends \
@@ -319,9 +319,9 @@ podman run --rm --device nvidia.com/gpu=all debian:12-slim nvidia-smi</pre>
 <!-- 04 ENTRYPOINT -->
 <section class="section" id="s4">
   <div class="section-head"><span class="section-num">04</span><h2>🏗️ Entrypoint の作成</h2></div>
-  <p>コンテナ起動時に X サーバーとの接続やウィンドウマネージャーをふわっと準備するスクリプトです。</p>
+  <p>コンテナ起動時に X サーバーとの接続やウィンドウマネージャーを準備するスクリプトです。</p>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash (entrypoint.sh)</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash (entrypoint.sh)</span><button type="button" class="copy-btn">copy</button></div>
     <pre>#!/bin/bash
 <span class="k">export</span> DISPLAY=:10
 <span class="c"># D-Bus の準備</span>
@@ -340,19 +340,19 @@ xterm -maximized -e bash</pre>
 
   <div class="callout callout-mint">
     <span class="callout-icon">💡</span>
-    <div class="callout-body"><code>compose.yml</code> を使った管理がおすすめです。設定例はリポジトリのルートにある <a href="https://github.com/mikalulu/ai-agent-sandbox/blob/main/compose.yml" target="_blank" rel="noopener noreferrer">compose.yml</a> を見てみてくださいね🐾</div>
+    <div class="callout-body"><code>compose.yml</code> を使った管理がおすすめです。設定例はリポジトリのルートにある <a href="https://github.com/mikalulu/ai-agent-sandbox/blob/main/compose.yml" target="_blank" rel="noopener noreferrer">compose.yml</a> を参照してください</div>
   </div>
 
   <h3>1. ホスト側で Xephyr 起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy</button></div>
     <pre><span class="c"># 1280x800 のウィンドウを作って X11 ディスプレイ番号 :10 を割り当て</span>
 Xephyr :10 -screen 1280x800 -ac &</pre>
   </div>
 
   <h3>2. コンテナのビルドと起動</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy</button></div>
     <pre>podman build -t agent-sandbox .
 podman run -it --rm \
   --device nvidia.com/gpu=all \
@@ -368,7 +368,7 @@ podman run -it --rm \
   </div>
   <div class="callout callout-lav">
     <span class="callout-icon">🔑</span>
-    <div class="callout-body"><strong>API キーの注入:</strong> Dockerfile に API キーを書いてはいけません！ <code>--env-file</code> で安全に渡しましょう✨<br>
+    <div class="callout-body"><strong>API キーの注入:</strong> Dockerfile に API キーを書いてはいけません！ <code>--env-file</code> で安全に渡してください。<br>
     <pre style="margin:.5rem 0 0;font-size:.82rem;background:transparent;border:none;padding:0"># ~/.config/agent-sandbox/.env (chmod 600 で保護！)
 ANTHROPIC_API_KEY=sk-ant-...
 GEMINI_API_KEY=AIza...
@@ -380,7 +380,7 @@ chmod 700 ~/.config/agent-sandbox</pre></div>
   <h3>🔐 OAuth ログイン (ブラウザ認証)</h3>
   <p>API キー不要でブラウザ OAuth を使う場合は、コンテナ内でブラウザが Xephyr に表示されます。</p>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn">copy</button></div>
     <pre><span class="c"># Claude Code — ブラウザが Xephyr に開いて OAuth 完了</span>
 claude login
 
@@ -392,7 +392,7 @@ gemini auth login</pre>
   </div>
   <div class="callout callout-mint">
     <span class="callout-icon">💡</span>
-    <div class="callout-body"><strong>認証情報の永続化:</strong> <code>-v claude-auth:/home/agent/.config/claude</code> 等の named volume に認証トークンが保存されます。コンテナを再起動しても再ログイン不要です✨<br>ボリュームを初めて作る場合:<br>
+    <div class="callout-body"><strong>認証情報の永続化:</strong> <code>-v claude-auth:/home/agent/.config/claude</code> 等の named volume に認証トークンが保存されます。コンテナを再起動しても再ログイン不要です。<br>ボリュームを初めて作る場合:<br>
     <pre style="margin:.5rem 0 0;font-size:.82rem;background:transparent;border:none;padding:0">podman volume create claude-auth
 podman volume create windsurf-auth
 podman volume create kiro-auth</pre></div>
@@ -402,9 +402,9 @@ podman volume create kiro-auth</pre></div>
 <!-- 06 MODELS -->
 <section class="section" id="s6">
   <div class="section-head"><span class="section-num">06</span><h2>🦙 モデルの準備 (Ollama)</h2></div>
-  <p>コンテナ内、またはホスト側で Ollama を動かしてエージェントに脳みそを与えてあげましょう。コンテナ内に閉じ込める場合は、ボリュームを忘れずに！</p>
+  <p>コンテナ内、またはホスト側で Ollama を動かしてモデルを提供します。コンテナ内で実行する場合は、ボリュームの設定を忘れずに行ってください。</p>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy</button></div>
     <pre><span class="c"># コンテナ内で Ollama インストール</span>
 curl -fsSL https://ollama.com/install.sh | bash
 <span class="c"># 推奨モデル（コーディング特化）をプル</span>
@@ -412,7 +412,7 @@ ollama pull qwen2.5-coder:7b</pre>
   </div>
   <h3>モデルサイズ目安</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn">copy</button></div>
     <pre>qwen2.5-coder:3b     ~2 GB    VRAM 3GB+   軽量・高速
 qwen2.5-coder:7b     ~5 GB    VRAM 6GB+   バランス型
 llama3.2:3b          ~2 GB    VRAM 3GB+   汎用
@@ -420,7 +420,7 @@ codellama:7b         ~4 GB    VRAM 6GB+   コーディング特化</pre>
   </div>
   <div class="callout callout-peach">
     <span class="callout-icon">⚠</span>
-    <div class="callout-body">GPUのメモリ（VRAM）は、AIエージェントとOllamaで仲良く分け合って使います GPUの限界を超えないようなサイズのモデルを選んであげてくださいね📊 <code>nvidia-smi</code> コマンドで時々様子を見てあげると安心です✨</div>
+    <div class="callout-body">GPU のメモリ（VRAM）は、AI エージェントと Ollama で共有します。GPU の容量を超えないサイズのモデルを選んでください。<code>nvidia-smi</code> コマンドで使用状況を確認できます。</div>
   </div>
 </section>
 
@@ -444,7 +444,7 @@ codellama:7b         ~4 GB    VRAM 6GB+   コーディング特化</pre>
   </table>
   <h3>隔離の動作確認コマンド</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash — コンテナ内</span><button type="button" class="copy-btn">copy</button></div>
     <pre><span class="c"># ホスト FS が見えないことを確認 (agent ディレクトリのみ表示される)</span>
 ls /home
 
@@ -464,13 +464,13 @@ nvidia-smi</pre>
   <div class="section-head"><span class="section-num">08</span><h2>💡 便利なヒント集 (Tips)</h2></div>
   <h3>Xephyr 解像度変更</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy</button></div>
     <pre><span class="c"># HiDPI (2560x1440)</span>
 Xephyr :10 -screen 2560x1440 -dpi 144 -ac &</pre>
   </div>
   <h3>ワークスペースのバックアップ</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy</button></div>
     <pre>podman run --rm \
   -v agent-workspace:/work:ro \
   -v $(pwd):/out \
@@ -479,7 +479,7 @@ Xephyr :10 -screen 2560x1440 -dpi 144 -ac &</pre>
   </div>
   <h3>Antigravity 権限制限 (ゲスト内設定)</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">text</span><button type="button" class="copy-btn">copy</button></div>
     <pre>Settings > Terminal
   Auto Execution  →  Request Review   # 全コマンドを承認制に
   Deny List       →  rm -rf, curl, wget (任意)
@@ -489,13 +489,13 @@ Settings > Browser
   </div>
   <h3>CUDA バージョン確認</h3>
   <div class="code-wrap">
-    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy♪</button></div>
+    <div class="code-bar"><span class="code-lang">bash</span><button type="button" class="copy-btn">copy</button></div>
     <pre><span class="c"># ホスト側で driver バージョンを確認してから Dockerfile を調整</span>
 nvidia-smi | grep "CUDA Version"</pre>
   </div>
   <div class="callout callout-peach">
     <span class="callout-icon">⚠</span>
-    <div class="callout-body">Dockerfile の中にある <code>cuda-cudart-12-4</code> という数字は、使っているNVIDIAドライバーと仲良しなバージョンに合わせてあげてくださいね🤖</div>
+    <div class="callout-body">Dockerfile の中にある <code>cuda-cudart-12-4</code> という数字は、使用している NVIDIA ドライバーに対応するバージョンに合わせてください。</div>
   </div>
 </section>
 
@@ -556,7 +556,7 @@ podman build --no-cache -t agent-sandbox:latest .</pre></div>
 </section>
 
 <footer class="page-footer">
-  <div>AI Agent Sandbox — Linux Setup Guide ✿</div>
+  <div>AI Agent Sandbox — Linux Setup Guide</div>
   <div class="footer-links">
     <a href="./" style="color:var(--pink2)">🏠 ホーム</a>
     <a href="./isolation-matrix.html" style="color:var(--mint2)">🌸 Isolation Matrix</a>

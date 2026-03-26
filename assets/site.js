@@ -7,45 +7,45 @@
   };
 
   const quickStartCards = {
-    linux: `<strong>🐧 Linux + NVIDIA GPU → しっかり囲いたいときの本命です♪</strong><br>
-Podman + Xephyr で画面もファイルもきれいに分けつつ、GPU は CDI でそのまま使えます。<br>
-<strong>むずかしさ:</strong> <span style="color:var(--peach2)">★★★ ちょっぴり本気モード</span> — Xephyr と CDI の準備が山場です<br>
-<strong>向いている環境:</strong> Ubuntu 22.04+ / NVIDIA GPU / RAM 16GB+ / ディスク 80GB+<br>
-→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux セットアップガイドへ</a>`,
-    mac: `<strong>🍎 Apple Silicon Mac → ふんわり隔離したいときにぴったりです♪</strong><br>
-Lima VM の中でエージェントを動かしつつ、Ollama は Mac 本体の Metal パワーを借ります。<br>
-<strong>むずかしさ:</strong> <span style="color:var(--mint2)">★☆☆ かなりやさしめ</span> — brew でそろえて進めやすい構成です<br>
-<strong>向いている環境:</strong> macOS 13+ / M1〜M4 / Unified Memory 16GB+ / ディスク 100GB+<br>
-→ <a href="./mac.html" style="color:var(--lav2)">🔮 macOS セットアップガイドへ</a>`,
-    win: `<strong>⊞ Windows 11 → 手軽さと実用性のバランスがいいです♪</strong><br>
-WSL2 の中で Podman を動かし、画面まわりは WSLg におまかせできます。<br>
-<strong>むずかしさ:</strong> <span style="color:var(--sky2)">★★☆ ほどほど</span> — WSL2 有効化とドライバー更新が主なお仕事です<br>
-<strong>向いている環境:</strong> Windows 11 22H2+ / NVIDIA GPU / RAM 16GB+ / ディスク 80GB+<br>
-→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows セットアップガイドへ</a>`,
+    linux: `<strong>🐧 Linux + NVIDIA GPU — 最も高い隔離性能の構成</strong><br>
+Podman + Xephyr で画面・ファイルを分離し、GPU は CDI でパススルーします。<br>
+<strong>難易度:</strong> <span style="color:var(--peach2)">★★★ 中〜高</span> — Xephyr と CDI の設定が主な作業です<br>
+<strong>推奨環境:</strong> Ubuntu 22.04+ / NVIDIA GPU / RAM 16GB+ / ディスク 80GB+<br>
+→ <a href="./linux.html" style="color:var(--mint2)">Linux セットアップガイドへ</a>`,
+    mac: `<strong>🍎 Apple Silicon Mac — VM ベースの隔離構成</strong><br>
+Lima VM 内でエージェントを実行し、Ollama はホスト側の Metal で推論します。<br>
+<strong>難易度:</strong> <span style="color:var(--mint2)">★☆☆ 低</span> — Homebrew で導入でき、手順が少ない構成です<br>
+<strong>推奨環境:</strong> macOS 13+ / M1〜M4 / Unified Memory 16GB+ / ディスク 100GB+<br>
+→ <a href="./mac.html" style="color:var(--lav2)">macOS セットアップガイドへ</a>`,
+    win: `<strong>⊞ Windows 11 — WSL2 ベースの隔離構成</strong><br>
+WSL2 上で Podman を動かし、GUI 表示は WSLg が処理します。<br>
+<strong>難易度:</strong> <span style="color:var(--sky2)">★★☆ 中</span> — WSL2 の有効化とドライバー更新が主な作業です<br>
+<strong>推奨環境:</strong> Windows 11 22H2+ / NVIDIA GPU / RAM 16GB+ / ディスク 80GB+<br>
+→ <a href="./windows.html" style="color:var(--sky2)">Windows セットアップガイドへ</a>`,
   };
 
   const quickStartMixes = {
-    'linux+mac': `<strong>🐧✕🍎 デュアル構成 — 守りと速さを両取りしたいとき向けです♪</strong><br><br>
-<span style="color:var(--mint2)">🐧 Linux</span> → エージェントの本番実行担当<br>
-<span style="color:var(--lav2)">🍎 Mac</span> → Ollama Metal のローカル LLM サーバー担当<br><br>
-Linux 側から <code>OLLAMA_HOST</code> で Mac の Ollama を見ると、Metal 推論の軽さをうまく借りられます。<br><br>
-→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux から始める</a>　→ <a href="./mac.html" style="color:var(--lav2)">🔮 macOS も整える</a>`,
-    'linux+win': `<strong>🐧✕⊞ デュアル構成 — Linux 本命、Windows 補助の組み合わせです♪</strong><br><br>
-<span style="color:var(--mint2)">🐧 Linux</span> → しっかり隔離したメイン実行環境<br>
-<span style="color:var(--sky2)">⊞ Windows</span> → Windows 専用ツール確認や WSL2 補助環境<br><br>
-AI エージェントは Linux でのびのび動かしつつ、Windows で互換性確認をする流れが相性よしです。<br><br>
-→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux から始める</a>　→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows も整える</a>`,
-    'mac+win': `<strong>🍎✕⊞ デュアル構成 — Mac で推論、Windows で実行したいとき向けです♪</strong><br><br>
-<span style="color:var(--lav2)">🍎 Mac</span> → Ollama Metal と設計まわり担当<br>
-<span style="color:var(--sky2)">⊞ Windows</span> → WSL2 + Podman のエージェント実行担当<br><br>
-Windows 側から Mac の Ollama を見ると、Apple Silicon の推論パワーを気持ちよく共有できます。<br><br>
-→ <a href="./mac.html" style="color:var(--lav2)">🔮 Mac から始める</a>　→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows も整える</a>`,
-    'linux+mac+win': `<strong>🐧✕🍎✕⊞ フル装備 — 役割分担をきれいにしたい人向けです♪</strong><br><br>
+    'linux+mac': `<strong>🐧✕🍎 デュアル構成 — 隔離と推論速度の両立</strong><br><br>
+<span style="color:var(--mint2)">🐧 Linux</span> → エージェントの本番実行環境<br>
+<span style="color:var(--lav2)">🍎 Mac</span> → Ollama Metal によるローカル LLM サーバー<br><br>
+Linux 側から <code>OLLAMA_HOST</code> で Mac の Ollama に接続すると、Metal の推論性能を活用できます。<br><br>
+→ <a href="./linux.html" style="color:var(--mint2)">Linux から始める</a>　→ <a href="./mac.html" style="color:var(--lav2)">macOS も整える</a>`,
+    'linux+win': `<strong>🐧✕⊞ デュアル構成 — Linux メイン、Windows 補助</strong><br><br>
+<span style="color:var(--mint2)">🐧 Linux</span> → 高い隔離性のメイン実行環境<br>
+<span style="color:var(--sky2)">⊞ Windows</span> → Windows 専用ツールの検証や WSL2 補助環境<br><br>
+エージェントは Linux で実行し、Windows で互換性確認を行う構成が効率的です。<br><br>
+→ <a href="./linux.html" style="color:var(--mint2)">Linux から始める</a>　→ <a href="./windows.html" style="color:var(--sky2)">Windows も整える</a>`,
+    'mac+win': `<strong>🍎✕⊞ デュアル構成 — Mac で推論、Windows で実行</strong><br><br>
+<span style="color:var(--lav2)">🍎 Mac</span> → Ollama Metal による推論と設計作業<br>
+<span style="color:var(--sky2)">⊞ Windows</span> → WSL2 + Podman でのエージェント実行<br><br>
+Windows 側から Mac の Ollama に接続すると、Apple Silicon の推論性能を共有できます。<br><br>
+→ <a href="./mac.html" style="color:var(--lav2)">Mac から始める</a>　→ <a href="./windows.html" style="color:var(--sky2)">Windows も整える</a>`,
+    'linux+mac+win': `<strong>🐧✕🍎✕⊞ フル構成 — 用途別に役割を分担</strong><br><br>
 <span style="color:var(--mint2)">🐧 Linux</span> → エージェント本番実行<br>
-<span style="color:var(--lav2)">🍎 Mac</span> → ローカル LLM サーバーと設計相談<br>
+<span style="color:var(--lav2)">🍎 Mac</span> → ローカル LLM サーバー<br>
 <span style="color:var(--sky2)">⊞ Windows</span> → GUI 確認や Windows 専用ツール検証<br><br>
-それぞれの得意分野をふわっと分担すると、無理なく使い分けできます。<br><br>
-→ <a href="./linux.html" style="color:var(--mint2)">🌿 Linux</a>　→ <a href="./mac.html" style="color:var(--lav2)">🔮 macOS</a>　→ <a href="./windows.html" style="color:var(--sky2)">🌊 Windows</a>`,
+各マシンの得意分野で役割分担することで、効率的に運用できます。<br><br>
+→ <a href="./linux.html" style="color:var(--mint2)">Linux</a>　→ <a href="./mac.html" style="color:var(--lav2)">macOS</a>　→ <a href="./windows.html" style="color:var(--sky2)">Windows</a>`,
   };
 
   const quickStartStyles = {
@@ -102,7 +102,7 @@ Windows 側から Mac の Ollama を見ると、Apple Silicon の推論パワー
 
     try {
       await navigator.clipboard.writeText(text);
-      btn.textContent = 'ふわっとコピー完了';
+      btn.textContent = 'コピーしました';
       btn.classList.add('ok');
       btn.setAttribute('aria-label', 'コピーできました');
       setTimeout(() => {

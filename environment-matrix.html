@@ -6,18 +6,18 @@
 <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<meta name="description" content="Shell とファイルシステムの相性を、OS 別にやさしく整理した動作環境マトリクスです。">
+<meta name="description" content="Shell とファイルシステムの互換性を OS 別に整理した動作環境マトリクスです。">
 <meta name="theme-color" content="#fef6f0">
 <meta property="og:type" content="website">
-<meta property="og:title" content="AI Agent 動作環境マトリクス ✿">
-<meta property="og:description" content="Shell とファイルシステムの相性を、OS 別にやさしく整理した動作環境マトリクスです。">
+<meta property="og:title" content="AI Agent 動作環境マトリクス">
+<meta property="og:description" content="Shell とファイルシステムの互換性を OS 別に整理した動作環境マトリクスです。">
 <meta property="og:url" content="https://mikalulu.github.io/ai-agent-sandbox/environment-matrix.html">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AI Agent 動作環境マトリクス ✿">
-<meta name="twitter:description" content="Shell とファイルシステムの相性を、OS 別にやさしく整理した動作環境マトリクスです。">
+<meta name="twitter:title" content="AI Agent 動作環境マトリクス">
+<meta name="twitter:description" content="Shell とファイルシステムの互換性を OS 別に整理した動作環境マトリクスです。">
 <link rel="canonical" href="https://mikalulu.github.io/ai-agent-sandbox/environment-matrix.html">
 <link rel="stylesheet" href="./assets/site.css">
-<title>AI Agent 動作環境マトリクス ✿</title>
+<title>AI Agent 動作環境マトリクス</title>
 <style>
 :root {
   --bg:       #fef6f0;
@@ -59,7 +59,7 @@ body {
 }
 
 body::before {
-  content: '✿ ❀ ✦ ❋ ✿ ❀ ✦';
+  content: ''; display: none;
   position: fixed; top: 18px; right: 24px;
   font-size: 13px; color: var(--pink);
   letter-spacing: 8px; pointer-events: none; opacity: 0.5;
@@ -312,10 +312,10 @@ header       { animation: fadeUp 0.5s ease both; }
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main-content">本文へふわっとスキップ</a>
+<a class="skip-link" href="#main-content">本文へスキップ</a>
 
 <nav class="nav" aria-label="サイト案内">
-  <span class="nav-label">✿ Sandbox Docs</span>
+  <span class="nav-label">Sandbox Docs</span>
   <a class="nav-pill index" href="./index.html">↩ Index</a>
   <a class="nav-pill" href="./isolation-matrix.html">🌸 Isolation</a>
   <a class="nav-pill active" href="./environment-matrix.html" aria-current="page">🐚 Environment</a>
@@ -327,8 +327,8 @@ header       { animation: fadeUp 0.5s ease both; }
 
 <header>
   <div class="header-deco">💻 🐚 📁 🔧 💻</div>
-  <h1>AI Agent <span class="accent">動作環境</span><span class="accent2">マトリクス</span> ✿</h1>
-  <div class="subtitle">Shell とファイルまわりの相性を、OS ごとにふんわり整理した早見表です♪</div>
+  <h1>AI Agent <span class="accent">動作環境</span><span class="accent2">マトリクス</span></h1>
+  <div class="subtitle">Shell とファイルの互換性を OS ごとに整理した早見表です。</div>
 </header>
 
 <main id="main-content" class="page">
@@ -341,19 +341,19 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="bp-os-icon">🐧</div>
       <div>
         <div class="bp-os-name">Linux</div>
-        <div class="bp-os-verdict">直接インストール / VM — <span class="verdict-good">一番のびのび使いやすいです✿</span></div>
+        <div class="bp-os-verdict">直接インストール / VM — <span class="verdict-good">最も互換性が高い環境です</span></div>
       </div>
     </div>
     <div class="bp-os-body">
-      <div class="bp-section-title">おすすめの構成✨</div>
+      <div class="bp-section-title">推奨構成</div>
       <div class="bp-config-block">bash または zsh &nbsp;×&nbsp; ext4 / xfs / btrfs</div>
-      <div class="bp-why">AIが学習しているデータの多くはLinuxやbashのものです🐧 だからAIの考えと実際の環境が一番ピッタリ合う最高のOSなんです✨ ファイルの場所や権限なども、AIの予測通りに完璧に動いてくれますよ！</div>
+      <div class="bp-why">AI の学習データの多くは Linux/bash 環境のものです。そのため AI の出力と実環境の整合性が最も高く、パスや権限も AI の予測通りに動作します。</div>
       <div class="bp-items">
-        <div class="bp-item"><div class="bp-item-head">🐚 Shell 選択</div><div class="bp-item-body">基本は bash を使いましょう✨ デフォルトシェルを <code>/bin/bash</code> にしておけば、AIが得意なbash特有の書き方もエラーにならずスルスル動きます♪</div></div>
-        <div class="bp-item"><div class="bp-item-head">📁 作業ディレクトリ</div><div class="bp-item-body"><code>~/</code> （ホームディレクトリ）の下に置きましょう🏠 <code>/tmp</code> は再起動で消えてしまうので長期間の作業には向きません💦 自分のホームの中なら権限のエラーも起きにくくて安心です！</div></div>
-        <div class="bp-item"><div class="bp-item-head">💾 FS 選択</div><div class="bp-item-body">どれを選んでもAIからは同じように見えます👀 ただ、btrfsの特殊な機能（スナップショット等）を使うとファイルの本当の場所が少しズレて見えることがあるので、そこだけ気をつけてくださいね！</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: sudo 環境でのパス差異</div><div class="bp-item-body"><code>sudo</code> を使うと、今まで見えていた便利なツールが突然見えなくなることがあります💦 <code>sudo -E</code> を使うか、設定（visudo）で環境を引き継げるようにしてあげましょう♪</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: コンテナ内の root 実行</div><div class="bp-item-body">Dockerの中は基本的に一番えらい「root」になっています👑 AIが気まぐれに権限を変えたりすると、元のパソコン側のファイル権限まで変わってしまうことがあるので要注意です⚠️</div></div>
+        <div class="bp-item"><div class="bp-item-head">🐚 Shell 選択</div><div class="bp-item-body">bash を推奨します。デフォルトシェルを <code>/bin/bash</code> にしておけば、AI が生成する bash 構文がそのまま動作します。</div></div>
+        <div class="bp-item"><div class="bp-item-head">📁 作業ディレクトリ</div><div class="bp-item-body"><code>~/</code>（ホームディレクトリ）配下を推奨します。<code>/tmp</code> は再起動で消去されるため長期作業には不向きです。ホームディレクトリ内であれば権限エラーも発生しにくくなります。</div></div>
+        <div class="bp-item"><div class="bp-item-head">💾 FS 選択</div><div class="bp-item-body">どのファイルシステムでも AI からの見え方に大きな差はありません。ただし btrfs のスナップショット等を使用すると実パスにずれが生じる場合があるため注意してください。</div></div>
+        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: sudo 環境でのパス差異</div><div class="bp-item-body"><code>sudo</code> を使うと PATH が変わり、ツールが見つからなくなることがあります。<code>sudo -E</code> を使うか、visudo で環境変数を引き継ぐ設定をしてください。</div></div>
+        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: コンテナ内の root 実行</div><div class="bp-item-body">Docker コンテナ内はデフォルトで root 権限です。AI が権限を変更すると、ホスト側のファイル権限にも影響する場合があるため注意が必要です。</div></div>
       </div>
     </div>
   </div>
@@ -363,20 +363,20 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="bp-os-icon">🍎</div>
       <div>
         <div class="bp-os-name">macOS</div>
-        <div class="bp-os-verdict">そのままだと少しクセがありますが、Docker や Lima を添えるとかなり安心です♪</div>
+        <div class="bp-os-verdict">ネイティブ環境には制約がありますが、Docker や Lima の併用で解消できます。</div>
       </div>
     </div>
     <div class="bp-os-body">
-      <div class="bp-section-title">おすすめの構成✨</div>
+      <div class="bp-section-title">推奨構成</div>
       <div class="bp-config-block">zsh / bash &nbsp;×&nbsp; Lima または Docker</div>
-      <div class="bp-why">macOSそのまま（native）だと、大文字小文字の区別や強力なシステム保護（SIP）による制限があってAIが少し困ってしまいます💦 Lima というVMを使えば、それらの制限を回避できるのでmacOSでは一番おすすめです🍎✨</div>
+      <div class="bp-why">macOS ネイティブでは case-insensitive FS や SIP による制約があります。Lima VM を使うことでこれらを回避でき、macOS では最も推奨される構成です。</div>
       <div class="bp-items">
-        <div class="bp-item"><div class="bp-item-head">🐚 Shell 選択</div><div class="bp-item-body">標準の zsh のままで大丈夫です🙆‍♀️ 最初から入っている <code>/bin/bash</code> は古すぎてAIのやりたいことが上手く動かないことがあります💦 Homebrewで新しいbashを入れるか、zshで進めましょう！</div></div>
-        <div class="bp-item"><div class="bp-item-head">🔮 Lima の優位性</div><div class="bp-item-body">Lima はとっても軽快なLinuxの仮想マシンです✨ 直接ここに入ることで、Docker特有のややこしい制限（DinD）を受けずに、のびのびとLinux環境の恩恵を受けられますよ♪</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: APFS case-insensitive</div><div class="bp-item-body"><code>File.txt</code> と <code>file.txt</code> を同じファイルだと勘違いしてしまいます💦 AIがLinuxの感覚で扱うとGitでおかしくなるので、早めに気づけるように設定しておきましょう！</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: SIP による無音失敗</div><div class="bp-item-body">強固なシステム保護（SIP）により大事な場所は絶対に書き換えられません🛡️ AIが変更しようとしても、エラーが出ないままヌルッと失敗してしまうので少し厄介です💦</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: Firmlink によるパスずれ</div><div class="bp-item-body">一部のフォルダ（<code>/var</code> や <code>/tmp</code>）は別の場所への「秘密のワープトンネル」になっています🌀 AIが本当の場所を調べたときにズレが生じて混乱することがあります👀</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: Docker ボリュームマウント</div><div class="bp-item-body">macOSのフォルダをそのままコンテナに繋ぐと、大文字小文字の勘違い問題まで一緒に持ち込まれてしまいます💦 コンテナの中に専用の作業場所を作るのが一番安全です✨</div></div>
+        <div class="bp-item"><div class="bp-item-head">🐚 Shell 選択</div><div class="bp-item-body">標準の zsh で問題ありません。プリインストールの <code>/bin/bash</code> はバージョンが古く、AI が生成するスクリプトが動作しない場合があります。Homebrew で新しい bash を導入するか、zsh を使用してください。</div></div>
+        <div class="bp-item"><div class="bp-item-head">🔮 Lima の優位性</div><div class="bp-item-body">Lima は軽量な Linux VM です。直接 VM 内で作業することで、Docker の DinD 制約を受けずに Linux 環境を利用できます。</div></div>
+        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: APFS case-insensitive</div><div class="bp-item-body">APFS は <code>File.txt</code> と <code>file.txt</code> を同一ファイルとして扱います。AI が Linux の前提で操作すると Git で不整合が生じるため、<code>core.ignorecase</code> の設定に注意してください。</div></div>
+        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: SIP による無音失敗</div><div class="bp-item-body">SIP（System Integrity Protection）により保護されたパスは書き換え不可です。AI が変更を試みてもエラーが出ずにサイレントに失敗するため、問題の特定が困難になります。</div></div>
+        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: Firmlink によるパスずれ</div><div class="bp-item-body">一部のパス（<code>/var</code>、<code>/tmp</code> 等）は Firmlink により別の場所にリダイレクトされています。AI が実パスを解決した際にずれが生じることがあります。</div></div>
+        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: Docker ボリュームマウント</div><div class="bp-item-body">macOS のディレクトリをコンテナにマウントすると、case-insensitive の問題も持ち込まれます。コンテナ内に専用の作業ディレクトリを作成するのが安全です。</div></div>
       </div>
     </div>
   </div>
@@ -386,20 +386,20 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="bp-os-icon">🪟</div>
       <div>
         <div class="bp-os-name">Windows</div>
-        <div class="bp-os-verdict">そのままだとご機嫌取りが大変なので、WSL2 を使うのがいちばんやさしい解決策です♪</div>
+        <div class="bp-os-verdict">ネイティブ環境は互換性の問題が多いため、WSL2 の利用を推奨します。</div>
       </div>
     </div>
     <div class="bp-os-body">
-      <div class="bp-section-title">おすすめの構成✨</div>
+      <div class="bp-section-title">推奨構成</div>
       <div class="bp-config-block">WSL2 (bash / zsh) &nbsp;×&nbsp; Linux FS (~/projects/)</div>
-      <div class="bp-why">実は Claude Code などは Windowsのまま（コマンドプロンプト等）では正しく動かないことが多いです💦 WSL2を使ってLinux環境を呼び出せば、本物のLinuxとほぼ同じ快適さでサクサク動かせますよ🪟✨</div>
+      <div class="bp-why">Claude Code 等は Windows ネイティブ（コマンドプロンプト等）では正常に動作しないことが多いです。WSL2 を使えば、ほぼネイティブ Linux と同等の環境で実行できます。</div>
       <div class="bp-items">
-        <div class="bp-item"><div class="bp-item-head">🌊 WSL2 のセットアップ</div><div class="bp-item-body"><code>wsl --install</code> という魔法のコマンド一発でUbuntuが入ります🐧 Windows Terminal を使うと見た目もスッキリしてとっても使いやすくなりますよ！</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: 作業 FS を Windows 側に置く</div><div class="bp-item-body">【一番大事なポイント⚠️】Windows側のフォルダ（Cドライブなど）で作業すると、通信の都合で恐ろしく動作が遅くなってしまいます🐢 必ずLinux側（<code>~/</code> 等）で作業するようにしてくださいね！</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: git の混在</div><div class="bp-item-body">Windows側のGitと、WSL2(Linux)側のGitは別々の存在です👀 余計な改行コードの変換をされないように、WSL2側でしっかり設定をしておきましょう♪</div></div>
-        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: ロケール未設定</div><div class="bp-item-body">入れた直後は「あなたが何語を話すか」が未設定なことがあります🗣️ 文字化けを防ぐために、しっかり UTF-8（日本語か英語）を設定しておいてくださいね✨</div></div>
-        <div class="bp-item"><div class="bp-item-head">🐚 git-bash の位置付け</div><div class="bp-item-body">Windows向けに作られたお手軽なbash環境ですが、動きが少しモッサリしていて本格的なシステム機能が足りません🐢 AIのお家としては少し物足りない環境です💦</div></div>
-        <div class="bp-item"><div class="bp-item-head">🚫 CMD / PowerShell 5.1 は避ける</div><div class="bp-item-body">昔ながらのコマンドプロンプト(CMD)はAIが得意な言葉をあまり理解してくれません🙅‍♀️ どうしてもPowerShellを使うなら、新しい <code>pwsh</code>（バージョン7以上）を使ってあげてくださいね🦋</div></div>
+        <div class="bp-item"><div class="bp-item-head">🌊 WSL2 のセットアップ</div><div class="bp-item-body"><code>wsl --install</code> で Ubuntu を導入できます。Windows Terminal との組み合わせで使いやすくなります。</div></div>
+        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: 作業 FS を Windows 側に置く</div><div class="bp-item-body">⚠️ 重要: Windows 側のディレクトリ（C ドライブ等）で作業すると、9P プロトコル経由のため大幅に速度が低下します。必ず Linux 側（<code>~/</code> 等）で作業してください。</div></div>
+        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: git の混在</div><div class="bp-item-body">Windows 側と WSL2 側の Git は別のインストールです。改行コードの自動変換を防ぐため、WSL2 側で設定してください。</div></div>
+        <div class="bp-item"><div class="bp-item-head">⚠️ 罠: ロケール未設定</div><div class="bp-item-body">インストール直後はロケールが未設定の場合があります。文字化けを防ぐため、UTF-8 ロケールを設定してください。</div></div>
+        <div class="bp-item"><div class="bp-item-head">🐚 git-bash の位置付け</div><div class="bp-item-body">Windows 向けの簡易 bash 環境ですが、パフォーマンスが低く、システム機能も不足しています。AI エージェントの実行環境としては不十分です。</div></div>
+        <div class="bp-item"><div class="bp-item-head">🚫 CMD / PowerShell 5.1 は避ける</div><div class="bp-item-body">CMD は AI が生成する bash/POSIX 構文と互換性がありません。PowerShell を使用する場合は、新しい <code>pwsh</code>（バージョン 7 以上）を使用してください。</div></div>
       </div>
     </div>
   </div>
@@ -413,7 +413,7 @@ header       { animation: fadeUp 0.5s ease both; }
     <div class="li"><span class="badge s2">△</span>機能欠落 / 精度低下</div>
     <div class="li"><span class="badge s1">✗</span>実用不可</div>
     <div class="li"><span class="badge s0">—</span>組み合わせ非成立</div>
-    <div class="li" style="margin-left:auto;font-size:10px;color:var(--textdim)">※ Claude Code を基準にしています。Gitはどのみち絶対必要なので見やすくするために省きました✨</div>
+    <div class="li" style="margin-left:auto;font-size:10px;color:var(--textdim)">※ Claude Code を基準にしています。Gitはどのみち絶対必要なので見やすくするために省略しています。</div>
   </div>
 
   <div class="matrix-card">
@@ -446,7 +446,7 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="note-num">1</div>
       <div class="note-title">Git の必須性（エージェントの感覚 / 記憶）</div>
       <div class="note-body">
-        表からは省いていますが、AIエージェントにとって <strong>Git は生きていくために絶対に欠かせないインフラ</strong> です✨ 単なる履歴管理ではなく、「今どのファイルがどうなっているか」「自分がどこを変えたか」を理解し、失敗したら「安全に元に戻す」ための<strong>大切な短期記憶や感覚器官</strong>の役割を果たします🧠 Git（.gitフォルダ）がない場所だと、AIは目隠しされた状態になってしまい、実力をほとんど発揮できなくなってしまいます💦
+        表からは省略していますが、AI エージェントにとって <strong>Git は不可欠なインフラ</strong> です。単なる履歴管理ではなく、ファイルの状態把握・変更の追跡・失敗時のロールバックなど、<strong>AI の作業コンテキスト管理</strong>の役割を果たします。Git リポジトリ外では AI の能力が大幅に制限されます。
       </div>
       <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div>5 / 5</div>
     </div>
@@ -455,9 +455,9 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="note-num">2</div>
       <div class="note-title">Shell 構文非互換</div>
       <div class="note-body">
-        AIはGitHubの膨大なLinux/bashのデータを食べて育ちました📚 だから息をするようにbash特有の書き方（配列やかっこ等）を使ってしまいます。これを他のシェル（cmdやfish等）にそのまま渡すと「なんのこと？」とエラーになって激突してしまいます💥<br><br>
-        <strong>Claude Code:</strong> WindowsにWSLを入れてbash環境を作ってあげることで優しく回避できます✨<br>
-        <strong>その他のエージェント:</strong> エラーを見て「あれ、今の間違ってたかも」と自分で直せる賢い子なら挽回できるかもしれません👀
+        AI は GitHub 上の Linux/bash データで学習しているため、bash 固有の構文（配列、プロセス置換等）を頻繁に生成します。これを cmd や fish 等に渡すとエラーになります。<br><br>
+        <strong>Claude Code:</strong> WSL2 で bash 環境を用意することで回避できます。<br>
+        <strong>その他のエージェント:</strong> エラーループ（自己修正機能）を持つエージェントであれば、構文の差異を自動的に修正できる場合があります。
       </div>
       <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div>5 / 5</div>
     </div>
@@ -466,7 +466,7 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="note-num">3</div>
       <div class="note-title">FHS 非準拠 — Windows native</div>
       <div class="note-body">
-        パスの区切りが「\」だったり、Cドライブ等の概念があったり、権限の仕組みが全然違ったりと、Linux前提のAIからすると異世界です🌎 快適に動かすには素直に WSL2 の力を借りるのが一番安心で手っ取り早いです🪟✨
+        パス区切り（\）、ドライブレター、権限モデルなど、Linux 前提の AI にとって互換性の問題が多数あります。WSL2 の利用が最も確実な対策です。
       </div>
       <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>3 / 5</div>
     </div>
@@ -475,7 +475,7 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="note-num">4</div>
       <div class="note-title">FHS 部分準拠 — macOS</div>
       <div class="note-body">
-        大文字小文字の区別が曖昧だったり、超強力なシステム保護（SIP）に弾かれたり、秘密のトンネル（Firmlink）でパスがズレたりと、macOSには特有のアスレチックがたくさんあります🍎 少しAIが戸惑いやすい環境ですね💦
+        case-insensitive FS、SIP による書き込み制限、Firmlink によるパスのずれなど、macOS 固有の制約が複数あります。AI が Linux 前提で動作する場合に不整合が生じやすい環境です。
       </div>
       <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>3 / 5</div>
     </div>
@@ -484,7 +484,7 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="note-num">5</div>
       <div class="note-title">Docker-in-Docker (DinD)</div>
       <div class="note-body">
-        コンテナの中からさらにDockerをいじる、少しマトリョーシカのようなやり方です🐳 便利ですがセキュリティの穴になりやすいのが玉にキズです💦 Limaを使えばこの複雑な構造を避けられるので、より高い評価になっていますよ✨
+        コンテナ内からさらに Docker を操作する入れ子構造です。便利ですがセキュリティリスクがあります。Lima を使えばこの構造を回避できるため、より高い評価になっています。
       </div>
       <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>3 / 5</div>
     </div>
@@ -493,7 +493,7 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="note-num">6</div>
       <div class="note-title">PowerShell 5.1 と pwsh の違い</div>
       <div class="note-body">
-        昔から入っている青い画面（PowerShell 5.1）と、黒い画面の新しい子（PowerShell 7+ / pwsh）は全くの別物です！ 古い方を使うと、変な文字コードでファイルが出力されてAIが文字化けにうなされるので、必ず新しい pwsh を使ってあげてくださいね🦋
+        PowerShell 5.1 と PowerShell 7+（pwsh）は別のランタイムです。5.1 はデフォルトのエンコーディングが UTF-8 ではないため、AI の出力が文字化けする原因になります。pwsh を使用してください。
       </div>
       <div class="impact-bar">影響度<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>3 / 5</div>
     </div>
@@ -502,8 +502,8 @@ header       { animation: fadeUp 0.5s ease both; }
       <div class="note-num">7</div>
       <div class="note-title">汎用エージェント固有 — エラーループ実装差</div>
       <div class="note-body">
-        AIが「自分のやった結果」を見て反省できる機能（ループ）があるかどうかです♻️ この機能があると、間違った構文を使っても「あ、ここはこのシェルじゃ動かないんだ！」と自分で気づいて次から直してくれます✨<br><br>
-        <strong>この自己修正の賢さが、AIの真の実力を決める一番大事なポイントだったりします💡</strong>
+        AI が実行結果を確認して修正できるループ機能の有無です。この機能があると、構文エラー時に AI が自動的に修正を試みます。<br><br>
+        <strong>この自己修正能力が、環境差異に対する AI の実質的な適応力を左右します。</strong>
       </div>
       <div class="impact-bar">影響度(汎用)<div class="dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>4 / 5</div>
     </div>
@@ -517,35 +517,35 @@ header       { animation: fadeUp 0.5s ease both; }
     <div class="col-card">
       <div class="col-title">SVN</div>
       <div class="col-body">
-        コマンドを出すこと自体はできますが、なにせGitに比べて学習データが少なすぎるので、いまいち自信が持てないようです🐢 複雑なことはよく間違えるので、SVNを使う時は人間が手取り足取り確認してあげる必要があります💦
+        基本的なコマンドは実行できますが、Git に比べて学習データが少ないため精度が低くなります。複雑な操作では誤りが多いため、SVN を使用する際は人間による確認が必要です。
       </div>
     </div>
 
     <div class="col-card">
       <div class="col-title">ロケール設定</div>
       <div class="col-body">
-        言語設定（LANG）をきちんとしてあげないと、日本語が全てエイリアン語👽に文字化けしてしまい、AIがパニックになってしまいます💦 ファイル自体も UTF-8 という世界共通の文字コードに揃えておくのが一番トラブルが少なくて平和ですよ✨
+        LANG が未設定だと日本語が文字化けし、AI が正しく処理できません。ファイルも UTF-8 に統一するのが最もトラブルの少ない構成です。
       </div>
     </div>
 
     <div class="col-card">
       <div class="col-title">CP932 と CRLF — Windows のエンコーディング問題</div>
       <div class="col-body">
-        ターミナルの文字化け（CP932）より厄介なのが、Windows特有の「改行コード（CRLF）」のいたずらです👻 何もしていないのにGitの差分がぐちゃぐちゃになることがあるので、設定でしっかり自動変換をOFF（false）にしておきましょうね♪
+        CP932 の文字化け以上に厄介なのが、Windows 固有の CRLF 改行コードです。Git の差分が崩れる原因になるため、<code>core.autocrlf=false</code> に設定してください。
       </div>
     </div>
 
     <div class="col-card">
       <div class="col-title">CI/CD 環境での注意点</div>
       <div class="col-body">
-        CI/CDの裏側はだいたい Linux + bash なので、環境としては最高に恵まれています✨ 途中で人間が「Yes/No」を入力しなくていいようにしたり（-yフラグ等）、秘密のパスワードが漏れないようにしたりと、無人で走らせるためのお作法だけ気をつけてくださいね🤖🚀
+        CI/CD は通常 Linux + bash 環境のため、互換性は高いです。非対話実行（-y フラグ等）やシークレット管理など、自動実行向けの設定に注意してください。
       </div>
     </div>
 
   </div>
 
   <footer>
-    <span>AI Agent Environment Compatibility Matrix ✿</span>
+    <span>AI Agent Environment Compatibility Matrix</span>
     <span>Shell × FHS — Claude Code & Generic LLM Agent</span>
   </footer>
 </main>
