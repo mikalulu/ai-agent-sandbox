@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta name="description" content="隔離手法を強さや特徴ごとに比較できる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
-<meta name="theme-color" content="#fef6f0">
+<meta name="theme-color" content="#f7fbff">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Isolation Matrix">
 <meta property="og:description" content="隔離手法を強さや特徴ごとに比較できる Isolation Matrix です。AI Agent Sandbox の補助資料として使えます。">
@@ -20,29 +20,29 @@
 <title>Isolation Matrix</title>
 <style>
 :root {
-  --bg:       #fef6f0;
-  --bg2:      #fff9f5;
-  --cream:    #fffaf6;
-  --pink:     #ffb3c6;
-  --pink2:    #ff8fab;
-  --peach:    #ffcba4;
-  --peach2:   #ffad7d;
-  --mint:     #b5ead7;
-  --mint2:    #78d5b0;
-  --sky:      #b8dff8;
-  --sky2:     #7dc4f0;
-  --lav:      #d4b8f8;
-  --lav2:     #b08af0;
-  --yellow:   #fde992;
-  --yellow2:  #f9d84a;
+  --bg:       #f7fbff;
+  --bg2:      #ffffff;
+  --cream:    #ffffff;
+  --pink:     #dceaf7;
+  --pink2:    #5d97ca;
+  --peach:    #e8f1f9;
+  --peach2:   #6f9dc7;
+  --mint:     #d7eaf8;
+  --mint2:    #3d8ec7;
+  --sky:      #cfe6fa;
+  --sky2:     #4f98d2;
+  --lav:      #e5effb;
+  --lav2:     #7ea8d1;
+  --yellow:   #e9f1f8;
+  --yellow2:  #89afd1;
   --red:      #ffb3b3;
   --red2:     #ff8080;
   --gray:     #c9d0da;
   --gray2:    #a0aab8;
-  --text:     #4a4060;
-  --textdim:  #9890b0;
-  --border:   #ecdde8;
-  --shadow:   rgba(180,140,200,0.13);
+  --text:     #17324a;
+  --textdim:  #5d7b97;
+  --border:   #d8e6f2;
+  --shadow:   rgba(64, 106, 148, 0.12);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,9 +50,9 @@
 body {
   background: var(--bg);
   background-image:
-    radial-gradient(circle at 15% 10%, #ffe0ec55 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, #d4e8ff55 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, #e8f8f055 0%, transparent 60%);
+    radial-gradient(circle at 14% 10%, rgba(121, 171, 216, 0.14) 0%, transparent 32%),
+    radial-gradient(circle at 86% 16%, rgba(207, 230, 250, 0.7) 0%, transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #f7fbff 58%, #ffffff 100%);
   font-family: 'Nunito', sans-serif;
   color: var(--text);
   min-height: 100vh;
@@ -62,14 +62,8 @@ body {
 
 /* floating deco dots */
 body::before {
-  content: ''; display: none;
-  position: fixed;
-  top: 18px; right: 24px;
-  font-size: 13px;
-  color: var(--pink);
-  letter-spacing: 8px;
-  pointer-events: none;
-  opacity: 0.5;
+  content: '';
+  display: none;
 }
 
 /* ── Header & Nav ── */
@@ -87,7 +81,7 @@ body::before {
   color: var(--textdim); transition: all 0.15s; background: white;
 }
 .nav-pill:hover { transform: translateY(-1px); box-shadow: 0 2px 8px var(--shadow); }
-.nav-pill.active { border-color: var(--pink); color: var(--pink2); background: #ffe8f0; font-weight: 800; }
+.nav-pill.active { border-color: var(--pink); color: var(--pink2); background: #eff6fc; font-weight: 800; }
 .nav-pill.index { border-style: dashed; }
 
 header {
@@ -186,7 +180,7 @@ th, td {
 
 /* column headers */
 .col-head {
-  background: linear-gradient(135deg, #fff5fa 0%, #f5f0ff 100%);
+  background: linear-gradient(135deg, #f6fbff 0%, #eef5fb 100%);
   padding: 12px 10px 10px;
   font-size: 11px;
   font-weight: 800;
@@ -308,7 +302,7 @@ th, td {
 }
 
 /* hover */
-tbody tr:hover td { background-color: #fef5fc; }
+tbody tr:hover td { background-color: #f2f7fc; }
 tbody tr:hover td.row-label { background-color: #fceef8; }
 
 /* ── Notes ── */
@@ -351,7 +345,7 @@ tbody tr:hover td.row-label { background-color: #fceef8; }
   font-weight: 600;
 }
 .note-card code {
-  background: #f5eef8;
+  background: #eef5fb;
   color: var(--lav2);
   padding: 1px 5px;
   border-radius: 5px;
@@ -416,11 +410,11 @@ header        { animation: fadeUp 0.5s ease both; }
 
 <!-- Legend pills -->
 <div class="legend">
-  <div class="legend-pill"><div class="legend-dot" style="background:#ffb3c6"></div>HW / Firmware</div>
-  <div class="legend-pill"><div class="legend-dot" style="background:#b5ead7"></div>OS / Process</div>
-  <div class="legend-pill"><div class="legend-dot" style="background:#b8dff8"></div>Network</div>
-  <div class="legend-pill"><div class="legend-dot" style="background:#d4b8f8"></div>Runtime / Lang</div>
-  <div class="legend-pill"><div class="legend-dot" style="background:#fde992"></div>User Control</div>
+  <div class="legend-pill"><div class="legend-dot" style="background:#dceaf7"></div>HW / Firmware</div>
+  <div class="legend-pill"><div class="legend-dot" style="background:#d7eaf8"></div>OS / Process</div>
+  <div class="legend-pill"><div class="legend-dot" style="background:#cfe6fa"></div>Network</div>
+  <div class="legend-pill"><div class="legend-dot" style="background:#e5effb"></div>Runtime / Lang</div>
+  <div class="legend-pill"><div class="legend-dot" style="background:#e9f1f8"></div>User Control</div>
 </div>
 
 <!-- Matrix -->
@@ -450,7 +444,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Physical Air Gap -->
 <tr>
   <td class="row-label"><div class="row-name">物理 Air Gap</div><div class="row-sub">Physical Air Gap</div><div class="row-comment">💬 ケーブルを物理的に切断する究極の隔離手法です。ネットワーク経路が物理的に遮断されます。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">5/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#dceaf7,#5d97ca)"></div></div><div class="str-num" style="color:#5d97ca">5/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">最高</span></td>
@@ -461,7 +455,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Secure Element -->
 <tr>
   <td class="row-label"><div class="row-name">Secure Element (SE)</div><div class="row-sub">耐タンパーチップ / GlobalPlatform / ISO 7816</div><div class="row-comment">💬 SIM や IC カードに搭載される耐タンパーチップです。鍵が外部に漏洩しません。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">5/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#dceaf7,#5d97ca)"></div></div><div class="str-num" style="color:#5d97ca">5/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">高</span></td>
@@ -472,7 +466,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- HSM -->
 <tr>
   <td class="row-label"><div class="row-name">HSM</div><div class="row-sub">Hardware Security Module / FIPS 140-3</div><div class="row-comment">💬 証明書の根幹を守る専用ハードウェアです。耐タンパー筐体内で鍵の生成・署名を行います。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">5/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:100%;background:linear-gradient(90deg,#dceaf7,#5d97ca)"></div></div><div class="str-num" style="color:#5d97ca">5/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">最高</span></td>
@@ -483,7 +477,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- TEE -->
 <tr>
   <td class="row-label"><div class="row-name">TEE / SGX / TrustZone</div><div class="row-sub">Trusted Execution Environment</div><div class="row-comment">💬 OS も信頼しない隔離実行環境です。CPU がデータを暗号化したまま処理します。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">4/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#dceaf7,#5d97ca)"></div></div><div class="str-num" style="color:#5d97ca">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">高</span></td>
@@ -494,7 +488,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- IOMMU -->
 <tr>
   <td class="row-label"><div class="row-name">IOMMU</div><div class="row-sub">VT-d / AMD-Vi — DMA保護</div><div class="row-comment">💬 USB や Thunderbolt 機器による不正な DMA アクセスを防止します。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#ffb3c6,#ff8fab)"></div></div><div class="str-num" style="color:#ff8fab">3/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#dceaf7,#5d97ca)"></div></div><div class="str-num" style="color:#5d97ca">3/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
@@ -510,7 +504,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- VM -->
 <tr>
   <td class="row-label"><div class="row-name">VM (Type-1 Hypervisor)</div><div class="row-sub">KVM / ESXi — QEMU/KVM</div><div class="row-comment">💬 カーネルごと完全に分離します。マルウェア解析やマルチテナント環境の基本手法です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#fff3cc;color:#a07010">中</span></td>
@@ -521,7 +515,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Container -->
 <tr>
   <td class="row-label"><div class="row-name">コンテナ (Container)</div><div class="row-sub">Docker / Podman — namespace+cgroups</div><div class="row-comment">💬 カーネルを共有しプロセスのみを分離します。軽量ですが、脱出リスクは VM より高くなります。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -532,7 +526,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- gVisor -->
 <tr>
   <td class="row-label"><div class="row-name">gVisor</div><div class="row-sub">Google — ユーザー空間カーネル (Sentry)</div><div class="row-comment">💬 カーネルの動作をユーザー空間で代行します。コンテナ並みの軽量性と VM 並みの隔離性を両立します。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
   <td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
@@ -543,7 +537,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Firecracker -->
 <tr>
   <td class="row-label"><div class="row-name">Firecracker</div><div class="row-sub">AWS — マイクロVM / KVM</div><div class="row-comment">💬 AWS Lambda 等の基盤技術です。VM 級の隔離を約 125ms で起動する軽量マイクロ VM です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
@@ -554,7 +548,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Unikernel -->
 <tr>
   <td class="row-label"><div class="row-name">Unikernel</div><div class="row-sub">MirageOS / Unikraft</div><div class="row-comment">💬 アプリケーションと最小限の OS を単一イメージに統合します。シェルが存在しないため攻撃面が極めて小さくなります。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">高</span></td>
@@ -565,7 +559,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- SELinux -->
 <tr>
   <td class="row-label"><div class="row-name">SELinux</div><div class="row-sub">MAC — Type Enforcement / MLS (NSA)</div><div class="row-comment">💬 全オブジェクトにラベルを付与し、アクセスを厳密に制御します。RHEL 系で標準的に利用されています。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#fff3cc;color:#a07010">中</span></td>
@@ -576,7 +570,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- AppArmor -->
 <tr>
   <td class="row-label"><div class="row-name">AppArmor</div><div class="row-sub">MAC — パスベース / LSM (Ubuntu/Debian)</div><div class="row-comment">💬 プロファイルでアプリケーションの動作範囲を事前に定義します。SELinux より設定が簡潔です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:55%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:55%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">3/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
@@ -587,7 +581,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- seccomp -->
 <tr>
   <td class="row-label"><div class="row-name">seccomp</div><div class="row-sub">Secure Computing Mode — BPFフィルタ</div><div class="row-comment">💬 プロセスが使用可能な syscall を BPF フィルタで制限します。Docker の標準的な防御機構としても利用されています。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -598,7 +592,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Landlock -->
 <tr>
   <td class="row-label"><div class="row-name">Landlock</div><div class="row-sub">Linux 5.13+ — 非特権FS制限</div><div class="row-comment">💬 非特権プロセスが自身のファイルアクセスを制限できる機能です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -609,7 +603,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- chroot -->
 <tr>
   <td class="row-label"><div class="row-name">chroot</div><div class="row-sub">POSIX — rootfs付け替え</div><div class="row-comment">💬 ルートディレクトリを付け替えるだけの簡易的な隔離です。root 権限があれば容易に脱出できるため過信は禁物です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:15%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">1/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:15%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">1/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">❌</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -620,7 +614,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- OverlayFS -->
 <tr>
   <td class="row-label"><div class="row-name">OverlayFS / Immutable FS</div><div class="row-sub">Copy-on-Write — tmpfs upper layer</div><div class="row-comment">💬 変更はメモリ上の上位層にのみ書き込み、元のファイルを保護します。使い捨て環境の基本手法です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:20%;background:linear-gradient(90deg,#b5ead7,#78d5b0)"></div></div><div class="str-num" style="color:#3a9c70">1/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:20%;background:linear-gradient(90deg,#d7eaf8,#3d8ec7)"></div></div><div class="str-num" style="color:#3a9c70">1/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">❌</td>
   <td class="cell icon-cell">👤</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -636,7 +630,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Logical Air Gap -->
 <tr>
   <td class="row-label"><div class="row-name">論理 Air Gap</div><div class="row-sub">データダイオード / VLAN+ACL / SDN</div><div class="row-comment">💬 物理接続を維持したまま、通信経路を論理的に一方通行化または遮断します。重要システム保護の定番手法です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">4/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#cfe6fa,#4f98d2)"></div></div><div class="str-num" style="color:#3a70b0">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#fff3cc;color:#a07010">中</span></td>
@@ -647,7 +641,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- VRF -->
 <tr>
   <td class="row-label"><div class="row-name">VRF</div><div class="row-sub">Virtual Routing and Forwarding / MPLS</div><div class="row-comment">💬 ルーティングテーブルを分割し、論理的に独立したネットワークを同一機器上で共存させます。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">3/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#cfe6fa,#4f98d2)"></div></div><div class="str-num" style="color:#3a70b0">3/5</div></div></td>
   <td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
@@ -658,7 +652,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- MACsec -->
 <tr>
   <td class="row-label"><div class="row-name">MACsec</div><div class="row-sub">IEEE 802.1AE — L2暗号化 AES-GCM</div><div class="row-comment">💬 L2 レベルで機器間通信を暗号化します。盗聴・なりすましを防止します。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">3/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:60%;background:linear-gradient(90deg,#cfe6fa,#4f98d2)"></div></div><div class="str-num" style="color:#3a70b0">3/5</div></div></td>
   <td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">低</span></td>
@@ -669,7 +663,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- VDI / RBI -->
 <tr>
   <td class="row-label"><div class="row-name">VDI / RBI</div><div class="row-sub">Remote Browser Isolation / 画面転送型</div><div class="row-comment">💬 リモート環境で処理を実行し、画面のみをクライアントに転送します。端末にデータが到達しないネットワーク隔離手法です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#b8dff8,#7dc4f0)"></div></div><div class="str-num" style="color:#3a70b0">4/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:80%;background:linear-gradient(90deg,#cfe6fa,#4f98d2)"></div></div><div class="str-num" style="color:#3a70b0">4/5</div></div></td>
   <td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#ffd6d6;color:#d44">高</span></td>
@@ -685,7 +679,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Wasm -->
 <tr>
   <td class="row-label"><div class="row-name">WebAssembly / WASI</div><div class="row-sub">線形メモリ(Linear Memory)サンドボックス</div><div class="row-comment">💬 プログラムを線形メモリ空間内に閉じ込めます。ブラウザ外でも安全に実行可能な技術です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#d4b8f8,#b08af0)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#e5effb,#7ea8d1)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -696,7 +690,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- eBPF -->
 <tr>
   <td class="row-label"><div class="row-name">eBPF</div><div class="row-sub">Extended BPF — カーネル内Verifier</div><div class="row-comment">💬 検証済みコードのみをカーネル内で実行します。隔離よりもシステムの観測・制御に活用されます。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#d4b8f8,#b08af0)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#e5effb,#7ea8d1)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">➖</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -707,7 +701,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Deno -->
 <tr>
   <td class="row-label"><div class="row-name">Deno</div><div class="row-sub">Rust製ランタイム — 明示的許可モデル</div><div class="row-comment">💬 明示的な許可フラグなしではファイルの読み書きができない設計です。AI エージェントの実行環境としても適しています。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#d4b8f8,#b08af0)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:40%;background:linear-gradient(90deg,#e5effb,#7ea8d1)"></div></div><div class="str-num" style="color:#7a50c0">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">👤</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -723,7 +717,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- DAC -->
 <tr>
   <td class="row-label"><div class="row-name">DAC (chmod / POSIX ACL)</div><div class="row-sub">Discretionary Access Control</div><div class="row-comment">💬 所有者が自由に権限を設定できる基本的なアクセス制御です。root ユーザーには適用されないため注意が必要です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:20%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">1/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:20%;background:linear-gradient(90deg,#e9f1f8,#89afd1)"></div></div><div class="str-num" style="color:#a07010">1/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">👤</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -734,7 +728,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Capabilities -->
 <tr>
   <td class="row-label"><div class="row-name">Linux Capabilities</div><div class="row-sub">CAP_* — root権限の細分化</div><div class="row-comment">💬 root 権限を細分化し、必要最小限の権限のみを付与する仕組みです。過剰な付与には注意が必要です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:35%;background:linear-gradient(90deg,#e9f1f8,#89afd1)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">👤</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -745,7 +739,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- pledge/unveil -->
 <tr>
   <td class="row-label"><div class="row-name">pledge / unveil</div><div class="row-sub">OpenBSD — syscall宣言制限</div><div class="row-comment">💬 アプリケーションが利用する syscall を起動時に宣言する仕組みです。OpenBSD 固有のシンプルな制限機構です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:45%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:45%;background:linear-gradient(90deg,#e9f1f8,#89afd1)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">❌</td><td class="cell icon-cell">✅</td><td class="cell icon-cell">✅</td>
   <td class="cell icon-cell">👤</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -756,7 +750,7 @@ header        { animation: fadeUp 0.5s ease both; }
 <!-- Namespace solo -->
 <tr>
   <td class="row-label"><div class="row-name">Namespace (単体)</div><div class="row-sub">pid/net/mnt/uts/ipc/user</div><div class="row-comment">💬 プロセスやネットワークの可視範囲を分離する Linux の基本機能です。単体では不十分なため、他の手法との併用が前提です。</div></td>
-  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:30%;background:linear-gradient(90deg,#fde992,#f9d84a)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
+  <td class="str-cell"><div class="str-wrap"><div class="str-bg"><div class="str-fill" style="width:30%;background:linear-gradient(90deg,#e9f1f8,#89afd1)"></div></div><div class="str-num" style="color:#a07010">2/5</div></div></td>
   <td class="cell icon-cell">❌</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td><td class="cell icon-cell">〰️</td>
   <td class="cell icon-cell">👤</td>
   <td class="cost-cell"><span class="cost-badge" style="background:#d6fce8;color:#178">最低</span></td>
@@ -803,15 +797,15 @@ header        { animation: fadeUp 0.5s ease both; }
   </tr>
   <tr>
     <td class="row-label"><div class="row-name">デーモン</div><div class="row-sub">常駐プロセス</div></td>
-    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#fde992">lxd (root)</span></td>
+    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#e9f1f8">lxd (root)</span></td>
     <td class="cell"><span class="tag" style="background:#ffd6d6;color:#d44;border-color:#ffb3b3">dockerd (root) ⚠</span></td>
-    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#b5ead7">なし ✅</span></td>
+    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#d7eaf8">なし ✅</span></td>
   </tr>
   <tr>
     <td class="row-label"><div class="row-name">rootless</div><div class="row-sub">非root動作</div></td>
-    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#fde992">LXD 経由で対応</span></td>
-    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#fde992">rootless mode<br><span style="font-size:9px">設定が複雑</span></span></td>
-    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#b5ead7">デフォルト ✅</span></td>
+    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#e9f1f8">LXD 経由で対応</span></td>
+    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#e9f1f8">rootless mode<br><span style="font-size:9px">設定が複雑</span></span></td>
+    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#d7eaf8">デフォルト ✅</span></td>
   </tr>
   <tr>
     <td class="row-label"><div class="row-name">カーネル分離</div><div class="row-sub">Kernel Isolation</div></td>
@@ -840,17 +834,17 @@ header        { animation: fadeUp 0.5s ease both; }
   <tr>
     <td class="row-label"><div class="row-name">重さ / 速度</div><div class="row-sub">起動・イメージサイズ</div></td>
     <td class="cell"><span class="tag" style="background:#ffd6d6;color:#d44;border-color:#ffb3b3">重い (OS 丸ごと)</span></td>
-    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#b5ead7">軽い</span></td>
-    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#b5ead7">軽い</span></td>
+    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#d7eaf8">軽い</span></td>
+    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#d7eaf8">軽い</span></td>
   </tr>
-  <tr class="group-row" style="background:linear-gradient(90deg,#f0e8ff,#f8f5ff)">
+  <tr class="group-row" style="background:linear-gradient(90deg,#f4f8fd,#f8f5ff)">
     <td style="color:#7a50c0;font-weight:800;padding:8px 14px" colspan="4">🤖 AI Sandbox での評価</td>
   </tr>
   <tr>
     <td class="row-label"><div class="row-name">AI Sandbox 適性</div><div class="row-sub">このサイトのユースケース</div><div class="row-comment">rootless + OCI + GPU の3条件で評価</div></td>
-    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#fde992">△ 不向き<br><span style="font-size:9px">OCI 非互換 · 重い</span></span></td>
-    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#fde992">△ 注意<br><span style="font-size:9px">root daemon リスク</span></span></td>
-    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#b5ead7">◎ 推奨<br><span style="font-size:9px">rootless · CDI · OCI</span></span></td>
+    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#e9f1f8">△ 不向き<br><span style="font-size:9px">OCI 非互換 · 重い</span></span></td>
+    <td class="cell"><span class="tag" style="background:#fff3cc;color:#a07010;border-color:#e9f1f8">△ 注意<br><span style="font-size:9px">root daemon リスク</span></span></td>
+    <td class="cell"><span class="tag" style="background:#d6fce8;color:#178;border-color:#d7eaf8">◎ 推奨<br><span style="font-size:9px">rootless · CDI · OCI</span></span></td>
   </tr>
   </tbody>
   </table>
