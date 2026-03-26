@@ -1,28 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Klee+One:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
 
 :root {
-  --bg: #f7fbff;
-  --cream: #ffffff;
-  --pink: #dceaf7;
-  --pink2: #5d97ca;
-  --peach: #e8f1f9;
-  --peach2: #6f9dc7;
-  --mint: #d7eaf8;
-  --mint2: #3d8ec7;
-  --sky: #cfe6fa;
-  --sky2: #4f98d2;
-  --lav: #e5effb;
-  --lav2: #7ea8d1;
-  --yellow: #e9f1f8;
-  --yellow2: #89afd1;
-  --text: #17324a;
-  --textdim: #5d7b97;
-  --border: #d8e6f2;
-  --border-strong: #c5d9ea;
-  --shadow: rgba(64, 106, 148, 0.12);
-  --shadow-soft: rgba(64, 106, 148, 0.08);
+  --bg: #ffffff;
+  --cream: #f8fbff;
+  --pink: #f2d8e2;
+  --pink2: #b4557a;
+  --peach: #f6e1c7;
+  --peach2: #b8793c;
+  --mint: #d3efe5;
+  --mint2: #0f8b6d;
+  --sky: #d7e8fb;
+  --sky2: #2563eb;
+  --lav: #dde2ff;
+  --lav2: #5b67d8;
+  --yellow: #f7efc9;
+  --yellow2: #9a7a00;
+  --text: #16253a;
+  --textdim: #5b6b80;
+  --border: #d8e1ec;
+  --border-strong: #becad9;
+  --shadow: rgba(18, 42, 66, 0.10);
+  --shadow-soft: rgba(18, 42, 66, 0.06);
   --accent: var(--sky2);
-  --accent-bg: #edf6fd;
+  --accent-bg: #eff6ff;
   --accent-border: var(--sky);
 }
 
@@ -30,12 +30,9 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background:
-    radial-gradient(circle at 12% 12%, rgba(121, 171, 216, 0.14) 0%, transparent 28%),
-    radial-gradient(circle at 88% 18%, rgba(207, 230, 250, 0.7) 0%, transparent 22%),
-    linear-gradient(180deg, #ffffff 0%, #f7fbff 54%, #ffffff 100%);
+  background: #ffffff;
   color: var(--text);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Ubuntu Mono', monospace;
   min-height: 100vh;
   padding: 0 20px 56px;
   position: relative;
@@ -75,7 +72,7 @@ summary:focus-visible {
   background: #ffffff;
   border: 1.5px solid var(--border);
   color: var(--text);
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 12px;
   font-weight: 800;
   text-decoration: none;
@@ -198,7 +195,7 @@ span > .svg-icon:first-child {
 .comp-icon,
 .tool-emoji,
 .stack-icon {
-  background: linear-gradient(180deg, #ffffff 0%, #edf6fd 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
   border: 1px solid rgba(95, 152, 210, 0.16);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
 }
@@ -267,7 +264,7 @@ body .check-list li.checked {
 }
 
 .nav-label {
-  font-family: 'Klee One', cursive;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 12px;
   font-weight: 600;
   color: var(--textdim);
@@ -337,14 +334,14 @@ body .check-list li.checked {
   box-shadow: 0 2px 8px var(--shadow-soft);
 }
 
-.badge-mint { color: var(--mint2); border-color: var(--mint); background: #eef7fd; }
-.badge-sky { color: var(--sky2); border-color: var(--sky); background: #edf6fd; }
-.badge-peach { color: var(--peach2); border-color: var(--peach); background: #f2f7fc; }
-.badge-lav { color: var(--lav2); border-color: var(--lav); background: #f4f8fd; }
-.badge-pink { color: var(--pink2); border-color: var(--pink); background: #eff6fc; }
+.badge-mint { color: var(--mint2); border-color: var(--mint); background: #eef9f4; }
+.badge-sky { color: var(--sky2); border-color: var(--sky); background: #eff6ff; }
+.badge-peach { color: var(--peach2); border-color: var(--peach); background: #fcf6ed; }
+.badge-lav { color: var(--lav2); border-color: var(--lav); background: #eef0ff; }
+.badge-pink { color: var(--pink2); border-color: var(--pink); background: #faf1f5; }
 
 h1 {
-  font-family: 'Klee One', cursive;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: clamp(24px, 4.5vw, 40px);
   font-weight: 600;
   color: var(--text);
@@ -420,13 +417,13 @@ h1 .accent { color: var(--accent); }
 }
 
 h2 {
-  font-family: 'Klee One', cursive;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 18px;
   font-weight: 600;
 }
 
 h3 {
-  font-family: 'Klee One', cursive;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 13px;
   font-weight: 600;
   color: var(--textdim);
@@ -490,11 +487,11 @@ p {
   flex-shrink: 0;
 }
 
-.ic-mint { background: #eef7fd; color: var(--mint2); }
-.ic-sky { background: #edf6fd; color: var(--sky2); }
-.ic-peach { background: #f2f7fc; color: var(--peach2); }
-.ic-lav { background: #f4f8fd; color: var(--lav2); }
-.ic-pink { background: #eff6fc; color: var(--pink2); }
+.ic-mint { background: #eef9f4; color: var(--mint2); }
+.ic-sky { background: #eff6ff; color: var(--sky2); }
+.ic-peach { background: #fcf6ed; color: var(--peach2); }
+.ic-lav { background: #eef0ff; color: var(--lav2); }
+.ic-pink { background: #faf1f5; color: var(--pink2); }
 
 .stack-name { font-size: 12px; font-weight: 800; color: var(--text); }
 .stack-role { font-size: 10px; color: var(--textdim); font-weight: 600; margin-top: 1px; }
@@ -527,7 +524,7 @@ p {
 }
 
 .copy-btn {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 10px;
   font-weight: 700;
   color: var(--textdim);
@@ -548,7 +545,7 @@ p {
 .copy-btn.ok {
   border-color: var(--accent);
   color: var(--accent);
-  background: #edf6fd;
+  background: #eff6ff;
 }
 
 pre {
@@ -558,7 +555,7 @@ pre {
   border-radius: 0 0 14px 14px;
   padding: 18px 20px;
   overflow-x: auto;
-  font-family: 'Nunito', monospace;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 12px;
   line-height: 1.8;
   color: var(--text);

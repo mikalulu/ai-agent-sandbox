@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta name="description" content="Shell とファイルシステムの互換性を OS 別に整理した動作環境マトリクスです。">
-<meta name="theme-color" content="#f7fbff">
+<meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI Agent 動作環境マトリクス">
 <meta property="og:description" content="Shell とファイルシステムの互換性を OS 別に整理した動作環境マトリクスです。">
@@ -20,26 +20,26 @@
 <title>AI Agent 動作環境マトリクス</title>
 <style>
 :root {
-  --bg:       #f7fbff;
+  --bg:       #ffffff;
   --bg2:      #ffffff;
   --cream:    #ffffff;
-  --pink:     #dceaf7;
-  --pink2:    #5d97ca;
-  --peach:    #e8f1f9;
-  --peach2:   #6f9dc7;
-  --mint:     #d7eaf8;
-  --mint2:    #3d8ec7;
-  --sky:      #cfe6fa;
-  --sky2:     #4f98d2;
-  --lav:      #e5effb;
-  --lav2:     #7ea8d1;
-  --yellow:   #e9f1f8;
-  --yellow2:  #89afd1;
+  --pink:     #f2d8e2;
+  --pink2:    #b4557a;
+  --peach:    #f6e1c7;
+  --peach2:   #b8793c;
+  --mint:     #d3efe5;
+  --mint2:    #0f8b6d;
+  --sky:      #d7e8fb;
+  --sky2:     #2563eb;
+  --lav:      #dde2ff;
+  --lav2:     #5b67d8;
+  --yellow:   #f7efc9;
+  --yellow2:  #9a7a00;
   --red:      #ffb3b3;
   --red2:     #ff8080;
-  --text:     #17324a;
-  --textdim:  #5d7b97;
-  --border:   #d8e6f2;
+  --text:     #16253a;
+  --textdim:  #5b6b80;
+  --border:   #d8e1ec;
   --shadow:   rgba(64, 106, 148, 0.12);
 }
 
@@ -48,11 +48,8 @@ html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
-  background-image:
-    radial-gradient(circle at 14% 10%, rgba(121, 171, 216, 0.14) 0%, transparent 32%),
-    radial-gradient(circle at 86% 16%, rgba(207, 230, 250, 0.7) 0%, transparent 24%),
-    linear-gradient(180deg, #ffffff 0%, #f7fbff 58%, #ffffff 100%);
-  font-family: 'Nunito', sans-serif;
+  background-image: none;
+  font-family: 'Ubuntu Mono', monospace;
   color: var(--text);
   min-height: 100vh;
   padding: 36px 20px 56px;
@@ -73,14 +70,14 @@ body::before {
   margin-bottom: 32px; flex-wrap: wrap;
   box-shadow: 0 4px 20px var(--shadow);
 }
-.nav-label { font-family: 'Klee One', cursive; font-size: 12px; font-weight: 600; color: var(--textdim); margin-right: 10px; }
+.nav-label { font-family: 'Ubuntu Mono', monospace; font-size: 12px; font-weight: 600; color: var(--textdim); margin-right: 10px; }
 .nav-pill {
   font-size: 11px; font-weight: 700; text-decoration: none;
   padding: 4px 14px; border-radius: 99px; border: 1.5px solid var(--border);
   color: var(--textdim); transition: all 0.15s; background: white;
 }
 .nav-pill:hover { transform: translateY(-1px); box-shadow: 0 2px 8px var(--shadow); }
-.nav-pill.active { border-color: var(--pink); color: var(--pink2); background: #eff6fc; font-weight: 800; }
+.nav-pill.active { border-color: var(--pink); color: var(--pink2); background: #faf1f5; font-weight: 800; }
 .nav-pill.index { border-style: dashed; }
 
 header { text-align: center; margin-bottom: 32px; }
@@ -90,7 +87,7 @@ header { text-align: center; margin-bottom: 32px; }
 }
 @keyframes sway { 0%,100%{transform:rotate(-2deg)} 50%{transform:rotate(2deg)} }
 h1 {
-  font-family: 'Klee One', cursive;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: clamp(26px, 5vw, 46px); font-weight: 600;
   color: var(--text); line-height: 1.2; letter-spacing: 0.02em;
 }
@@ -103,7 +100,7 @@ h1 .accent2 { color: var(--mint2); }
 
 /* ── Section Label ── */
 .sec {
-  font-family: 'Klee One', cursive;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 13px; font-weight: 600; color: var(--textdim);
   margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
   letter-spacing: 0.05em;
@@ -128,10 +125,10 @@ h1 .accent2 { color: var(--mint2); }
   width: 30px; height: 28px; border-radius: 8px;
   font-size: 13px; font-weight: 800; flex-shrink: 0;
 }
-.s4 { background: #eef7fd; color: var(--mint2); border: 1.5px solid var(--mint); }
-.s3 { background: #edf6fd; color: var(--sky2); border: 1.5px solid var(--sky); }
-.s2 { background: #f2f7fc; color: var(--peach2); border: 1.5px solid var(--peach); }
-.s1 { background: #eff6fc; color: var(--pink2); border: 1.5px solid var(--pink); }
+.s4 { background: #eef9f4; color: var(--mint2); border: 1.5px solid var(--mint); }
+.s3 { background: #eff6ff; color: var(--sky2); border: 1.5px solid var(--sky); }
+.s2 { background: #fcf6ed; color: var(--peach2); border: 1.5px solid var(--peach); }
+.s1 { background: #faf1f5; color: var(--pink2); border: 1.5px solid var(--pink); }
 .s0 { background: #f3f8fc; color: var(--textdim); border: 1.5px solid var(--border); }
 
 /* ── OS Best Practice Cards ── */
@@ -144,12 +141,12 @@ h1 .accent2 { color: var(--mint2); }
   display: flex; align-items: center; gap: 16px;
   padding: 20px 24px; border-bottom: 1.5px solid var(--border);
 }
-.linux-head { background: linear-gradient(90deg, #eef7fd40, transparent); }
-.mac-head   { background: linear-gradient(90deg, #f4f8fd40, transparent); }
-.win-head   { background: linear-gradient(90deg, #edf6fd40, transparent); }
+.linux-head { background: linear-gradient(90deg, #eef9f440, transparent); }
+.mac-head   { background: linear-gradient(90deg, #eef0ff40, transparent); }
+.win-head   { background: linear-gradient(90deg, #eff6ff40, transparent); }
 .bp-os-icon { font-size: 28px; flex-shrink: 0; }
 .bp-os-name {
-  font-family: 'Klee One', cursive; font-size: 20px; font-weight: 600;
+  font-family: 'Ubuntu Mono', monospace; font-size: 20px; font-weight: 600;
   color: var(--text);
 }
 .bp-os-verdict { font-size: 12px; color: var(--textdim); margin-top: 2px; font-weight: 600; }
@@ -184,7 +181,7 @@ h1 .accent2 { color: var(--mint2); }
   font-size: 11.5px; color: var(--textdim); line-height: 1.8; font-weight: 600;
 }
 .bp-item-body code {
-  background: #eef5fb; color: var(--lav2);
+  background: #eff0ff; color: var(--lav2);
   padding: 1px 5px; border-radius: 5px; font-size: 10.5px;
 }
 .bp-item-body strong { color: var(--text); }
@@ -196,8 +193,8 @@ h1 .accent2 { color: var(--mint2); }
   overflow: hidden; overflow-x: auto; margin-bottom: 32px;
 }
 table { border-collapse: collapse; width: 100%; min-width: 700px; }
-th, td { border: 1px solid #f0e8f0; }
-thead tr { background: linear-gradient(135deg, #f6fbff, #eef5fb); }
+th, td { border: 1px solid #e6ebf2; }
+thead tr { background: linear-gradient(135deg, #f6fbff, #eff0ff); }
 th {
   padding: 10px 12px; text-align: center; font-size: 10px;
   font-weight: 800; color: var(--textdim);
@@ -216,14 +213,14 @@ th.sub-hdr {
   display: inline-block; font-size: 8px; letter-spacing: 0.04em;
   padding: 2px 6px; border-radius: 6px; margin-top: 3px; font-weight: 800;
 }
-.fhs-badge.full { background: #eef7fd; color: var(--mint2); border: 1px solid var(--mint); }
-.fhs-badge.part { background: #f2f7fc; color: var(--peach2); border: 1px solid var(--peach); }
-.fhs-badge.none { background: #eff6fc; color: var(--pink2); border: 1px solid var(--pink); }
-.fhs-badge.warn { background: #f2f7fc; color: var(--peach2); border: 1px solid var(--peach); margin-left: 3px; }
+.fhs-badge.full { background: #eef9f4; color: var(--mint2); border: 1px solid var(--mint); }
+.fhs-badge.part { background: #fcf6ed; color: var(--peach2); border: 1px solid var(--peach); }
+.fhs-badge.none { background: #faf1f5; color: var(--pink2); border: 1px solid var(--pink); }
+.fhs-badge.warn { background: #fcf6ed; color: var(--peach2); border: 1px solid var(--peach); margin-left: 3px; }
 thead tr:nth-child(2) { border-bottom: 2px solid var(--border); }
-tbody tr { border-bottom: 1px solid #f0e8f0; transition: background 0.12s; }
+tbody tr { border-bottom: 1px solid #e6ebf2; transition: background 0.12s; }
 tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: #f2f7fc; }
+tbody tr:hover { background: #fcf6ed; }
 td { padding: 9px 12px; text-align: center; vertical-align: middle; }
 td.sn { text-align: left; padding-left: 18px; background: var(--cream); }
 td.env { text-align: left; padding-left: 12px; border-left: 1.5px solid var(--border); }
@@ -251,7 +248,7 @@ td.env { text-align: left; padding-left: 12px; border-left: 1.5px solid var(--bo
 .note-card.lav::before    { background: var(--lav2); }
 .note-card.peach::before  { background: var(--peach2); }
 .note-num {
-  font-family: 'Klee One', cursive; font-size: 24px; font-weight: 600;
+  font-family: 'Ubuntu Mono', monospace; font-size: 24px; font-weight: 600;
   color: var(--border); margin-right: 10px; float: left;
 }
 .note-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
@@ -259,7 +256,7 @@ td.env { text-align: left; padding-left: 12px; border-left: 1.5px solid var(--bo
   font-size: 11.5px; color: var(--textdim); line-height: 1.8; font-weight: 600;
 }
 .note-body code {
-  background: #eef5fb; color: var(--lav2);
+  background: #eff0ff; color: var(--lav2);
   padding: 1px 5px; border-radius: 5px; font-size: 10.5px;
 }
 .note-body strong { color: var(--text); }
@@ -287,7 +284,7 @@ td.env { text-align: left; padding-left: 12px; border-left: 1.5px solid var(--bo
   font-size: 11.5px; color: var(--textdim); line-height: 1.85; font-weight: 600;
 }
 .col-body code {
-  background: #eef5fb; color: var(--lav2);
+  background: #eff0ff; color: var(--lav2);
   padding: 1px 5px; border-radius: 5px; font-size: 10.5px;
 }
 .col-body strong { color: var(--text); }
